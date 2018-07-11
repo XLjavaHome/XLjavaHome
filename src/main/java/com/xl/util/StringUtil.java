@@ -17,10 +17,6 @@ import org.apache.commons.lang.ObjectUtils;
  * @version 1.0
  */
 public class StringUtil {
-    private StringUtil() {
-        System.out.println("构造方法被调用");
-    }
-
     /**
      * 判断字符串是否为空
      *
