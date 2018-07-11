@@ -1,8 +1,6 @@
 package com.xl.base;
 
 import com.xl.util.TimerUtil;
-import java.util.Timer;
-import java.util.TimerTask;
 import org.junit.Test;
 
 /**
@@ -22,12 +20,15 @@ import org.junit.Test;
  */
 public class TimerTest {
     public static void main(String[] args) {
-        Timer timer = new Timer();
+        TimerUtil.schedule(() -> {
+            System.out.println("测试");
+        }, 4000L);
+        //Timer timer = new Timer();
         //任务-要调度的任务。延迟-任务执行前的延迟(毫秒)。连续任务执行之间的周期(以毫秒为单位)。
         //第一次执行是在当前时间两秒之后，之后每隔一秒执行一次
-        timer.schedule(new MyTimerTask(), 2000L, 1000L);
+        //timer.schedule(new MyTimerTask(), 2000L, 1000L);
         //第一次执行是在当前时间2秒后，只执行一次
-        timer.schedule(new MyTimerTask(), 2000L);
+        //timer.schedule(new MyTimerTask(), 2000L);
     }
 
     /**
@@ -37,11 +38,8 @@ public class TimerTest {
      */
     @Test
     public void timerTest() throws InterruptedException {
-        TimerUtil.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                System.out.println("测试");
-            }
+        TimerUtil.schedule(() -> {
+            System.out.println("测试");
         }, 4000L);
     }
 }

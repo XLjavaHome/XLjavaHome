@@ -36,7 +36,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @author: 徐立
  * @Date: 2018-05-03
  * @Time: 14:13
- * To chan2018-05-03mplate use File | Set14:13 | File Templates.
+ * To chanmplate use File | Set14:13 | File Templates.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 //@ContextConfiguration(classes = ConcertConfig.class)

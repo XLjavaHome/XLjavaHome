@@ -1,5 +1,6 @@
 package com.xl.util;
 
+import com.xl.service.ISchedule;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -15,10 +16,16 @@ public class TimerUtil {
     /**
      * 在几耗秒后执行一次定时任务
      *
-     * @param timeTask
-     * @param time 毫秒
+     * @param schedule
+     * @param time     毫秒
      */
-    public static void schedule(TimerTask timeTask, long time) {
+    public static void schedule(ISchedule schedule, long time) {
+        TimerTask timeTask = new TimerTask() {
+            @Override
+            public void run() {
+                schedule.schedule();
+            }
+        };
         Timer timer = new Timer();
         timer.schedule(timeTask, time);
     }
