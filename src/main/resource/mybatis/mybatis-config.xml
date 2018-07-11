@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <!--该配置影响的所有映射器中配置的缓存的全局开关。默认值：true。-->
+        <setting name="cacheEnabled" value="true"/>
+        <!-- 延迟加载的全局开关。默认值：false。 -->
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <!-- 是否允许单一语句返回多结果集（需要兼容驱动）。默认值：true。-->
+        <setting name="multipleResultSetsEnabled" value="true"/>
+        <!-- 是否使用列标签代替列名。默认值：true。-->
+        <setting name="useColumnLabel" value="true"/>
+        <!-- 是否允许 JDBC 支持自动生成主键，需要驱动兼容。默认值：false。 -->
+        <setting name="useGeneratedKeys" value="false"/>
+        <!-- 指定 MyBatis 应如何自动映射列到字段或属性。默认值：PARTIAL。-->
+        <setting name="autoMappingBehavior" value="PARTIAL"/>
+        <!-- Specify the behavior when detects an unknown column (or unknown property type) of automatic mapping target. 默认值：NONE。-->
+        <setting name="autoMappingUnknownColumnBehavior" value="WARNING"/>
+        <!-- 配置默认的执行器。默认值：SIMPLE。-->
+        <setting name="defaultExecutorType" value="SIMPLE"/>
+        <!-- 设置超时时间，它决定驱动等待数据库响应的秒数。-->
+        <setting name="defaultStatementTimeout" value="25"/>
+        <!-- Sets the driver a hint as to control fetching size for return results. -->
+        <setting name="defaultFetchSize" value="100"/>
+        <!-- 允许在嵌套语句中使用分页。默认值：false。-->
+        <setting name="safeRowBoundsEnabled" value="false"/>
+        <!-- 是否开启自动驼峰命名规则（camel case）映射。默认值：false。-->
+        <setting name="mapUnderscoreToCamelCase" value="false"/>
+        <!-- MyBatis 利用本地缓存机制（Local Cache）防止循环引用（circular references）和加速重复嵌套查询。 默认值：SESSION。-->
+        <setting name="localCacheScope" value="SESSION"/>
+        <!-- 当没有为参数提供特定的 JDBC 类型时，为空值指定 JDBC 类型。默认值：OTHER。 -->
+        <setting name="jdbcTypeForNull" value="OTHER"/>
+        <!-- 指定哪个对象的方法触发一次延迟加载。默认值：equals,clone,hashCode,toString。-->
+        <setting name="lazyLoadTriggerMethods" value="equals,clone,hashCode,toString"/>
+    </settings>
+</configuration>

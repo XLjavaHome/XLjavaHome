@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns:v-bind="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试vue</title>
+    <!-- 开发环境版本，包含了用帮助的命令行警告 -->
+    <script src="../js/jquery-1.9.1.min.js"></script>
+    <!--<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>-->
+    <!-- 生产环境版本，优化了尺寸和速度 -->
+    <!--<script src="https://cdn.jsdelivr.net/npm/vue"></script>-->
+    <script src="../js/vue.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    message: "测试Hello Vue!"
+                }
+            });
+            var app2 = new Vue({
+                el: '#app-2',
+                data: {
+                    message: '页面加载于 ' + new Date().toLocaleString()
+                }
+            });
+            var app3 = new Vue({
+                el: '#app-3',
+                data: {
+                    seen: true
+                }
+            });
+            var app4 = new Vue({
+                el: '#app-4',
+                data: {
+                    todos: [
+                        {text: '学习 JavaScript'},
+                        {text: '学习 Vue'},
+                        {text: '整个牛项目'}
+                    ]
+                }
+            });
+            //会添加新项目
+            app4.todos.push({text: '新项目'});
+            var app5 = new Vue({
+                el: '#app-5',
+                data: {
+                    message: 'Hello Vue.js!'
+                },
+                methods: {
+                    reverseMessage: function () {
+                        this.message = this.message.split('').reverse().join('')
+                    }
+                }
+            });
+            var app6 = new Vue({
+                el: '#app-6',
+                data: {
+                    message: 'Hello Vue!'
+                }
+            });
+            var example1 = new Vue({
+                el: '#example-1',
+                data: {
+//                    数据会累加
+                    counter: 0
+                }
+            })
+            var example2 = new Vue({
+                el: '#example-2',
+                data: {
+                    name: 'Vue.js'
+                },
+                // 在 `methods` 对象中定义方法
+                methods: {
+                    greet: function (event) {
+                        // `this` 在方法里指向当前 Vue 实例
+                        app3.seen = false;
+                        alert('Hello ' + this.name + '!')
+                        // `event` 是原生 DOM 事件
+                        if (event) {
+//                            此处是BONTTON
+                            alert(event.target.tagName)
+                        }
+                    }
+                }
+            })
+// 也可以用 JavaScript 直接调用方法
+//            example2.greet(); // => 'Hello Vue.js!'
+            /*        setTimeout(function () {
+             //                隐藏
+             app3.seen = false;
+             }, 1000);*/
+        })
+    </script>
+</head>
+<body>
+Vue.js 的核心是一个允许采用简洁的模板语法来声明式地将数据渲染进 DOM 的系统：<br/>
+<div id="app">
+    {{ message }}
+</div>
+<div id="app-2">
+  <span v-bind:title="message">
+    鼠标悬停几秒钟查看此处动态绑定的提示信息！
+  </span>
+</div>
+条件与循环
+<div id="app-3">
+    <p v-if="seen">现在你看到我了</p>
+</div>
+<div id="app-4">
+    <ol>
+        <li v-for="todo in todos">
+            {{ todo.text }}
+        </li>
+    </ol>
+</div>
+<div id="app-5">
+    <p>{{ message }}</p>
+    <button v-on:click="reverseMessage">逆转消息</button>
+</div>
+<div id="app-6">
+    <p>{{ message }}</p>
+    <input v-model="message">
+</div>
+<div id="example-1">
+    <button v-on:click="counter += 1">Add {{ counter }}</button>
+    <p>这是按钮第{{ counter }} 次.</p>
+</div>
+<div id="example-2">
+    <!-- `greet` 是在下面定义的方法名 -->
+    <button v-on:click="greet">Greet</button>
+</div>
+</body>
+</html>
