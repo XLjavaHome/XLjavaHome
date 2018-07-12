@@ -774,11 +774,5 @@
             <artifactId>jackson-annotations</artifactId>
             <version>2.7.0</version>
         </dependency>
-        <dependency>
-            <groupId>com.xl</groupId>
-            <artifactId>xl</artifactId>
-            <version>1.0.0</version>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 </project>
