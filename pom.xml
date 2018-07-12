@@ -23,11 +23,11 @@
                 <artifactId>maven-clean-plugin</artifactId>
                 <version>3.0.0</version>
             </plugin>
-            <!--        &lt;!&ndash;生成doc jar包&ndash;&gt;
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                    </plugin>-->
+            <!--生成doc jar包-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+            </plugin>
             <!--生成源码jar包-->
             <!-- 要将源码放上去，需要加入这个插件 -->
             <plugin>
@@ -45,48 +45,52 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>3.0.0</version>
-                <configuration>
-                    <!-- 对丢失web.xml检测机制进行忽略， Dynamic Web Module 3.0 工程时代不需要web.xml文件注册相关内容的，所以工程默认不生成web.xml。-->
-                    <failOnMissingWebXml>false</failOnMissingWebXml>
-                    <!--指定web.xml的路径  -->
-                    <webXml>WebRoot\WEB-INF\web.xml</webXml>
-                    <!--指定jsp、js、css的路劲  -->
-                    <warSourceDirectory>WebRoot</warSourceDirectory>
-                    <warSourceExcludes>WEB-INF/lib/log4j-${log4j.version}.jar</warSourceExcludes>
-                </configuration>
-            </plugin>
+            <!--
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-war-plugin</artifactId>
+                            <version>3.0.0</version>
+                            <configuration>
+                                &lt;!&ndash; 对丢失web.xml检测机制进行忽略， Dynamic Web Module 3.0 工程时代不需要web.xml文件注册相关内容的，所以工程默认不生成web.xml。&ndash;&gt;
+                                <failOnMissingWebXml>false</failOnMissingWebXml>
+                                &lt;!&ndash;指定web.xml的路径  &ndash;&gt;
+                                <webXml>WebRoot\WEB-INF\web.xml</webXml>
+                                &lt;!&ndash;指定jsp、js、css的路劲  &ndash;&gt;
+                                <warSourceDirectory>WebRoot</warSourceDirectory>
+                                <warSourceExcludes>WEB-INF/lib/log4j-${log4j.version}.jar</warSourceExcludes>
+                            </configuration>
+                        </plugin>
+            -->
             <!--打war包到指定的目录下 -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <version>2.8</version>
-                <executions>
-                    <execution>
-                        <id>copy-war</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>copy</goal>
-                        </goals>
-                        <configuration>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>${project.groupId}</groupId>
-                                    <artifactId>${project.artifactId}</artifactId>
-                                    <version>${project.version}</version>
-                                    <type>${project.packaging}</type>
-                                </artifactItem>
-                            </artifactItems>
-                            <!--   <outputDirectory>${dist.console.war.dir}</outputDirectory>   -->
-                            <!--指定war包保存地址-->
-                            <outputDirectory>D:\xl\mypackage</outputDirectory>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+            <!--
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-dependency-plugin</artifactId>
+                            <version>2.8</version>
+                            <executions>
+                                <execution>
+                                    <id>copy-war</id>
+                                    <phase>package</phase>
+                                    <goals>
+                                        <goal>copy</goal>
+                                    </goals>
+                                    <configuration>
+                                        <artifactItems>
+                                            <artifactItem>
+                                                <groupId>${project.groupId}</groupId>
+                                                <artifactId>${project.artifactId}</artifactId>
+                                                <version>${project.version}</version>
+                                                <type>${project.packaging}</type>
+                                            </artifactItem>
+                                        </artifactItems>
+                                        &lt;!&ndash;   <outputDirectory>${dist.console.war.dir}</outputDirectory>   &ndash;&gt;
+                                        &lt;!&ndash;指定war包保存地址&ndash;&gt;
+                                        <outputDirectory>D:\xl\mypackage</outputDirectory>
+                                    </configuration>
+                                </execution>
+                            </executions>
+                        </plugin>
+            -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -152,9 +156,18 @@
     </build>
     <repositories>
         <repository>
-            <id>feilong-repository</id>
-            <url>https://raw.github.com/venusdrogon/feilong-platform/repository</url>
+            <id>central</id>
+            <name>Central Repository</name>
+            <url>https://repo.maven.apache.org/maven2</url>
+            <layout>default</layout>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
         </repository>
+        <!--  <repository>
+              <id>feilong-repository</id>
+              <url>https://raw.github.com/venusdrogon/feilong-platform/repository</url>
+          </repository>-->
     </repositories>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -166,7 +179,6 @@
         <version.compiler-plugin>3.1</version.compiler-plugin>
         <version.source-plugin>2.3</version.source-plugin>
         <version.javadoc-plugin>2.9.1</version.javadoc-plugin>
-        <mybatis.version>3.2.7</mybatis.version>
         <log4j.version>1.2.17</log4j.version>
         <kotlin.version>1.2.21</kotlin.version>
         <!--<spring-version>4.2.4.RELEASE</spring-version>-->
@@ -198,17 +210,6 @@
             <artifactId>junit</artifactId>
             <version>4.12</version>
             <scope>compile</scope>
-        </dependency>
-        <!--database所需jar-->
-        <dependency>
-            <groupId>org.mybatis</groupId>
-            <artifactId>mybatis</artifactId>
-            <version>${mybatis.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.gitee.sunchenbin.mybatis.actable</groupId>
-            <artifactId>mybatis-enhance-actable</artifactId>
-            <version>1.0.1</version>
         </dependency>
         <!--
                 <dependency>
@@ -305,7 +306,7 @@
         <dependency>
             <groupId>dwr</groupId>
             <artifactId>dwr</artifactId>
-            <version>1.0.0</version>
+            <version>1.1.3</version>
         </dependency>
         <!--使用JSON所需的jar包-->
         <dependency>
@@ -324,11 +325,11 @@
             <artifactId>itextpdf</artifactId>
             <version>5.5.6</version>
         </dependency>
-        <dependency>
-            <groupId>json</groupId>
-            <artifactId>json</artifactId>
-            <version>1.0.0</version>
-        </dependency>
+        <!--  <dependency>
+              <groupId>json</groupId>
+              <artifactId>json</artifactId>
+              <version>1.0.0</version>
+          </dependency>-->
         <dependency>
             <groupId>net.sf.json-lib</groupId>
             <artifactId>json-lib</artifactId>
@@ -385,16 +386,18 @@
             <version>3.0.17</version>
         </dependency>
         <dependency>
-            <groupId>oracle.jdbc.OracleDriver</groupId>
-            <artifactId>ojdbc</artifactId>
-            <version>14</version>
+            <groupId>com.oracle</groupId>
+            <artifactId>ojdbc14</artifactId>
+            <version>10.2.0.4.0</version>
         </dependency>
-        <!--验证码-->
+        <!--
+        &lt;!&ndash;验证码&ndash;&gt;
         <dependency>
             <groupId>org.patchca</groupId>
             <artifactId>patchca</artifactId>
             <version>0.5.0</version>
         </dependency>
+-->
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
@@ -630,24 +633,29 @@
             <version>3.0.2</version>
             <!--<version>7.2.1</version>-->
         </dependency>
-        <!--Mybatis 分页插件 PageHelper 5.1.3-->
-        <dependency>
-            <groupId>com.github.pagehelper</groupId>
-            <artifactId>pagehelper</artifactId>
-            <version>5.1.3</version>
-        </dependency>
-        <!--TinySpider是一个基于Tiny HtmlParser的网络数据抓取框架-->
-        <dependency>
-            <groupId>org.tinygroup</groupId>
-            <artifactId>org.tinygroup.spider</artifactId>
-            <version>0.1.0-SNAPSHOT</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+        <!--     &lt;!&ndash;TinySpider是一个基于Tiny HtmlParser的网络数据抓取框架&ndash;&gt;
+             <dependency>
+                 <groupId>org.tinygroup</groupId>
+                 <artifactId>org.tinygroup.spider</artifactId>
+                 <version>0.1.0-SNAPSHOT</version>
+                 <exclusions>
+                     <exclusion>
+                         <groupId>org.slf4j</groupId>
+                         <artifactId>*</artifactId>
+                     </exclusion>
+                 </exclusions>
+             </dependency>
+             <dependency>
+                 <groupId>org.tinygroup</groupId>
+                 <artifactId>org.tinygroup.fileresolver</artifactId>
+                 <version>2.2.1</version>
+                 <exclusions>
+                     <exclusion>
+                         <groupId>org.slf4j</groupId>
+                         <artifactId>*</artifactId>
+                     </exclusion>
+                 </exclusions>
+             </dependency>-->
         <!--网页爬虫-->
         <dependency>
             <groupId>cn.edu.hfut.dmic.webcollector</groupId>
@@ -754,16 +762,6 @@
             <artifactId>commons-dbcp</artifactId>
             <version>1.4</version>
         </dependency>
-        <!--  <dependency>
-              <groupId>org.mybatis</groupId>
-              <artifactId>mybatis</artifactId>
-              <version>3.4.0</version>
-          </dependency>
-          <dependency>
-              <groupId>org.mybatis</groupId>
-              <artifactId>mybatis-spring</artifactId>
-              <version>1.3.0</version>
-          </dependency>-->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
@@ -773,12 +771,6 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
             <version>2.7.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.xl</groupId>
-            <artifactId>xl</artifactId>
-            <version>1.0.0</version>
-            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>
