@@ -1,12 +1,12 @@
 package com.xl.util;
 
-import com.sun.istack.internal.Nullable;
 import static com.xl.util.Constant.*;
 import java.io.File;
 import java.net.URISyntaxException;
 import java.util.Collection;
 import java.util.Enumeration;
 import java.util.Iterator;
+import org.antlr.v4.runtime.misc.Nullable;
 import org.apache.commons.lang.ObjectUtils;
 
 /**
