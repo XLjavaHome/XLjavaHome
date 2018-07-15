@@ -12,7 +12,6 @@ import com.xl.entity.User;
 import com.xl.service.PersonService;
 import com.xl.service.SpringService;
 import com.xl.service.UserService;
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import lombok.extern.log4j.Log4j;
@@ -20,7 +19,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.core.io.Resource;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -59,12 +57,8 @@ public class SpringTest {
         //false不是一样的
         //System.out.println(carService == ctx.getBean(SpringService.class));
         //打开资源文件
-        Resource rs = ctx.getResource("classpath:1.txt");
         carService.addCar("测试22");
         carService.addCar("测试33");
-        File file = rs.getFile();
-
-        System.out.println(file.getAbsolutePath());
         //Resource xlFile = ctx.getResource("file:d:\\xl.txt");
     }
 
