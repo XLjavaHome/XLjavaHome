@@ -1,6 +1,5 @@
 package com.xl.util;
 
-import com.xl.service.ISchedule;
 import java.util.Timer;
 import java.util.TimerTask;
 

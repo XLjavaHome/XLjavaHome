@@ -1,7 +1,5 @@
 package com.xl.util;
 
-import java.util.HashMap;
-
 /**
  * Created with IntelliJ IDEA.
  *
@@ -11,8 +9,4 @@ import java.util.HashMap;
  * To change this template use File | Settings | File Templates.
  */
 public class MapUtilTest {
-    @Test
-    public void dateTest() {
-        Map s = new HashMap<>();
-    }
 }
