@@ -57,9 +57,9 @@ public class OracleTest {
             //?????????setProperty
             cs.setInt(1, 7788);
             //?????????setProperty?????????,??????��???OracleTypes.CURSOR
-            cs.registerOutParameter(2, oracle.jdbc.OracleTypes.VARCHAR);
-            cs.registerOutParameter(3, oracle.jdbc.OracleTypes.DOUBLE);
-            cs.registerOutParameter(4, oracle.jdbc.OracleTypes.VARCHAR);
+            //cs.registerOutParameter(2, oracle.jdbc.OracleTypes.VARCHAR);
+            //cs.registerOutParameter(3, oracle.jdbc.OracleTypes.DOUBLE);
+            //cs.registerOutParameter(4, oracle.jdbc.OracleTypes.VARCHAR);
             // ???
             cs.execute();
             //			????????,?????????
