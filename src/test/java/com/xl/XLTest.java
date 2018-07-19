@@ -19,6 +19,7 @@ import sun.text.resources.cldr.aa.FormatData_aa;
  * To change this template use File | Settings | File Templates.
  */
 @Log4j
+//可见测试
 @VisibleForTesting
 public class XLTest {
     @Test

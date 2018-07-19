@@ -1,6 +1,7 @@
 package com.xl.base;
 
 import com.xl.util.NumberTool;
+import java.math.BigDecimal;
 import org.junit.Test;
 
 public class NumberTest {
@@ -40,4 +41,13 @@ public class NumberTest {
         System.out.println(NumberTool.safeAdd(null, 1.2));
         System.out.println(NumberTool.safeAdd(1.6, null));
     }
+
+    @Test
+    public void scaleTest() {
+        System.out.println(new BigDecimal(123.120).setScale(1));
+        System.out.println(new BigDecimal(123.120).setScale(4));
+        System.out.println(new BigDecimal("123.123").setScale(2));
+        System.out.println(new BigDecimal("123.128").setScale(2));
+    }
+
 }
