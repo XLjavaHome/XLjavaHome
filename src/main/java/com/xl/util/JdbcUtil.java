@@ -9,7 +9,7 @@ import java.util.Properties;
 
 //JDBC工具类：关闭流和取得连接
 public final class JdbcUtil {
-    public static final String MYSQL_MYSQL_PROPERTIESPATH = "mysql/db.properties";
+    public static final String MYSQL_MYSQL_PROPERTIESPATH = "db/db.properties";
     private static String driver;
     private static String url;
     private static String user;

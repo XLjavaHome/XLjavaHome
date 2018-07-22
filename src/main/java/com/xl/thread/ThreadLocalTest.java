@@ -1,13 +1,18 @@
 package com.xl.thread;
 
 import java.util.Random;
+import lombok.extern.log4j.Log4j;
 
 /**
  * @author 徐立
  * @Decription 实现线程类共享数据
  * @date 2014年3月7日
  */
-public class ThreadLocalDemo {
+@Log4j
+public class ThreadLocalTest {
+    /**
+     * 使用ThreadLocal变量，可以多线程同步变量。
+     */
     private static ThreadLocal<Integer> x = new ThreadLocal<Integer>();
     private static ThreadLocal<MyThreadScopeData> myThreadScopeData = new ThreadLocal<MyThreadScopeData>();
 
@@ -15,7 +20,7 @@ public class ThreadLocalDemo {
         for (int i = 0; i < 2; i++) {
             new Thread(() -> {
                 int data = new Random().nextInt();
-                System.out.println(Thread.currentThread().getName() + " has put data :" + data);
+                log.info("线程名称：" + Thread.currentThread().getName() + "放入数据:" + data);
                 x.set(data);
                 /*
                  * MyThreadScopeData myData = new MyThreadScopeData();

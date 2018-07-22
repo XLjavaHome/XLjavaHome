@@ -5,7 +5,7 @@
 
     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
     <!-- 加载db.properties文件中的内容，db.properties文件中key命名要有一定的特殊规则 -->
-    <context:property-placeholder location="classpath:mysql/db.properties"/>
+    <context:property-placeholder location="classpath:db/db.properties"/>
     <!-- 配置数据源 ，dbcp -->
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="${driver}"/>

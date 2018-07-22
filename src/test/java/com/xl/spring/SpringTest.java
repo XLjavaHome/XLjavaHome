@@ -12,6 +12,7 @@ import com.xl.entity.User;
 import com.xl.service.PersonService;
 import com.xl.service.SpringService;
 import com.xl.service.UserService;
+import com.xl.util.SpringMysqlJdbcUtil;
 import java.io.IOException;
 import java.util.List;
 import lombok.extern.log4j.Log4j;
@@ -45,6 +46,8 @@ public class SpringTest {
     //ApplicationContext ctx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
     ApplicationContext ctx = null;
     @Autowired
+    private SpringMysqlJdbcUtil springMysqlJdbcUtil;
+    @Autowired
     private SpringService carService;
     @Autowired
     private SpringService carService2;
@@ -60,6 +63,11 @@ public class SpringTest {
         carService.addCar("测试22");
         carService.addCar("测试33");
         //Resource xlFile = ctx.getResource("file:d:\\xl.txt");
+    }
+
+    @Test
+    public void resourceTest() {
+        System.out.println(springMysqlJdbcUtil);
     }
 
     @Test

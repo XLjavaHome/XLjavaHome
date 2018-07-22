@@ -1,6 +1,9 @@
 package com.xl.base;
 
 import com.xl.util.TimerUtil;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import org.junit.Test;
 
 /**
@@ -20,9 +23,11 @@ import org.junit.Test;
  */
 public class TimerTest {
     public static void main(String[] args) {
-        TimerUtil.schedule(() -> {
+        scheduleWithFixedDelay();
+/*        TimerUtil.schedule(() -> {
             System.out.println("测试");
-        }, 4000L);
+        }, 4000L)*/
+        ;
         //Timer timer = new Timer();
         //任务-要调度的任务。延迟-任务执行前的延迟(毫秒)。连续任务执行之间的周期(以毫秒为单位)。
         //第一次执行是在当前时间两秒之后，之后每隔一秒执行一次
@@ -41,5 +46,19 @@ public class TimerTest {
         TimerUtil.schedule(() -> {
             System.out.println("测试");
         }, 4000L);
+    }
+
+    public static void scheduleWithFixedDelay() {
+        ScheduledExecutorService scheduledExecutor = Executors.newScheduledThreadPool(4);
+        for (int i = 0; i < 4; i++) {
+            scheduledExecutor.scheduleWithFixedDelay(() -> {
+                try {
+                    System.out.println("定时任务");
+                    //TimeUnit.MILLISECONDS.sleep(10 * 1000L);
+                } catch (Exception e) {
+                }
+                //long count = counter.incrementAndGet();
+            }, 2000L, 2000L, TimeUnit.MILLISECONDS);
+        }
     }
 }
