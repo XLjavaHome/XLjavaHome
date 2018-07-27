@@ -43,10 +43,9 @@ public class EnumTest {
      */
     @Test
     public void forTest() {
-        CharsetEnum[] values = CharsetEnum.values();
-        for (CharsetEnum value : values) {
+        SexEnum[] values = SexEnum.values();
+        for (SexEnum value : values) {
             System.out.println(value);
         }
-        System.out.println(CharsetEnum.UTF8);
     }
 }

@@ -1,8 +1,7 @@
 package com.xl.base;
 
-import org.junit.Test;
-
 import java.util.Scanner;
+import org.junit.Test;
 
 /**
  * Created with IntelliJ IDEA.

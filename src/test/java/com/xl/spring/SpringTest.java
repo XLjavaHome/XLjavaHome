@@ -71,7 +71,7 @@ public class SpringTest {
     }
 
     @Test
-    public void placeTest() {
+    public void equalTest() {
         //默认是单例的
         log.info(carService == carService2);
         System.out.println(carService == carService2);

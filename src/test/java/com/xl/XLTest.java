@@ -1,5 +1,4 @@
 package com.xl;
-
 import com.google.common.annotations.VisibleForTesting;
 import com.xl.collections.CaseInsensitiveMap;
 import com.xl.util.StringUtil;
@@ -30,6 +29,7 @@ public class XLTest {
         System.out.println(aa.getLocale());
         System.out.println(StringUtil.join(aa.getKeys()));
     }
+
     @Test
     public void mapTest() {
         Map map = new CaseInsensitiveMap();

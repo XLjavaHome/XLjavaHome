@@ -8,7 +8,11 @@ import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
- * User: 徐立
+ * @Target：注解的作用目标
+ * @Retention：注解的生命周期
+ * @Documented：注解是否应当被包含在 JavaDoc 文档中
+ * @Inherited：是否允许子类继承该注解
+ * @User: 徐立
  * Date: 2017/10/16
  * Time: 15:12
  * To change this template use File | Settings | File Templates.

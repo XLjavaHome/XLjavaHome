@@ -51,47 +51,43 @@ public class TestExporToExcel {
      * 数据分析部分根据具体的业务生产
      */
     @Test
-    public void testExportToExcelOfAnnotation() {
-        try {
-            //指定是数字列的精度并四舍五入(整形除外)
-            SimpleExportUtil.PRECISION = 3;
-            File outputFile = ResourceUtil.createResourceFile("students.xls");
-            OutputStream fOut = new PrintStream(outputFile);
-            // 把相应的Excel 工作簿存盘
-            HSSFWorkbook workbook = SimpleExportUtil.exportToExcel(students, "学生信息表");
-            //得到第一个sheet
-            HSSFSheet sheet = workbook.getSheetAt(0);
-            //原始sheet 中总的行数
-            int dadaRowNum = sheet.getLastRowNum();
-            //得到行高
-            float lineHeght = sheet.getRow(dadaRowNum).getHeightInPoints();
-            //得到列的样式
-            HSSFCellStyle cellStyle = sheet.getRow(dadaRowNum).getCell(0).getCellStyle();
-            //学生总人数
-            int studentCount = students.size();
-            //获取已有的行数，加1再出新行
-            HSSFRow totalRow = sheet.createRow(dadaRowNum + 1);
-            totalRow.setHeightInPoints(lineHeght);
-            //创建列
-            HSSFCell cell = totalRow.createCell(0);
-            cell.setCellStyle(cellStyle);
-            cell.setCellValue("学生总人数");
-            cell = totalRow.createCell(1);
-            cell.setCellStyle(cellStyle);
-            cell.setCellValue(studentCount);
-            cell = totalRow.createCell(2);
-            cell.setCellStyle(cellStyle);
-            cell.setCellValue(studentCount);
-            //合并列参数：开始行，结束行，开始列，结束列
-            sheet.addMergedRegion(new CellRangeAddress(dadaRowNum + 1, dadaRowNum + 1, 1, 2));
-            workbook.write(fOut);
-            fOut.flush();
-            // 操作结束，关闭文件
-            fOut.close();
-            FileUtil.open(outputFile);
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
+    public void testExportToExcelOfAnnotation() throws Exception {
+        //指定是数字列的精度并四舍五入(整形除外)
+        SimpleExportUtil.PRECISION = 3;
+        File outputFile = ResourceUtil.createResourceFile("students.xls");
+        OutputStream fOut = new PrintStream(outputFile);
+        // 把相应的Excel 工作簿存盘
+        HSSFWorkbook workbook = SimpleExportUtil.exportToExcel(students, "学生信息表");
+        //得到第一个sheet
+        HSSFSheet sheet = workbook.getSheetAt(0);
+        //原始sheet 中总的行数
+        int dadaRowNum = sheet.getLastRowNum();
+        //得到行高
+        float lineHeght = sheet.getRow(dadaRowNum).getHeightInPoints();
+        //得到列的样式
+        HSSFCellStyle cellStyle = sheet.getRow(dadaRowNum).getCell(0).getCellStyle();
+        //学生总人数
+        int studentCount = students.size();
+        //获取已有的行数，加1再出新行
+        HSSFRow totalRow = sheet.createRow(dadaRowNum + 1);
+        totalRow.setHeightInPoints(lineHeght);
+        //创建列
+        HSSFCell cell = totalRow.createCell(0);
+        cell.setCellStyle(cellStyle);
+        cell.setCellValue("学生总人数");
+        cell = totalRow.createCell(1);
+        cell.setCellStyle(cellStyle);
+        cell.setCellValue(studentCount);
+        cell = totalRow.createCell(2);
+        cell.setCellStyle(cellStyle);
+        cell.setCellValue(studentCount);
+        //合并列参数：开始行，结束行，开始列，结束列
+        sheet.addMergedRegion(new CellRangeAddress(dadaRowNum + 1, dadaRowNum + 1, 1, 2));
+        workbook.write(fOut);
+        fOut.flush();
+        // 操作结束，关闭文件
+        fOut.close();
+        FileUtil.open(outputFile);
     }
 
     /**

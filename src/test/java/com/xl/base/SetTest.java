@@ -50,9 +50,17 @@ public class SetTest {
 
     /**
      * set集合转化为list集合
+     * list转set
      */
     @Test
     public void listTest() {
+        List<String> list = new ArrayList<>(100);
+        for (int i = 0; i < 5; i++) {
+            list.add(i + "");
+        }
+        list.add(3 + "");
+        System.out.println(list);
+        System.out.println(new HashSet<>(list));
         ArrayList<String> strings = new ArrayList<>(s);
         System.out.println(strings);
     }

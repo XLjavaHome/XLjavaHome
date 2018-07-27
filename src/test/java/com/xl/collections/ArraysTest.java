@@ -6,6 +6,7 @@ import com.xl.util.StringUtil;
 import java.util.Arrays;
 import java.util.Comparator;
 import lombok.extern.log4j.Log4j;
+import org.apache.commons.lang.ArrayUtils;
 import org.junit.Test;
 
 @Log4j
@@ -59,6 +60,15 @@ public class ArraysTest {
     @Test
     public void joinTest() {
         System.out.println(StringUtil.join(strings, Constant.BR));
+    }
+
+    /**
+     * 包含
+     */
+    @Test
+    public void containTest() {
+        System.out.println(ArrayUtils.contains(strings, "21"));
+        System.out.println(ArrayUtils.contains(strings, null));
     }
 
     /**

@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import org.antlr.v4.runtime.misc.NotNull;
 
 /**
  * Created with IntelliJ IDEA.
@@ -49,9 +50,8 @@ public class ResourceUtil {
      * @param path
      * @return
      */
-    public static File getResourceFile(String path) throws UnsupportedEncodingException {
+    public static File getResourceFile(@NotNull String path) throws UnsupportedEncodingException {
         return new File(URLDecoder.decode(Thread.currentThread().getContextClassLoader().getResource(path).getFile(), CharsetEnum.UTF8.getValue()));
-        //return new File(URLDecoder.decode(FileUtil.class.getClassLoader().getResource(path).getFile(), CharsetEnum.UTF8.getValue()));
     }
 
     public static File createResourceFile(String path) throws IOException {
