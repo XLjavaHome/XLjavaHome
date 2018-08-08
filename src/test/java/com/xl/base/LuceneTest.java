@@ -2,6 +2,10 @@ package com.xl.base;
 
 import com.xl.entity.User;
 import com.xl.util.LuceneUtil;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
@@ -22,12 +26,8 @@ import org.apache.lucene.search.highlight.SimpleHTMLFormatter;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
+import org.jetbrains.annotations.NotNull;
 import org.junit.Test;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -77,7 +77,7 @@ public class LuceneTest {
         document.add(new Field("sal", user.getSal(), Field.Store.YES, Field.Index.ANALYZED));
         //创建IndexWriter对象
         //目录指定为E:/createIndexDB
-        Directory directory = FSDirectory.open(new File("E:/createIndexDB"));
+        Directory directory = FSDirectory.open(getLucenceDir());
         //使用标准的分词算法对原始记录表进行拆分
         Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_30);
         //LIMITED默认是1W个
@@ -97,6 +97,11 @@ public class LuceneTest {
         indexWriter.close();
     }
 
+    @NotNull
+    private File getLucenceDir() {
+        return new File("E:/createIndexDB");
+    }
+
     /**
      * 根据关键字查询索引库中的内容：
      * <p>
@@ -114,7 +119,7 @@ public class LuceneTest {
          * 参数一： IndexSearcher(Directory PATH)查询以xxx目录的索引库
          *
          * */
-        Directory directory = FSDirectory.open(new File("E:/createIndexDB"));
+        Directory directory = FSDirectory.open(getLucenceDir());
         //创建IndexSearcher对象
         IndexSearcher indexSearcher = new IndexSearcher(directory);
         //创建QueryParser对象

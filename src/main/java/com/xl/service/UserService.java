@@ -14,6 +14,11 @@ public class UserService {
     @Autowired
     private UserDao userDao;
 
+    /**
+     * @param userName
+     * @param password
+     * @return
+     */
     public boolean hasMatchUser(String userName, String password) {
         int matchCount = userDao.getMatchCount(userName, password);
         return matchCount > 0;
