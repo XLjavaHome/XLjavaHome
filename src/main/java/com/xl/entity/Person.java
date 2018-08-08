@@ -1,11 +1,19 @@
 package com.xl.entity;
 
-import lombok.Data;
-
 import java.io.Serializable;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Person implements Serializable {
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
     // 唯一序列化标识
     public static final long serialVersionUID = 42L; // 值自己取名
     public String name = "这是name";
