@@ -48,7 +48,7 @@ public class StringTest {
 
     @Test
     public void spiltTest() {
-        String s = "测试";
+        String s = "测试21321\n" + "'e234";
         System.out.println(Arrays.toString(s.split(",")));
     }
 

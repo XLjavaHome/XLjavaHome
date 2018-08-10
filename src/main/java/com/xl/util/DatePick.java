@@ -193,7 +193,6 @@ public class DatePick {
 
     /**
      * 判断给定年月周次和当前所处时间的周次差值是否在允许范围内
-     *
      * @param date
      * @param week
      * @param scope

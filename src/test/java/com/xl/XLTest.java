@@ -24,7 +24,6 @@ public class XLTest {
     @Test
     public void FormatData_aaTest() {
         String s = "";
-        s.intern();
         FormatData_aa aa = new FormatData_aa();
         System.out.println(aa.getLocale());
         System.out.println(StringUtil.join(aa.getKeys()));
@@ -38,6 +37,7 @@ public class XLTest {
         map.put("aAA", "测试");
         map.put("aA1A", "测试");
         map.put("aA1A", "测试2");
+        log.info(map);
         log.info(map);
         System.out.println(map);
         System.out.println("这是输出");
