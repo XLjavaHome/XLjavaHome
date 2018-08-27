@@ -4,7 +4,6 @@ import com.xl.util.StringUtil;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -90,8 +89,9 @@ public class StringTest {
         System.out.println(s1 == s3);
     }
 
-    @After
-    public void after() {
-        System.out.println(sql);
+    @Test
+    public void placeHolderTest() {
+        String s = String.format("测试%s占位符", "hello world");
+        System.out.println(s);
     }
 }

@@ -67,8 +67,12 @@ public class ArraysTest {
      */
     @Test
     public void containTest() {
+        //true
         System.out.println(ArrayUtils.contains(strings, "21"));
+        //false
         System.out.println(ArrayUtils.contains(strings, null));
+        //false
+        System.out.println(ArrayUtils.contains(strings, 21));
     }
 
     /**
