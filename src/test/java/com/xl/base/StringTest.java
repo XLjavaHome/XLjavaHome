@@ -89,9 +89,14 @@ public class StringTest {
         System.out.println(s1 == s3);
     }
 
+    /**
+     * d数字，s字符串
+     */
     @Test
     public void placeHolderTest() {
-        String s = String.format("测试%s占位符", "hello world");
+        String s = String.format("测试%s占位符,%s", "hello world", "这是第二个");
         System.out.println(s);
+        String str = String.format("格式参数$的使用：%1$d,%2$s,%2$s", 99, "abc");
+        System.out.println(str);
     }
 }
