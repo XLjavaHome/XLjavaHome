@@ -13,6 +13,7 @@ import org.junit.Test;
 public class ArraysTest {
     String[] strings = new String[]{"223", "21", "sa"};
     private int[] intArray = new int[]{3, 56, 1, 4, 76721, 343, 1};
+    private Integer[] integerArray = new Integer[]{3, 56, 1, 4, 76721, 343, 1};
 
     @Test
     public void sortTest() {
@@ -73,6 +74,9 @@ public class ArraysTest {
         System.out.println(ArrayUtils.contains(strings, null));
         //false
         System.out.println(ArrayUtils.contains(strings, 21));
+        //true
+        System.out.println(ArrayUtils.contains(integerArray, 1));
+
     }
 
     /**

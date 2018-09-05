@@ -94,9 +94,13 @@ public class StringTest {
      */
     @Test
     public void placeHolderTest() {
+        //二位小数,并且四舍五入
+        String test = String.format("%.2f", 123.32621D);
+        System.out.println(test);
+        //按顺序占位，多一个%s会报错
         String s = String.format("测试%s占位符,%s", "hello world", "这是第二个");
         System.out.println(s);
-        String str = String.format("格式参数$的使用：%1$d,%2$s,%2$s", 99, "abc");
+        String str = String.format("格式参数$的使用：%1$d,%2$s,%2$s，%2$s", 99, "abc");
         System.out.println(str);
     }
 }
