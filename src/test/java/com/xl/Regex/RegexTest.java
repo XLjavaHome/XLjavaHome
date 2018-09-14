@@ -34,6 +34,7 @@ public class RegexTest {
     public void search2() {
         Pattern p = Pattern.compile("java", Pattern.CASE_INSENSITIVE);
         Matcher m = p.matcher("java Java JAVa JaVa IloveJAVA you hateJava afasdfasdf");
+        System.out.println(p.matcher("jaVa").matches());
         while (m.find()) {
             System.out.println(m.group());
         }

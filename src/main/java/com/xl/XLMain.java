@@ -1,5 +1,7 @@
 package com.xl;
 
+import com.xl.util.FileUtil;
+
 /**
  * Created with IntelliJ IDEA.  pom生成jar包使用
  * User: 徐立
@@ -9,6 +11,8 @@ package com.xl;
  */
 public class XLMain {
     public static void main(String[] args) {
+        System.out.println(FileUtil.getProjectPath());
+        System.out.println(FileUtil.getProjectFile());
         System.out.println("这是主函数");
     }
 }

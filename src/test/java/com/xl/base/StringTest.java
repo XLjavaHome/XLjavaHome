@@ -1,9 +1,8 @@
 package com.xl.base;
 
 import com.xl.util.StringUtil;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
+import org.apache.commons.lang.StringEscapeUtils;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -24,6 +23,17 @@ public class StringTest {
     }
 
     /**
+     * todo 转义
+     */
+    @Test
+    public void transTest() {
+        String s = "\\u79fb\\u52a8\\u4e92\\u8054\\u7f51\\u5e94\\u7528";
+        String s2 = StringEscapeUtils.unescapeJava(s);
+        System.out.println(s);
+        System.out.println(s2);
+    }
+
+    /**
      * 是否匹配给定的正则
      */
     @Test
@@ -36,13 +46,9 @@ public class StringTest {
      */
     @Test
     public void joinTest() {
-        List<String> result = new ArrayList<String>();
-        result.add("aaa");
-        result.add("bbb");
-        result.add("ccc");
-        result.add("ddd");
-        String s = StringUtil.join(result, ",");
-        System.out.println(s);
+        String[] s = new String[]{"11", "", "22"};
+        //有空格
+        System.out.println(StringUtil.join(s, ","));
     }
 
     @Test

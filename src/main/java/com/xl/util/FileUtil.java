@@ -393,7 +393,17 @@ public class FileUtil {
      * @return String
      */
     public static String getProjectPath() {
-        return new File("").getAbsolutePath();
+        return FileUtil.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+    }
+
+    /**
+     * 获取项目运行的所在目录
+     *
+     * @return
+     */
+    public static File getProjectFile() {
+        File f = new File(getProjectPath());
+        return f.getParentFile();
     }
 
     @Test
