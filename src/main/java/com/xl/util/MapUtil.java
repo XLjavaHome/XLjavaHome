@@ -1,5 +1,6 @@
 package com.xl.util;
 
+import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -26,5 +27,18 @@ public class MapUtil {
             }
         }
         return key;
+    }
+
+    /**
+     * 打印map
+     *
+     * @param map
+     */
+    public static void print(Map map) {
+        Iterator i = map.keySet().iterator();
+        while (i.hasNext()) {
+            Object key = i.next();
+            System.out.println(String.format("%s:%s", key, map.get(key)));
+        }
     }
 }

@@ -11,8 +11,8 @@ import com.xl.util.FileUtil;
  */
 public class XLMain {
     public static void main(String[] args) {
-        System.out.println(FileUtil.getProjectPath());
-        System.out.println(FileUtil.getProjectFile());
+        System.out.println(FileUtil.getCurrentClassPath());
+        System.out.println(FileUtil.getJarFile());
         System.out.println("这是主函数");
     }
 }

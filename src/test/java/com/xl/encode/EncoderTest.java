@@ -41,7 +41,7 @@ public class EncoderTest {
     @Test
     public void encodeTest() throws IOException, InterruptedException {
         System.out.println(FileUtil.getCurrentPath(getClass()));
-        List<File> fileList = FileUtil.queryAll(FileUtil.getProjectPath(), "java");
+        List<File> fileList = FileUtil.queryAll(FileUtil.getCurrentClassPath(), "java");
         for (int i = 0; i < fileList.size(); i++) {
             File file = fileList.get(i);
             Charset encode = FileUtil.getFileEncode(file);

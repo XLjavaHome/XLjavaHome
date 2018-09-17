@@ -6,7 +6,6 @@ import info.monitorenter.cpdetector.io.JChardetFacade;
 import info.monitorenter.cpdetector.io.ParsingDetector;
 import info.monitorenter.cpdetector.io.UnicodeDetector;
 import java.awt.Desktop;
-import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -105,16 +104,18 @@ public class FileUtil {
      * @param target void
      * @throws IOException
      */
-    public static void copyFile(File src, File target) {
-        try {
-            BufferedInputStream bis = new BufferedInputStream(new FileInputStream(src));
-            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(target));
-            IOUtils.copy(bis, bos);
-            bis.close();
-            bos.close();
-        } catch (IOException e) {
-            log.error(e);
-        }
+    public static void copyFile(File src, File target) throws IOException {
+        copyFileStream(new FileInputStream(src), target);
+    }
+
+    /**
+     * 将流复制到文件
+     *
+     * @param src
+     * @param target
+     */
+    public static void copyFileStream(InputStream src, File target) throws IOException {
+        IOUtils.copy(src, new FileOutputStream(target));
     }
 
     /**
@@ -344,8 +345,26 @@ public class FileUtil {
         return new File(fsv.getHomeDirectory(), name);
     }
 
+    /**
+     * 打开文件
+     *
+     * @param file
+     * @throws IOException
+     */
     public static void open(File file) throws IOException {
         Desktop.getDesktop().open(file);
+    }
+
+    /**
+     * 打开文件的所在目录
+     *
+     * @param file
+     * @throws IOException
+     */
+    public static void openDirectory(File file) throws IOException {
+        if (file.getParentFile().isDirectory()) {
+            Desktop.getDesktop().open(file.getParentFile());
+        }
     }
 
     /**
@@ -381,10 +400,14 @@ public class FileUtil {
      * @throws UnsupportedEncodingException
      */
     public static <T> String getCurrentPath(Class<T> clazz) {
-        String projectPath = getProjectPath() + File.separator + "src";
+        String projectPath = getCurrentClassPath() + File.separator + "src";
         String name = clazz.getName();
         name = name.substring(0, name.lastIndexOf(".")).replace(".", File.separator);
         return projectPath + File.separator + name;
+    }
+
+    public static String getProjectPath() {
+        return Thread.currentThread().getContextClassLoader().getResource("").getPath();
     }
 
     /**
@@ -392,23 +415,23 @@ public class FileUtil {
      *
      * @return String
      */
-    public static String getProjectPath() {
+    public static String getCurrentClassPath() {
         return FileUtil.class.getProtectionDomain().getCodeSource().getLocation().getPath();
     }
 
     /**
-     * 获取项目运行的所在目录
+     * 获取jar的所在目录
      *
      * @return
      */
-    public static File getProjectFile() {
-        File f = new File(getProjectPath());
+    public static File getJarFile() {
+        File f = new File(getCurrentClassPath());
         return f.getParentFile();
     }
 
     @Test
     public void testTraverser() {
-        File file = new File(getProjectPath());
+        File file = new File(getCurrentClassPath());
         List<File> fileList = new ArrayList<File>();
         queryAll(file, fileList);
         System.out.println(fileList.size());

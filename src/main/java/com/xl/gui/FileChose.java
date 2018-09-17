@@ -9,6 +9,7 @@ import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -115,7 +116,13 @@ public class FileChose {
                         File target = new File(filePath, file.getName());
                         progressBar.setValue(i + 1);
                         if (!target.exists()) {
-                            FileUtil.copyFile(file, target);
+                            try {
+                                FileUtil.copyFile(file, target);
+                            } catch (FileNotFoundException e1) {
+                                e1.printStackTrace();
+                            } catch (IOException e1) {
+                                e1.printStackTrace();
+                            }
                         } else {
                             String message = "文件" + target.getAbsolutePath() + "已经存在";
                             errorMsg.add(message);
