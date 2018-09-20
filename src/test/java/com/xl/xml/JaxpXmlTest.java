@@ -1,6 +1,15 @@
 package com.xl.xml;
 
 import com.xl.util.ResourceUtil;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import org.junit.Before;
 import org.junit.Test;
 import org.w3c.dom.Document;
@@ -8,28 +17,19 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-import java.io.FileOutputStream;
-import java.io.UnsupportedEncodingException;
-
 public class JaxpXmlTest {
-    private String path;
+    private InputStream inputStream;
 
     @Before
     public void before() throws UnsupportedEncodingException {
-        path = ResourceUtil.getResourceFile("xml/book.xml").getAbsolutePath();
+        inputStream = ResourceUtil.getResourceInputStream("xml/book.xml");
     }
 
     @Test
     public void read() throws Exception {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
-        Document document = builder.parse(path);
+        Document document = builder.parse(inputStream);
         NodeList list = document.getElementsByTagName("书名");
         // getLength获取列表节点数
         System.out.println(list.getLength());
@@ -45,7 +45,7 @@ public class JaxpXmlTest {
     public void read2() throws Exception {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
-        Document document = builder.parse(path);
+        Document document = builder.parse(inputStream);
         // 得到根节点
         Node root = document.getElementsByTagName("书架").item(0);
         list(root);

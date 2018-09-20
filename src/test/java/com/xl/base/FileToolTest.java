@@ -14,6 +14,6 @@ import org.junit.Test;
 public class FileToolTest {
     @Test
     public void pathTest() throws UnsupportedEncodingException {
-        System.out.println(ResourceUtil.getResourceFile("1.txt"));
+        System.out.println(ResourceUtil.getResourceInputStream("1.txt"));
     }
 }

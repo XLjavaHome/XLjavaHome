@@ -362,9 +362,7 @@ public class FileUtil {
      * @throws IOException
      */
     public static void openDirectory(File file) throws IOException {
-        if (file.getParentFile().isDirectory()) {
-            Desktop.getDesktop().open(file.getParentFile());
-        }
+        open(file.getParentFile());
     }
 
     /**
@@ -440,8 +438,22 @@ public class FileUtil {
         }
     }
 
-    @Test
-    public void createTest() throws IOException {
-        ResourceUtil.createResourceFile("1");
+    /**
+     * 创建临时文件
+     *
+     * @param filePath
+     * @return
+     */
+    public static File createTempFile(String filePath) {
+        File file = new File(getDesktop(), "temp/" + filePath);
+        if (!file.exists()) {
+            try {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            } catch (IOException e) {
+                log.error("创建文件失败");
+            }
+        }
+        return file;
     }
 }

@@ -1,12 +1,6 @@
 package com.xl.properties;
 
-import com.xl.util.PropertiesUtil;
-import com.xl.util.ResourceUtil;
 import lombok.extern.log4j.Log4j;
-import org.junit.Test;
-
-import java.io.IOException;
-import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -18,9 +12,4 @@ import java.util.Map;
  */
 @Log4j
 public class PropertiesTest {
-    @Test
-    public void readDemo() throws IOException {
-        Map<String, String> map = PropertiesUtil.readProperties(ResourceUtil.getResourceFile("properties/obj.properties"));
-        System.out.println(map);
-    }
 }

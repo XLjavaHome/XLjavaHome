@@ -13,7 +13,7 @@ import org.junit.Test;
  */
 @Log4j
 public class FileUtilTest {
-    @Test
+    @Test(timeout = 5000)
     public void getProjectPathTest() {
         System.out.println(FileUtil.getProjectPath());
     }

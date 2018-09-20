@@ -8,7 +8,6 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,11 +26,9 @@ import sun.misc.BASE64Encoder;
  */
 @Log4j
 public class FreemarkerUtil {
-    public static String getImage(File imgFile) throws IOException {
-        InputStream in = null;
+    public static String getImage(InputStream in) throws IOException {
         byte[] data = null;
         try {
-            in = new FileInputStream(imgFile);
             data = new byte[in.available()];
             in.read(data);
         } finally {

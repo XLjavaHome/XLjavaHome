@@ -3,7 +3,6 @@ package com.xl.base;
 import com.xl.entity.Medicine;
 import com.xl.entity.Student;
 import com.xl.util.FileUtil;
-import com.xl.util.ResourceUtil;
 import com.xl.util.excel.SimpleExportUtil;
 import java.io.File;
 import java.io.OutputStream;
@@ -54,7 +53,7 @@ public class TestExporToExcel {
     public void testExportToExcelOfAnnotation() throws Exception {
         //指定是数字列的精度并四舍五入(整形除外)
         SimpleExportUtil.PRECISION = 3;
-        File outputFile = ResourceUtil.createResourceFile("students.xls");
+        File outputFile = FileUtil.createTempFile("students.xls");
         OutputStream fOut = new PrintStream(outputFile);
         // 把相应的Excel 工作簿存盘
         HSSFWorkbook workbook = SimpleExportUtil.exportToExcel(students, "学生信息表");
@@ -98,7 +97,7 @@ public class TestExporToExcel {
      */
     @Test
     public void testExportToExcelOfXMl() throws Exception {
-        File outputFile = ResourceUtil.createResourceFile("excel/medicines.xls");
+        File outputFile = FileUtil.createTempFile("excel/medicines.xls");
         OutputStream fOut = new PrintStream(outputFile);
         // 把相应的Excel 工作簿存盘
         SimpleExportUtil.exportToExcel(medicines, "药品信息表").write(fOut);

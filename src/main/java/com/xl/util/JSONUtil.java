@@ -1,7 +1,6 @@
 package com.xl.util;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * Created with IntelliJ IDEA.
@@ -12,8 +11,8 @@ import java.io.IOException;
  * To change this template use File | Settings | File Templates.
  */
 public class JSONUtil {
-    public static String getJSONStr() throws IOException {
-        File file = ResourceUtil.getResourceFile("json/contact.json");
-        return FileUtil.getContent(file);
+    public static void main(String[] args) {
+        InputStream resourceInputStream = ResourceUtil.getResourceInputStream("json/contact.json");
+        System.out.println(StreamTool.getContent(resourceInputStream));
     }
 }

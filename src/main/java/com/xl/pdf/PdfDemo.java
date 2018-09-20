@@ -8,13 +8,11 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.xl.util.FileUtil;
-import com.xl.util.ResourceUtil;
-import org.junit.Before;
-import org.junit.Test;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * @author 徐立
@@ -42,7 +40,7 @@ public class PdfDemo {
 
     @Before
     public void init() throws IOException {
-        file = ResourceUtil.createResourceFile("pdf\\pdf.pdf");
+        file = FileUtil.createTempFile("pdf/pdf.pdf");
     }
 
     /**

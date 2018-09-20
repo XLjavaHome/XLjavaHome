@@ -1,11 +1,10 @@
 package com.xl.html;
 
-import com.xl.enumsupport.CharsetEnum;
 import com.xl.util.Print;
 import com.xl.util.RegTool;
 import com.xl.util.ResourceUtil;
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.Arrays;
 import org.dom4j.DocumentException;
@@ -25,14 +24,14 @@ public class HtmlTest {
     /**
      * 要解析的html
      */
-    private File file;
+    private InputStream file;
     private URL url;
     private int timeout = 5000;
 
     @Before
     public void init() throws IOException {
-        file = ResourceUtil.getResourceFile("html/1.html");
-        doc = Jsoup.parse(file, CharsetEnum.UTF8.getValue());
+        file = ResourceUtil.getResourceInputStream("html/1.html");
+        //doc = Jsoup.parse(file, CharsetEnum.UTF8.getValue());
         url = new URL("http://www.baidu.com/baidu?word=%E9%A3%8E%E6%99%AF&ie=utf-8&tn=98012088_2_dg&1402964659639");
         url = new URL("http://bbs.goumin.com/thread-2939853-1-1.html");
     }

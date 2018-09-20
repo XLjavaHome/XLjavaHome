@@ -7,6 +7,7 @@ import com.xl.util.StringUtil;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
@@ -21,17 +22,12 @@ import org.junit.Test;
  * To change this template use File | Settings | File Templates.
  */
 public class EncoderTest {
-    private File gbkFile = ResourceUtil.getResourceFile("gbk.txt");
-    private File utfFile = ResourceUtil.getResourceFile("utf-8.txt");
+    private InputStream gbkFile = ResourceUtil.getResourceInputStream("gbk.txt");
+    private InputStream utfFile = ResourceUtil.getResourceInputStream("utf-8.txt");
 
     public EncoderTest() throws UnsupportedEncodingException {
     }
 
-    @Test
-    public void pathTest() {
-        System.out.println(gbkFile.getAbsolutePath());
-        System.out.println(utfFile.getAbsolutePath());
-    }
 
     /**
      * 将指定目录下其他格式文件为UTF-8文件

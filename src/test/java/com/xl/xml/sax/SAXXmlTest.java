@@ -1,11 +1,11 @@
 package com.xl.xml.sax;
 
 import com.xl.util.ResourceUtil;
-import org.junit.Test;
-import org.xml.sax.XMLReader;
-
+import com.xl.util.StreamTool;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
+import org.junit.Test;
+import org.xml.sax.XMLReader;
 
 /*
  * 事件处理的方式解析XML,事件处理器有程序员编写
@@ -24,7 +24,7 @@ public class SAXXmlTest {
         TagValueHandler handler = new TagValueHandler();
         reader.setContentHandler(handler);
         // 5.读取xml文档内容
-        String xml = ResourceUtil.getResourceFile("xml\\book.xml").getAbsolutePath();
+        String xml = StreamTool.getContent(ResourceUtil.getResourceInputStream("xml\\book.xml"));
         reader.parse(xml);
     }
 }

@@ -1,16 +1,13 @@
 package com.xl.json;
 
 import com.xl.entity.User;
-import com.xl.util.JSONUtil;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.extern.log4j.Log4j;
 import net.sf.json.JSON;
 import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
 import org.junit.Test;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author 徐立
@@ -54,25 +51,6 @@ public class JsonTest {
         log.info(json2.toString());
         json2 = JSONSerializer.toJSON(new User());
         log.info(json2.toString());
-    }
-
-    /**
-     * @throws IOException
-     */
-    @Test
-    public void jsonTest() throws IOException {
-        String sb = JSONUtil.getJSONStr();
-        JSONObject json = JSONObject.fromObject(sb.toString());
-        log.info(sb);
-        log.info(json);
-        // JSONObject response = dataJson.getJSONObject("response");
-        // JSONArray data = response.getJSONArray("data");
-        // JSONObject info = data.getJSONObject(0);
-        // String province = info.getString("province");
-        // String city = info.getString("city");
-        // String district = info.getString("district");
-        // String address = info.getString("address");
-        // log.print(province + city + district + address);
     }
 
     @Test

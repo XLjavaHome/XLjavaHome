@@ -1,15 +1,14 @@
 package com.xl.xml;
 
 import com.xl.util.ResourceUtil;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Node;
 import org.dom4j.io.SAXReader;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.io.File;
-import java.io.UnsupportedEncodingException;
 
 //如果xml文档很大.快速定位想要的数据
 /*
@@ -19,11 +18,11 @@ import java.io.UnsupportedEncodingException;
 
  */
 public class XPathXmlTest {
-    File f;
+    InputStream f;
 
     @Before
     public void before() throws UnsupportedEncodingException {
-        f = ResourceUtil.getResourceFile("xml/book.xml");
+        f = ResourceUtil.getResourceInputStream("xml/book.xml");
     }
 
     @Test
@@ -46,7 +45,7 @@ public class XPathXmlTest {
         String password = "123";
         // 检测xml文档是否有匹配
         SAXReader reader = new SAXReader();
-        f = ResourceUtil.getResourceFile("xml/User.xml");
+        f = ResourceUtil.getResourceInputStream("xml/User.xml");
         Document document = reader.read(f);
         // 1:这个b变量要单引号引起来,否则找不到
         // 找出所有的user节点

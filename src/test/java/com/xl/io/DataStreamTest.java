@@ -1,9 +1,6 @@
 package com.xl.io;
 
 import com.xl.util.FileUtil;
-import com.xl.util.ResourceUtil;
-import org.junit.Test;
-
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
@@ -11,6 +8,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import org.junit.Test;
 
 /**
  * 注意：如果用writeUIF(String str)写的话，用转换流读不出来，只能用对应的读取方式读取,英文不涉及编码
@@ -18,7 +16,7 @@ import java.io.UnsupportedEncodingException;
  * @author Administrator
  */
 public class DataStreamTest {
-    private File file = ResourceUtil.getResourceFile("1.txt");
+    private File file = FileUtil.createTempFile("1.txt");
 
     public DataStreamTest() throws UnsupportedEncodingException {
     }

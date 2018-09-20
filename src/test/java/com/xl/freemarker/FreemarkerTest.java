@@ -52,10 +52,11 @@ public class FreemarkerTest {
     public void demoTest() throws IOException, TemplateException {
         Freemark freemark = new Freemark("/freemarker/");
         freemark.setTempletName("简历-朱老师.ftl");
-        freemark.setOutFile(ResourceUtil.createResourceFile("2.doc"));
+        File tempFile = FileUtil.createTempFile("2.doc");
+        freemark.setOutFile(tempFile);
         Map map = new HashMap<String, Object>();
         map.put("NAME", "徐立");
-        map.put("image", FreemarkerUtil.getImage(ResourceUtil.getResourceFile("freemarker/a.jpg")));
+        map.put("image", FreemarkerUtil.getImage(ResourceUtil.getResourceInputStream("freemarker/a.jpg")));
         map.put("SEX", "男");
         map.put("BIRTH", "1987-08");
         map.put("ZZMM", "党员");
@@ -100,7 +101,7 @@ public class FreemarkerTest {
     public void listTest() throws IOException, TemplateException {
         Freemark freemark = new Freemark("/freemarker/");
         freemark.setTempletName("list.ftl");
-        freemark.setOutFile(ResourceUtil.createResourceFile("1.doc"));
+        freemark.setOutFile(FileUtil.createTempFile("1.doc"));
         Map map = new HashMap();
         List<User> list = new ArrayList<User>();
         for (int i = 0; i < 3; i++) {
@@ -124,7 +125,7 @@ public class FreemarkerTest {
             list.add(u);
         }
         map.put("userlist", list);
-        File f = ResourceUtil.createResourceFile("1.doc");
+        File f = FileUtil.createTempFile("1.doc");
         FreemarkerUtil.analysisTemplate("freemarker/list.ftl", f.getPath(), map);
         FileUtil.open(f);
     }

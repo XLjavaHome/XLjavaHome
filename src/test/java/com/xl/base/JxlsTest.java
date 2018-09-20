@@ -1,5 +1,6 @@
 package com.xl.base;
 
+import com.xl.util.FileUtil;
 import com.xl.util.ResourceUtil;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -31,7 +32,7 @@ public class JxlsTest {
         int pagesize = 100;
         //获取模板
         String path = "jxls/jxlsExcel.xls";
-        InputStream is = ResourceUtil.getResourceFileInputStream(path);
+        InputStream is = ResourceUtil.getResourceInputStream(path);
         //总的数据
         Map<String, Object> map = new HashMap<String, Object>();
         //listmap
@@ -59,7 +60,7 @@ public class JxlsTest {
         XLSTransformer transformer = new XLSTransformer();
         Workbook workbook = transformer.transformMultipleSheetsList(is, objects, listSheetNames, "list", new HashMap(), 0);
         long l = System.currentTimeMillis();
-        workbook.write(new FileOutputStream(ResourceUtil.createResourceFile("jxls/out.xls")));
+        workbook.write(new FileOutputStream(FileUtil.createTempFile("jxls/out.xls")));
         workbook.close();
         long l2 = System.currentTimeMillis();
         long l3 = l2 - l1;

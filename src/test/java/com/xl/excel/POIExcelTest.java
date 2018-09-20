@@ -3,6 +3,10 @@ package com.xl.excel;
 import com.xl.util.FileUtil;
 import com.xl.util.ResourceUtil;
 import com.xl.util.excel.POIExcelUtil;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Date;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -11,11 +15,6 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.Date;
 
 /**
  * Created with IntelliJ IDEA.poi工具类
@@ -39,11 +38,11 @@ public class POIExcelTest {
         row.createCell((short) 3).setCellValue(true);
         row.createCell((short) 4).setCellValue(new Date());
         HSSFSheet sheet2 = wb.createSheet("第二个工作簿");
-        File file = ResourceUtil.createResourceFile("workbook.xls");
+        File file = FileUtil.createTempFile("workbook.xls");
         FileOutputStream fileOut = new FileOutputStream(file);
         wb.write(fileOut);
         fileOut.close();
-        FileUtil.open(file);
+        FileUtil.open(file.getParentFile());
     }
 
     @Before

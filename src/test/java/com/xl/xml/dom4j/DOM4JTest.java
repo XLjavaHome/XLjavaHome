@@ -6,8 +6,8 @@ import com.xl.util.ResourceUtil;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
 import java.util.Iterator;
 import java.util.List;
 import org.dom4j.Document;
@@ -32,7 +32,8 @@ public class DOM4JTest {
     /**
      * 要解析的xml
      */
-    private File file;
+    private InputStream inputStream;
+    private File tempFile = null;
     /**
      * 解析器
      */
@@ -43,10 +44,11 @@ public class DOM4JTest {
     private Document document;
 
     @Before
-    public void init() throws UnsupportedEncodingException, DocumentException {
-        file = ResourceUtil.getResourceFile("xml\\book.xml");
+    public void init() throws IOException, DocumentException {
+        inputStream = ResourceUtil.getResourceInputStream("xml\\book.xml");
+        tempFile = FileUtil.createTempFile("测试.xml");
         saxReader = new SAXReader();
-        document = saxReader.read(file);
+        document = saxReader.read(inputStream);
     }
 
     @Test
@@ -57,7 +59,7 @@ public class DOM4JTest {
 
     @Test
     public void createNoEncoding() throws IOException {
-        XMLWriter writer = new XMLWriter(new FileOutputStream(file));
+        XMLWriter writer = new XMLWriter(new FileOutputStream(tempFile));
         writer.write(document);
         writer.close();
     }
@@ -66,12 +68,12 @@ public class DOM4JTest {
     @Test
     public void add() throws DocumentException, IOException {
         SAXReader reader = new SAXReader();
-        Document document = reader.read(file);
+        Document document = reader.read(inputStream);
         Element book = document.getRootElement();
         book.addElement("售价").setText("208");
         OutputFormat format = OutputFormat.createPrettyPrint();
         format.setEncoding(CharsetEnum.UTF8.getValue());
-        XMLWriter writer = new XMLWriter(new FileOutputStream(file), format);
+        XMLWriter writer = new XMLWriter(new FileOutputStream(tempFile), format);
         writer.write(document);
         writer.close();
     }
@@ -80,7 +82,7 @@ public class DOM4JTest {
     @Test
     public void add2() throws DocumentException, IOException {
         SAXReader reader = new SAXReader();
-        Document document = reader.read(file);
+        Document document = reader.read(inputStream);
         Element books = document.getRootElement();
         // 得到书
         Element book = books.element("书");
@@ -99,7 +101,7 @@ public class DOM4JTest {
         }
         OutputFormat format = OutputFormat.createPrettyPrint();
         format.setEncoding(CharsetEnum.UTF8.getValue());
-        XMLWriter writer = new XMLWriter(new FileOutputStream(file), format);
+        XMLWriter writer = new XMLWriter(new FileOutputStream(tempFile), format);
         writer.write(document);
         writer.close();
     }
@@ -108,12 +110,12 @@ public class DOM4JTest {
     @Test
     public void delete() throws DocumentException, IOException {
         SAXReader reader = new SAXReader();
-        Document document = reader.read(file);
+        Document document = reader.read(inputStream);
         Element price = document.getRootElement().element("书").element("售价");
         price.getParent().remove(price);
         OutputFormat format = OutputFormat.createPrettyPrint();
         format.setEncoding(CharsetEnum.UTF8.getValue());
-        XMLWriter writer = new XMLWriter(new FileOutputStream(file), format);
+        XMLWriter writer = new XMLWriter(new FileOutputStream(tempFile), format);
         writer.write(document);
         writer.close();
     }
@@ -121,7 +123,7 @@ public class DOM4JTest {
     @Test
     public void deleteAllTest() throws DocumentException, IOException {
         SAXReader reader = new SAXReader();
-        Document document = reader.read(file);
+        Document document = reader.read(inputStream);
         Element e = document.getRootElement();
         List<Element> children = e.elements();
         for (Element e1 : children) {
@@ -129,16 +131,16 @@ public class DOM4JTest {
         }
         OutputFormat format = OutputFormat.createPrettyPrint();
         format.setEncoding(CharsetEnum.UTF8.getValue());
-        XMLWriter writer = new XMLWriter(new FileOutputStream(file), format);
+        XMLWriter writer = new XMLWriter(new FileOutputStream(tempFile), format);
         writer.write(document);
         writer.close();
-        FileUtil.open(file);
+        FileUtil.open(tempFile);
     }
 
     @Test
     public void read() throws DocumentException {
         SAXReader reader = new SAXReader();
-        Document document = reader.read(file);
+        Document document = reader.read(inputStream);
         // 先得根节点,不能直接按节点名得
         Element root = document.getRootElement();
         // Element book=root.element("书");
@@ -159,13 +161,13 @@ public class DOM4JTest {
     @Test
     public void update() throws Exception {
         SAXReader reader = new SAXReader();
-        Document document = reader.read(file);
+        Document document = reader.read(inputStream);
         // 得到第二本书
         Element book = (Element) document.getRootElement().elements("书").get(1);
         book.element("作者").setText("哈喽");
         OutputFormat format = OutputFormat.createPrettyPrint();
         format.setEncoding(CharsetEnum.UTF8.getValue());
-        XMLWriter writer = new XMLWriter(new FileOutputStream(file), format);
+        XMLWriter writer = new XMLWriter(new FileOutputStream(tempFile), format);
         writer.write(document);
         writer.close();
     }
@@ -176,22 +178,22 @@ public class DOM4JTest {
     @Test
     public void write() throws DocumentException, IOException {
         SAXReader reader = new SAXReader();
-        Document document = reader.read(file);
+        Document document = reader.read(inputStream);
         Element book = document.getRootElement();
         book.addElement("售价").setText("209元");
         // OutputStreamWriter可以指定码表
-        XMLWriter writer = new XMLWriter(new OutputStreamWriter(new FileOutputStream(file, true), CharsetEnum.UTF8.getValue()));
+        XMLWriter writer = new XMLWriter(new OutputStreamWriter(new FileOutputStream(tempFile, true), CharsetEnum.UTF8.getValue()));
         // 创建格式化输出器
         OutputFormat format = OutputFormat.createPrettyPrint();
         format.setEncoding(CharsetEnum.GBK.getValue());
         // 两个编码要一致就不会出现乱码
-        writer = new XMLWriter(new OutputStreamWriter(new FileOutputStream(file), CharsetEnum.GBK.getValue()), format);
+        writer = new XMLWriter(new OutputStreamWriter(new FileOutputStream(tempFile), CharsetEnum.GBK.getValue()), format);
         writer.write(document);
         writer.close();
     }
 
     @After
     public void after() throws IOException {
-        FileUtil.open(file);
+        FileUtil.open(tempFile);
     }
 }

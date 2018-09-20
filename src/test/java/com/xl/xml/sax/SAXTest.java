@@ -1,21 +1,21 @@
 package com.xl.xml.sax;
 
 import com.xl.util.ResourceUtil;
-import org.junit.Before;
-import org.junit.Test;
-import org.xml.sax.XMLReader;
-
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-import java.io.UnsupportedEncodingException;
+import org.junit.Before;
+import org.junit.Test;
+import org.xml.sax.InputSource;
+import org.xml.sax.XMLReader;
 
 public class SAXTest {
-    private String xmlPath;
+    private InputStream inputStream;
 
     @Before
     public void init() throws UnsupportedEncodingException {
-        xmlPath = ResourceUtil.getResourceFile("xml\\book.xml").getPath();
-        System.out.println(xmlPath);
+        inputStream = ResourceUtil.getResourceInputStream("xml\\book.xml");
     }
 
     @Test
@@ -30,7 +30,7 @@ public class SAXTest {
         SaxListHandler handler = new SaxListHandler();
         reader.setContentHandler(handler);
         // 5.读取xml文档内容
-        reader.parse(xmlPath);
+        reader.parse(new InputSource(inputStream));
     }
 }
 
