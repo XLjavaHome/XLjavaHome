@@ -60,5 +60,6 @@ public class NumberTest {
         double number = 3434324323.1274123;
         System.out.println(format.format(number));
         System.out.println(String.format("%.2f", number));
+        System.out.printf("%.2f", number);
     }
 }
