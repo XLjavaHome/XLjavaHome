@@ -2,6 +2,7 @@ package com.xl.base;
 
 import com.xl.util.NumberTool;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import org.junit.Test;
 
 public class NumberTest {
@@ -50,4 +51,14 @@ public class NumberTest {
         System.out.println(new BigDecimal("123.128").setScale(2));
     }
 
+    /**
+     * 效果是一样的,会四舍五入
+     */
+    @Test
+    public void formatTest() {
+        DecimalFormat format = new DecimalFormat("##.##");
+        double number = 3434324323.1274123;
+        System.out.println(format.format(number));
+        System.out.println(String.format("%.2f", number));
+    }
 }
