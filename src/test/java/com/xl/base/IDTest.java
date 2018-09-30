@@ -23,8 +23,12 @@ public class IDTest {
     @Test
     public void idTest() {
         IdWorker worker = new IdWorker(1, 1);
-        for (int i = 0; i < 30; i++) {
-            System.out.println(worker.nextId());
+        for (int i = 0; i < 10; i++) {
+            new Thread(() -> {
+                for (int j = 0; j < 30; j++) {
+                    System.out.println(worker.nextId());
+                }
+            }).start();
         }
     }
 }
