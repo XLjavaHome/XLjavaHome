@@ -20,6 +20,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -43,8 +44,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @Log4j
 public class SpringTest {
     ////可以直接初始化
-    //ApplicationContext ctx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
-    ApplicationContext ctx = null;
+    ApplicationContext ctx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
     @Autowired
     private SpringMysqlJdbcUtil springMysqlJdbcUtil;
     @Autowired

@@ -7,6 +7,7 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -21,7 +22,7 @@ import org.junit.Test;
 public class MapTest {
     HashMap<String, String> map = new HashMap<String, String>(0);
     Map<Integer, String> sortMap = new HashMap<Integer, String>();
-
+    
     @Before
     public void before() {
         map.put("02", "zhangsan2");
@@ -33,7 +34,7 @@ public class MapTest {
         sortMap.put(2, "测试2");
         sortMap.put(5, "测试0");
     }
-
+    
     @Test
     public void mapTest() {
         // 获取map集合的所有键的Set集合,keySet();
@@ -47,7 +48,7 @@ public class MapTest {
             System.out.println("key:" + key + ",value:" + value);
         }
     }
-
+    
     @Test
     public void emptyTest() {
         Map map = new HashMap(2);
@@ -56,18 +57,30 @@ public class MapTest {
         //KEY可以为空
         System.out.println(map.get(null));
     }
-
+    
     @Test
     public void valueTest() {
         String key = MapUtil.getKey(map, "zhangsan2");
         System.out.println(key);
     }
-
+    
     @Test
     public void sortTest() {
         System.out.println(sortMap);
     }
-
+    
+    /**
+     * 按照key值排序
+     */
+    @Test
+    public void sort2Test() {
+        Map<String, String> map = new TreeMap<>();
+        map.put("11", "aaa");
+        map.put("33", "ccc");
+        map.put("22", "bbb");
+        System.out.println(map);
+    }
+    
     @Test
     public void deleteTest() {
         Iterator<String> iterator = map.keySet().iterator();
@@ -80,7 +93,7 @@ public class MapTest {
         }
         System.out.println(map);
     }
-
+    
     @Test
     public void concurrentHashMapTest() {
         //几乎每个人都会回答“是的”，然后回答HashMap的一些特性，譬如HashMap可以接受null键值和值，而Hashtable则不能；HashMap是非synchronized;HashMap很快；以及HashMap储存的是键值对等等
