@@ -19,12 +19,12 @@ import org.junit.Test;
 public class StringTest {
     String birthday = "111111111111111119900228";
     StringBuffer sql = new StringBuffer();
-
+    
     @Before
     public void before() {
         sql.append("12e13,3232,aa");
     }
-
+    
     /**
      * todo 转义
      */
@@ -35,7 +35,7 @@ public class StringTest {
         System.out.println(s);
         System.out.println(s2);
     }
-
+    
     /**
      * 是否匹配给定的正则
      */
@@ -43,7 +43,7 @@ public class StringTest {
     public void matchTest() {
         System.out.println(birthday.matches("\\d{4,}"));
     }
-
+    
     /**
      * 转换为join字符串
      */
@@ -53,19 +53,27 @@ public class StringTest {
         //有空格
         System.out.println(StringUtil.join(s, ","));
     }
-
+    
+    @Test
+    public void indexTest() {
+        String s = "133.测试~~";
+        int i = s.indexOf(".");
+        String result = s.substring(0, i);
+        System.out.println(result);
+    }
+    
     @Test
     public void spiltTest() {
         String s = "测试21321\n" + "'e234";
         System.out.println(Arrays.toString(s.split(",")));
     }
-
+    
     @Test
     public void bufferAndBuilderTest() {
         StringBuilder sb = new StringBuilder();
         StringBuffer sb2 = new StringBuffer();
     }
-
+    
     /**
      * 替换所有的字符串
      * replace 不使用正则
@@ -75,19 +83,19 @@ public class StringTest {
     public void replaceTest() {
         System.out.println("111.3333.444".replace(".", "测试"));
     }
-
+    
     @Test
     public void deleteTest() {
         System.out.println(sql);
         sql.delete(sql.length() - 2, sql.length());
         System.out.println(sql);
     }
-
+    
     @Test
     public void insertTest() {
         sql.insert(0, "测试插入");
     }
-
+    
     @Test
     public void equalTest() {
         String s1 = "Hollis";
@@ -98,7 +106,7 @@ public class StringTest {
         //true
         System.out.println(s1 == s3);
     }
-
+    
     /**
      * d数字，s字符串
      * MessageFormat 用%s占位是不行的
