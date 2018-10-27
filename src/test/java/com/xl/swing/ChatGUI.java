@@ -1,9 +1,17 @@
 package com.xl.swing;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 public class ChatGUI extends JFrame implements ActionListener {
     private final Container container;
@@ -34,6 +42,11 @@ public class ChatGUI extends JFrame implements ActionListener {
         send.addActionListener(this); // 注册发送按钮的动作事件
         sentence.addActionListener(this); // 注册聊天栏的动作事件
         this.setVisible(true); // 显示主窗口
+        EventQueue.invokeLater(() -> {
+            for (int i = 0; i < 1000; i++) {
+                System.out.println(i);
+            }
+        });
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// 关闭窗口时退出系统
     }
 
