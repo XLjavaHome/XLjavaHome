@@ -1,5 +1,9 @@
 package com.xl.face;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.IntStream;
 import org.junit.Test;
 
 /**
@@ -31,6 +35,24 @@ public class ForTest {
         }
         long now = System.currentTimeMillis();
         System.out.println(now - last);
+    }
+
+    @Test
+    public void streamTest() {
+        String[] s = {"aaa", "bbb", "cccbbb"};
+        List<String> stringList = Arrays.asList(s);
+        stringList.stream().forEach(e -> System.out.println(e));
+        Optional<String> optional = stringList.stream().filter(s1 -> s1.contains("bb")).findFirst();
+        System.out.println(optional);
+    }
+
+    /**
+     * 不同于 for，range 不会强迫我们初始化某个可变变量。
+     * 迭代会自动执行，所以我们不需要像循环索引一样定义增量。
+     */
+    @Test
+    public void stream2Test() {
+        IntStream.range(1, 5).forEach(i -> System.out.print(i + "..."));
     }
 }
 

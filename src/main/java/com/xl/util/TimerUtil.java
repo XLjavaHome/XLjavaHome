@@ -15,6 +15,7 @@ import java.util.TimerTask;
 public class TimerUtil {
     /**
      * 在几耗秒后执行一次定时任务
+     * dd
      *
      * @param schedule
      * @param time     毫秒

@@ -34,6 +34,7 @@ public class JProgressBarDemo extends JFrame {
         final JProgressBar progressBar = new JProgressBar();
         progressBar.setStringPainted(true);
         new Thread() {
+            @Override
             public void run() {
                 for (int i = 0; i <= 100; i++) {
                     try {

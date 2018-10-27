@@ -1,6 +1,6 @@
 package com.xl.thread;
 
-import java.util.Date;
+import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -18,9 +18,8 @@ public class TaskDemo {
     }
 
     public static void init() {
-        Date d = new Date();
-        d.setMinutes(1);
-        new Timer().schedule(new MyTimeTask(), d);
+        Calendar instance = Calendar.getInstance();
+        new Timer().schedule(new MyTimeTask(), instance.getTime());
     }
 
     public static void Incremental() throws InterruptedException {
@@ -28,24 +27,6 @@ public class TaskDemo {
         while (true) {
             Thread.sleep(2000);
             System.out.println(System.currentTimeMillis());
-        }
-    }
-
-    public static void Schedele() {
-        // TimerTask:task:执行的任务,long delay:在多少毫秒后执行,
-        // long period:执行后，每经过
-        new java.util.Timer().schedule(new TimerTask() {
-            @Override
-            public void run() {
-                System.out.println("这是定时器里面的内容");
-            }
-        }, 10, 3000); // schedule:时刻表，进度表； 清单，明细表； 预定计划； 目录
-        while (true) {
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
         }
     }
 }
