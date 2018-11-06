@@ -19,11 +19,17 @@ import org.junit.Test;
 public class StreamTest {
     List<Person> list = new ArrayList<>(100);
     
+    /**
+     * Before.
+     */
     @Before
     public void before() {
         list.add(new Person("jack", 20));
         list.add(new Person("mike", 25));
         list.add(new Person("tom", 30));
+        for (int i = 30; i < 10000; i++) {
+            list.add(new Person(i + "Tes", i));
+        }
     }
     
     @Test
@@ -51,9 +57,25 @@ public class StreamTest {
     
     @Test
     public void anyMatchTest() {
-        boolean b = list.stream().anyMatch(s -> s.getAge() == 1);
+        //65ms
+        //boolean b = list.stream().anyMatch(s -> s.getAge() == 1);
         boolean b1 = list.stream().anyMatch(s -> s.getAge() == 20);
-        System.out.println(b);
+        //System.out.println(b);
         System.out.println(b1);
+    }
+    
+    /**
+     * 和stream比较效率
+     */
+    @Test
+    public void forTest() {
+        //8ms
+        boolean flag = false;
+        for (Person person : list) {
+            if (person.getAge() == 20) {
+                flag = true;
+            }
+        }
+        System.out.println(flag);
     }
 }

@@ -16,7 +16,7 @@ public class NumberTool {
     public static final int YI = 100000000;//一亿
     public static final int WAN = 10000;//一万
     private static final int FOURDECIMALMEDIAN = 4;  //小数位数
-
+    
     /**
      * 将object转换成整型，当传入的对象是null时返回指定的值
      *
@@ -39,7 +39,7 @@ public class NumberTool {
         r = new BigDecimal(r).setScale(round, BigDecimal.ROUND_HALF_UP).doubleValue();
         return r;
     }
-
+    
     /**
      * 将object转换成整型，当传入的对象是null时返回指定的值
      *
@@ -60,7 +60,7 @@ public class NumberTool {
         }
         return r;
     }
-
+    
     /**
      * 将object转换成float，当传入的对象是null时返回指定的值
      *
@@ -82,7 +82,7 @@ public class NumberTool {
         r = new BigDecimal(r).setScale(round, BigDecimal.ROUND_HALF_UP).floatValue();
         return r;
     }
-
+    
     /**
      * String类型 转 BigDecimal类型
      *
@@ -94,14 +94,15 @@ public class NumberTool {
             if (paraValue.indexOf("%") == -1) {
                 return new BigDecimal(Double.valueOf(paraValue.trim().replace(",", ""))).setScale(4, BigDecimal.ROUND_HALF_UP);
             } else {
-                return new BigDecimal(Double.valueOf(paraValue.trim().replace("%", "")) / 100).setScale(FOURDECIMALMEDIAN, BigDecimal.ROUND_HALF_UP);
+                return new BigDecimal(Double.valueOf(paraValue.trim().replace("%", "")) / 100)
+                        .setScale(FOURDECIMALMEDIAN, BigDecimal.ROUND_HALF_UP);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
     }
-
+    
     /**
      * String类型 转 BigDecimal类型
      *
@@ -113,14 +114,15 @@ public class NumberTool {
             if (paraValue.indexOf("%") == -1) {
                 return new BigDecimal(Double.valueOf(paraValue.trim().replace(",", ""))).setScale(2, BigDecimal.ROUND_HALF_UP);
             } else {
-                return new BigDecimal(Double.valueOf(paraValue.trim().replace("%", "")) / 100).setScale(FOURDECIMALMEDIAN, BigDecimal.ROUND_HALF_UP);
+                return new BigDecimal(Double.valueOf(paraValue.trim().replace("%", "")) / 100)
+                        .setScale(FOURDECIMALMEDIAN, BigDecimal.ROUND_HALF_UP);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
     }
-
+    
     /**
      * aParaValue值 - bParaValue值
      *
@@ -134,7 +136,7 @@ public class NumberTool {
         }
         return null;
     }
-
+    
     /**
      * aParaValue值 / bParaValue值
      *
@@ -148,7 +150,7 @@ public class NumberTool {
         }
         return null;
     }
-
+    
     public static double avg(double[] sequenceArr) {
         if (sequenceArr != null && sequenceArr.length > 0) {
             double sum = 0.00;
@@ -160,12 +162,12 @@ public class NumberTool {
         }
         return 0.00;
     }
-
+    
     public static double round(double value, int count) {
         int t = (int) Math.pow(10.0, (double) (count + 1));
         return ((double) Math.round(value * t)) / t;
     }
-
+    
     public static Double getFourDecimalNumber(Number number) {
         if (number == null || (0.00 == number.doubleValue())) {
             return 0.0000;
@@ -173,7 +175,7 @@ public class NumberTool {
         NumberFormat format = new DecimalFormat("##0.0000");
         return Double.valueOf(format.format(number));
     }
-
+    
     /**
      * 从指定Map中获取指定Key的值，并将期值转为Integer型，若Map中指定Key不存在，则直接返回0
      *
@@ -184,7 +186,7 @@ public class NumberTool {
     public static Integer convertMapKeyToInt(Map map, String key) {
         return convertMapKeyToInt(map, key, 0);
     }
-
+    
     /**
      * 从指定Map中获取指定Key的 值，并将期值转为Integer型，若Map中指定Key不存在，则直接返回默认值
      *
@@ -196,7 +198,7 @@ public class NumberTool {
     public static Integer convertMapKeyToInt(Map map, String key, Integer defaultValue) {
         return safeToInteger(map.get(key), defaultValue);
     }
-
+    
     /**
      * 将object转换成整型，当传入的对象是null时返回指定的值
      *
@@ -214,7 +216,7 @@ public class NumberTool {
         }
         return r;
     }
-
+    
     /**
      * 将int数组转换成以逗号分隔的字符串
      *
@@ -231,7 +233,7 @@ public class NumberTool {
         }
         return _string;
     }
-
+    
     /**
      * 提供精确的加法运算。
      *
@@ -247,7 +249,7 @@ public class NumberTool {
         }
         return null;
     }
-
+    
     /**
      * 提供精确的减法运算。
      *
@@ -263,7 +265,7 @@ public class NumberTool {
         }
         return null;
     }
-
+    
     /**
      * 提供精确的除法运算,使用默认精确度。
      *
@@ -274,7 +276,7 @@ public class NumberTool {
     public static Double safeDiv(Double v1, Double v2) {
         return safeDiv(v1, v2, FOURDECIMALMEDIAN);
     }
-
+    
     /**
      * 提供精确的除法运算。
      *
@@ -291,7 +293,7 @@ public class NumberTool {
         }
         return null;
     }
-
+    
     /**
      * 提供精确的乘法运算。
      *
@@ -307,7 +309,7 @@ public class NumberTool {
         }
         return null;
     }
-
+    
     /**
      * 格式化数字
      *
@@ -322,7 +324,7 @@ public class NumberTool {
         DecimalFormat decimalFormat = new DecimalFormat(pattern);
         return decimalFormat.format(number);
     }
-
+    
     public static String formatNumber(String number, String pattern) {
         if (StringUtil.isEmpty(number)) {
             return "";
@@ -330,7 +332,7 @@ public class NumberTool {
         DecimalFormat decimalFormat = new DecimalFormat(pattern);
         return decimalFormat.format(safeToDouble(number, 0D));
     }
-
+    
     /**
      * 将object转换成整型，当传入的对象是null时返回指定的值
      *
@@ -350,6 +352,20 @@ public class NumberTool {
             }
         }
         return r;
+    }
+    
+    /**
+     * 两个数是否相等
+     *
+     * @param s
+     * @param i
+     * @return
+     */
+    public static boolean equals(Number s, Number i) {
+        if (s != null && i != null) {
+            return s.doubleValue() == i.doubleValue();
+        }
+        return false;
     }
 }
 
