@@ -27,7 +27,6 @@ public class TimerTest {
 /*        TimerUtil.schedule(() -> {
             System.out.println("测试");
         }, 4000L)*/
-        ;
         //Timer timer = new Timer();
         //任务-要调度的任务。延迟-任务执行前的延迟(毫秒)。连续任务执行之间的周期(以毫秒为单位)。
         //第一次执行是在当前时间两秒之后，之后每隔一秒执行一次
@@ -39,16 +38,16 @@ public class TimerTest {
     /**
      * 用测试类不行
      *
-     * @throws InterruptedException
      */
     @Test
-    public void timerTest() throws InterruptedException {
+    public void timerTest() {
         TimerUtil.schedule(() -> {
             System.out.println("测试");
         }, 4000L);
     }
 
     public static void scheduleWithFixedDelay() {
+        //创建一个线程池，可以调度命令在给定的延迟之后运行，或定期执行。
         ScheduledExecutorService scheduledExecutor = Executors.newScheduledThreadPool(4);
         for (int i = 0; i < 4; i++) {
             scheduledExecutor.scheduleWithFixedDelay(() -> {

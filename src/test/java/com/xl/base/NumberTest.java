@@ -73,4 +73,15 @@ public class NumberTest {
         s = 2;
         System.out.println(s == 2.0);
     }
+    
+    /**
+     * 添加
+     */
+    @Test
+    public void addTest() {
+        BigDecimal bigDecimal = new BigDecimal("3");
+        bigDecimal.add(BigDecimal.valueOf(4));
+        //输出结果是3 ,累加要重新赋值
+        System.out.println(bigDecimal);
+    }
 }

@@ -367,5 +367,23 @@ public class NumberTool {
         }
         return false;
     }
+    
+    /**
+     * 数组中相加
+     *
+     * @param <T>
+     * @param numbers
+     * @return
+     */
+    public static <T extends Number> double safeToAdd(T[] numbers) {
+        if (numbers == null || numbers.length == 0) {
+            return 0;
+        }
+        BigDecimal a = new BigDecimal(numbers[0].doubleValue());
+        for (int i = 1; i < numbers.length; i++) {
+            a = a.add(new BigDecimal(numbers[i].doubleValue()));
+        }
+        return a.doubleValue();
+    }
 }
 
