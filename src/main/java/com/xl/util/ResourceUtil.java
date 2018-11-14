@@ -20,7 +20,25 @@ public class ResourceUtil {
     public static InputStream getResourceInputStream(String path) {
         //方式一
         return Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
-        //方式二
-        //return FileUtil.class.getClassLoader().getResourceAsStream(path);
+    }
+    
+    /**
+     * "/"开头
+     *
+     * @param path
+     * @return
+     */
+    public static InputStream getResourceInputStream2(String path) {
+        return ResourceUtil.class.getResourceAsStream(path);
+    }
+    
+    /**
+     * 不能以"/"开头
+     *
+     * @param path
+     * @return
+     */
+    public static InputStream getResourceInputStream3(String path) {
+        return ResourceUtil.class.getClassLoader().getResourceAsStream(path);
     }
 }
