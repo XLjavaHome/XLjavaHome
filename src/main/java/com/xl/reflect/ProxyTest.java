@@ -1,6 +1,6 @@
 package com.xl.reflect;
 
-import com.xl.entity.Person;
+import lombok.extern.log4j.Log4j;
 import org.junit.Test;
 
 // 定义项目接口
@@ -9,35 +9,29 @@ interface Subject {
 }
 
 /**
- * @author 徐立
- * @Decription 如果想要完成动态代理，首先需要定义一个InvocationHandler接口的子类，已完成代理的具体操作。
- * @date 2014-1-19
+ * Created with 徐立.如果想要完成动态代理，首先需要定义一个InvocationHandler接口的子类，已完成代理的具体操作，执行代理方法会调用InvocationHandler子类的invoke方法，可以在里面进行一些操作
+ *
+ * @author: 徐立
+ * @Date: 2018-11-16
+ * @Time: 15:31
+ * To change this template use File | Settings | File Templates.
  */
+@Log4j
 public class ProxyTest {
-    /**
-     * 其实在java中有三种类类加载器。 1）Bootstrap ClassLoader 此加载器采用c++编写，一般开发中很少见。
-     * 2）Extension ClassLoader 用来进行扩展类的加载，一般对应的是jre\lib\ext目录中的类
-     * 3）AppClassLoader 加载classpath指定的类，是最常用的加载器。同时也是java中默认的加载器。
-     */
-    @Test
-    public void classLoad() {
-        Person p = new Person();
-        System.out.println("classLoad  " + p.getClass().getClassLoader().getClass().getName());
-    }
-
     @Test
     public void test() {
         MyInvocationHandler demo = new MyInvocationHandler();
         Subject sub = (Subject) demo.bind(new RealSubject());
-        String info = sub.say("Rollen", 20);
-        System.out.println(info);
+        sub.say("Rollen", 20);
     }
 }
 
 // 定义真实项目
+@Log4j
 class RealSubject implements Subject {
     @Override
     public String say(String name, int age) {
+        log.info(name + age);
         return name + "  " + age;
     }
 }

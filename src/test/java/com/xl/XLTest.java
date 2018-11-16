@@ -1,4 +1,5 @@
 package com.xl;
+
 import com.google.common.annotations.VisibleForTesting;
 import com.xl.collections.CaseInsensitiveMap;
 import com.xl.util.StringUtil;
@@ -23,12 +24,11 @@ import sun.text.resources.cldr.aa.FormatData_aa;
 public class XLTest {
     @Test
     public void FormatData_aaTest() {
-        String s = "";
         FormatData_aa aa = new FormatData_aa();
         System.out.println(aa.getLocale());
         System.out.println(StringUtil.join(aa.getKeys()));
     }
-
+    
     @Test
     public void mapTest() {
         Map map = new CaseInsensitiveMap();
@@ -42,7 +42,7 @@ public class XLTest {
         System.out.println(map);
         System.out.println("这是输出");
     }
-
+    
     @Test
     public void desktopTest() throws IOException {
         Desktop.getDesktop().browse(URI.create("http://127.0.0.1:8080"));
