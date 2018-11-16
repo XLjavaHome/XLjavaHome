@@ -16,6 +16,12 @@ import lombok.extern.log4j.Log4j;
 class MyInvocationHandler implements InvocationHandler {
     private Object obj = null;
     
+    /**
+     * 代理对象传class不行，必须传对象
+     *
+     * @param obj
+     * @return
+     */
     public Object bind(Object obj) {
         this.obj = obj;
         log.info("开始代理");

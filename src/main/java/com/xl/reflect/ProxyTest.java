@@ -21,6 +21,7 @@ public class ProxyTest {
     @Test
     public void test() {
         MyInvocationHandler demo = new MyInvocationHandler();
+        //代理不传对象会报错
         Subject sub = (Subject) demo.bind(new RealSubject());
         sub.say("Rollen", 20);
     }
