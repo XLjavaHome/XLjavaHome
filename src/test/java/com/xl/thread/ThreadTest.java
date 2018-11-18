@@ -1,7 +1,5 @@
 package com.xl.thread;
 
-import org.junit.Test;
-
 /**
  * 4.【强制】线程池不允许使用Executors去创建，而是通过ThreadPoolExecutor的方式，这样的处理方式让写的同学更加明确线程池的运行规则，规避资源耗尽的风险。
  * 说明：Executors返回的线程池对象的弊端如下：
@@ -14,26 +12,31 @@ public class ThreadTest implements Runnable {
     /**
      * volatile 让主线程感知
      */
-    private  int num = 0;
-
-    @Override
-    public void run() {
-        for (; num < 5; num++) {
+    private int num = 0;
+    
+    public static void main(String[] args) {
+        System.out.println(Thread.currentThread().getName());
+        Thread thread = new Thread(new ThreadTest());
+        thread.start();
+        //isAlive是否在运行
+        System.out.println(thread.isAlive());
+        new Thread(() -> {
             try {
-                Thread.sleep(1000);
-                System.out.println(num);
-            } catch (Exception e) {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        }
+            System.out.println(thread.isAlive());
+        }).start();
     }
-
-    @Test
-    public void test1() throws InterruptedException {
-        System.out.println("这是主线程：" + num);
-        new Thread(this).start();
-        new Thread(() -> System.out.println("num的值"+num)).start();
-        Thread.sleep(1);
-        System.out.println("这是主线程2：" + num);
+    
+    @Override
+    public void run() {
+        try {
+            Thread.sleep(1000L);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println(Thread.currentThread().getName());
     }
 }

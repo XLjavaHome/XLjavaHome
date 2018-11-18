@@ -47,4 +47,9 @@ public class XLTest {
     public void desktopTest() throws IOException {
         Desktop.getDesktop().browse(URI.create("http://127.0.0.1:8080"));
     }
+    
+    @Test
+    public void xlTest() {
+        String s = "select * from\n" + "user_tables;";
+    }
 }

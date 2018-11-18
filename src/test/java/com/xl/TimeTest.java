@@ -19,4 +19,14 @@ public class TimeTest {
         LocalDateTime now = LocalDateTime.now(Clock.systemDefaultZone());
         System.out.println(now);
     }
+    
+    @Test
+    public void demo2Test() {
+        System.out.println("111");
+    }
+    
+    @Test
+    public void demo3Test() {
+        System.out.println("3333");
+    }
 }
