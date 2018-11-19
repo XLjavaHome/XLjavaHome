@@ -1,8 +1,12 @@
 package com.xl.face;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
 import java.util.stream.IntStream;
 import org.junit.Test;
 
@@ -24,17 +28,32 @@ public class ForTest {
      */
     @Test
     public void forTimeTest() {
-        long last = System.currentTimeMillis();
-        int num = 100000;
-        for (int i = 1; i < num; i++) {
-            if (1 > 5000) {
-                boolean flag = true;
-            } else {
-                boolean flag = false;
-            }
+        ArrayList<Integer> arrayList = new ArrayList<>(20000000);
+        for (int i = 0; i < 29; i++) {
+            arrayList.add(i);
         }
-        long now = System.currentTimeMillis();
-        System.out.println(now - last);
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date d1 = new Date();
+        for (Integer integer : arrayList) {
+            ;
+        }
+        Date d2 = new Date();
+        System.out.println("for循环时间： " + (d2.getTime() - d1.getTime()) + "ms");
+        arrayList.stream().filter(i -> i > 0);
+        arrayList.stream().filter(new Predicate<Integer>() {
+            @Override
+            public boolean test(Integer integer) {
+                System.out.println(integer);
+                return false;
+            }
+        });
+        Date d3 = new Date();
+        System.out.println("流循环时间： " + (d3.getTime() - d2.getTime()) + "ms");
+        for (Integer i : arrayList) {
+            i++;
+        }
+        Date d4 = new Date();
+        System.out.println("强for循环时间： " + (d4.getTime() - d3.getTime()) + "ms");
     }
 
     @Test

@@ -30,6 +30,7 @@ class MyInvocationHandler implements InvocationHandler {
     
     /**
      * 调用代理的方法所执行的方法
+     * 1.如果在方法之前返回则不调用目标方法
      *
      * @param proxy
      * @param method
