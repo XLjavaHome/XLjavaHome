@@ -30,22 +30,23 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Log4j
 @Controller
 public class IndexAction implements PageLoadInterface {
+    private int num;
+    
     @RequestMapping(value = "{name}", method = RequestMethod.GET)
-    public
-    @ResponseBody
+    public @ResponseBody
     User getShopInJSON(@PathVariable String name) {
         User user = new User();
         user.setName(name);
         System.out.println(user);
         return user;
     }
-
+    
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public String addBlog(ModelMap modelMap) {
         MethodUtil.getMethodName();
         return "suceess";
     }
-
+    
     @Override
     public void loadpage(PageLoadContext context) {
         List<String> exclutDirectoryName = excluDirectory();
@@ -71,11 +72,11 @@ public class IndexAction implements PageLoadInterface {
         }
         context.getRequest().setAttribute("filePath", pathMap);
     }
-
+    
     private void test11() {
         System.out.println("11");
     }
-
+    
     /**
      * 不包含的目錄
      *

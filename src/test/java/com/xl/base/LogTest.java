@@ -18,12 +18,13 @@ import org.junit.Test;
 //@lombok.extern.java.Log
 public class LogTest {
     private static final Log log2 = LogFactory.getLog(XLTest.class);
-
+    public static final Log log3 = LogFactory.getLog(XLTest.class);
+    
     @Test
     public void logTest() {
         log2.info("测试");
     }
-
+    
     @Test
     public void demoTest() {
         log.info("测试");
