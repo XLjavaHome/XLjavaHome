@@ -7,6 +7,11 @@ package com.xl.thread;
  * 允许的请求队列长度为Integer.MAX_VALUE，可能会堆积大量的请求，从而导致OOM。
  * 2)CacheThreadPooL和ScheduledThreadPool：
  * 允许的创建线程数量为Integer.MAX_VALUE，可能会去创建大量的线程，从而导致OOM。
+ * 线程一旦终止不能start    <p/>
+ * 类锁获取后可以获取到对象锁，没有任何互斥
+ *
+ * @see java.lang.Thread.State   线程有7中状态 ，该枚举有6种
+ * 先wait再notify
  */
 public class ThreadTest implements Runnable {
     /**
