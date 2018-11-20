@@ -10,4 +10,6 @@ package com.xl.service;
  */
 public interface Subject {
     String say(String name, int age);
+    
+    void eat();
 }

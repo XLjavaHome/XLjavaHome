@@ -41,7 +41,10 @@ class MyInvocationHandler implements InvocationHandler {
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         log.info("代理执行方法前");
-        Object temp = method.invoke(this.obj, args);
+        Object temp = null;
+        if (method.getName().indexOf("eat") > -1) {
+            temp = method.invoke(this.obj, args);
+        }
         log.info("代理执行方法后");
         return temp;
     }
