@@ -126,4 +126,21 @@ public class ListTest {
         //true
         System.out.println(interlist.contains(1));
     }
+    
+    @Test
+    public void capitalTest() {
+        List list = new ArrayList();
+        for (int i = 0; i < 1000000; i++) {
+            list.add(i);
+        }
+    }
+    
+    @Test
+    public void capitalTest2() {
+        List list = new ArrayList(1000000);
+        for (int i = 0; i < 1000000; i++) {
+            list.add(i);
+        }
+    }
+    
 }
