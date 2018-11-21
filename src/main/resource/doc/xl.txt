@@ -1,2 +1,4 @@
-启动tomcat
-https://ss0.bdstatic.com/7Ls0a8Sm1A5BphGlnYG/sys/portrait/item/2c8e222e.jpg
+1.胡堃跟我反馈我的消息发送消息中的其他打开窗口中的内容不能编辑，发送按钮点击无效。
+2.和胡佳韡沟通，内容区域换成doceditor。
+3.熟悉框架的doceditor，换成doceditor发现内容区别无法编辑，和胡堃、胡佳韡沟通暂时没有解决，只有点击HTML代码才能解决。
+4.自测发送其他消息功能。
