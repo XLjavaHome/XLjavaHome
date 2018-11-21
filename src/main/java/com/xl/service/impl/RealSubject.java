@@ -18,4 +18,9 @@ public class RealSubject implements Subject {
         log.info(name + "  " + age);
         return name + "  " + age;
     }
+    
+    @Override
+    public void eat() {
+        log.info("测试eat方法是否执行");
+    }
 }
