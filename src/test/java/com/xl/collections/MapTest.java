@@ -103,4 +103,26 @@ public class MapTest {
         hashTable.put(null, "11");
         System.out.println(hashTable);
     }
+    
+    /**
+     * 容量测试
+     */
+    @Test
+    public void capitalTest() {
+        Map map = new HashMap();
+        for (int i = 0; i < 100000; i++) {
+            map.put(i, i);
+        }
+    }
+    
+    /**
+     * 容量测试
+     */
+    @Test
+    public void capitalTest2() {
+        Map map = new HashMap(100000);
+        for (int i = 0; i < 100000; i++) {
+            map.put(i, i);
+        }
+    }
 }

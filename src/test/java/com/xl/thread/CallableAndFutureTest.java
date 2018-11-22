@@ -1,4 +1,4 @@
-package com.xl;
+package com.xl.thread;
 
 import com.xl.util.NumberTool;
 import java.util.concurrent.CompletionService;
@@ -25,7 +25,7 @@ public class CallableAndFutureTest {
         ExecutorService threadPool2 = Executors.newFixedThreadPool(10);
         long start = System.currentTimeMillis();
         CompletionService<Integer> completionService = new ExecutorCompletionService<Integer>(threadPool2);
-        for (int i = 1; i <= 15; i++) {
+        for (int i = 1; i <= 2; i++) {
             completionService.submit(() -> {
                 try {
                     //放在里面会耗时很少
