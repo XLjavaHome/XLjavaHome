@@ -16,6 +16,11 @@ public class RealSubject implements Subject {
     @Override
     public String say(String name, int age) {
         log.info(name + "  " + age);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         eat();
         return name + "  " + age;
     }

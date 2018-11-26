@@ -40,10 +40,13 @@ public class MyInvocationHandler implements InvocationHandler {
      */
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+        long start = System.currentTimeMillis();
         log.info("代理执行方法前");
         Object temp = null;
         temp = method.invoke(this.obj, args);
+        long end = System.currentTimeMillis();
         log.info("代理执行方法后");
+        log.info("方法执行时长" + (end - start) + "毫秒");
         return temp;
     }
 }

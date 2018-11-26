@@ -4,6 +4,7 @@ import com.xl.base.design.proxy.MyInvocationHandler;
 import com.xl.service.Subject;
 import com.xl.service.impl.RealSubject;
 import lombok.extern.log4j.Log4j;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -17,13 +18,19 @@ import org.junit.Test;
  */
 @Log4j
 public class ProxyTest {
+    MyInvocationHandler demo;
+    Subject sub;
+    
+    @Before
+    public void before() {
+        demo = new MyInvocationHandler();
+        //代理不传对象会报错
+        sub = (Subject) demo.bind(new RealSubject());
+    }
+    
     @Test
     public void test() {
-        MyInvocationHandler demo = new MyInvocationHandler();
-        //代理不传对象会报错
-        Subject sub = (Subject) demo.bind(new RealSubject());
         sub.say("Rollen", 20);
-        //sub.eat();
     }
 }
 

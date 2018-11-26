@@ -21,18 +21,20 @@ public class ThreadTest implements Runnable {
     
     public static void main(String[] args) {
         System.out.println(Thread.currentThread().getName());
-        Thread thread = new Thread(new ThreadTest());
-        thread.start();
-        //isAlive是否在运行
-        System.out.println(thread.isAlive());
-        new Thread(() -> {
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        for (int i = 0; i < 10; i++) {
+            Thread thread = new Thread(new ThreadTest());
+            thread.start();
+            //isAlive是否在运行
             System.out.println(thread.isAlive());
-        }).start();
+            new Thread(() -> {
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                //System.out.println(thread.isAlive());
+            }).start();
+        }
     }
     
     @Override

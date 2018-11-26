@@ -124,5 +124,7 @@ public class MapTest {
         for (int i = 0; i < 100000; i++) {
             map.put(i, i);
         }
+        int j = 10;
+        int s = 1;
     }
 }

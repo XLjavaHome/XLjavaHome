@@ -51,7 +51,7 @@ public class FileUtil {
     public static Charset getFileEncode(File file) {
         return getFileEncode(file.getAbsolutePath());
     }
-
+    
     /**
      * 利用第三方开源包cpdetector获取文件编码格式
      *
@@ -60,25 +60,25 @@ public class FileUtil {
      * @version 2012-7-12 14:05
      */
     public static Charset getFileEncode(String path) {
-    /*
-     * detector是探测器，它把探测任务交给具体的探测实现类的实例完成。
-     * cpDetector内置了一些常用的探测实现类，这些探测实现类的实例可以通过add方法 加进来，如ParsingDetector、
-     * JChardetFacade、ASCIIDetector、UnicodeDetector。
-     * detector按照“谁最先返回非空的探测结果，就以该结果为准”的原则返回探测到的
-     * 字符集编码。使用需要用到三个第三方JAR包：antlr.jar、chardet.jar和cpdetector.jar
-     * cpDetector是基于统计学原理的，不保证完全正确。
-     */
+        /*
+         * detector是探测器，它把探测任务交给具体的探测实现类的实例完成。
+         * cpDetector内置了一些常用的探测实现类，这些探测实现类的实例可以通过add方法 加进来，如ParsingDetector、
+         * JChardetFacade、ASCIIDetector、UnicodeDetector。
+         * detector按照“谁最先返回非空的探测结果，就以该结果为准”的原则返回探测到的
+         * 字符集编码。使用需要用到三个第三方JAR包：antlr.jar、chardet.jar和cpdetector.jar
+         * cpDetector是基于统计学原理的，不保证完全正确。
+         */
         CodepageDetectorProxy detector = CodepageDetectorProxy.getInstance();
-    /*
-     * ParsingDetector可用于检查HTML、XML等文件或字符流的编码,构造方法中的参数用于
-     * 指示是否显示探测过程的详细信息，为false不显示。
-     */
+        /*
+         * ParsingDetector可用于检查HTML、XML等文件或字符流的编码,构造方法中的参数用于
+         * 指示是否显示探测过程的详细信息，为false不显示。
+         */
         detector.add(new ParsingDetector(false));
-    /*
-     * JChardetFacade封装了由Mozilla组织提供的JChardet，它可以完成大多数文件的编码
-     * 测定。所以，一般有了这个探测器就可满足大多数项目的要求，如果你还不放心，可以
-     * 再多加几个探测器，比如下面的ASCIIDetector、UnicodeDetector等。
-     */
+        /*
+         * JChardetFacade封装了由Mozilla组织提供的JChardet，它可以完成大多数文件的编码
+         * 测定。所以，一般有了这个探测器就可满足大多数项目的要求，如果你还不放心，可以
+         * 再多加几个探测器，比如下面的ASCIIDetector、UnicodeDetector等。
+         */
         detector.add(JChardetFacade.getInstance());// 用到antlr.jar、chardet.jar
         // ASCIIDetector用于ASCII编码测定
         detector.add(ASCIIDetector.getInstance());
@@ -92,11 +92,11 @@ public class FileUtil {
         }
         return null;
     }
-
+    
     public static void openNodepad() {
         SystemUtil.exec("notepad");
     }
-
+    
     /**
      * 复制文件
      *
@@ -107,7 +107,7 @@ public class FileUtil {
     public static void copyFile(File src, File target) throws IOException {
         copyFileStream(new FileInputStream(src), target);
     }
-
+    
     /**
      * 将流复制到文件
      *
@@ -117,7 +117,7 @@ public class FileUtil {
     public static void copyFileStream(InputStream src, File target) throws IOException {
         IOUtils.copy(src, new FileOutputStream(target));
     }
-
+    
     /**
      * 对文件大小进行格式化
      *
@@ -138,7 +138,7 @@ public class FileUtil {
         }
         return fileSizeString;
     }
-
+    
     /**
      * 返回该文件大小,leng就可以获得大小了
      *
@@ -152,7 +152,7 @@ public class FileUtil {
     public static int getSize(File file) throws IOException {
         return new FileInputStream(file).available();
     }
-
+    
     /**
      * 打印集合
      *
@@ -164,7 +164,7 @@ public class FileUtil {
             System.out.println(i.next());
         }
     }
-
+    
     /**
      * 遍历该目录下所有文件
      *
@@ -188,7 +188,7 @@ public class FileUtil {
         }
         return list;
     }
-
+    
     /**
      * 遍历该目录下所有文件
      *
@@ -198,7 +198,7 @@ public class FileUtil {
     public static List<File> queryAll(File file) {
         return queryAll(file.getAbsolutePath());
     }
-
+    
     /**
      * 遍历该目录下所有文件
      *
@@ -210,7 +210,7 @@ public class FileUtil {
         List<File> list = new ArrayList<File>();
         return queryAll(file, list);
     }
-
+    
     /**
      * 遍历该目录下所有文件
      *
@@ -222,7 +222,7 @@ public class FileUtil {
         List<File> list = new ArrayList<File>();
         return queryAll(file, list, endWith);
     }
-
+    
     public static List<File> queryAll(File file, List<File> list, String end) {
         if (file != null) {
             if (file.isDirectory()) {
@@ -240,7 +240,7 @@ public class FileUtil {
         }
         return list;
     }
-
+    
     /**
      * 往目标写入
      *
@@ -263,7 +263,7 @@ public class FileUtil {
             is.close();
         }
     }
-
+    
     /**
      * 向指定文件输入内容
      *
@@ -289,7 +289,7 @@ public class FileUtil {
             }
         }
     }
-
+    
     public static String getContent(File file) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(file));
         StringBuffer sb = null;
@@ -309,7 +309,7 @@ public class FileUtil {
             }
         }
     }
-
+    
     public static String getSize(Long fileS) {
         DecimalFormat df = new DecimalFormat("#.00");
         String fileSizeString = "";
@@ -324,16 +324,21 @@ public class FileUtil {
         }
         return fileSizeString;
     }
-
+    
+    /**
+     * 获取桌面路径
+     *
+     * @return
+     */
     public static String getDesktopPath() {
         return getDesktop().getPath();
     }
-
+    
     public static File getDesktop() {
         FileSystemView fsv = FileSystemView.getFileSystemView();
         return fsv.getHomeDirectory();
     }
-
+    
     /**
      * 获取桌面文件
      *
@@ -344,7 +349,7 @@ public class FileUtil {
         FileSystemView fsv = FileSystemView.getFileSystemView();
         return new File(fsv.getHomeDirectory(), name);
     }
-
+    
     /**
      * 打开文件
      *
@@ -354,7 +359,7 @@ public class FileUtil {
     public static void open(File file) throws IOException {
         Desktop.getDesktop().open(file);
     }
-
+    
     /**
      * 打开文件的所在目录
      *
@@ -364,7 +369,7 @@ public class FileUtil {
     public static void openDirectory(File file) throws IOException {
         open(file.getParentFile());
     }
-
+    
     /**
      * 不包含目录下的文件
      *
@@ -378,17 +383,17 @@ public class FileUtil {
         files.removeAll(Arrays.asList(files1));
         return files;
     }
-
+    
     @Test
     public void testGetCurrentPath() {
         String path = getCurrentPath(this);
         System.out.println(path);
     }
-
+    
     public static <T> String getCurrentPath(T obj) {
         return getCurrentPath(obj.getClass());
     }
-
+    
     /**
      * 获取当前类的路径<br/>
      * 思路：工程路径+src+类名
@@ -403,11 +408,11 @@ public class FileUtil {
         name = name.substring(0, name.lastIndexOf(".")).replace(".", File.separator);
         return projectPath + File.separator + name;
     }
-
+    
     public static String getProjectPath() {
         return Thread.currentThread().getContextClassLoader().getResource("").getPath();
     }
-
+    
     /**
      * 得到当前工程的绝对路径
      *
@@ -416,7 +421,7 @@ public class FileUtil {
     public static String getCurrentClassPath() {
         return FileUtil.class.getProtectionDomain().getCodeSource().getLocation().getPath();
     }
-
+    
     /**
      * 获取jar的所在目录
      *
@@ -426,7 +431,7 @@ public class FileUtil {
         File f = new File(getCurrentClassPath());
         return f.getParentFile();
     }
-
+    
     @Test
     public void testTraverser() {
         File file = new File(getCurrentClassPath());
@@ -437,7 +442,7 @@ public class FileUtil {
             System.out.println(f.getName());
         }
     }
-
+    
     /**
      * 创建临时文件
      *
