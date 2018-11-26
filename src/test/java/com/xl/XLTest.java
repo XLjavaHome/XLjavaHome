@@ -6,7 +6,10 @@ import com.xl.util.StringUtil;
 import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import lombok.extern.log4j.Log4j;
 import org.junit.Test;
 import sun.text.resources.cldr.aa.FormatData_aa;
@@ -52,4 +55,43 @@ public class XLTest {
     public void xlTest() {
         String s = "select * from\n" + "user_tables;";
     }
+    
+    @Test
+    public void convertTest() {
+        List<String> collected = new ArrayList<>();
+        collected.add("alpha");
+        collected.add("beta");
+        collected = collected.stream().map(string -> string.toUpperCase()).collect(Collectors.toList());
+        System.out.println(collected);
+    }
+    
+    /**
+     * 改成冒号了
+     */
+    @Test
+    public void convertTest2() {
+        List<String> collected = new ArrayList<>();
+        collected.add("alpha");
+        collected.add("beta");
+        for (int i = 0; i < 10000; i++) {
+            collected.add(i + "");
+        }
+        collected = collected.stream().map(String::toUpperCase).collect(Collectors.toCollection(ArrayList::new));//注意发生的变化
+        System.out.println(collected);
+    }
+    
+    @Test
+    public void convertTest3() {
+        List<String> collected = new ArrayList<>();
+        collected.add("alpha");
+        collected.add("beta");
+        for (int i = 0; i < 10000; i++) {
+            collected.add(i + "");
+        }
+        for (String s : collected) {
+            s = s.toUpperCase();
+        }
+        System.out.println(collected);
+    }
 }
+
