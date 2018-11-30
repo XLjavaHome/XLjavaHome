@@ -1,9 +1,10 @@
 package com.xl.base;
 
+import java.lang.reflect.Field;
 import org.junit.Test;
 
 /**
- * Created with 徐立.值交换
+ * Created with 徐立.值交换  -128~127 (包含)
  *
  * @author: 徐立
  * @Date: 2018-11-21
@@ -26,18 +27,46 @@ public class SwapTest {
         System.out.println();
         System.out.printf("after a=%s,b=%s", a, b);
         swap2(a, b);
+        System.out.println();
+        System.out.println(String.format("after a=%s,b=%s", a, b));
+        //达到了128就无法换位
+        a = 100;
+        b = -129;
+        swap(a, b);
         System.out.println(String.format("after a=%s,b=%s", a, b));
     }
     
+    /**
+     * 用反射调用属性对象实现换位
+     * 使用第三方变量
+     *
+     * @param a
+     * @param b
+     */
     void swap(Integer a, Integer b) {
-        Integer tem = a;
-        a = b;
-        b = tem;
+        int tem = a;
+        try {
+            Field field = Integer.class.getDeclaredField("value");
+            field.setAccessible(true);
+            field.set(a, b);
+            //field.set(b, tem); 无法实现b赋值
+            field.setInt(b, tem);
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
     }
     
+    /**
+     * 不适用第三方变量
+     *
+     * @param a
+     * @param b
+     */
     void swap2(int a, int b) {
-        int tem = a;
-        a = b;
-        b = tem;
+        a = a ^ b;
+        b = a ^ b;
+        a = a ^ b;
     }
 }
