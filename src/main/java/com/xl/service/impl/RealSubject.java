@@ -21,7 +21,6 @@ public class RealSubject implements Subject {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        eat();
         return name + "  " + age;
     }
     
