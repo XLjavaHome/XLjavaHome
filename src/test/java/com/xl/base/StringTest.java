@@ -5,6 +5,7 @@ import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import lombok.extern.log4j.Log4j;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,6 +17,7 @@ import org.junit.Test;
  * Time: 9:59
  * To change this template use File | Settings | File Templates.
  */
+@Log4j
 public class StringTest {
     String birthday = "111111111111111119900228";
     StringBuffer sql = new StringBuffer();
@@ -118,9 +120,10 @@ public class StringTest {
         System.out.println(test);
         //按顺序占位，多一个%s会报错
         String s = String.format("测试%s占位符,%s", "hello world", "这是第二个");
-        System.out.println(s);
-        String str = String.format("格式参数$的使用：%1$d,%2$s,%2$s，%2$s", 99, "abc");
-        System.out.println(str);
+        log.info(s);
+        //数字占位符，按照顺序占位
+        String str = String.format("格式参数$的使用：%1$d,%3$s,%2$s,%2$s，%2$s", 99, "abc", "这是第三个占位符");
+        log.info(str);
         //    占位符中的double类型
         double num = 123.4567899;
         System.out.print(String.format("%f %n", num)); // 123.456790
