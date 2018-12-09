@@ -484,16 +484,13 @@
             <artifactId>gson</artifactId>
             <version>2.7</version>
         </dependency>
-        <!--不会知道干嘛用的-->
-        <!--
-                <dependency>
-                    <groupId>com.google.guava</groupId>
-                    <artifactId>guava</artifactId>
-                    <version>23.6-jre</version>
-                    &lt;!&ndash;for android&ndash;&gt;
-                    &lt;!&ndash;<version>23.6-android</version>&ndash;&gt;
-                </dependency>
-        -->
+        <!--布隆过滤器，判断海量元素是否在集合中,参见BloomFilterTest-->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>22.0</version>
+            <!--<version>23.6-jre</version>-->
+        </dependency>
         <!--lombok jar-->
         <dependency>
             <groupId>org.projectlombok</groupId>

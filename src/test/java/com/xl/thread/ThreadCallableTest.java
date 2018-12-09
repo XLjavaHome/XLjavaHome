@@ -25,6 +25,8 @@ public class ThreadCallableTest implements Callable<String> {
         Future<Double> future = pool.submit(new ThreadReturnValue(3000L));
         Future<Double> future2 = pool.submit(new ThreadReturnValue(2000L));
         Future<Double> future3 = pool.submit(new ThreadReturnValue(1000L));
+        pool.submit(() -> log.info("测试"));
+        
         // 不允许再向线程池中增加线程
         pool.shutdown();
         //判断是否所有线程已经执行完毕
