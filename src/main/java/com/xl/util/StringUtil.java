@@ -291,9 +291,9 @@ public class StringUtil {
      * @param separator
      * @return
      */
-    public static String join(String[] collection, String separator) {
+    public static String join(Object[] collection, String separator) {
         StringBuffer buf = new StringBuffer(256);
-        for (String s : collection) {
+        for (Object s : collection) {
             buf.append(s).append(separator);
         }
         buf.deleteCharAt(buf.length() - 1);

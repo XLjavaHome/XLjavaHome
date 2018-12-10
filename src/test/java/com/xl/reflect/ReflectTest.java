@@ -11,6 +11,16 @@ import java.lang.reflect.Method;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Created with 徐立.getFields：获取所有public的成员变量。
+ * <p>
+ * getDeclaredFields ：获取所有成员变量。
+ *
+ * @uthor: 徐立
+ * @Date: 2018-11-30
+ * @Time: 22:28
+ * To change this template use File | Settings | File Templates.
+ */
 public class ReflectTest {
     Person p = new Person();
     private String className = null;
@@ -117,5 +127,18 @@ public class ReflectTest {
         //只有获取public获取属性，没有就会报错
         Field log2 = LogTest.class.getField("log3");
         System.out.println(log2.get(null));
+    }
+    
+    /**
+     * 成员赋值测试
+     */
+    @Test
+    public void filedTest() throws NoSuchFieldException, IllegalAccessException {
+        Person p = new Person();
+        Field field = p.getClass().getDeclaredField("birthday");
+        //不加会抛异常，不能给私有变量赋值
+        field.setAccessible(true);
+        field.set(p, "这是生日");
+        System.out.println(p);
     }
 }

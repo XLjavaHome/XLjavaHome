@@ -35,10 +35,10 @@ public class NumberUtil {
      * 默认除法运算精度
      */
     private static final int DEFAUT_DIV_SCALE = 10;
-
+    
     private NumberUtil() {
     }
-
+    
     /**
      * 提供精确的加法运算
      *
@@ -49,7 +49,7 @@ public class NumberUtil {
     public static double add(double v1, double v2) {
         return add(Double.toString(v1), Double.toString(v2)).doubleValue();
     }
-
+    
     /**
      * 提供精确的加法运算
      *
@@ -63,7 +63,7 @@ public class NumberUtil {
         final BigDecimal b2 = new BigDecimal(v2);
         return b1.add(b2);
     }
-
+    
     /**
      * 提供精确的减法运算
      *
@@ -74,7 +74,7 @@ public class NumberUtil {
     public static double sub(double v1, double v2) {
         return sub(Double.toString(v1), Double.toString(v2)).doubleValue();
     }
-
+    
     /**
      * 提供精确的减法运算
      *
@@ -88,7 +88,7 @@ public class NumberUtil {
         final BigDecimal b2 = new BigDecimal(v2);
         return b1.subtract(b2);
     }
-
+    
     /**
      * 提供精确的乘法运算
      *
@@ -99,7 +99,7 @@ public class NumberUtil {
     public static double mul(double v1, double v2) {
         return mul(Double.toString(v1), Double.toString(v2)).doubleValue();
     }
-
+    
     /**
      * 提供精确的乘法运算
      *
@@ -113,7 +113,7 @@ public class NumberUtil {
         final BigDecimal b2 = new BigDecimal(v2);
         return b1.multiply(b2);
     }
-
+    
     /**
      * 提供(相对)精确的除法运算,当发生除不尽的情况的时候,精确到小数点后10位,后面的四舍五入
      *
@@ -124,7 +124,7 @@ public class NumberUtil {
     public static double div(double v1, double v2) {
         return div(v1, v2, DEFAUT_DIV_SCALE);
     }
-
+    
     /**
      * 提供(相对)精确的除法运算,当发生除不尽的情况时,由scale指定精确度,后面的四舍五入
      *
@@ -136,7 +136,7 @@ public class NumberUtil {
     public static double div(double v1, double v2, int scale) {
         return div(v1, v2, scale, RoundingMode.HALF_UP);
     }
-
+    
     /**
      * 提供(相对)精确的除法运算,当发生除不尽的情况时,由scale指定精确度
      *
@@ -149,7 +149,7 @@ public class NumberUtil {
     public static double div(double v1, double v2, int scale, RoundingMode roundingMode) {
         return div(Double.toString(v1), Double.toString(v2), scale, roundingMode).doubleValue();
     }
-
+    
     /**
      * 提供(相对)精确的除法运算,当发生除不尽的情况时,由scale指定精确度
      *
@@ -167,7 +167,7 @@ public class NumberUtil {
         final BigDecimal b2 = new BigDecimal(v2);
         return b1.divide(b2, scale, roundingMode);
     }
-
+    
     /**
      * 提供(相对)精确的除法运算,当发生除不尽的情况的时候,精确到小数点后10位,后面的四舍五入
      *
@@ -178,7 +178,7 @@ public class NumberUtil {
     public static BigDecimal div(String v1, String v2) {
         return div(v1, v2, DEFAUT_DIV_SCALE);
     }
-
+    
     /**
      * 提供(相对)精确的除法运算,当发生除不尽的情况时,由scale指定精确度,后面的四舍五入
      *
@@ -191,7 +191,7 @@ public class NumberUtil {
         return div(v1, v2, scale, RoundingMode.HALF_UP);
     }
     // ------------------------------------------------------------------------------------------- round
-
+    
     /**
      * 保留固定位数小数<br>
      * 采用四舍五入策略 {@link RoundingMode#HALF_UP}<br>
@@ -204,7 +204,7 @@ public class NumberUtil {
     public static double round(double v, int scale) {
         return round(v, scale, RoundingMode.HALF_UP);
     }
-
+    
     /**
      * 保留固定位数小数<br>
      * 例如保留四位小数：123.456789 =》 123.4567
@@ -217,7 +217,7 @@ public class NumberUtil {
     public static double round(double v, int scale, RoundingMode roundingMode) {
         return round(Double.toString(v), scale, roundingMode);
     }
-
+    
     /**
      * 保留固定位数小数<br>
      * 例如保留四位小数：123.456789 =》 123.4567
@@ -231,7 +231,7 @@ public class NumberUtil {
         final BigDecimal b = new BigDecimal(numberStr);
         return b.setScale(scale, roundingMode).doubleValue();
     }
-
+    
     /**
      * 保留固定位数小数<br>
      * 采用四舍五入策略 {@link RoundingMode#HALF_UP}<br>
@@ -244,7 +244,7 @@ public class NumberUtil {
     public static double round(String numberStr, int scale) {
         return round(numberStr, scale, RoundingMode.HALF_UP);
     }
-
+    
     /**
      * 保留小数位，采用四舍五入
      *
@@ -256,7 +256,7 @@ public class NumberUtil {
         return String.format("%." + digit + 'f', number);
     }
     // ------------------------------------------------------------------------------------------- decimalFormat
-
+    
     /**
      * 格式化double<br>
      * 对 {@link DecimalFormat} 做封装<br>
@@ -278,7 +278,7 @@ public class NumberUtil {
     public static String decimalFormat(String pattern, double value) {
         return new DecimalFormat(pattern).format(value);
     }
-
+    
     /**
      * 格式化double<br>
      * 对 {@link DecimalFormat} 做封装<br>
@@ -302,7 +302,7 @@ public class NumberUtil {
         return new DecimalFormat(pattern).format(value);
     }
     // ------------------------------------------------------------------------------------------- isXXX
-
+    
     /**
      * 是否为数字
      *
@@ -329,7 +329,8 @@ public class NumberUtil {
                 }
                 // checking hex (it can't be anything else)
                 for (; i < chars.length; i++) {
-                    if ((chars[i] < '0' || chars[i] > '9') && (chars[i] < 'a' || chars[i] > 'f') && (chars[i] < 'A' || chars[i] > 'F')) {
+                    if ((chars[i] < '0' || chars[i] > '9') && (chars[i] < 'a' || chars[i] > 'f') && (chars[i] < 'A'
+                                                                                                     || chars[i] > 'F')) {
                         return false;
                     }
                 }
@@ -404,7 +405,7 @@ public class NumberUtil {
         // found digit it to make sure weird stuff like '.' and '1E-' doesn't pass
         return !allowSigns && foundDigit;
     }
-
+    
     /**
      * 判断String是否是整数
      *
@@ -418,7 +419,7 @@ public class NumberUtil {
             return false;
         }
     }
-
+    
     /**
      * 判断字符串是否是浮点数
      *
@@ -436,7 +437,7 @@ public class NumberUtil {
             return false;
         }
     }
-
+    
     /**
      * 是否是质数<br>
      * 质数表的质数又称素数。指整数在一个大于1的自然数中,除了1和此整数自身外,没法被其他自然数整除的数。
@@ -453,7 +454,7 @@ public class NumberUtil {
         return true;
     }
     // ------------------------------------------------------------------------------------------- generateXXX
-
+    
     /**
      * 生成不重复随机数 根据给定的最小数字和最大数字，以及随机数的个数，产生指定的不重复的数组
      *
@@ -490,7 +491,7 @@ public class NumberUtil {
         }
         return ranArr;
     }
-
+    
     /**
      * 生成不重复随机数 根据给定的最小数字和最大数字，以及随机数的个数，产生指定的不重复的数组
      *
@@ -518,7 +519,7 @@ public class NumberUtil {
         return ranArr;
     }
     // ------------------------------------------------------------------------------------------- range
-
+    
     /**
      * 给定范围内的整数列表，步进为1
      *
@@ -529,7 +530,7 @@ public class NumberUtil {
     public static int[] range(int start, int stop) {
         return range(start, stop, 1);
     }
-
+    
     /**
      * 给定范围内的整数列表
      *
@@ -555,7 +556,7 @@ public class NumberUtil {
         }
         return values;
     }
-
+    
     /**
      * 将给定范围内的整数添加到已有集合中，步进为1
      *
@@ -567,7 +568,7 @@ public class NumberUtil {
     public static Collection<Integer> appendRange(int start, int stop, Collection<Integer> values) {
         return appendRange(start, stop, 1, values);
     }
-
+    
     /**
      * 将给定范围内的整数添加到已有集合中
      *
@@ -592,7 +593,7 @@ public class NumberUtil {
         return values;
     }
     // ------------------------------------------------------------------------------------------- others
-
+    
     /**
      * 阶乘：n!
      *
@@ -605,7 +606,7 @@ public class NumberUtil {
         }
         return n * factorial(n - 1);
     }
-
+    
     /**
      * 平方根算法<br>
      * 推荐使用 {@link Math#sqrt(double)}
@@ -628,7 +629,7 @@ public class NumberUtil {
         }
         return y;
     }
-
+    
     /**
      * 可以用于计算双色球、大乐透注数的方法<br>
      * 比如大乐透35选5可以这样调用processMultiple(7,5); 就是数学中的：C75=7*6/2*1
@@ -642,7 +643,7 @@ public class NumberUtil {
         result = mathSubnode(selectNum, minNum) / mathNode(selectNum - minNum);
         return result;
     }
-
+    
     /**
      * 最小公倍数
      *
@@ -653,7 +654,7 @@ public class NumberUtil {
     public static int multiple(int m, int n) {
         return m * n / divisor(m, n);
     }
-
+    
     /**
      * 最大公约数
      *
@@ -669,7 +670,7 @@ public class NumberUtil {
         }
         return n;
     }
-
+    
     /**
      * 获得数字对应的二进制字符串
      *
@@ -685,7 +686,7 @@ public class NumberUtil {
             return Long.toBinaryString(number.longValue());
         }
     }
-
+    
     /**
      * 二进制转int
      *
@@ -695,7 +696,7 @@ public class NumberUtil {
     public static int binaryToInt(String binaryStr) {
         return Integer.parseInt(binaryStr, 2);
     }
-
+    
     /**
      * 二进制转long
      *
@@ -706,7 +707,7 @@ public class NumberUtil {
         return Long.parseLong(binaryStr, 2);
     }
     // ------------------------------------------------------------------------------------------- compare
-
+    
     /**
      * 比较两个值的大小
      *
@@ -719,7 +720,7 @@ public class NumberUtil {
     public static int compare(char x, char y) {
         return x - y;
     }
-
+    
     /**
      * 比较两个值的大小
      *
@@ -732,7 +733,7 @@ public class NumberUtil {
     public static int compare(double x, double y) {
         return Double.compare(x, y);
     }
-
+    
     /**
      * 比较两个值的大小
      *
@@ -752,7 +753,7 @@ public class NumberUtil {
             return 1;
         }
     }
-
+    
     /**
      * 比较两个值的大小
      *
@@ -772,7 +773,7 @@ public class NumberUtil {
             return 1;
         }
     }
-
+    
     /**
      * 比较两个值的大小
      *
@@ -792,7 +793,7 @@ public class NumberUtil {
             return 1;
         }
     }
-
+    
     /**
      * 比较两个值的大小
      *
@@ -805,7 +806,7 @@ public class NumberUtil {
     public static int compare(byte x, byte y) {
         return x - y;
     }
-
+    
     /**
      * 数字转字符串<br>
      * 调用{@link Number#toString()}，并去除尾小数点儿后多余的0
@@ -829,7 +830,7 @@ public class NumberUtil {
         }
         return string;
     }
-
+    
     /**
      * 是否空白符<br>
      * 空白符包括空格、制表符、全角空格和不间断空格<br>
@@ -843,7 +844,7 @@ public class NumberUtil {
     public static boolean isBlankChar(char c) {
         return isBlankChar((int) c);
     }
-
+    
     /**
      * 是否空白符<br>
      * 空白符包括空格、制表符、全角空格和不间断空格<br>
@@ -857,7 +858,7 @@ public class NumberUtil {
     public static boolean isBlankChar(int c) {
         return Character.isWhitespace(c) || Character.isSpaceChar(c);
     }
-
+    
     /**
      * 计算等份个数
      *
@@ -869,7 +870,7 @@ public class NumberUtil {
     public static int count(int total, int part) {
         return (total % part == 0) ? (total / part) : (total / part + 1);
     }
-
+    
     // ------------------------------------------------------------------------------------------- Private method start
     private static int mathSubnode(int selectNum, int minNum) {
         if (selectNum == minNum) {
@@ -878,7 +879,7 @@ public class NumberUtil {
             return selectNum * mathSubnode(selectNum - 1, minNum);
         }
     }
-
+    
     private static int mathNode(int selectNum) {
         if (selectNum == 0) {
             return 1;
@@ -886,5 +887,11 @@ public class NumberUtil {
             return selectNum * mathNode(selectNum - 1);
         }
     }
+    
     // ------------------------------------------------------------------------------------------- Private method end
+    public static void swap(int a, int b) {
+        a = a ^ b;
+        b = a ^ b;
+        a = a ^ b;
+    }
 }
