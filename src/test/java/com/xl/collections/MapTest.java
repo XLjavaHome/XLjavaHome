@@ -14,10 +14,7 @@ import org.junit.Test;
 /**
  * Created with IntelliJ IDEA.
  *
- * @author: 徐立
- * Date: 2017-11-20
- * Time: 16:14
- * To change this template use File | Settings | File Templates.
+ * @author: 徐立 Date: 2017-11-20 Time: 16:14 To change this template use File | Settings | File Templates.
  */
 public class MapTest {
     HashMap<String, String> map = new HashMap<String, String>(0);
@@ -126,5 +123,16 @@ public class MapTest {
         }
         int j = 10;
         int s = 1;
+    }
+    
+    /**
+     * key存integer但是获取Int值能否获取 <p/>可以获取
+     */
+    @Test
+    public void integerTest() {
+        Map<Integer, String> map = new HashMap<>();
+        map.put(new Integer(2002), "测试");
+        int key = 2002;
+        System.out.println(map.get(key));
     }
 }

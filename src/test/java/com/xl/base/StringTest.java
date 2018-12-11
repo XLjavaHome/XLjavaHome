@@ -3,8 +3,6 @@ package com.xl.base;
 import com.xl.util.StringUtil;
 import java.text.MessageFormat;
 import java.util.Arrays;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import lombok.extern.log4j.Log4j;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.junit.Before;
@@ -121,9 +119,12 @@ public class StringTest {
         //按顺序占位，多一个%s会报错
         String s = String.format("测试%s占位符,%s", "hello world", "这是第二个");
         log.info(s);
-        //数字占位符，按照顺序占位
-        String str = String.format("格式参数$的使用：%1$d,%3$s,%2$s,%2$s，%2$s", 99, "abc", "这是第三个占位符");
+        //数字占位符，按照顺序占位 从1开始
+        String str = String.format("格式参数$的使用： %1$d,%3$s,%2$s,%2$s，%2$s", 99, "abc", "这是第三个占位符");
         log.info(str);
+        //从0开始也可以 第二个是从2开始，如果是3会报错。
+        String str2 = String.format("格式参数$的使用： %0$s %2$s", "hello", "world");
+        log.info(str2);
         //    占位符中的double类型
         double num = 123.4567899;
         System.out.print(String.format("%f %n", num)); // 123.456790
@@ -139,59 +140,5 @@ public class StringTest {
         String[] holder = {"hello", "测试"};
         String t2 = MessageFormat.format("MessageFormat占位符() {0},{1},", holder);
         System.out.println(t2);
-    }
-    
-    @Test
-    public void demoTest() {
-        StringBuilder buf = new StringBuilder();
-        StringBuilder workSheetSql = new StringBuilder();
-        workSheetSql.append("-- 每个项目的每个工作单耗时\n" + "  left join (\n" + "              select t.projectid\n"
-                            + "                , t2.ownerid\n" + "                , sum(t2.worktime) as worksheettime\n"
-                            + "              -- 项目编号\n" + "              from sirmpm_worksheet t\n                inner join (\n"
-                            + "--     每个员工每个工作单耗时多久\n" + "                             select tt1.worksheetid\n"
-                            + "                               , tt1.ownerid\n"
-                            + "                               , max(tt1.worktime) as worktime\n"
-                            + "                             from (\n" + "-- 开发任务，美工任务\n"
-                            + "                                    select tt2.worksheetid\n"
-                            + "                                      , to_char(tt4.ownerid) as ownerid\n"
-                            + "                                      , nvl(sum(tt4.worktime),0) as worktime\n"
-                            + "                                    from sirmpm_worksheet tt1\n"
-                            + "                                      left join sirmpm_requirement tt2 on tt2.worksheetid = tt1.objid\n"
-                            + "                                      left join sirmpm_task tt3 on tt3.requirementid = tt2.objid\n"
-                            + "                                      left join sirmpm_updatetasklog tt4 on tt4.taskid = tt3.objid\n"
-                            + "                                    where tt4.ownerid is not null {0}\n"
-                            + "                                                                   group by tt2.worksheetid,tt4.ownerid\n"
-                            + "                                                                                                -- 测试任务\n"
-                            + "                                                                                                union\n"
-                            + "                                                                                                select tt2.worksheetid\n"
-                            + "                                    ,to_char(tt4.ownerid)\n"
-                            + "                                    ,nvl(sum(tt4.worktime),0) as testtasktime\n"
-                            + "                                                              from sirmpm_worksheet tt1\n"
-                            + "                                                              left join sirmpm_requirement tt2 on tt2.worksheetid = tt1.objid\n"
-                            + "                                                                                                  left join sirmpm_testtask tt3 on tt3.requirementid = tt2.objid\n"
-                            + "                                                                                                                            left join sirmpm_updatetesttasklog tt4 on tt4.taskid = tt3.objid\n"
-                            + "                                                                                                                                                                                       where 1 = 1\n"
-                            + "                                                                                                                                                                                       and tt4.ownerid is not null {1}\n"
-                            + "                                                                                                                                                                                                          group by tt2.worksheetid,tt4.ownerid\n"
-                            + "                                                                                                                                                                                                                                   union\n"
-                            + "                                                                                                                                                                                                                                   -- 部署任务\n"
-                            + "                                                                                                                                                                                                                                   select tt2.worksheetid\n"
-                            + "                                    ,tt6.ownerid\n"
-                            + "                                    ,nvl(sum(tt6.worktime),0)\n"
-                            + "                                    from sirmpm_worksheet tt1\n"
-                            + "                                    left join sirmpm_requirement tt2 on tt2.worksheetid = tt1.objid\n"
-                            + "                                                                            left join sirmpm_task tt3 on tt3.requirementid = tt2.objid\n"
-                            + "                                                                                                         left join sirmpm_taskdeploymentrela tt4 on tt4.taskid = tt3.objid\n"
-                            + "                                                                                                                                             left join sirmpm_deploymenttask tt5 on tt4.deploymenttaskid = tt5.objid\n"
-                            + "                                                                                                                                                                                                               left join sirmpm_deploymenttasklog tt6 on tt6.deploymenttaskid = tt5.objid\n"
-                            + "                                                                                                                                                                                                                                                                                where tt6.ownerid is not null {2}\n"
-                            + "                                                                                                                                                                                                                                                                                                              group by tt2.worksheetid,tt6.ownerid\n"
-                            + "                                                                                                                                                                                                                                                                                                                                          -- 日常维护任务\n"
-                            + "                                                                                                                                                                                                                                                                                                                                          union\n");
-        Pattern p = Pattern.compile("append\\((.*)\\)\"\\)");
-        Matcher matcher = p.matcher(workSheetSql);
-        while (matcher.find()) {
-            System.out.println(matcher.group(1));
-        }
     }
 }

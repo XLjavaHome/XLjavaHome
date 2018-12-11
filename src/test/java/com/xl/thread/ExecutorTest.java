@@ -37,13 +37,8 @@ public class ExecutorTest {
         long start = System.currentTimeMillis();
         Random rm = new Random();
         ExecutorService executorService = Executors.newSingleThreadExecutor();
-        for (int i = 0; i < 100000; i++) {
-            executorService.submit(new Runnable() {
-                @Override
-                public void run() {
-                    list.add(rm.nextInt());
-                }
-            });
+        for (int i = 0; i < 10000000; i++) {
+            executorService.execute(() -> list.add(rm.nextInt()));
         }
         //线程不会执行完
         System.out.println(list.size());

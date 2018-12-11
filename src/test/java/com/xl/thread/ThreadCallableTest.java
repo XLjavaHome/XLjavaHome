@@ -21,12 +21,13 @@ import lombok.extern.log4j.Log4j;
 public class ThreadCallableTest implements Callable<String> {
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         //demo1();
-        ExecutorService pool = Executors.newFixedThreadPool(3);
+        ExecutorService pool = Executors.newFixedThreadPool(2);
+        //ExecutorService pool = Executors.newSingleThreadExecutor();
         Future<Double> future = pool.submit(new ThreadReturnValue(3000L));
         Future<Double> future2 = pool.submit(new ThreadReturnValue(2000L));
         Future<Double> future3 = pool.submit(new ThreadReturnValue(1000L));
-        pool.submit(() -> log.info("测试"));
-        
+        int i = 4;
+        pool.submit(() -> log.info(i));
         // 不允许再向线程池中增加线程
         pool.shutdown();
         //判断是否所有线程已经执行完毕
