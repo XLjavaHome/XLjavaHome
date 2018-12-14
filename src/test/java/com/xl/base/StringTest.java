@@ -125,6 +125,9 @@ public class StringTest {
         //从0开始也可以 第二个是从2开始，如果是3会报错。
         String str2 = String.format("格式参数$的使用： %0$s %2$s", "hello", "world");
         log.info(str2);
+        //占位符是 百分号+数字+$s
+        String str3 = String.format("空置测试： %0$s %2$s", new StringBuffer(), new StringBuilder());
+        log.info(str3);
         //    占位符中的double类型
         double num = 123.4567899;
         System.out.print(String.format("%f %n", num)); // 123.456790

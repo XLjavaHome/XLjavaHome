@@ -17,7 +17,7 @@ import org.junit.Test;
  */
 @Log4j
 public class BloomFilterTest {
-    private static int size = 1000000;
+    private static int size = 10000000;
     private static BloomFilter<String> bloomFilter = BloomFilter.create(Funnels.stringFunnel(Charset.forName("utf-8")), size);
     
     /**
