@@ -20,11 +20,31 @@ public class BooleanTest {
         flag2 = changeStatus(flag2);
         System.out.println(flag2); // /true
     }
-
+    
     private boolean changeStatus(boolean flag) {
         if (flag) {
             flag = false;
         }
         return flag;
+    }
+    
+    /**
+     * 三元运算符测试
+     */
+    @Test
+    public void ternaryOperationTest() {
+        boolean flag = false || true;
+        //true
+        System.out.println(flag);
+    }
+    
+    /**
+     * null测试
+     */
+    @Test
+    public void equalTest() {
+        Boolean flag = null;
+        System.out.println(true == flag);
+        System.out.println(flag == true);
     }
 }
