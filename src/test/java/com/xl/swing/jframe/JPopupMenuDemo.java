@@ -1,9 +1,11 @@
-package com.xl.swing;
+package com.xl.swing.jframe;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Container;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JFrame;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 
 public class JPopupMenuDemo extends JFrame {
     JPopupMenu popMenu = new JPopupMenu();

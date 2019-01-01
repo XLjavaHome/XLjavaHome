@@ -1,10 +1,13 @@
-package com.xl.swing;
+package com.xl.swing.jframe;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Container;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 
 public class JFileChooserDemo extends JFrame implements ActionListener {
     JFileChooser fc = new JFileChooser(); // 创建文件对话框对象

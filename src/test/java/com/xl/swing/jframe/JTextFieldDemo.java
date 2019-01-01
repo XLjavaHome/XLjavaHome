@@ -1,11 +1,13 @@
-package com.xl.swing;
+package com.xl.swing.jframe;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 
 //该类作为事件监听者，需要实现对应的接口
 public class JTextFieldDemo extends JFrame implements ActionListener {

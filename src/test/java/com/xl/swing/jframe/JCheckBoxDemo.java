@@ -1,9 +1,15 @@
-package com.xl.swing;
+package com.xl.swing.jframe;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import javax.swing.JCheckBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 //该类作为事件监听者，需要实现对应的ItemListener接口
 public class JCheckBoxDemo extends JFrame implements ItemListener {

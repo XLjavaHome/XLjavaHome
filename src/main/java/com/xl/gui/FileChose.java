@@ -53,7 +53,7 @@ public class FileChose {
 
     private void init() throws ClassNotFoundException, UnsupportedLookAndFeelException, InstantiationException, IllegalAccessException {
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        jPanel1.setSize(600, 600);
+        jPanel1.setSize(1200, 600);
         //文件目录选择器
         fc = new JFileChooser();
         //设置进度条上是否显示进度具体进度如50%
