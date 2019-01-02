@@ -8,10 +8,9 @@ TreeSet:
 哈希表：存放一堆哈希值(二进制)的表，存放的哈希值就是对象地址值,每个对象都有hashCode方法，可以覆写掉
 */
 
-import org.junit.Test;
-
 import java.util.HashSet;
 import java.util.Iterator;
+import org.junit.Test;
 
 public class HashSetTest {
     @Test
@@ -29,6 +28,14 @@ public class HashSetTest {
         while (it.hasNext()) {
             System.out.println(it.next());
         }
+    }
+    
+    /**
+     * a
+     */
+    @Test
+    public void hashCodeTest() {
+        System.out.println("3232".hashCode());
     }
 }
 

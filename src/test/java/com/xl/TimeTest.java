@@ -22,7 +22,7 @@ public class TimeTest {
     
     @Test
     public void demo2Test() {
-        System.out.println("111");
+        //System.out.println(System.currentTimeMillis());
     }
     
     @Test

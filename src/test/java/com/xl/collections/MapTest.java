@@ -106,8 +106,8 @@ public class MapTest {
      */
     @Test
     public void capitalTest() {
-        Map map = new HashMap();
-        for (int i = 0; i < 100000; i++) {
+        Map map = new HashMap(10);
+        for (int i = 0; i < 10; i++) {
             map.put(i, i);
         }
     }

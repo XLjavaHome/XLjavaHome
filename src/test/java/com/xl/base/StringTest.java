@@ -113,6 +113,7 @@ public class StringTest {
      */
     @Test
     public void placeHolderTest() {
+        System.out.println(String.format("illegalArgumentCount:%3d, ", 13325));
         //二位小数,并且四舍五入
         String test = String.format("%.2f", 123.32621D);
         System.out.println(test);

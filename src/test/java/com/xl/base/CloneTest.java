@@ -1,5 +1,7 @@
 package com.xl.base;
 
+import lombok.Data;
+import org.apache.poi.ss.formula.functions.T;
 import org.junit.Test;
 
 /**
@@ -10,9 +12,20 @@ import org.junit.Test;
  * @Time: 15:00
  * To change this template use File | Settings | File Templates.
  */
+@Data
 public class CloneTest implements Cloneable {
+    private Integer age;
+    
     @Test
     public void demoTest() throws CloneNotSupportedException {
-        this.clone();
+        CloneTest demo1 = new CloneTest();
+        demo1.setAge(11);
+        System.out.println(demo1.getAge());
+        T clone = demo1.clone();
+    }
+    
+    @Override
+    protected T clone() throws CloneNotSupportedException {
+        return (T) super.clone();
     }
 }
