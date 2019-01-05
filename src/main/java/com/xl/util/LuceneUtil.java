@@ -1,5 +1,8 @@
 package com.xl.util;
 
+import java.io.File;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
@@ -8,10 +11,6 @@ import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
-
-import java.io.File;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 /**
  * Created by ozc on 2017/7/12.
  */
@@ -23,31 +22,32 @@ public class LuceneUtil {
     private static Directory directory;
     private static Analyzer analyzer;
     private static IndexWriter.MaxFieldLength maxFieldLength;
+    private static String filePath;
     static {
         try {
-            directory = FSDirectory.open(new File("E:/createIndexDB"));
+            filePath = "E:/createIndexDB";
+            directory = FSDirectory.open(new File(filePath));
             analyzer = new StandardAnalyzer(Version.LUCENE_30);
             maxFieldLength = IndexWriter.MaxFieldLength.LIMITED;
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
     private LuceneUtil() {
     }
-
+    
     public static Directory getDirectory() {
         return directory;
     }
-
+    
     public static Analyzer getAnalyzer() {
         return analyzer;
     }
-
+    
     public static IndexWriter.MaxFieldLength getMaxFieldLength() {
         return maxFieldLength;
     }
-
+    
     /**
      * @param object 传入的JavaBean类型
      * @return 返回Document对象
@@ -69,7 +69,8 @@ public class LuceneUtil {
                 String value = aClassMethod.invoke(object).toString();
                 System.out.println(value);
                 //把数据封装到Document对象中。
-                document.add(new org.apache.lucene.document.Field(name, value, org.apache.lucene.document.Field.Store.YES, org.apache.lucene.document.Field.Index.ANALYZED));
+                document.add(new org.apache.lucene.document.Field(name, value, org.apache.lucene.document.Field.Store.YES,
+                        org.apache.lucene.document.Field.Index.ANALYZED));
             }
             return document;
         } catch (Exception e) {
@@ -77,10 +78,10 @@ public class LuceneUtil {
         }
         return null;
     }
-
+    
     /**
      * @param document 将Document对象传入进来
-     * @param aClass   要解析的对象类型，要用户传入进来
+     * @param aClass 要解析的对象类型，要用户传入进来
      * @return 返回一个JavaBean
      */
     public static Object Document2JavaBean(Document document, Class aClass) {
@@ -103,8 +104,17 @@ public class LuceneUtil {
         }
         return null;
     }
-
+    
     public static Version getVersion() {
         return Version.LUCENE_30;
+    }
+    
+    /**
+     * lucence的目录
+     *
+     * @return
+     */
+    public static File getLucenceDir() {
+        return new File(filePath);
     }
 }
