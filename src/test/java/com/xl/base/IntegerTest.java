@@ -27,4 +27,14 @@ public class IntegerTest {
             System.out.println(a);
         }
     }
+    
+    /**
+     * 比较测试
+     */
+    @Test
+    public void compareTest() {
+        //a 比b大就返回1
+        Integer a = 8, b = 9;
+        System.out.println(a.compareTo(b));
+    }
 }
