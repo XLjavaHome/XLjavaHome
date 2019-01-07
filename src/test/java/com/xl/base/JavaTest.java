@@ -12,6 +12,14 @@ import org.junit.Test;
  * To change this template use File | Settings | File Templates.
  */
 public class JavaTest {
+    /**
+     *
+     */
+    @Test
+    public void demoTest() {
+        System.out.println(1 << 4);
+    }
+    
     @Test
     public void CloseJavaTest() throws IOException {
         CMDUtil.closeJava();

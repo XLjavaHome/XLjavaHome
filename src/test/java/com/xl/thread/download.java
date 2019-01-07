@@ -2,7 +2,6 @@ package com.xl.thread;
 
 import com.xl.util.FileUtil;
 import com.xl.util.StreamTool;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;

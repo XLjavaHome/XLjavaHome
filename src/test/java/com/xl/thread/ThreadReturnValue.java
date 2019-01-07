@@ -1,4 +1,4 @@
-package com.xl.entity;
+package com.xl.thread;
 
 import java.util.Random;
 import java.util.concurrent.Callable;

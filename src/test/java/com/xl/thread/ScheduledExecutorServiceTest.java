@@ -1,4 +1,4 @@
-package com.xl.base;
+package com.xl.thread;
 
 import static java.lang.System.*;
 import java.util.concurrent.Executors;

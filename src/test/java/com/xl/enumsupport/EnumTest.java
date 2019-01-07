@@ -28,21 +28,22 @@ public class EnumTest {
         //3.返回所有的枚举值,在文档中没有。
         Grade[] gs = Grade.values();
         for (Grade g1 : gs) {
-            log.info("枚举" + g1);
+            log.info("枚举" + g);
         }
     }
-
+    
     @Test
     public void demoTest() {
         System.out.println(EnumUtil.getMap(SIRMPMWhere.class));
         System.out.println(EnumUtil.getMap(Sex.class));
     }
-
+    
     /**
      * 循环枚举
      */
     @Test
     public void forTest() {
+        //values获取所有枚举，循环
         SexEnum[] values = SexEnum.values();
         for (SexEnum value : values) {
             System.out.println(value);

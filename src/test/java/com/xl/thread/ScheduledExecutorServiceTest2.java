@@ -1,4 +1,4 @@
-package com.xl.base;
+package com.xl.thread;
 
 import java.util.ArrayList;
 import java.util.List;

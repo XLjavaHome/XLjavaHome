@@ -1,6 +1,5 @@
 package com.xl.thread;
 
-import com.xl.entity.ThreadReturnValue;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;

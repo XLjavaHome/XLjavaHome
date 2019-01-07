@@ -1,7 +1,6 @@
 package com.xl.base;
 
 import lombok.Data;
-import org.apache.poi.ss.formula.functions.T;
 import org.junit.Test;
 
 /**
@@ -21,11 +20,12 @@ public class CloneTest implements Cloneable {
         CloneTest demo1 = new CloneTest();
         demo1.setAge(11);
         System.out.println(demo1.getAge());
-        T clone = demo1.clone();
+        CloneTest clone = (CloneTest) demo1.clone();
+        System.out.println(clone);
     }
     
     @Override
-    protected T clone() throws CloneNotSupportedException {
-        return (T) super.clone();
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 }

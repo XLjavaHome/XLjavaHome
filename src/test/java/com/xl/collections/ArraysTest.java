@@ -89,7 +89,7 @@ public class ArraysTest {
     public void containTest() {
         //true
         System.out.println(ArrayUtils.contains(strings, "21"));
-        //false
+        //不包含
         System.out.println(ArrayUtils.contains(strings, null));
         //false
         System.out.println(ArrayUtils.contains(strings, 21));

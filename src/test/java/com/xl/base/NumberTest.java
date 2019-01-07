@@ -13,6 +13,7 @@ public class NumberTest {
     
     @Test
     public void numberTest() {
+        System.out.println(1 / 1000);
         System.out.println(10 / 3);
         System.out.println(10 % 3);
         System.out.println(10 / 1000);

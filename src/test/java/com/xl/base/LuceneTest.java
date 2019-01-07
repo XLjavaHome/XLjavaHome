@@ -2,7 +2,6 @@ package com.xl.base;
 
 import com.xl.entity.User;
 import com.xl.util.LuceneUtil;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +25,6 @@ import org.apache.lucene.search.highlight.SimpleHTMLFormatter;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
-import org.jetbrains.annotations.NotNull;
 import org.junit.Test;
 
 /**
@@ -52,15 +50,10 @@ public class LuceneTest {
      */
     @Test
     public void createIndexDB() throws Exception {
-        //把数据填充到JavaBean对象中
-        User user = new User();
-        user.setId(1);
-        user.setUserName("钟福成");
-        user.setSal("未来的程序员");
         //创建Document对象【导入的是Lucene包下的Document对象】
         Document document = new Document();
         //将JavaBean对象所有的属性值，均放到Document对象中去，属性名可以和JavaBean相同或不同
-         /*
+        /*
          * 向Document对象加入一个字段
          * 参数一：字段的关键字
          * 参数二：字符的值
@@ -72,17 +65,24 @@ public class LuceneTest {
          *      NOT_ANALYZED表示不拆分
          *
          */
-        document.add(new Field("id", user.getId() + "", Field.Store.YES, Field.Index.ANALYZED));
-        document.add(new Field("userName", user.getUserName(), Field.Store.YES, Field.Index.ANALYZED));
-        document.add(new Field("sal", user.getSal(), Field.Store.YES, Field.Index.ANALYZED));
+        //把数据填充到JavaBean对象中
+        for (int i = 0; i < 100; i++) {
+            User user = new User();
+            user.setId(i);
+            user.setUserName("钟福成" + i);
+            user.setSal(String.format("未来的程序员_%s", i));
+            document.add(new Field("id", user.getId() + "", Field.Store.YES, Field.Index.ANALYZED));
+            document.add(new Field("userName", user.getUserName(), Field.Store.YES, Field.Index.ANALYZED));
+            document.add(new Field("sal", user.getSal(), Field.Store.YES, Field.Index.ANALYZED));
+        }
         //创建IndexWriter对象
         //目录指定为E:/createIndexDB
-        Directory directory = FSDirectory.open(getLucenceDir());
+        Directory directory = FSDirectory.open(LuceneUtil.getLucenceDir());
         //使用标准的分词算法对原始记录表进行拆分
         Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_30);
         //LIMITED默认是1W个
         IndexWriter.MaxFieldLength maxFieldLength = IndexWriter.MaxFieldLength.LIMITED;
-            /*
+        /*
          * IndexWriter将我们的document对象写到硬盘中
          *
          * 参数一：Directory d,写到硬盘中的目录路径是什么
@@ -96,12 +96,7 @@ public class LuceneTest {
         //关闭IndexWriter对象
         indexWriter.close();
     }
-
-    @NotNull
-    private File getLucenceDir() {
-        return new File("E:/createIndexDB");
-    }
-
+    
     /**
      * 根据关键字查询索引库中的内容：
      * <p>
@@ -119,7 +114,7 @@ public class LuceneTest {
          * 参数一： IndexSearcher(Directory PATH)查询以xxx目录的索引库
          *
          * */
-        Directory directory = FSDirectory.open(getLucenceDir());
+        Directory directory = FSDirectory.open(LuceneUtil.getLucenceDir());
         //创建IndexSearcher对象
         IndexSearcher indexSearcher = new IndexSearcher(directory);
         //创建QueryParser对象
@@ -129,13 +124,18 @@ public class LuceneTest {
          * 参数三：Analyzer a【使用的拆词算法】
          * */
         Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_30);
-        QueryParser queryParser = new QueryParser(Version.LUCENE_30, "userName", analyzer);
+        //区分大小写
+        //QueryParser queryParser = new QueryParser(Version.LUCENE_30, "userName", analyzer);
+        QueryParser queryParser = new QueryParser(Version.LUCENE_30, "sal", analyzer);
         //给出要查询的关键字
-        String keyWords = "钟";
+        String keyWords = "成";
+        //可以用空格隔开
+        keyWords = "未来 员 程序 ";
+        keyWords = "未来";
         //创建Query对象来封装关键字
         Query query = queryParser.parse(keyWords);
         //用IndexSearcher对象去索引库中查询符合条件的前100条记录，不足100条记录的以实际为准
-        TopDocs topDocs = indexSearcher.search(query, 100);
+        TopDocs topDocs = indexSearcher.search(query, 200);
         //获取符合条件的编号
         for (int i = 0; i < topDocs.scoreDocs.length; i++) {
             ScoreDoc scoreDoc = topDocs.scoreDocs[i];
@@ -153,7 +153,7 @@ public class LuceneTest {
             System.out.println(user);
         }
     }
-
+    
     @Test
     public void lightTest() throws IOException, InvalidTokenOffsetsException, ParseException {
         String keywords = "钟福成";
@@ -180,7 +180,7 @@ public class LuceneTest {
             System.out.println(User);
         }
     }
-
+    
     @Test
     public void test() {
         User user = new User();
