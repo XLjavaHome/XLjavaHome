@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.xl</groupId>
     <artifactId>xl</artifactId>
-    <packaging>jar</packaging>
+    <!--<packaging>war</packaging>-->
     <version>1.0.0</version>
     <!--开源协议-->
     <licenses>
@@ -550,18 +550,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <!-- Hibernate end -->
-        <!--<dependency>-->
-        <!--<groupId>net.sf.ehcache</groupId>-->
-        <!--<artifactId>ehcache-core</artifactId>-->
-        <!--<version>2.6.11</version>-->
-        <!--<exclusions>-->
-        <!--<exclusion>-->
-        <!--<artifactId>org.slf4j</artifactId>-->
-        <!--<groupId>slf4j-api</groupId>-->
-        <!--</exclusion>-->
-        <!--</exclusions>-->
-        <!--</dependency>-->
         <!-- druid -->
         <dependency>
             <groupId>com.alibaba</groupId>
