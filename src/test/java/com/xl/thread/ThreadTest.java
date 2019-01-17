@@ -1,5 +1,7 @@
 package com.xl.thread;
 
+import lombok.extern.log4j.Log4j;
+
 /**
  * 4.【强制】线程池不允许使用Executors去创建，而是通过ThreadPoolExecutor的方式，这样的处理方式让写的同学更加明确线程池的运行规则，规避资源耗尽的风险。
  * 说明：Executors返回的线程池对象的弊端如下：
@@ -13,7 +15,8 @@ package com.xl.thread;
  * @see java.lang.Thread.State   线程有7中状态 ，该枚举有6种
  * 先wait再notify
  */
-public class ThreadTest implements Runnable {
+@Log4j
+public class ThreadTest {
     /**
      * volatile 让主线程感知
      */
@@ -22,28 +25,16 @@ public class ThreadTest implements Runnable {
     public static void main(String[] args) {
         System.out.println(Thread.currentThread().getName());
         for (int i = 0; i < 10; i++) {
-            Thread thread = new Thread(new ThreadTest());
-            thread.start();
             //isAlive是否在运行
-            System.out.println(thread.isAlive());
+            int finalI = i;
             new Thread(() -> {
-                try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                log.info(finalI);
+                //Thread.sleep(2000);
+                Thread.yield();
+                log.info(finalI);
+                System.out.println(finalI);
                 //System.out.println(thread.isAlive());
             }).start();
         }
-    }
-    
-    @Override
-    public void run() {
-        try {
-            Thread.sleep(1000L);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        System.out.println(Thread.currentThread().getName());
     }
 }

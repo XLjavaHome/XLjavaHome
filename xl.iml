@@ -65,7 +65,7 @@
     <orderEntry type="library" name="Maven: org.apache.poi:poi-ooxml-schemas:3.12" level="project" />
     <orderEntry type="library" name="Maven: org.apache.xmlbeans:xmlbeans:2.6.0" level="project" />
     <orderEntry type="library" name="Maven: stax:stax-api:1.0.1" level="project" />
-    <orderEntry type="library" name="Maven: opensymphony:quartz-all:1.6.5" level="project" />
+    <orderEntry type="library" name="Maven: opensymphony:quartz-all:1.5.2" level="project" />
     <orderEntry type="library" name="Maven: org.apache.taglibs:taglibs-standard-impl:1.2.5" level="project" />
     <orderEntry type="library" name="Maven: org.apache.struts.xwork:xwork-core:2.3.32" level="project" />
     <orderEntry type="library" name="Maven: asm:asm:3.3" level="project" />

@@ -416,7 +416,7 @@
         <dependency>
             <groupId>opensymphony</groupId>
             <artifactId>quartz-all</artifactId>
-            <version>1.6.5</version>
+            <version>RELEASE</version>
         </dependency>
         <!--    <dependency>
                 <groupId>ch.qos.logback</groupId>
@@ -858,7 +858,7 @@
             <artifactId>activemq-core</artifactId>
             <version>5.7.0</version>
         </dependency>
-<!--性能上Javassist高于反射，Javassist不仅可以生成类、变量和方法，还可以操作现有的方法，这在AOP上非常有用，比如做方法调用的埋点-->
+        <!--性能上Javassist高于反射，Javassist不仅可以生成类、变量和方法，还可以操作现有的方法，这在AOP上非常有用，比如做方法调用的埋点-->
         <dependency>
             <groupId>org.javassist</groupId>
             <artifactId>javassist</artifactId>
