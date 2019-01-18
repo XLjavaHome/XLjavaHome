@@ -30,7 +30,7 @@ public class ListTest {
     List<String> list = new ArrayList<String>();
     List<Student> studentList = new ArrayList<Student>();
     String[] arrays = new String[10];
-
+    
     @Before
     public void init() {
         list.add("张三");
@@ -51,7 +51,7 @@ public class ListTest {
         s.setName("测试0");
         studentList.add(s);
     }
-
+    
     /**
      * list.iterator() 可以再次循环
      */
@@ -66,7 +66,7 @@ public class ListTest {
             System.out.println(iterator.next());
         }
     }
-
+    
     /**
      * 去重
      */
@@ -75,7 +75,7 @@ public class ListTest {
         System.out.println(list);
         System.out.println(ListUtil.distinct(list));
     }
-
+    
     @Test
     public void lamdbaTest() {
         //在lamdba表达式中可以用局部变量
@@ -86,7 +86,7 @@ public class ListTest {
         });
         System.out.println(content);
     }
-
+    
     /**
      * 转化为数组后，添加报错
      */
@@ -101,13 +101,25 @@ public class ListTest {
         System.out.println(strings);
         System.out.println(arrays);
     }
-
+    
     @Test
     public void emptyTest() {
         List empty = new ArrayList();
         log.info(empty);
     }
-
+    
+    /**
+     * 删除测试,list可以删除null不报异常
+     */
+    @Test
+    public void removeTest() {
+        log.info(list);
+        list.remove(null);
+        log.info(list);
+        list.remove(null);
+        log.info(list);
+    }
+    
     @Test
     public void sortTest() {
         Collections.sort(list, (o1, o2) -> {
@@ -118,7 +130,7 @@ public class ListTest {
         });
         System.out.println(list);
     }
-
+    
     @Test
     public void containTest() {
         List<Integer> interlist = new ArrayList<>();
@@ -142,5 +154,4 @@ public class ListTest {
             list.add(i);
         }
     }
-    
 }
