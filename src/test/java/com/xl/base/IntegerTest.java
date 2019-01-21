@@ -44,4 +44,18 @@ public class IntegerTest {
         Integer a = 8, b = 9;
         System.out.println(a.compareTo(b));
     }
+    
+    /**
+     * 无论是包装类 还是基本类型都不改变值
+     */
+    @Test
+    public void changeTest() {
+        Boolean flag = false;
+        changeFlag(flag);
+        System.out.println(flag + "");
+    }
+    
+    private void changeFlag(Boolean flag) {
+        flag = true;
+    }
 }
