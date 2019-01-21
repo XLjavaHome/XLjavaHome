@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.xl</groupId>
     <artifactId>xl</artifactId>
-    <packaging>jar</packaging>
+    <!--<packaging>war</packaging>-->
     <version>1.0.0</version>
     <!--开源协议-->
     <licenses>
@@ -416,7 +416,7 @@
         <dependency>
             <groupId>opensymphony</groupId>
             <artifactId>quartz-all</artifactId>
-            <version>1.6.5</version>
+            <version>RELEASE</version>
         </dependency>
         <!--    <dependency>
                 <groupId>ch.qos.logback</groupId>
@@ -550,18 +550,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <!-- Hibernate end -->
-        <!--<dependency>-->
-        <!--<groupId>net.sf.ehcache</groupId>-->
-        <!--<artifactId>ehcache-core</artifactId>-->
-        <!--<version>2.6.11</version>-->
-        <!--<exclusions>-->
-        <!--<exclusion>-->
-        <!--<artifactId>org.slf4j</artifactId>-->
-        <!--<groupId>slf4j-api</groupId>-->
-        <!--</exclusion>-->
-        <!--</exclusions>-->
-        <!--</dependency>-->
         <!-- druid -->
         <dependency>
             <groupId>com.alibaba</groupId>
@@ -869,6 +857,12 @@
             <groupId>org.apache.activemq</groupId>
             <artifactId>activemq-core</artifactId>
             <version>5.7.0</version>
+        </dependency>
+        <!--性能上Javassist高于反射，Javassist不仅可以生成类、变量和方法，还可以操作现有的方法，这在AOP上非常有用，比如做方法调用的埋点-->
+        <dependency>
+            <groupId>org.javassist</groupId>
+            <artifactId>javassist</artifactId>
+            <version>3.20.0-GA</version>
         </dependency>
     </dependencies>
 </project>

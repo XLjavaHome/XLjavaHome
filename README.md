@@ -11,5 +11,5 @@
 * 建议使用Intellij IDEA作为开发工具，eclipse需要手动做些设置才能正常使用
 * 项目中log都使用@Log4j提供，需要开发工具支持Lombok插件，相关注解包括：@Getter，@Setter，@ToString，@AllArgsConstuctor, @NoArgsConstructor,@Builder
 
-
+内联。@see com.xl.InLineTest
 
