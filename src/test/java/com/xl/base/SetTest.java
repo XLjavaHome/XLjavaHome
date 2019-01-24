@@ -19,14 +19,14 @@ import org.junit.Test;
 @Log4j
 public class SetTest {
     Set<String> s = new HashSet<String>(10);
-
+    
     @Before
     public void before() {
         s.add("ces");
         s.add("ces");
         s.add("ces2");
     }
-
+    
     @Test
     public void demoTest() {
         s.add("ces");
@@ -36,7 +36,7 @@ public class SetTest {
         list.addAll(s);
         log.info(list);
     }
-
+    
     /**
      * 可以加空
      */
@@ -47,7 +47,7 @@ public class SetTest {
         s.add("22");
         System.out.println(s);
     }
-
+    
     /**
      * set集合转化为list集合
      * list转set
@@ -63,5 +63,42 @@ public class SetTest {
         System.out.println(new HashSet<>(list));
         ArrayList<String> strings = new ArrayList<>(s);
         System.out.println(strings);
+    }
+    
+    /**
+     * 测试简单交集
+     */
+    @Test
+    public void testSet() {
+        Set<String> set1 = new HashSet<>();
+        Set<String> set2 = new HashSet<>();
+        set1.add("a");
+        set1.add("b");
+        set1.add("c");
+        set2.add("c");
+        set2.add("d");
+        set2.add("e");
+        //交集
+        set1.retainAll(set2);
+        System.out.println("交集是 " + set1);  //交集是 [c]
+    }
+    
+    /**
+     * 差集测试
+     */
+    @Test
+    public void testDifferenceSet() {
+        Set<String> set1 = new HashSet<>();
+        Set<String> set2 = new HashSet<>();
+        set1.add("a");
+        set1.add("b");
+        set1.add("c");
+        set1.add("d");
+        set2.add("c");
+        set2.add("d");
+        set2.add("e");
+        set2.add("f");
+        set1.removeAll(set2);
+        System.out.println("差集是 " + set1); //差集是 [a, b]
     }
 }

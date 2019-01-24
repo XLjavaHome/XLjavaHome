@@ -145,4 +145,13 @@ public class StringTest {
         String t2 = MessageFormat.format("MessageFormat占位符() {0},{1},", holder);
         System.out.println(t2);
     }
+    
+    /**
+     * 占位符
+     */
+    @Test
+    public void formatTest() {
+        //没有效果
+        System.out.println(String.format("百分比占位符%%", "30%"));
+    }
 }

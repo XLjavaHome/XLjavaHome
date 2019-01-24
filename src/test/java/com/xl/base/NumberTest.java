@@ -85,4 +85,12 @@ public class NumberTest {
         //输出结果是3 ,累加要重新赋值
         System.out.println(bigDecimal);
     }
+    
+    /**
+     * 占位符
+     */
+    @Test
+    public void placeTest() {
+        System.out.println(String.format("数字占位符%d,浮点型占位符%f", 2, 2.1));
+    }
 }
