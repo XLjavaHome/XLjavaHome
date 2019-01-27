@@ -14,22 +14,23 @@ import redis.clients.jedis.JedisPoolConfig;
  * To change this template use File | Settings | File Templates.
  */
 public class JedisTest {
-    public static final String ip = "localhost";
+    public static String ip = "127.0.0.1";
     public static final int port = 6379;
     public static final String password = "root";
-
+    
     @Test
     public void demoTest() {
+        ip = "192.168.31.20";
         Jedis jedis = new Jedis(ip, port);
         //密码
-        jedis.auth(password);
-        //jedis.set("foo", "bar");
+        //jedis.auth(password);
+        jedis.set("foo", "bar");
         String value = jedis.get("foo");
-        System.out.println("value=" + value);
+        //System.out.println("value=" + value);
         //关闭
         jedis.close();
     }
-
+    
     /**
      * redis连接池
      */
