@@ -1,7 +1,9 @@
 package com.xl.util;
 
+import com.xl.comparator.StringComparator;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Created with IntelliJ IDEA.
@@ -40,5 +42,17 @@ public class MapUtil {
             Object key = i.next();
             System.out.println(String.format("%s:%s", key, map.get(key)));
         }
+    }
+    
+    /**
+     * 对map进行排序
+     *
+     * @param map
+     * @return
+     */
+    public static TreeMap sortMap(Map map) {
+        TreeMap treeMap = new TreeMap(new StringComparator());
+        treeMap.putAll(map);
+        return treeMap;
     }
 }
