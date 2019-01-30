@@ -1,4 +1,4 @@
-package com.xl;
+package com.xl.redis;
 
 import org.junit.Test;
 import redis.clients.jedis.Jedis;
@@ -13,14 +13,13 @@ import redis.clients.jedis.JedisPoolConfig;
  * @Time: 9:18
  * To change this template use File | Settings | File Templates.
  */
-public class JedisTest {
+public class RedisTest {
     public static String ip = "127.0.0.1";
     public static final int port = 6379;
     public static final String password = "root";
     
     @Test
     public void demoTest() {
-        ip = "192.168.31.20";
         Jedis jedis = new Jedis(ip, port);
         //密码
         //jedis.auth(password);
