@@ -1,4 +1,4 @@
-package com.xl;
+package com.xl.comparator;
 
 import com.xl.enumsupport.Sort;
 import java.util.Comparator;

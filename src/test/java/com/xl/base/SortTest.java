@@ -1,6 +1,6 @@
 package com.xl.base;
 
-import com.xl.IntegerComparator;
+import com.xl.comparator.IntegerComparator;
 import com.xl.enumsupport.Sort;
 import java.util.Arrays;
 import java.util.LinkedHashSet;

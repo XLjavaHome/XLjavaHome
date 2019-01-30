@@ -93,4 +93,13 @@ public class NumberTest {
     public void placeTest() {
         System.out.println(String.format("数字占位符%d,浮点型占位符%f", 2, 2.1));
     }
+    
+    /**
+     * 判断数字
+     */
+    @Test
+    public void isNaNTest() {
+        String s = "12.32a";
+        int i = Integer.parseInt(s);
+    }
 }

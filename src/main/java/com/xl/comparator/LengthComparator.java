@@ -1,8 +1,8 @@
-package com.xl.collections;
+package com.xl.comparator;
 
 import java.util.Comparator;
 
-public class LenComparator implements Comparator<String>  //这加了<String?
+public class LengthComparator implements Comparator<String>  //这加了<String?
 {
     @Override
     public int compare(String o1, String o2)  //这儿就不写Object 写String
