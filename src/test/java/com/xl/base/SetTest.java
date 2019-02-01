@@ -101,4 +101,30 @@ public class SetTest {
         set1.removeAll(set2);
         System.out.println("差集是 " + set1); //差集是 [a, b]
     }
+    
+    /**
+     * 包含
+     */
+    @Test
+    public void containTest() {
+        Set<String> set1 = new HashSet<>();
+        set1.add("1");
+        set1.add("2");
+        Set<String> set2 = new HashSet<>();
+        set2.add("1");
+        set2.add("3");
+        //true
+        System.out.println(contain(set1, set2));
+        //false
+        System.out.println(set1.containsAll(set2));
+    }
+    
+    private boolean contain(Set<String> set1, Set<String> set2) {
+        for (String string : set2) {
+            if (set1.contains(string)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
