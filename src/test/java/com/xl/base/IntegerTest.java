@@ -58,4 +58,14 @@ public class IntegerTest {
     private void changeFlag(Boolean flag) {
         flag = true;
     }
+    
+    /**
+     * 都会触发空指针异常
+     */
+    @Test
+    public void equalTest() {
+        Integer a = null;
+        System.out.println(a == 2);
+        System.out.println(3 == a);
+    }
 }

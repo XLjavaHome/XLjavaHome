@@ -15,6 +15,8 @@ import org.junit.Test;
 public class SplitTest {
     /**
      * 字符串分割
+     * String.split()会包含空字符串,而且是包含 头部的和中间的, 不包含有效数字后面所有的空字符串.
+     * StringUtils.split()会过滤所有的空字符串. 当然空格不会被过滤.
      */
     @Test
     public void splitTest() {
