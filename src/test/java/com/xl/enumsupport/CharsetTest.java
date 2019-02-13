@@ -11,7 +11,7 @@ import org.junit.Test;
  * @Time: 12:53
  * To change this template use File | Settings | File Templates.
  */
-public class CharsetEnumTest {
+public class CharsetTest {
     @Test
     public void demoTest() {
         Charset charset = Charset.forName(CharsetEnum.UTF8.getValue());
