@@ -1,8 +1,7 @@
 package com.xl.base;
 
-import org.junit.Test;
-
 import java.math.BigDecimal;
+import org.junit.Test;
 
 /**
  * Created with IntelliJ IDEA.
@@ -13,6 +12,9 @@ import java.math.BigDecimal;
  * To change this template use File | Settings | File Templates.
  */
 public class BigDecimalTest {
+    /**
+     * 不能加空，否则会异常
+     */
     @Test
     public void demoTest() {
         BigDecimal a = new BigDecimal(1.1);
