@@ -3,6 +3,7 @@ package com.xl.base;
 import com.xl.util.NumberTool;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import org.junit.Test;
 
 public class NumberTest {
@@ -58,10 +59,24 @@ public class NumberTest {
     @Test
     public void formatTest() {
         DecimalFormat format = new DecimalFormat("##.##");
+        format.setMaximumFractionDigits(3);
         double number = 3434324323.1274123;
         System.out.println(format.format(number));
         System.out.println(String.format("%.2f", number));
         System.out.printf("%.2f", number);
+    }
+    
+    /**
+     * 数字格式化
+     */
+    @Test
+    public void numberFormatTest() {
+        //默认，保留3位小数 可以四舍五入
+        NumberFormat instance = DecimalFormat.getInstance();
+        //小数最后一位是会舍去
+        instance.setMaximumFractionDigits(3);
+        String format1 = instance.format(32.129542345);
+        System.out.println(format1);
     }
     
     /**
