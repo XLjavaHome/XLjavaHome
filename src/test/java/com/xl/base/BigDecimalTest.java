@@ -19,6 +19,8 @@ public class BigDecimalTest {
     public void demoTest() {
         BigDecimal a = new BigDecimal(1.1);
         System.out.println(a.add(new BigDecimal(2)));
+        System.out.println(a.add(new BigDecimal(2)).doubleValue());
         System.out.println(a);
+        System.out.println(a.doubleValue());
     }
 }
