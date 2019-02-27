@@ -23,4 +23,26 @@ public class BigDecimalTest {
         System.out.println(a);
         System.out.println(a.doubleValue());
     }
+    
+    /**
+     * 零测试
+     */
+    @Test
+    public void lingTest() {
+        BigDecimal a = new BigDecimal("0");
+        BigDecimal b = new BigDecimal(0);
+        System.out.println(a);
+        System.out.println(b);
+        System.out.println(a.doubleValue());
+    }
+    
+    /**
+     * 除
+     */
+    @Test
+    public void exceptTest() {
+        BigDecimal a = new BigDecimal("15");
+        BigDecimal b = new BigDecimal(5);
+        System.out.println(a.divide(b));
+    }
 }

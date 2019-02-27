@@ -1,9 +1,6 @@
 package com.xl.base;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import lombok.extern.log4j.Log4j;
 import org.junit.Before;
 import org.junit.Test;
@@ -69,7 +66,7 @@ public class SetTest {
      * 测试简单交集
      */
     @Test
-    public void testSet() {
+    public void intersection() {
         Set<String> set1 = new HashSet<>();
         Set<String> set2 = new HashSet<>();
         set1.add("a");
@@ -126,5 +123,23 @@ public class SetTest {
             }
         }
         return false;
+    }
+    
+    /**
+     * hashset会排序
+     * linkHashSet 跟加入的顺序有关
+     */
+    @Test
+    public void setTest() {
+        Set<Integer> set1 = new HashSet<>();
+        Set<Integer> set2 = new LinkedHashSet<>();
+        initSet(set1);
+        initSet(set2);
+    }
+    
+    private void initSet(Set<Integer> set) {
+        set.add(1);
+        set.add(3);
+        set.add(2);
     }
 }
