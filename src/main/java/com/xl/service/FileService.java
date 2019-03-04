@@ -1,5 +1,7 @@
 package com.xl.service;
 
+import java.io.File;
+
 /**
  * Created with IntelliJ IDEA.
  *
@@ -9,4 +11,12 @@ package com.xl.service;
  * To change this template use File | Settings | File Templates.
  */
 public interface FileService {
+    /**
+     * 复制文件
+     *
+     * @param file
+     * @param target
+     * @return
+     */
+    boolean copy(File file, File target);
 }

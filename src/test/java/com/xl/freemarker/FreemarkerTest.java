@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.jetbrains.annotations.NotNull;
 import org.junit.Test;
 
 /**
@@ -54,6 +55,13 @@ public class FreemarkerTest {
         freemark.setTempletName("简历-朱老师.ftl");
         File tempFile = FileUtil.createTempFile("2.doc");
         freemark.setOutFile(tempFile);
+        freemark.setParam(getData());
+        FreemarkerUtil.createWord(freemark);
+        FileUtil.open(freemark.getOutFile());
+    }
+    
+    @NotNull
+    private Map getData() throws IOException {
         Map map = new HashMap<String, Object>();
         map.put("NAME", "徐立");
         map.put("image", FreemarkerUtil.getImage(ResourceUtil.getResourceInputStream("freemarker/a.jpg")));
@@ -92,11 +100,9 @@ public class FreemarkerTest {
         map.put("YJ", "hanmanyifengyi@163.com");
         map.put("DZ", "河北省保定市");
         map.put("YB", "071000");
-        freemark.setParam(map);
-        FreemarkerUtil.createWord(freemark);
-        FileUtil.open(freemark.getOutFile());
+        return map;
     }
-
+    
     @Test
     public void listTest() throws IOException, TemplateException {
         Freemark freemark = new Freemark("/freemarker/");
