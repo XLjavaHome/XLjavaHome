@@ -1,5 +1,6 @@
 package com.xl.base;
 
+import java.math.BigDecimal;
 import org.junit.Test;
 
 /**
@@ -19,5 +20,11 @@ public class isInstanceTest {
         System.out.println(Number.class.isInstance(1));
         //null就是false
         System.out.println(Number.class.isInstance(null));
+        //false
+        System.out.println(BigDecimal.class.isInstance(null));
+        //false
+        System.out.println(BigDecimal.class.isInstance(1));
+        //true
+        System.out.println(BigDecimal.class.isInstance(new BigDecimal(1)));
     }
 }
