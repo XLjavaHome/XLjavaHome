@@ -4,6 +4,7 @@ import com.xl.base.design.responsibility.PriceHandler;
 import com.xl.base.design.responsibility.PriceHandlerFactory;
 import java.util.Random;
 import lombok.Data;
+import lombok.extern.log4j.Log4j;
 
 /**
  * Created with 徐立.
@@ -14,6 +15,7 @@ import lombok.Data;
  * To change this template use File | Settings | File Templates.
  */
 @Data
+@Log4j
 public class Customer {
     private PriceHandler priceHandler;
     
@@ -30,7 +32,6 @@ public class Customer {
         customer.setPriceHandler(PriceHandlerFactory.createPriceHandler());
         Random rand = new Random();
         for (int i = 1; i <= 100; i++) {
-            System.out.print(i + ":");
             customer.requestDiscount(rand.nextFloat());
         }
     }

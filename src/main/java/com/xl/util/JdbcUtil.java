@@ -7,7 +7,15 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Properties;
 
-//JDBC工具类：关闭流和取得连接
+/**
+ * Created with 徐立.JDBC工具类：关闭流和取得连接
+ *
+ * @author 徐立
+ * @version 1.0 2019-03-02 22:48
+ * To change this template use File | Settings | File Templates.
+ * @date 2019-03-02
+ * @time 22:48
+ */
 public final class JdbcUtil {
     public static final String MYSQL_MYSQL_PROPERTIESPATH = "db/db.properties";
     private static String driver;
@@ -30,7 +38,7 @@ public final class JdbcUtil {
         user = props.getProperty("user");
         password = props.getProperty("password");
     }
-
+    
     // 静态块：注册驱动
     static {
         try {
@@ -49,7 +57,7 @@ public final class JdbcUtil {
         }
         return conn;
     }
-
+    
     // 关闭连接
     public static void close(ResultSet rs) {
         if (rs != null) {
@@ -60,7 +68,7 @@ public final class JdbcUtil {
             }
         }
     }
-
+    
     public static void close(Statement stmt) {
         if (stmt != null) {
             try {
@@ -70,7 +78,7 @@ public final class JdbcUtil {
             }
         }
     }
-
+    
     public static void close(Connection conn) {
         if (conn != null) {
             try {
