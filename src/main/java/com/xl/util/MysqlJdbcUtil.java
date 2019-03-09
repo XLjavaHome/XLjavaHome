@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Properties;
 import lombok.extern.log4j.Log4j;
-import org.junit.Test;
 
 /**
  * Created with IntelliJ IDEA. JDBC工具类：关闭流和取得连接
@@ -38,7 +37,6 @@ public final class MysqlJdbcUtil {
             log.error("数据库连接错误", e);
         }
     }
-
     // 关闭连接
     public static void close(ResultSet rs) {
         if (rs != null) {
@@ -49,7 +47,7 @@ public final class MysqlJdbcUtil {
             }
         }
     }
-
+    
     public static void close(Statement stmt) {
         if (stmt != null) {
             try {
@@ -59,7 +57,7 @@ public final class MysqlJdbcUtil {
             }
         }
     }
-
+    
     public static void close(Connection conn) {
         if (conn != null) {
             try {
@@ -69,13 +67,7 @@ public final class MysqlJdbcUtil {
             }
         }
     }
-
-    @Test
-    public void connectionTest() {
-        Connection c = getMySqlConnection();
-        log.info(c);
-    }
-
+    
     // 取得连接
     public static Connection getMySqlConnection() {
         Connection conn = null;

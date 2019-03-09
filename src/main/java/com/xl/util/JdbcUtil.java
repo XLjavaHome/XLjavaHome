@@ -27,8 +27,7 @@ public final class JdbcUtil {
         Properties props = new Properties();
         // 获得工程目录
         try {
-            InputStream is = JdbcUtil.class.getClassLoader().getResourceAsStream(MYSQL_MYSQL_PROPERTIESPATH);
-            is = JdbcUtil.class.getResourceAsStream(JdbcUtil.MYSQL_MYSQL_PROPERTIESPATH);
+            InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(MYSQL_MYSQL_PROPERTIESPATH);
             props.load(is);
         } catch (Exception e) {
             e.printStackTrace();
