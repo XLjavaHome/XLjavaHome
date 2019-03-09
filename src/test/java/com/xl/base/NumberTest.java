@@ -4,13 +4,27 @@ import com.xl.util.NumberTool;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import lombok.extern.log4j.Log4j;
 import org.junit.Test;
 
+@Log4j
 public class NumberTest {
     /**
      * 数值可加下划线
      */
     int one_million = 1_000_000;
+    
+    /**
+     * 测试
+     */
+    @Test
+    public void demoTest() {
+        log.info(new BigDecimal("2.00").subtract(new BigDecimal("1.1")));
+        //1是1位小数， 数字代表几位小数
+        log.info(String.format("%.1f", 2.0 - 1.1));
+        //不是精确计算
+        log.info(2.0 - 1.1);
+    }
     
     @Test
     public void numberTest() {
