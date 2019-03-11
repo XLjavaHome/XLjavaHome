@@ -30,9 +30,25 @@ public class WordTest {
     private static FileOutputStream stream = null;
     private static String fileName;
     //表格宽度窄
-    private int leftWidth = 1500;
+    private int leftWidth = 1700;
     //表格宽度窄
-    private int rightWidth = 2000;
+    private int rightWidth = 2200;
+    /**
+     * 属性名称列
+     */
+    private int attributeNameColumn = 0;
+    /**
+     * 显示名列
+     */
+    private int displayName = 1;
+    /**
+     * 类型列
+     */
+    private int typeColumn = 2;
+    /**
+     * 说明列
+     */
+    private int descriptionColumn = 3;
     
     /**
      * 生成word文档名称
@@ -81,23 +97,22 @@ public class WordTest {
     public void tableTest() throws IOException {
         XWPFDocument doc = new XWPFDocument(); //创建一个5行5列的表格
         //这里增加的列原本初始化创建的那5行在通过getTableCells()方法获取时获取不到，但通过row新增的就可以。
-        int rowNums = 10;
+        //徐立todo 设置行
+        int rowNums = 3;
         int colNums = 4;
         XWPFTable wordTable = doc.createTable(rowNums, colNums);
-        //给表格新增一行，变成6行
         List<XWPFTableRow> rows = wordTable.getRows();
         //新增标题
         //属性名称	显示名	类型	说明
         //样式有4中
         XWPFTableRow titleRow = rows.get(0);
-        int 属性名称列 = 0;
-        标题单元格名称(titleRow.getCell(属性名称列), "属性名称");
-        int 显示名列 = 1;
-        标题单元格名称(titleRow.getCell(显示名列), "显示名");
-        int 类型列 = 2;
-        标题单元格名称(titleRow.getCell(类型列), "类型");
-        int 说明列 = 3;
-        标题单元格名称(titleRow.getCell(说明列), "说明");
+        XWPFTableCell titleCell = titleRow.getCell(attributeNameColumn);
+        titleCell.setText("属性名称");
+        grayedOutBackground(titleCell);
+        leftHeadingStyle(titleCell);
+        标题单元格名称(titleRow.getCell(displayName), "显示名");
+        标题单元格名称(titleRow.getCell(typeColumn), "类型");
+        标题单元格名称(titleRow.getCell(descriptionColumn), "说明");
         //生成表格数据
         List<MetadbWordEntity> metadbWordEntities = initTableData();
         //新增属性
@@ -105,14 +120,15 @@ public class WordTest {
             XWPFTableRow xwpfTableRow = rows.get(i + 1);
             MetadbWordEntity entity = metadbWordEntities.get(i);
             List<XWPFTableCell> tableCells = xwpfTableRow.getTableCells();
-            tableCells.get(属性名称列).setText(entity.getPropertyInfo());
-            leftCellStyle(tableCells.get(属性名称列));
-            tableCells.get(显示名列).setText(entity.getPropertyInfo());
-            rightCellStyle(tableCells.get(显示名列));
-            tableCells.get(类型列).setText(entity.getPropertyType());
-            rightCellStyle(tableCells.get(类型列));
-            tableCells.get(说明列).setText(entity.getPropertyDescription());
-            rightCellStyle(tableCells.get(说明列));
+            tableCells.get(attributeNameColumn).setText(entity.getPropertyName());
+            //左侧表格的样式
+            leftCellStyle(tableCells.get(attributeNameColumn));
+            tableCells.get(displayName).setText(entity.getPropertyInfo());
+            rightCellStyle(tableCells.get(displayName));
+            tableCells.get(typeColumn).setText(entity.getPropertyType());
+            rightCellStyle(tableCells.get(typeColumn));
+            tableCells.get(descriptionColumn).setText(entity.getPropertyDescription());
+            rightCellStyle(tableCells.get(descriptionColumn));
         }
         doc.write(stream);
     }
@@ -145,7 +161,7 @@ public class WordTest {
      */
     private void increaseTableHeadingStyle(XWPFTableCell cell) {
         grayedOutBackground(cell);
-        increaseCellStyle(cell, 2000);
+        increaseCellStyle(cell, rightWidth);
     }
     
     /**
@@ -164,6 +180,11 @@ public class WordTest {
         increaseCellStyle(cell, rightWidth);
     }
     
+    /**
+     * 左侧表格的样式
+     *
+     * @param cell
+     */
     void leftCellStyle(XWPFTableCell cell) {
         increaseCellStyle(cell, leftWidth);
     }
