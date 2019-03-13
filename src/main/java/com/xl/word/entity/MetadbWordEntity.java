@@ -1,8 +1,6 @@
-package com.xl.entity;
+package com.xl.word.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 /**
  * Created with 徐立.导出word的实体
@@ -13,8 +11,6 @@ import lombok.NoArgsConstructor;
  * To change this template use File | Settings | File Templates.
  */
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class MetadbWordEntity {
     /**
      * 属性名称
