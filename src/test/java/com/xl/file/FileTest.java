@@ -52,7 +52,7 @@ public class FileTest {
     @Test
     public void copyTest() {
         //遍历目录
-        String filePath = "E:\\download\\Document-master";
+        String filePath = "E:\\download\\sxt尚学堂";
         List<File> files = FileUtil.queryAll(filePath);
         //FileUtil.print(files);
         //    将文件复制
