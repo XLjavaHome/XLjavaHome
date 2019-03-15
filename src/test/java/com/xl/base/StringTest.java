@@ -108,6 +108,16 @@ public class StringTest {
     }
     
     /**
+     * 有多少个占位符都会复制
+     */
+    @Test
+    public void howManyPlaceholdersWillBeCopied() {
+        System.out.println(String.format("[%1$s]测试[%1$s]你平常", "占位符"));
+        //不能
+        System.out.println(String.format("[%s]测试[%s]你平常", "占位符"));
+    }
+    
+    /**
      * d数字，s字符串
      * MessageFormat 用%s占位是不行的
      */

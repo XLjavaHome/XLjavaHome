@@ -1,7 +1,13 @@
 package com.xl.Regex;
 
+import com.xl.util.StreamTool;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Stream;
 import org.junit.Test;
 
 public class RegexTest {
@@ -13,7 +19,7 @@ public class RegexTest {
             System.out.println(m.group(1));
         }
     }
-
+    
     @Test
     public void search1() {
         Pattern p = Pattern.compile("java");
@@ -22,14 +28,14 @@ public class RegexTest {
             System.out.println(m.group());
         }
     }
-
+    
     /*
-    * Pattern.
-    * CASE_INSENSITIVE
-    * :
-    * 常量规则：
-    * 忽大小写
-    */
+     * Pattern.
+     * CASE_INSENSITIVE
+     * :
+     * 常量规则：
+     * 忽大小写
+     */
     @Test
     public void search2() {
         Pattern p = Pattern.compile("java", Pattern.CASE_INSENSITIVE);
@@ -39,7 +45,7 @@ public class RegexTest {
             System.out.println(m.group());
         }
     }
-
+    
     @Test
     public void search3() {
         Pattern p = Pattern.compile("java", Pattern.CASE_INSENSITIVE);
@@ -51,7 +57,7 @@ public class RegexTest {
         m.appendTail(buf);
         System.out.println(buf);
     }
-
+    
     /**
      * 分组测试
      */
@@ -67,7 +73,7 @@ public class RegexTest {
             System.out.println("第2组即是第2个()内字符串:" + m.group(2));
         }
     }
-
+    
     /* 常用这个 */
     @Test
     public void fun1() {
@@ -81,7 +87,7 @@ public class RegexTest {
             System.out.println("not match!");
         }
     }
-
+    
     /* 勉强模式 */
     @Test
     public void fun2() {
@@ -95,7 +101,7 @@ public class RegexTest {
             System.out.println("not match!");
         }
     }
-
+    
     /* 一般不用:占有模式 */
     @Test
     public void fun3() {
@@ -108,7 +114,7 @@ public class RegexTest {
             System.out.println("not match!");
         }
     }
-
+    
     @Test
     public void fun4() {
         Pattern p = Pattern.compile(".{3}"); // 匹配3个字符串
@@ -118,7 +124,7 @@ public class RegexTest {
             System.out.println(m.group());
         }
     }
-
+    
     @Test
     public void fun5() {
         Pattern p = Pattern.compile(".{2,8}(?=a)"); // (?=a)：表示非捕获组(不捕获a)：表示结束的字符是a
@@ -128,7 +134,7 @@ public class RegexTest {
             System.out.println(m.group());
         }
     }
-
+    
     @Test
     public void fun6() {
         Pattern p = Pattern.compile("(?=a).{3}");
@@ -139,7 +145,7 @@ public class RegexTest {
             System.out.println(m.group());
         }
     }
-
+    
     @Test
     public void fun7() {
         Pattern p = Pattern.compile(".{3}(?=!a)");
@@ -149,7 +155,7 @@ public class RegexTest {
             System.out.println(m.group());
         }
     }
-
+    
     @Test
     public void fun8() {
         Pattern p = Pattern.compile(".{3}(?<=a)"); /* 从后往前数还包含a的 */
@@ -159,7 +165,7 @@ public class RegexTest {
             System.out.println(m.group());
         }
     }
-
+    
     /**
      * 向前引用
      */
@@ -170,7 +176,7 @@ public class RegexTest {
         Matcher m = p.matcher(s);
         System.out.println(m.matches());
     }
-
+    
     /**
      * 向前引用
      */
@@ -182,13 +188,13 @@ public class RegexTest {
         Matcher m = p.matcher(s);
         System.out.println(m.matches() + ":" + m.group(2));
     }
-
+    
     @Test
     public void fun11() {
         Pattern p = Pattern.compile("java", Pattern.CASE_INSENSITIVE);
         System.out.println("Java".matches("(?i)(java)")); /* (?i)非捕获组:是上面的简写 */
     }
-
+    
     /*
      * 在使用Pattern.compile函数时，可以加入控制正则表达式的匹配行为的参数： Pattern Pattern.compile(String
      * regex, int flag)
@@ -219,7 +225,7 @@ public class RegexTest {
             System.out.println(num.replace(firstRext, "第一个"));
         }
     }
-
+    
     /**
      * 非贪婪模式
      */
@@ -232,5 +238,19 @@ public class RegexTest {
         while (matcher.find()) {
             System.out.println(matcher.group());
         }
+    }
+    
+    @Test
+    public void 多行正则匹配() throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(
+                new FileReader(new File("D:\\code\\XLjavaHome\\src\\test\\resources\\test.txt")));
+        Stream<String> lines = bufferedReader.lines();
+        String content = StreamTool.getContent(lines);
+        //直接替换所有忽略换行
+        Pattern wp = Pattern.compile("测.*试", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+        Matcher matcher = wp.matcher(content);
+        content = matcher.replaceAll("");
+        System.out.println();
+        System.out.println(content);
     }
 }

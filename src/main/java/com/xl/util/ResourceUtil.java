@@ -18,7 +18,6 @@ public class ResourceUtil {
      * @return
      */
     public static InputStream getResourceInputStream(String path) {
-        //方式一
         return Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
     }
     

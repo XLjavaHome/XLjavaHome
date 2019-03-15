@@ -1,10 +1,7 @@
 package com.xl.util;
 
-import java.io.ByteArrayOutputStream;
-import java.io.CharArrayWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.Reader;
+import java.io.*;
+import java.util.stream.Stream;
 
 public class StreamTool {
     /**
@@ -58,5 +55,14 @@ public class StreamTool {
         caw.flush();
         caw.close();
         return caw.toCharArray();
+    }
+    
+    public static String getContent(Stream<String> stream) {
+        StringBuilder sb = new StringBuilder();
+        Object[] objects = stream.toArray();
+        for (Object object : objects) {
+            sb.append(object+"\n");
+        }
+        return sb.toString();
     }
 }
