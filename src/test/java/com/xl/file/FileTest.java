@@ -38,8 +38,8 @@ public class FileTest {
         List<File> files = FileUtil.queryAll("D:\\code\\bbs1\\src\\main\\java\\cms\\bean\\data");
         for (File file : files) {
             Charset fileEncode = FileUtil.getFileEncode(file);
-            String content = FileUtil.getContent(file);
-            FileUtil.write(file, content);
+            StringBuilder content = FileUtil.getContent(file);
+            FileUtil.write(file, content.toString());
             System.out.println(content);
             if (fileEncode != null && StringUtil.equals(CharsetEnum.UTF8.getValue(), fileEncode.name())) {
             }

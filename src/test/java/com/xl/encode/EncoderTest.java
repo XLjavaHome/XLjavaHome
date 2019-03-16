@@ -4,12 +4,7 @@ import com.xl.enumsupport.CharsetEnum;
 import com.xl.util.FileUtil;
 import com.xl.util.ResourceUtil;
 import com.xl.util.StringUtil;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.nio.charset.Charset;
 import java.util.List;
 import org.junit.Test;
@@ -44,12 +39,12 @@ public class EncoderTest {
             if (encode != null && !CharsetEnum.UTF8.getValue().equals(encode)) {
                 OutputStreamWriter w1 = null;
                 try {
-                    String content = FileUtil.getContent(file);
+                    StringBuilder content = FileUtil.getContent(file);
                     if (StringUtil.isEmpty(content)) {
                         System.out.println(file.getAbsolutePath() + "为空");
                     } else {
                         w1 = new OutputStreamWriter(new FileOutputStream(file), CharsetEnum.UTF8.getValue());
-                        w1.write(content);
+                        w1.write(content.toString());
                         w1.flush();
                         System.out.println(file.getAbsolutePath() + "转换完成:" + content);
                     }
@@ -77,12 +72,12 @@ public class EncoderTest {
             if (encode != null) {
                 OutputStreamWriter w1 = null;
                 try {
-                    String content = FileUtil.getContent(file);
+                    StringBuilder content = FileUtil.getContent(file);
                     if (StringUtil.isEmpty(content)) {
                         System.out.println(file.getAbsolutePath() + "为空");
                     } else {
                         w1 = new OutputStreamWriter(new FileOutputStream(file), "GBK");
-                        w1.write(content);
+                        w1.write(content.toString());
                         w1.flush();
                         System.out.println(file.getAbsolutePath() + "转换完成:" + content);
                     }

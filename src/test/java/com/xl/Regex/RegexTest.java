@@ -1,5 +1,8 @@
 package com.xl.Regex;
 
+import com.xl.util.FileUtil;
+import com.xl.util.RegexUtil;
+import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.junit.Test;
@@ -13,7 +16,7 @@ public class RegexTest {
             System.out.println(m.group(1));
         }
     }
-
+    
     @Test
     public void search1() {
         Pattern p = Pattern.compile("java");
@@ -22,14 +25,14 @@ public class RegexTest {
             System.out.println(m.group());
         }
     }
-
+    
     /*
-    * Pattern.
-    * CASE_INSENSITIVE
-    * :
-    * 常量规则：
-    * 忽大小写
-    */
+     * Pattern.
+     * CASE_INSENSITIVE
+     * :
+     * 常量规则：
+     * 忽大小写
+     */
     @Test
     public void search2() {
         Pattern p = Pattern.compile("java", Pattern.CASE_INSENSITIVE);
@@ -39,19 +42,35 @@ public class RegexTest {
             System.out.println(m.group());
         }
     }
-
+    
     @Test
     public void search3() {
-        Pattern p = Pattern.compile("java", Pattern.CASE_INSENSITIVE);
-        Matcher m = p.matcher("java Java JAVa JaVa IloveJAVA you hateJava afasdfasdf");
+        String regex = "java";
+        String string = "java Java JAVa JaVa IloveJAVA you hateJava afasdfasdf";
+        String afterReplace = "888";
         StringBuffer buf = new StringBuffer();
-        while (m.find()) {
-            m.appendReplacement(buf, "888"); /* 将当前找到的进行替换并且换好后放到buf中去 */
-        }
-        m.appendTail(buf);
+        RegexUtil.regularReplacement(string, regex, afterReplace, buf);
         System.out.println(buf);
     }
-
+    
+    /**
+     * 文本内容，正则匹配，文件生成
+     * <p>
+     * 正则替换
+     *
+     * @throws IOException
+     */
+    @Test
+    public void regularReplacement() throws IOException {
+        StringBuilder textContent = FileUtil.getContent("D:\\code\\XLjavaHome\\src\\main\\resources\\doc\\xl.txt");
+        //懒加载要?匹配
+        String regex = "create table.*?;";
+        StringBuffer result = new StringBuffer();
+        RegexUtil.regularReplacement(textContent, regex, "", result);
+        System.out.println(result);
+        FileUtil.write(FileUtil.createTempFile("1.txt"), result.toString());
+    }
+    
     /**
      * 分组测试
      */
@@ -67,10 +86,9 @@ public class RegexTest {
             System.out.println("第2组即是第2个()内字符串:" + m.group(2));
         }
     }
-
-    /* 常用这个 */
+    
     @Test
-    public void fun1() {
+    public void 常用() {
         // 3到10个字符后面跟着一位数字:没有问号：一次吃10个字符发现不匹配于是吐出一个字符再去匹配
         Pattern p = Pattern.compile("[a-z]{3,10}[0-9]");
         String s = "aaaa5bbbb6";
@@ -81,7 +99,7 @@ public class RegexTest {
             System.out.println("not match!");
         }
     }
-
+    
     /* 勉强模式 */
     @Test
     public void fun2() {
@@ -95,7 +113,7 @@ public class RegexTest {
             System.out.println("not match!");
         }
     }
-
+    
     /* 一般不用:占有模式 */
     @Test
     public void fun3() {
@@ -108,7 +126,7 @@ public class RegexTest {
             System.out.println("not match!");
         }
     }
-
+    
     @Test
     public void fun4() {
         Pattern p = Pattern.compile(".{3}"); // 匹配3个字符串
@@ -118,7 +136,7 @@ public class RegexTest {
             System.out.println(m.group());
         }
     }
-
+    
     @Test
     public void fun5() {
         Pattern p = Pattern.compile(".{2,8}(?=a)"); // (?=a)：表示非捕获组(不捕获a)：表示结束的字符是a
@@ -128,7 +146,7 @@ public class RegexTest {
             System.out.println(m.group());
         }
     }
-
+    
     @Test
     public void fun6() {
         Pattern p = Pattern.compile("(?=a).{3}");
@@ -139,7 +157,7 @@ public class RegexTest {
             System.out.println(m.group());
         }
     }
-
+    
     @Test
     public void fun7() {
         Pattern p = Pattern.compile(".{3}(?=!a)");
@@ -149,7 +167,7 @@ public class RegexTest {
             System.out.println(m.group());
         }
     }
-
+    
     @Test
     public void fun8() {
         Pattern p = Pattern.compile(".{3}(?<=a)"); /* 从后往前数还包含a的 */
@@ -159,7 +177,7 @@ public class RegexTest {
             System.out.println(m.group());
         }
     }
-
+    
     /**
      * 向前引用
      */
@@ -170,7 +188,7 @@ public class RegexTest {
         Matcher m = p.matcher(s);
         System.out.println(m.matches());
     }
-
+    
     /**
      * 向前引用
      */
@@ -182,44 +200,13 @@ public class RegexTest {
         Matcher m = p.matcher(s);
         System.out.println(m.matches() + ":" + m.group(2));
     }
-
+    
     @Test
     public void fun11() {
         Pattern p = Pattern.compile("java", Pattern.CASE_INSENSITIVE);
         System.out.println("Java".matches("(?i)(java)")); /* (?i)非捕获组:是上面的简写 */
     }
-
-    /*
-     * 在使用Pattern.compile函数时，可以加入控制正则表达式的匹配行为的参数： Pattern Pattern.compile(String
-     * regex, int flag)
-     *
-     * flag的取值范围如下： Pattern.CANON_EQ
-     * 当且仅当两个字符的"正规分解(canonical decomposition)"都完全相同的情况下
-     * ，才认定匹配。比如用了这个标志之后，表达式"a\u030A"
-     * 会匹配"?"。默认情况下，不考虑"规范相等性(canonical equivalence)"。
-     * Pattern.CASE_INSENSITIVE(?i)
-     * 默认情况下，大小写不明感的匹配只适用于US-ASCII字符集。这个标志能让表达式忽略大小写进行匹配
-     * 。要想对Unicode字符进行大小不明感的匹配，只要将UNICODE_CASE与这个标志合起来就行了。 Pattern.COMMENTS(?x)
-     * 在这种模式下
-     * ，匹配时会忽略(正则表达式里的)空格字符(译者注：不是指表达式里的"\\s"，而是指表达式里的空格，tab，回车之类)。注释从#开始，
-     * 一直到这行结束 。可以通过嵌入式的标志来启用Unix行模式。 Pattern.DOTALL(?s)
-     * 在这种模式下，表达式''.''可以匹配任意字符，包括表示一行的结束符。默认情况下，表达式''.''不匹配行的结束符。
-     * Pattern.MULTILINE (?m) 在这种模式下，
-     * ''^''和''$''分别匹配一行的开始和结束。此外，''^''仍然匹配字符串的开始，''$''也匹配字符串的结束。默认情况下，这两个表达式仅仅匹配字符串的开始和结束。
-     * Pattern.UNICODE_CASE (?u)
-     * 在这个模式下，如果你还启用了CASE_INSENSITIVE标志，那么它会对Unicode字符进行大小写不明感的匹配
-     * 。默认情况下，大小写不敏感的匹配只适用于US-ASCII字符集。 Pattern.UNIX_LINES(?d)
-     * 在这个模式下，只有''\n''才被认作一行的中止，并且与''.''，''^''，以及''$''进行匹配。
-     */
-    @Test
-    public void numberTest() {
-        String num = "1.111";
-        String firstRext = "\\d\\.";
-        if (num.startsWith(firstRext)) {
-            System.out.println(num.replace(firstRext, "第一个"));
-        }
-    }
-
+    
     /**
      * 非贪婪模式
      */
