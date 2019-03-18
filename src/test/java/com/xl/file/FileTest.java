@@ -38,8 +38,8 @@ public class FileTest {
         List<File> files = FileUtil.queryAll("D:\\code\\bbs1\\src\\main\\java\\cms\\bean\\data");
         for (File file : files) {
             Charset fileEncode = FileUtil.getFileEncode(file);
-            String content = FileUtil.getContent(file);
-            FileUtil.write(file, content);
+            StringBuilder content = FileUtil.getContent(file);
+            FileUtil.write(file, content.toString());
             System.out.println(content);
             if (fileEncode != null && StringUtil.equals(CharsetEnum.UTF8.getValue(), fileEncode.name())) {
             }
@@ -52,7 +52,7 @@ public class FileTest {
     @Test
     public void copyTest() {
         //遍历目录
-        String filePath = "E:\\download\\Document-master";
+        String filePath = "E:\\download\\sxt尚学堂";
         List<File> files = FileUtil.queryAll(filePath);
         //FileUtil.print(files);
         //    将文件复制

@@ -1,36 +1,16 @@
 package com.xl.util;
 
-import info.monitorenter.cpdetector.io.ASCIIDetector;
-import info.monitorenter.cpdetector.io.CodepageDetectorProxy;
-import info.monitorenter.cpdetector.io.JChardetFacade;
-import info.monitorenter.cpdetector.io.ParsingDetector;
-import info.monitorenter.cpdetector.io.UnicodeDetector;
+import info.monitorenter.cpdetector.io.*;
 import java.awt.Desktop;
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileFilter;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.nio.charset.Charset;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import javax.swing.filechooser.FileSystemView;
 import lombok.extern.log4j.Log4j;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.filefilter.FileFileFilter;
-import org.junit.Test;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Created with IntelliJ IDEA.
@@ -145,7 +125,7 @@ public class FileUtil {
      * @param file
      * @return
      * @throws FileNotFoundException
-     * @throws IOException           int
+     * @throws IOException int
      * @see File#length
      */
     @Deprecated
@@ -245,7 +225,7 @@ public class FileUtil {
      * 往目标写入
      *
      * @param file
-     * @param is   void
+     * @param is void
      * @throws IOException
      */
     public static void write(File file, InputStream is) throws IOException {
@@ -272,6 +252,14 @@ public class FileUtil {
      * @throws IOException
      */
     public static void write(File file, String content) throws IOException {
+        write(file, content, new FileWriter(file));
+    }
+    
+    public static void write(String filePath, String content) throws IOException {
+        write(new File(filePath), content, new FileWriter(filePath));
+    }
+    
+    private static void write(File file, String content, FileWriter out) throws IOException {
         BufferedWriter bw = null;
         try {
             if (content == null) {
@@ -280,7 +268,7 @@ public class FileUtil {
             if (!file.exists()) {
                 file.getParentFile().mkdirs();
             }
-            bw = new BufferedWriter(new FileWriter(file));
+            bw = new BufferedWriter(out);
             bw.write(content);
             bw.flush();
         } finally {
@@ -290,24 +278,15 @@ public class FileUtil {
         }
     }
     
-    public static String getContent(File file) throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader(file));
-        StringBuffer sb = null;
-        try {
-            sb = new StringBuffer();
-            String content = null;
-            while ((content = br.readLine()) != null) {
-                sb.append(content).append("\n");
-            }
-            return sb.toString();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        } finally {
-            if (br != null) {
-                br.close();
-            }
-        }
+    /**
+     * 获取文件内容
+     *
+     * @param file
+     * @return
+     * @throws IOException
+     */
+    public static StringBuilder getContent(File file) throws IOException {
+        return getContent(new FileReader(file));
     }
     
     public static String getSize(Long fileS) {
@@ -346,8 +325,7 @@ public class FileUtil {
      * @return
      */
     public static File getDesktopFile(String name) {
-        FileSystemView fsv = FileSystemView.getFileSystemView();
-        return new File(fsv.getHomeDirectory(), name);
+        return new File(FileSystemView.getFileSystemView().getHomeDirectory(), name);
     }
     
     /**
@@ -382,12 +360,6 @@ public class FileUtil {
         File[] files1 = directoryFile.listFiles((FileFilter) FileFileFilter.FILE);
         files.removeAll(Arrays.asList(files1));
         return files;
-    }
-    
-    @Test
-    public void testGetCurrentPath() {
-        String path = getCurrentPath(this);
-        System.out.println(path);
     }
     
     public static <T> String getCurrentPath(T obj) {
@@ -432,17 +404,6 @@ public class FileUtil {
         return f.getParentFile();
     }
     
-    @Test
-    public void testTraverser() {
-        File file = new File(getCurrentClassPath());
-        List<File> fileList = new ArrayList<File>();
-        queryAll(file, fileList);
-        System.out.println(fileList.size());
-        for (File f : fileList) {
-            System.out.println(f.getName());
-        }
-    }
-    
     /**
      * 创建临时文件
      *
@@ -460,5 +421,37 @@ public class FileUtil {
             }
         }
         return file;
+    }
+    
+    /**
+     * 获取文件内容
+     *
+     * @param filePath
+     * @return
+     * @throws IOException
+     */
+    public static StringBuilder getContent(String filePath) throws IOException {
+        return getContent(new FileReader(filePath));
+    }
+    
+    @Nullable
+    public static StringBuilder getContent(FileReader fileReader) throws IOException {
+        BufferedReader br = new BufferedReader(fileReader);
+        StringBuilder sb = null;
+        try {
+            sb = new StringBuilder();
+            String content = null;
+            while ((content = br.readLine()) != null) {
+                sb.append(content).append("\n");
+            }
+            return sb;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            if (br != null) {
+                br.close();
+            }
+        }
     }
 }

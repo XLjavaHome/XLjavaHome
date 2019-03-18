@@ -61,8 +61,10 @@ public class WordTest {
         run.setBold(true); //加粗
         run.setText("加粗的内容");
         run = para.createRun();
+        //这是换行
+        run.addBreak();
         run.setColor("FF0000");
-        run.setText("红色的字。");
+        run.setText("红色(char)11的字。");
         doc.write(stream);
     }
     
@@ -80,6 +82,4 @@ public class WordTest {
         XWPFDocument doc = wordService.initWord(metadbWordEntities);
         doc.write(stream);
     }
-    
-    
 }
