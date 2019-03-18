@@ -77,6 +77,10 @@ public class NumberTest {
         double number = 3434324323.1274123;
         System.out.println(format.format(number));
         System.out.println(String.format("%.2f", number));
+        number=1.1;
+        System.out.println(String.format("%.0f", number));
+        //null测试空
+        System.out.println(String.format("%s测试空", null));
         System.out.printf("%.2f", number);
     }
     
