@@ -12,6 +12,7 @@ import org.junit.Test;
 public class RegexTest {
     /**
      * \b单词的边界
+     * Pattern.compile("\\B").split(str) 正则分割
      */
     @Test
     public void 正则中b测试() {
