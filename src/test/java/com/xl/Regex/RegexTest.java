@@ -5,9 +5,28 @@ import com.xl.util.RegexUtil;
 import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import lombok.extern.log4j.Log4j;
 import org.junit.Test;
 
+@Log4j
 public class RegexTest {
+    /**
+     * \b单词的边界
+     */
+    @Test
+    public void 正则中b测试() {
+        String str = "(中文问号？123???英文)问号?我是华丽[的制表符\t]我是华丽{的空格符 我是华丽}的换行符\n";
+        //单词的边界
+        String[] result = Pattern.compile("\\b").split(str);
+        for (String string : result) {
+            log.info("分割的字符串:" + "[" + string + "]");
+        }
+        String[] result2 = Pattern.compile("\\B").split(str);
+        for (String string : result2) {
+            log.info("分割的字符串:" + "[" + string + "]");
+        }
+    }
+    
     @Test
     public void regexTest() {
         String mystr = "   11?s   342  ";
