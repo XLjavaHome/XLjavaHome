@@ -15,6 +15,7 @@ import org.apache.poi.xwpf.usermodel.XWPFRun;
 import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTDecimalNumber;
 
 /**
  * Created with 徐立.
@@ -58,6 +59,8 @@ public class WordTest {
         //一个XWPFRun代表具有相同属性的一个区域：一段文本
         XWPFParagraph para = doc.createParagraph();
         XWPFRun run = para.createRun();
+        CTDecimalNumber indentNumber = CTDecimalNumber.Factory.newInstance();
+        //indentNumber.setVal(BigInteger.valueOf(headingLevel));
         run.setBold(true); //加粗
         run.setText("加粗的内容");
         run = para.createRun();
