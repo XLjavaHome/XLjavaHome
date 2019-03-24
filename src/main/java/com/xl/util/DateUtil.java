@@ -1,10 +1,10 @@
 package com.xl.util;
 
-import org.apache.commons.lang.StringUtils;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import lombok.extern.log4j.Log4j;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * Created with IntelliJ IDEA.
@@ -14,17 +14,18 @@ import java.util.Date;
  * @Time: 12:52
  * To change this template use File | Settings | File Templates.
  */
+@Log4j
 public class DateUtil {
     private static SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
     private static SimpleDateFormat sf = new SimpleDateFormat("yyyyMMddhhmm");
     private static SimpleDateFormat sfm = new SimpleDateFormat("yyyyMMddHHmmssSSS");
     private static SimpleDateFormat tf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-
+    
     public synchronized static String getDate() {
         Date date = new Date();
         return tf.format(date);
     }
-
+    
     /**
      * 将字符串转换成日期类型 yyyy-MM-dd
      *
@@ -42,7 +43,7 @@ public class DateUtil {
         }
         return ret;
     }
-
+    
     /**
      * 将字符串转换成日期类型 yyyy-MM-dd HH:mm:ss
      *
@@ -60,7 +61,7 @@ public class DateUtil {
         }
         return ret;
     }
-
+    
     /**
      * 将日期类型转换成"yyyy-MM-dd"字符串
      *
@@ -76,7 +77,7 @@ public class DateUtil {
         }
         return ret;
     }
-
+    
     /**
      * 将日期类型转换成"yyyyMMdd"字符串
      *
@@ -92,7 +93,7 @@ public class DateUtil {
         }
         return ret;
     }
-
+    
     /**
      * 文件上传时,生成文件名 将日期类型转换成"yyyyMMddHHmmssSSS"字符串
      *
@@ -108,7 +109,7 @@ public class DateUtil {
         }
         return ret;
     }
-
+    
     /**
      * 将日期类型转换成"yyyy-MM-dd  HH:mm:ss"字符串
      *
@@ -124,7 +125,7 @@ public class DateUtil {
         }
         return ret;
     }
-
+    
     public static Date formatDate(String date, String format) throws ParseException {
         if (StringUtils.isBlank(format)) {
             format = "yyyy-MM-dd";
@@ -138,7 +139,7 @@ public class DateUtil {
             return sysdate;
         }
     }
-
+    
     public synchronized static String formatDate(Date date, String format) {
         SimpleDateFormat dateFormat = new SimpleDateFormat(format);
         return tf.format(date);

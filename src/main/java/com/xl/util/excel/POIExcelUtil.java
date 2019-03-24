@@ -1,16 +1,19 @@
 package com.xl.util.excel;
 
 import com.xl.util.DateUtil;
+import java.io.InputStream;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import lombok.extern.log4j.Log4j;
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
-import java.io.InputStream;
-import java.text.DecimalFormat;
-import java.util.Date;
 
 /**
  * Created with IntelliJ IDEA.
@@ -21,6 +24,7 @@ import java.util.Date;
  * To change this template use File | Settings | File Templates.
  */
 @Log4j
+@SuppressWarnings("deprecation")
 public class POIExcelUtil {
     /**
      * 读取excel
@@ -41,34 +45,40 @@ public class POIExcelUtil {
         }
         return workbook;
     }
-
+    
     /**
      * 获取日期
      *
      * @param cell
      * @return
      */
-    public static Date getDate(Cell cell) {
-        if (cell != null) {
-            Date d = null;
-            try {
-                if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
-                    if (HSSFDateUtil.isCellDateFormatted(cell)) {  //判断日期类型
-                        d = cell.getDateCellValue();
-                        if (!DateUtil.formatDate(d, "yyyy-MM-dd").matches("\\d{4}-\\d{2}-\\d{2}")) {
-                            d = null;
-                        }
-                    }
-                }
-            } catch (IllegalStateException e) {
-                log.error("时间格式不正确:" + getString(cell));
-            }
-            return d;
-        } else {
+    public static Date getDate(Cell cell) throws ParseException {
+        if (cell == null) {
             return null;
         }
+        CellType cellTypeEnum = cell.getCellTypeEnum();
+        switch (cellTypeEnum) {
+            case NUMERIC:
+                double value = cell.getNumericCellValue();
+                short format = cell.getCellStyle().getDataFormat();
+                SimpleDateFormat sdf = null;
+                if (format == 14 || format == 31 || format == 57 || format == 58 || (176 <= format && format <= 178) || (
+                        182 <= format && format <= 196) || (210 <= format && format <= 213) || (208 == format)) { // 日期
+                    sdf = new SimpleDateFormat("yyyy-MM-dd");
+                } else if (format == 20 || format == 32 || format == 183 || (200 <= format && format <= 209)) { // 时间
+                    sdf = new SimpleDateFormat("HH:mm");
+                } else {
+                    return DateUtil.formatDate(new BigDecimal(value).toString(), "yyyyMMdd");
+                }
+                return sdf.parse(value + "");
+            case STRING:
+                String stringCellValue = cell.getStringCellValue();
+                return DateUtil.formatDate(stringCellValue, "yyyy-MM-dd");
+        }
+        Date dateCellValue = cell.getDateCellValue();
+        return dateCellValue;
     }
-
+    
     /**
      * 获取单元格中内容
      *
@@ -78,7 +88,7 @@ public class POIExcelUtil {
     public static String getString(Cell cell) {
         if (cell != null) {
             int cellType = cell.getCellType();
-            String cellValue = null;
+            String cellValue;
             switch (cellType) {
                 case Cell.CELL_TYPE_STRING: //字符串类型
                     cellValue = cell.getStringCellValue().trim();

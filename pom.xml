@@ -861,11 +861,17 @@
             <artifactId>activemq-core</artifactId>
             <version>5.7.0</version>
         </dependency>
-        <!--性能上Javassist高于反射，Javassist不仅可以生成类、变量和方法，还可以操作现有的方法，这在AOP上非常有用，比如做方法调用的埋点-->
         <dependency>
+            <!--性能上Javassist高于反射，Javassist不仅可以生成类、变量和方法，还可以操作现有的方法，这在AOP上非常有用，比如做方法调用的埋点-->
             <groupId>org.javassist</groupId>
             <artifactId>javassist</artifactId>
             <version>3.20.0-GA</version>
+        </dependency>
+        <dependency>
+            <!--生成word文档-->
+            <groupId>com.deepoove</groupId>
+            <artifactId>poi-tl</artifactId>
+            <version>1.0.0</version>
         </dependency>
     </dependencies>
 </project>
