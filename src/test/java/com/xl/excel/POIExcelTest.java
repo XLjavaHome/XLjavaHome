@@ -6,14 +6,15 @@ import com.xl.util.excel.POIExcelUtil;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.Date;
+import lombok.extern.log4j.Log4j;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -23,9 +24,8 @@ import org.junit.Test;
  * Time: 16:28
  * To change this template use File | Settings | File Templates.
  */
+@Log4j
 public class POIExcelTest {
-    private String path;
-
     @Test
     public void excelTest() throws IOException {
         HSSFWorkbook wb = new HSSFWorkbook();
@@ -42,23 +42,21 @@ public class POIExcelTest {
         FileOutputStream fileOut = new FileOutputStream(file);
         wb.write(fileOut);
         fileOut.close();
-        FileUtil.open(file.getParentFile());
+        FileUtil.open(file);
     }
-
-    @Before
-    public void before() {
-        path = "excel/员工资料库导入模板.xls";
-    }
-
+    
     @Test
-    public void readTest() {
-        Workbook workbook = POIExcelUtil.initWorkbook(ResourceUtil.getResourceInputStream(path));
-        System.out.println(workbook);
+    public void readTest() throws ParseException {
+        Workbook workbook = POIExcelUtil.initWorkbook(ResourceUtil.getResourceInputStream("excel/员工资料库导入模板.xls"));
         int numberOfSheets = workbook.getNumberOfSheets();
-        System.out.println(numberOfSheets);
+        log.info(numberOfSheets);
         Sheet sheet = workbook.getSheetAt(0);
+        Date date = POIExcelUtil.getDate(sheet.getRow(1).getCell(4));
+        Date date2 = POIExcelUtil.getDate(sheet.getRow(2).getCell(4));
+        log.info(date);
+        log.info(date2);
         //最大行数
         int rowNum = sheet.getPhysicalNumberOfRows();
-        System.out.println(rowNum);
+        log.info(rowNum);
     }
 }

@@ -52,14 +52,14 @@ public class FileTest {
     @Test
     public void copyTest() {
         //遍历目录
-        String filePath = "E:\\download\\sxt尚学堂";
+        String filePath = "E:\\download\\九：【BATJ面试班】(1)";
         List<File> files = FileUtil.queryAll(filePath);
         //FileUtil.print(files);
         //    将文件复制
         FileService service = new FileServiceImpl();
         int num = 0;
         for (File file : files) {
-            File target = new File(filePath, file.getName());
+            File target = new File(filePath, "copy/" + file.getName());
             if (service.copy(file, target)) {
                 num++;
                 System.out.println(String.format("成功复制:%s", file.getAbsolutePath()));

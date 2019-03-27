@@ -7,6 +7,7 @@ import com.xl.word.service.WordService;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.List;
 import lombok.extern.log4j.Log4j;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
@@ -15,6 +16,7 @@ import org.apache.poi.xwpf.usermodel.XWPFRun;
 import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTStyle;
 
 /**
  * Created with 徐立.
@@ -57,7 +59,10 @@ public class WordTest {
         XWPFDocument doc = new XWPFDocument();
         //一个XWPFRun代表具有相同属性的一个区域：一段文本
         XWPFParagraph para = doc.createParagraph();
+        para.setNumID(BigInteger.valueOf(1));
         XWPFRun run = para.createRun();
+        CTStyle ctStyle = CTStyle.Factory.newInstance();
+        ctStyle.setStyleId("1");
         run.setBold(true); //加粗
         run.setText("加粗的内容");
         run = para.createRun();
