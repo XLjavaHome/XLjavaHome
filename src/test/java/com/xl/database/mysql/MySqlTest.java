@@ -1,9 +1,9 @@
 package com.xl.database.mysql;
 
-import com.xl.util.MysqlJdbcUtil;
+import com.xl.util.JdbcUtil;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 import lombok.extern.log4j.Log4j;
 import org.junit.Test;
 
@@ -20,17 +20,21 @@ public class MySqlTest {
      * 事物测试
      */
     @Test
-    public void getConnectTest() {
-        Connection c = MysqlJdbcUtil.getMySqlConnection();
-        try {
-            c.setAutoCommit(false);
-        Statement stmt = c  .createStatement();
-        
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        //1 or more queries or updates
-    
-        log.info(c);
+    public void getConnectTest() throws SQLException {
+        Connection c = JdbcUtil.getConnection();
+        //事务
+        c.setAutoCommit(false);
+        c.setAutoCommit(true);
+        //可以两个sql一起执行
+        String sql = "insert into user(name) values (?)";
+        PreparedStatement stmt = (PreparedStatement) c.prepareStatement(sql);
+        stmt.setString(1, "aaa");
+        int i = stmt.executeUpdate();
+        PreparedStatement preparedStatement = c.prepareStatement(sql);
+        preparedStatement.setString(1, "bbb");
+        preparedStatement.executeUpdate();
+        preparedStatement.close();
+        stmt.close();
+        JdbcUtil.close(c);
     }
 }

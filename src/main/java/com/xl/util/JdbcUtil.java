@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Properties;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Created with 徐立.JDBC工具类：关闭流和取得连接
@@ -47,7 +48,12 @@ public final class JdbcUtil {
         }
     }
     // 取得连接
-    public static Connection getMySqlConnection() {
+    public static Connection getConnection() {
+        return getConnection(url, user, password);
+    }
+    
+    @Nullable
+    public static Connection getConnection(String url, String user, String password) {
         Connection conn = null;
         try {
             conn = DriverManager.getConnection(url, user, password);

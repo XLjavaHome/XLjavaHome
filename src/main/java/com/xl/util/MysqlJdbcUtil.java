@@ -1,8 +1,6 @@
 package com.xl.util;
 
 import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Properties;
@@ -18,9 +16,9 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public final class MysqlJdbcUtil {
     private static String driver = null;
-    private static String url = null;
-    private static String user = null;
-    private static String password = null;
+    public static String url = null;
+    public static String user = null;
+    public static String password = null;
     // 静态块：加载文件
     static {
         Properties props = new Properties();
@@ -56,26 +54,5 @@ public final class MysqlJdbcUtil {
                 e.printStackTrace();
             }
         }
-    }
-    
-    public static void close(Connection conn) {
-        if (conn != null) {
-            try {
-                conn.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-    
-    // 取得连接
-    public static Connection getMySqlConnection() {
-        Connection conn = null;
-        try {
-            conn = DriverManager.getConnection(url, user, password);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return conn;
     }
 }
