@@ -25,6 +25,21 @@ import sun.text.resources.cldr.aa.FormatData_aa;
 //可见测试
 @VisibleForTesting
 public class XLTest {
+    /**
+     * 不同的值能不能内联？
+     * 可以
+     */
+    @Test
+    public void inLineTest() {
+        boolean x = true;
+        print(x);
+        print(false);
+    }
+    
+    public void print(boolean x) {
+        System.out.println(x);
+    }
+    
     @Test
     public void FormatData_aaTest() {
         FormatData_aa aa = new FormatData_aa();

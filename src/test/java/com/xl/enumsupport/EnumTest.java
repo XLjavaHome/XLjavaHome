@@ -42,8 +42,15 @@ public class EnumTest {
      * 循环枚举
      */
     @Test
-    public void forTest() {
+    public void forTest() throws ClassNotFoundException {
         //values获取所有枚举，循环
+        Class<? extends Enum> aClass = (Class<? extends Enum>) Class.forName("com.xl.enumsupport.SexEnum");
+        if (aClass.isEnum()) {
+            Enum[] enumConstants = aClass.getEnumConstants();
+            for (Enum enumConstant : enumConstants) {
+                System.out.println(enumConstant.ordinal());
+            }
+        }
         SexEnum[] values = SexEnum.values();
         for (SexEnum value : values) {
             System.out.println(value);
