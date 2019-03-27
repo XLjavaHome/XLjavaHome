@@ -156,12 +156,15 @@ public class StringTest {
         System.out.println(t2);
     }
     
-    /**
-     * 占位符
-     */
     @Test
-    public void formatTest() {
-        //没有效果
-        System.out.println(String.format("百分比占位符%%", "30%"));
+    public void methodTest() {
+        String s = "1";
+        method(s);
+        //结果还是1，不变的
+        System.out.println(s);
+    }
+    
+    private void method(String s) {
+        s = "2";
     }
 }
