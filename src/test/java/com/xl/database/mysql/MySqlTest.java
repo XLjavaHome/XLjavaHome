@@ -22,14 +22,14 @@ public class MySqlTest {
     @Test
     public void getConnectTest() throws SQLException {
         Connection c = JdbcUtil.getConnection();
-        //事务
+        //事务 ,falsekoi不会生效
         c.setAutoCommit(false);
         c.setAutoCommit(true);
         //可以两个sql一起执行
         String sql = "insert into user(name) values (?)";
-        PreparedStatement stmt = (PreparedStatement) c.prepareStatement(sql);
+        PreparedStatement stmt = c.prepareStatement(sql);
         stmt.setString(1, "aaa");
-        int i = stmt.executeUpdate();
+        stmt.executeUpdate();
         PreparedStatement preparedStatement = c.prepareStatement(sql);
         preparedStatement.setString(1, "bbb");
         preparedStatement.executeUpdate();

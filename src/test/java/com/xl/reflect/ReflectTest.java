@@ -3,13 +3,17 @@ package com.xl.reflect;
 import com.xl.base.LogTest;
 import com.xl.entity.PageLoadContext;
 import com.xl.entity.Person;
+import com.xl.entity.Student;
 import com.xl.util.Constant;
+import com.xl.util.ReflectUtil;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.sql.JDBCType;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.core.ResolvableType;
 
 /**
  * Created with 徐立.getFields：获取所有public的成员变量。
@@ -24,10 +28,33 @@ import org.junit.Test;
 public class ReflectTest {
     Person p = new Person();
     private String className = null;
+    private Student student;
     
     @Before
     public void before() {
         className = "com.xl.web.action.IndexAction";
+    }
+    
+    @Test
+    public void name() {
+        System.out.println(ReflectUtil.getClassGenericType(JDBCType.class, 1));
+    }
+    
+    /**
+     * 反射获取类型
+     *
+     * @throws NoSuchFieldException
+     */
+    @Test
+    public void example() throws NoSuchFieldException {
+        ResolvableType t = ResolvableType.forField(getClass().getDeclaredField("student"));
+        System.out.println(t);
+        t.getSuperType(); // AbstractMap<Integer, List<String>>
+        t.asMap(); // Map<Integer, List<String>>
+        t.getGeneric(0).resolve(); // Integer
+        t.getGeneric(1).resolve(); // List
+        t.getGeneric(1); // List<String>
+        t.resolveGeneric(1, 0); // String
     }
     
     /**

@@ -25,6 +25,8 @@ import sun.text.resources.cldr.aa.FormatData_aa;
 //可见测试
 @VisibleForTesting
 public class XLTest {
+    private String myMap;
+    
     /**
      * 不同的值能不能内联？
      * 可以
@@ -32,12 +34,8 @@ public class XLTest {
     @Test
     public void inLineTest() {
         boolean x = true;
-        print(x);
-        print(false);
-    }
-    
-    public void print(boolean x) {
         System.out.println(x);
+        System.out.println(false);
     }
     
     @Test
@@ -64,11 +62,6 @@ public class XLTest {
     @Test
     public void desktopTest() throws IOException {
         Desktop.getDesktop().browse(URI.create("http://127.0.0.1:8080"));
-    }
-    
-    @Test
-    public void xlTest() {
-        String s = "select * from\n" + "user_tables;";
     }
     
     @Test
