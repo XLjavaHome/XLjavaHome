@@ -25,7 +25,11 @@ public class IdWorker {
     // 得到0000000000000000000000000000000000000000000000000000111111111111
     private long sequenceMask = -1L ^ (-1L << sequenceBits);
     private long lastTimestamp = -1L;
-
+    
+    public IdWorker() {
+        this(1, 1);
+    }
+    
     public IdWorker(long workerId, long datacenterId) {
         this.workerId = workerId;
         this.datacenterId = datacenterId;

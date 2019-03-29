@@ -1,5 +1,6 @@
 package com.xl.util;
 
+import com.xl.base.IdWorker;
 import info.monitorenter.cpdetector.io.*;
 import java.awt.Desktop;
 import java.io.*;
@@ -453,5 +454,16 @@ public class FileUtil {
                 br.close();
             }
         }
+    }
+    
+    /**
+     * 建立临时文件
+     *
+     * @return
+     */
+    public static File createRandomFile() {
+        IdWorker worker = new IdWorker();
+        long l = worker.nextId();
+        return createTempFile(l + ".txt");
     }
 }

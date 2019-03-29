@@ -5,9 +5,13 @@ import com.xl.service.FileService;
 import com.xl.service.FileServiceImpl;
 import com.xl.util.FileUtil;
 import com.xl.util.StringUtil;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import org.junit.Test;
 
@@ -19,6 +23,9 @@ import org.junit.Test;
  * To change this template use File | Settings | File Templates.
  */
 public class FileTest {
+    private File file = FileUtil.createRandomFile();
+    private String str = "中文测试asdb";
+    
     @Test
     public void spTest() {
         //文件的分隔符
@@ -46,6 +53,32 @@ public class FileTest {
         }
     }
     
+    @Test
+    public void BufferedWriter() throws IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
+        writer.write(str);
+        writer.close();
+        open();
+    }
+    
+    @Test
+    public void appendFileWithBufferedWriter() throws IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
+        writer.write(str);
+        writer.close();
+        open();
+    }
+    
+    @Test
+    public void FileOutputStream() throws IOException {
+        FileOutputStream outputStream = new FileOutputStream(file);
+        // 需要将String转换为bytes
+        byte[] strToBytes = str.getBytes();
+        outputStream.write(strToBytes);
+        outputStream.close();
+        open();
+    }
+    
     /**
      * 拷贝
      */
@@ -68,5 +101,40 @@ public class FileTest {
             }
         }
         System.out.println(String.format("成功复制了%s个文件", num));
+    }
+    
+    /**
+     * 处理大文件的时候，FileChannel会比标准的io更快。
+     */
+    @Test
+    public void fileChannel() throws IOException {
+        RandomAccessFile stream = new RandomAccessFile(file, "rw");
+        FileChannel channel = stream.getChannel();
+        byte[] strBytes = str.getBytes();
+        ByteBuffer buffer = ByteBuffer.allocate(strBytes.length);
+        buffer.put(strBytes);
+        buffer.flip();
+        channel.write(buffer);
+        stream.close();
+        channel.close();
+        open();
+    }
+    
+    /**
+     * Files是Java7引入的工具类，通过它，我们可以创建，移动，删除，复制文件。目录也是一种特殊的文件，对目录也适用。当然也可以用于读写文件
+     */
+    @Test
+    public void Files() throws IOException {
+        String str = "Hello";
+        Path path = Paths.get(file.getAbsolutePath());
+        byte[] strToBytes = str.getBytes();
+        Files.write(path, strToBytes);
+        String read = Files.readAllLines(path).get(0);
+        System.out.println(str.equals(read));
+        open();
+    }
+    
+    public void open() throws IOException {
+        //FileUtil.open(file);
     }
 }
