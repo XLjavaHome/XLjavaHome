@@ -1,14 +1,8 @@
 package com.xl.base;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
+import java.awt.Desktop;
+import java.io.*;
+import java.net.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -137,6 +131,28 @@ public class HttpTest {
         request.setEntity(new UrlEncodedFormEntity(formParams, "UTF-8"));
         request.setHeader("Content-Type", "application/x-www-form-urlencoded");        //内容为post
         return httpClient.execute(request);
+    }
+    
+    @Test
+    public void 网页抓取() throws Exception {
+        String urlString = "http://www.hao123.com";
+        URL url = new URL(urlString);
+        URLConnection urlConnection = url.openConnection();
+        urlConnection.connect();
+        InputStream is2 = urlConnection.getInputStream();
+        InputStream is = url.openStream();
+        InputStreamReader isr = new InputStreamReader(is, "utf-8");
+        //为字符输入流添加缓冲
+        BufferedReader br = new BufferedReader(isr);
+        String data = br.readLine();//读取数据
+        while (data != null) {//循环读取数据
+            System.out.println(data);//输出数据
+            data = br.readLine();
+        }
+        br.close();
+        isr.close();
+        is.close();
+        Desktop.getDesktop().browse(URI.create(urlString));
     }
 }
 
