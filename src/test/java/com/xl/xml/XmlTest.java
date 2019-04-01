@@ -9,6 +9,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import org.junit.Before;
 import org.junit.Test;
+import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
@@ -22,10 +23,9 @@ public class XmlTest {
 
     @Test
     public void test() throws ParserConfigurationException, IOException, SAXException {
-        long lasting = System.currentTimeMillis();
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
-        org.w3c.dom.Document doc = builder.parse(inputStream);
+        Document doc = builder.parse(inputStream);
         NodeList n1 = doc.getElementsByTagName("name");
         for (int i = 0; i < n1.getLength(); i++) {
             System.out.println(doc.getElementsByTagName("psw"));

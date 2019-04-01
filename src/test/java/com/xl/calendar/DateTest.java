@@ -75,9 +75,10 @@ public class DateTest {
     @Test
     public void 检查两个日期是否相等() {
         LocalDate today = LocalDate.now();
-        LocalDate date1 = LocalDate.of(2019, 03, 28);
+        LocalDate date1 = LocalDate.of(2019, 4, 1);
+        System.out.println(date1);
         if (date1.equals(today)) {
-            System.out.printf("Today %s and date1 %s are same date %n", today, date1);
+            System.out.println(String.format("Today %s and date1 %s are same date %n", today, date1));
         }
     }
     
@@ -133,5 +134,28 @@ public class DateTest {
             System.out.printf("%s can't be formatted!%n", arrivalDate);
             ex.printStackTrace();
         }
+    }
+    
+    @Test
+    public void date和localDate转换() {
+        //1）将java.util.Date转换为ZonedDateTime。
+        //2）使用它的toLocalDate（）方法从ZonedDateTime获取LocalDate。
+        Date date = new Date();
+        Instant instant = date.toInstant();
+        ZoneId zoneId = ZoneId.systemDefault();
+        // atZone()方法返回在指定时区从此Instant生成的ZonedDateTime。
+        LocalDate localDate = instant.atZone(zoneId).toLocalDate();
+        System.out.println("Date = " + date);
+        System.out.println("LocalDate = " + localDate);
+    }
+    
+    @Test
+    public void LocalDate转Date() {
+        ZoneId zoneId = ZoneId.systemDefault();
+        LocalDate localDate = LocalDate.now();
+        ZonedDateTime zdt = localDate.atStartOfDay(zoneId);
+        Date date = Date.from(zdt.toInstant());
+        System.out.println("LocalDate = " + localDate);
+        System.out.println("Date = " + date);
     }
 }

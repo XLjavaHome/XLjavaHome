@@ -73,6 +73,11 @@ public class XLTest {
         System.out.println(collected);
     }
     
+    @Test
+    public void name() {
+        System.out.println("11.asdb".matches("\\d+\\..*"));
+    }
+    
     /**
      * 改成冒号了
      */
