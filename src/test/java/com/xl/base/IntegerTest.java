@@ -63,9 +63,18 @@ public class IntegerTest {
      * 都会触发空指针异常
      */
     @Test
-    public void equalTest() {
+    public void nullEqualTest() {
         Integer a = null;
         System.out.println(a == 2);
         System.out.println(3 == a);
+    }
+    
+    @Test
+    public void EqualTest() {
+        Integer a = 129;
+        Integer b = 129;
+        //相等是false
+        System.out.println(a == b);
+        System.out.println(a.equals(b));
     }
 }
