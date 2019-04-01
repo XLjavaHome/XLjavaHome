@@ -26,7 +26,7 @@ public class StringUtil {
     public static boolean isNotEmpty(Object str) {
         return !isEmpty(str);
     }
-
+    
     /**
      * 判断字符串是否为空
      *
@@ -36,7 +36,7 @@ public class StringUtil {
     public static boolean isEmpty(@Nullable Object str) {
         return null == str || "".equals(str) || "null".equals(str);
     }
-
+    
     /**
      * 空对象处理
      *
@@ -50,7 +50,7 @@ public class StringUtil {
             return ob.toString();
         }
     }
-
+    
     /**
      * 得到当前工程路径
      *
@@ -58,15 +58,9 @@ public class StringUtil {
      */
     @Deprecated
     public static String getClassPath() {
-        String path = "";
-        try {
-            path = System.getProperty("user.dir");
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        return path;
+        return System.getProperty("user.dir");
     }
-
+    
     /**
      * 获取web工程路径：
      *
@@ -77,7 +71,7 @@ public class StringUtil {
         String m = rLeft(s, "WEB-INF");
         return m;
     }
-
+    
     /**
      * 得到ClassPath的绝对路径:web 工程classes路径
      *
@@ -93,7 +87,7 @@ public class StringUtil {
         }
         return result;
     }
-
+    
     /*
      * 从右边向左取分隔符左边的值
      *
@@ -114,7 +108,7 @@ public class StringUtil {
         }
         return retstr;
     }
-
+    
     /**
      * 中文转换
      *
@@ -133,7 +127,7 @@ public class StringUtil {
             return "";
         }
     }
-
+    
     /*
      * 字符串替换方法：区分大小写
      *
@@ -165,7 +159,7 @@ public class StringUtil {
         }
         return sourceStr;
     }
-
+    
     /*
      * 从右边向左取分隔符右边的值
      *
@@ -188,14 +182,14 @@ public class StringUtil {
         }
         return retstr;
     }
-
+    
     public static String safeToString(Object obj, String s) {
         if (obj == null) {
             return s;
         }
         return obj.toString();
     }
-
+    
     /**
      * 截取字符串
      *
@@ -207,7 +201,7 @@ public class StringUtil {
     public static String subString(String str, int start, int end) {
         return subString(str, start, end, "...");
     }
-
+    
     /**
      * 截取字符串
      *
@@ -225,7 +219,7 @@ public class StringUtil {
         }
         return str.substring(start, end) + patten;
     }
-
+    
     /**
      * 判断两个字符串是否equals,如果字符串是null,就直接返回false
      *
@@ -239,7 +233,7 @@ public class StringUtil {
         }
         return str1.equals(str2);
     }
-
+    
     /**
      * 是否包含另字符串
      *
@@ -253,11 +247,11 @@ public class StringUtil {
         }
         return str1.contains(str2);
     }
-
+    
     public static String join(Collection collection, String separator) {
         return join(collection.iterator(), separator);
     }
-
+    
     public static String join(Iterator iterator, String separator) {
         if (iterator == null) {
             return null;
@@ -283,7 +277,7 @@ public class StringUtil {
         }
         return buf.toString();
     }
-
+    
     /**
      * 添加
      *
@@ -299,11 +293,11 @@ public class StringUtil {
         buf.deleteCharAt(buf.length() - 1);
         return buf.toString();
     }
-
+    
     public static String join(Enumeration<String> keys) {
         return join(keys, Constant.COMMA);
     }
-
+    
     public static String join(Enumeration<String> collection, String separator) {
         StringBuffer buf = new StringBuffer(256);
         if (collection.hasMoreElements()) {
@@ -312,7 +306,7 @@ public class StringUtil {
         buf.deleteCharAt(buf.length() - 1);
         return buf.toString();
     }
-
+    
     /**
      * 是否结束。"."或"。"
      *
@@ -321,5 +315,18 @@ public class StringUtil {
      */
     public boolean isHasEnding(String content) {
         return content.endsWith(Constant.CHINAFULLPOINT) || content.endsWith(YINGWENJUHAO);
+    }
+    
+    /**
+     * 获取string防止为空
+     *
+     * @param s
+     * @return
+     */
+    public String getStringNotNull(String s) {
+        if (s == null) {
+            return "";
+        }
+        return s;
     }
 }
