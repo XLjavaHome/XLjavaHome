@@ -3,6 +3,7 @@ package com.xl.database.mysql;
 import com.xl.util.JdbcUtil;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import lombok.extern.log4j.Log4j;
 import org.junit.Test;
@@ -36,5 +37,19 @@ public class MySqlTest {
         preparedStatement.close();
         stmt.close();
         JdbcUtil.close(c);
+    }
+    
+    @Test
+    public void name() throws SQLException {
+        Connection c = JdbcUtil.getConnection();
+        //可以两个sql一起执行
+        String sql = "select 1 from dual";
+        PreparedStatement stmt = c.prepareStatement(sql);
+        ResultSet resultSet = stmt.executeQuery();
+        String string = resultSet.getString(0);
+        System.out.println(string);
+        stmt.close();
+        JdbcUtil.close(c);
+    
     }
 }

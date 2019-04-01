@@ -2,7 +2,6 @@ package com.xl.xml.dom4j;
 
 import com.xl.enumsupport.CharsetEnum;
 import com.xl.util.FileUtil;
-import com.xl.util.ResourceUtil;
 import java.io.*;
 import java.util.Iterator;
 import java.util.List;
@@ -14,7 +13,6 @@ import org.dom4j.Element;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
-import org.junit.Before;
 import org.junit.Test;
 //乱码产生原因:io流
 //本身是按utf-8来的
@@ -34,22 +32,18 @@ public class DOM4JTest {
     /**
      * 解析器
      */
-    private SAXReader saxReader;
+    private SAXReader saxReader = new SAXReader();
     /**
      * 文档对象
      */
     private Document document;
+    private InputStream inputStream1=new FileInputStream("C:\\Users\\Administrator\\Desktop\\1\\SIRMPMPROJECTCHANGE.xml");
     
-    @Before
+    public DOM4JTest() throws FileNotFoundException {
+    }
+    
     public void init() throws IOException, DocumentException {
-        String path = "xml\\book.xml";
-        inputStream = ResourceUtil.getResourceInputStream(path);
-        path = "C:\\Users\\Administrator\\Desktop\\1\\SIRMPMPROJECTCHANGE.xml";
-        inputStream = new FileInputStream(path);
-        tempFile = FileUtil.createTempFile("测试.xml");
-        saxReader = new SAXReader();
         document = saxReader.read(inputStream);
-        log.info(document);
     }
     
     @Test
