@@ -3,8 +3,12 @@ package com.xl.base;
 import com.xl.util.StringUtil;
 import java.text.MessageFormat;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Set;
+import java.util.TreeSet;
 import lombok.extern.log4j.Log4j;
 import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -64,9 +68,16 @@ public class StringTest {
     
     @Test
     public void spiltTest() {
-        String s = "测试21321\n" + "'e234";
-        System.out.println(Arrays.toString(s.split(",")));
+        String ceshi = "11,22,11";
+        //切割后是否有重复数据? 有
+        System.out.println(Arrays.toString(ceshi.split(",")));
+        String[] split = StringUtils.split(ceshi, ",");
+        System.out.println(Arrays.toString(split));
+        Set<String> set = new TreeSet<>();
+        Collections.addAll(set, split);
+        System.out.println(set);
     }
+    
     
     @Test
     public void bufferAndBuilderTest() {
