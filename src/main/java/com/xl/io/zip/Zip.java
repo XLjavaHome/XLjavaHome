@@ -1,11 +1,6 @@
 package com.xl.io.zip;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.Enumeration;
 import java.util.Vector;
 import java.util.zip.ZipEntry;
@@ -13,22 +8,9 @@ import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
 
 public class Zip {
-    private static final int BUFFER = 1024;    // Length of buffer
     private long length = 0;                // A uncompress directory's length
 
     public static void main(String[] args) {
-        //    	if (args.length != 2) {
-        // 			Print.print("Usage: java ZipCompress zip/unzip E:/java/apps/zip/text");
-        // 			return ;
-        // 		}
-        // 		Zip zip = new Zip();
-        // 		if (args[0].equals("zip")) {
-        // 			zip.compress(args[1]);
-        // 		} else if(args[0].equals("unzip")) {
-        // 			zip.uncompress(args[1]);
-        // 		} else {
-        // 			Print.print("Error");
-        // 		}
         Zip zip = new Zip();
         zip.compress("D:/ziptest");
     }
@@ -52,13 +34,13 @@ public class Zip {
             BufferedInputStream bis = null;
             BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(targetFile));
             ZipOutputStream zipos = new ZipOutputStream(bos);
-            byte[] data = new byte[BUFFER];
+            byte[] data = new byte[1024];
             for (int i = 0; i < vector.size(); i++) {
                 File file = vector.get(i);
                 zipos.putNextEntry(new ZipEntry(getEntryName(fileName, file)));
                 bis = new BufferedInputStream(new FileInputStream(file));
                 int count;
-                while ((count = bis.read(data, 0, BUFFER)) != -1) {
+                while ((count = bis.read(data, 0, 1024)) != -1) {
                     zipos.write(data, 0, count);
                 }
                 bis.close();
@@ -85,7 +67,7 @@ public class Zip {
             BufferedOutputStream bos = null;
             ZipFile zipFile = new ZipFile(fileName);
             Enumeration en = zipFile.entries();
-            byte[] data = new byte[BUFFER];
+            byte[] data = new byte[1024];
             while (en.hasMoreElements()) {
                 ZipEntry entry = (ZipEntry) en.nextElement();
                 if (entry.isDirectory()) {
@@ -100,7 +82,7 @@ public class Zip {
                 }
                 bos = new BufferedOutputStream(new FileOutputStream(file));
                 int count;
-                while ((count = bis.read(data, 0, BUFFER)) != -1) {
+                while ((count = bis.read(data, 0, 1024)) != -1) {
                     bos.write(data, 0, count);
                 }
                 bis.close();
