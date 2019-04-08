@@ -8,6 +8,7 @@ import java.util.Enumeration;
 import java.util.Iterator;
 import org.antlr.v4.runtime.misc.Nullable;
 import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Title: StringUtil Description: 字符串处理公共组件
@@ -23,7 +24,7 @@ public class StringUtil {
      * @param str
      * @return boolean
      */
-    public static boolean isNotEmpty(Object str) {
+    public static boolean isNotEmpty(CharSequence str) {
         return !isEmpty(str);
     }
     
@@ -33,8 +34,8 @@ public class StringUtil {
      * @param str
      * @return boolean
      */
-    public static boolean isEmpty(@Nullable Object str) {
-        return null == str || "".equals(str) || "null".equals(str);
+    public static boolean isEmpty(@Nullable CharSequence str) {
+        return StringUtils.isEmpty(str) || StringUtils.isBlank(str);
     }
     
     /**

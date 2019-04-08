@@ -178,4 +178,10 @@ public class StringTest {
     private void method(String s) {
         s = "2";
     }
+    
+    @Test
+    public void lengthTest() {
+        String s = "";
+        System.out.println(s.length());
+    }
 }
