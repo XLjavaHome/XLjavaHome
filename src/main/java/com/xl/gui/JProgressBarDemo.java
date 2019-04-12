@@ -31,7 +31,7 @@ public class JProgressBarDemo extends JFrame {
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         this.setContentPane(contentPane);
         contentPane.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-        final JProgressBar progressBar = new JProgressBar();
+        JProgressBar progressBar = new JProgressBar();
         progressBar.setStringPainted(true);
         new Thread() {
             @Override
@@ -50,6 +50,7 @@ public class JProgressBarDemo extends JFrame {
         contentPane.add(progressBar);
         this.setVisible(true);
     }
+
 
     public static void main(String[] args) {
         JProgressBarDemo example = new JProgressBarDemo();

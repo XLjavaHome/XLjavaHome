@@ -2,7 +2,7 @@ package com.xl.base;
 
 import java.util.*;
 import lombok.extern.log4j.Log4j;
-import org.junit.Before;
+import org.apache.commons.collections4.SetUtils;
 import org.junit.Test;
 
 /**
@@ -17,11 +17,12 @@ import org.junit.Test;
 public class SetTest {
     Set<String> s = new HashSet<String>(10);
     
-    @Before
-    public void before() {
+    public SetTest() {
         s.add("ces");
         s.add("ces");
         s.add("ces2");
+        s.add("ces6");
+        s.add("ces3");
     }
     
     @Test
@@ -141,5 +142,16 @@ public class SetTest {
         set.add(1);
         set.add(3);
         set.add(2);
+    }
+    
+    /**
+     * 
+     */
+    @Test
+    public void sortTest() {
+        System.out.println(s);
+        Set<String> newSet = SetUtils.orderedSet(s);
+        System.out.println(s);
+        System.out.println(newSet);
     }
 }

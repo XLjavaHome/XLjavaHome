@@ -11,6 +11,7 @@ import javax.swing.filechooser.FileSystemView;
 import lombok.extern.log4j.Log4j;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.filefilter.FileFileFilter;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -326,7 +327,7 @@ public class FileUtil {
      * @return
      */
     public static File getDesktopFile(String name) {
-        return new File(FileSystemView.getFileSystemView().getHomeDirectory(), name);
+        return getTempFile(FileSystemView.getFileSystemView().getHomeDirectory(), name);
     }
     
     /**
@@ -412,7 +413,7 @@ public class FileUtil {
      * @return
      */
     public static File createTempFile(String filePath) {
-        File file = new File(getDesktop(), "temp/" + filePath);
+        File file = getTempFile(getDesktop(), "temp/" + filePath);
         if (!file.exists()) {
             try {
                 file.getParentFile().mkdirs();
@@ -422,6 +423,11 @@ public class FileUtil {
             }
         }
         return file;
+    }
+    
+    @NotNull
+    public static File getTempFile(File desktop, String s) {
+        return new File(desktop, s);
     }
     
     /**
@@ -465,5 +471,8 @@ public class FileUtil {
         IdWorker worker = new IdWorker();
         long l = worker.nextId();
         return createTempFile(l + ".txt");
+    }
+    
+    public static File createTempDirect(String directoryName) {
     }
 }

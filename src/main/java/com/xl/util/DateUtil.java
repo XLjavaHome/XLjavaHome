@@ -2,6 +2,8 @@ package com.xl.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import lombok.extern.log4j.Log4j;
 import org.apache.commons.lang.StringUtils;
@@ -143,5 +145,15 @@ public class DateUtil {
     public synchronized static String formatDate(Date date, String format) {
         SimpleDateFormat dateFormat = new SimpleDateFormat(format);
         return tf.format(date);
+    }
+    
+    /**
+     * 格式化现在的日期
+     *
+     * @return
+     */
+    public static String formatLocalDate() {
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+        return LocalDate.now().format(timeFormatter);
     }
 }
