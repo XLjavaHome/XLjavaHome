@@ -1,11 +1,7 @@
 package com.xl.thread;
 
 import com.xl.util.NumberTool;
-import java.util.concurrent.CompletionService;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorCompletionService;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.*;
 import org.apache.commons.lang.math.RandomUtils;
 
 /**
@@ -22,14 +18,14 @@ public class CallableAndFutureTest {
      */
     public static void main(String[] args) {
         //创建一个线程池，该线程池重用固定数量的从共享无界队列中运行的线程。
-        ExecutorService threadPool2 = Executors.newFixedThreadPool(10);
+        ExecutorService threadPool2 = Executors.newFixedThreadPool(2);
         long start = System.currentTimeMillis();
         CompletionService<Integer> completionService = new ExecutorCompletionService<Integer>(threadPool2);
         for (int i = 1; i <= 10; i++) {
             completionService.submit(() -> {
                 try {
                     //放在里面会耗时很少
-                    Thread.sleep(1000L);
+                    Thread.sleep(2000L);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

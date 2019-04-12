@@ -19,11 +19,10 @@ import org.junit.Test;
 public class EncoderTest {
     private InputStream gbkFile = ResourceUtil.getResourceInputStream("gbk.txt");
     private InputStream utfFile = ResourceUtil.getResourceInputStream("utf-8.txt");
-
+    
     public EncoderTest() throws UnsupportedEncodingException {
     }
-
-
+    
     /**
      * 将指定目录下其他格式文件为UTF-8文件
      *
@@ -56,7 +55,7 @@ public class EncoderTest {
             }
         }
     }
-
+    
     /**
      * 将指定目录下其他格式文件为GBK文件
      *
@@ -89,7 +88,7 @@ public class EncoderTest {
             }
         }
     }
-
+    
     @Test
     public void demoTest() throws UnsupportedEncodingException {
         System.out.println(new String("你好".getBytes(CharsetEnum.GBK.getValue()), CharsetEnum.UTF8.getValue()));

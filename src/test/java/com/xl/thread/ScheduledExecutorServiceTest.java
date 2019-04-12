@@ -8,9 +8,9 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created with 徐立.
  *
- * @author: 徐立
- * @Date: 2018-10-27
- * @Time: 12:18
+ * @author 徐立
+ * @Date 2018-10-27
+ * @Time 12:18
  * To change this template use File | Settings | File Templates.
  */
 public class ScheduledExecutorServiceTest {

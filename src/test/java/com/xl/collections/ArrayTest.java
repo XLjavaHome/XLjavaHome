@@ -3,14 +3,17 @@ package com.xl.collections;
 import com.xl.util.ArrayUtil;
 import com.xl.util.Constant;
 import com.xl.util.StringUtil;
-import java.util.Arrays;
-import java.util.Comparator;
+import java.util.*;
 import lombok.extern.log4j.Log4j;
 import org.apache.commons.lang.ArrayUtils;
+import org.jetbrains.annotations.NotNull;
 import org.junit.Test;
 
+/**
+ * 数组测试
+ */
 @Log4j
-public class ArraysTest {
+public class ArrayTest {
     String[] strings = new String[]{"223", "21", "sa"};
     private int[] intArray = new int[]{3, 56, 1, 4, 76721, 343, 1, 43, 764, 9, 765};
     private Integer[] integerArray = new Integer[]{3, 56, 1, 4, 76721, 343, 1};
@@ -36,7 +39,7 @@ public class ArraysTest {
     
     @Test
     public void sortTest() {
-        Integer[] arr = {1123, 12, 11, 13, 1};
+        Integer[] arr = getIntegersArr();
         //快速排序
         Arrays.sort(arr);
         System.out.println(Arrays.toString(arr));
@@ -47,6 +50,11 @@ public class ArraysTest {
             }
         });
         System.out.println(Arrays.toString(arr));
+    }
+    
+    @NotNull
+    public Integer[] getIntegersArr() {
+        return new Integer[]{1123, 12, 11, 13, 1};
     }
     
     @Test
@@ -103,5 +111,15 @@ public class ArraysTest {
     @Test
     public void printTest() {
         System.out.println(Arrays.toString(intArray));
+    }
+    
+    @Test
+    public void arrays() {
+        Integer[] arr = getIntegersArr();
+        List<Integer> list = Arrays.asList(arr);
+        System.out.println(list);
+        // 数组转换成Set 将数组转换成List后，再用List构造Set
+        Set set = new HashSet(list);
+        System.out.println(set);
     }
 }
