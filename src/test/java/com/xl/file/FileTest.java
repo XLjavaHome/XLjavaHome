@@ -86,13 +86,18 @@ public class FileTest {
     public void copyTest() {
         //遍历目录
         String filePath = "E:\\download\\九：【BATJ面试班】(1)";
+        filePath = "E:\\download\\Document-master\\document\\一，互联网工程专题";
         List<File> files = FileUtil.queryAll(filePath);
         //FileUtil.print(files);
         //    将文件复制
         FileService service = new FileServiceImpl();
         int num = 0;
+        File parentFile = new File(filePath, "copy");
+        if (!parentFile.exists()) {
+            parentFile.mkdirs();
+        }
         for (File file : files) {
-            File target = new File(filePath, "copy/" + file.getName());
+            File target = new File(parentFile, file.getName());
             if (service.copy(file, target)) {
                 num++;
                 System.out.println(String.format("成功复制:%s", file.getAbsolutePath()));
@@ -135,6 +140,6 @@ public class FileTest {
     }
     
     public void open() throws IOException {
-        //FileUtil.open(file);
+        FileUtil.open(file);
     }
 }

@@ -13,3 +13,25 @@ asa
 2.207459:触发上线审批，输入必选项，点击保存草稿，再次点击，里面输入的值为空。
 
 和刘易韩沟通需求的预计开始时间的逻辑
+
+
+word快捷键
+    ctrl
+    alt
+        alt+w 视图 同alt+V
+                alt+w f  全屏显示
+                alt+w R  阅读模式
+                alt+w B  护眼模式
+        alt+R  审阅
+                alt+R  C 插入批注
+        alt+T  文件
+                alt+T N  中简互转
+        alt+i  插入 同alt+N
+                alt+I  M  插入批注
+        alt+p 页面布局
+        alt+o  打开文件
+                alt+o  E  更改字母的大小写
+        alt+K   特色应用
+                alt+K  RL 朗读
+        alt+H  开始
+                 alt+H FP 格式刷

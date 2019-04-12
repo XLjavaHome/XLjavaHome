@@ -2,6 +2,7 @@ package com.xl.Regex;
 
 import com.xl.util.FileUtil;
 import com.xl.util.RegexUtil;
+import java.io.File;
 import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -74,24 +75,6 @@ public class RegexTest {
     }
     
     /**
-     * 文本内容，正则匹配，文件生成
-     * <p>
-     * 正则替换
-     *
-     * @throws IOException
-     */
-    @Test
-    public void regularReplacement() throws IOException {
-        StringBuilder textContent = FileUtil.getContent("D:\\code\\XLjavaHome\\src\\main\\resources\\doc\\xl.txt");
-        //懒加载要?匹配
-        String regex = "create table.*?;";
-        StringBuffer result = new StringBuffer();
-        RegexUtil.regularReplacement(textContent, regex, "", result);
-        System.out.println(result);
-        FileUtil.write(FileUtil.createTempFile("1.txt"), result.toString());
-    }
-    
-    /**
      * 分组测试
      */
     @Test
@@ -121,6 +104,7 @@ public class RegexTest {
     }
     
     /* 勉强模式 */
+    
     @Test
     public void fun2() {
         Pattern p = Pattern.compile(".{3,10}?[0-9]");
@@ -133,8 +117,8 @@ public class RegexTest {
             System.out.println("not match!");
         }
     }
-    
     /* 一般不用:占有模式 */
+    
     @Test
     public void fun3() {
         Pattern p = Pattern.compile(".{3,10}+[0-9]");/* 一次吃10个字符并且不往外吐 */
@@ -146,7 +130,6 @@ public class RegexTest {
             System.out.println("not match!");
         }
     }
-    
     @Test
     public void fun4() {
         Pattern p = Pattern.compile(".{3}"); // 匹配3个字符串
@@ -239,5 +222,26 @@ public class RegexTest {
         while (matcher.find()) {
             System.out.println(matcher.group());
         }
+    }
+    
+    /**
+     * 文本内容，正则匹配，文件生成
+     * <p>
+     * 正则替换
+     *
+     * @throws IOException
+     */
+    @Test
+    public void regularReplacement() throws IOException {
+        StringBuilder textContent = FileUtil.getContent("D:\\code\\XLjavaHome\\src\\main\\resources\\doc\\xl.txt");
+        //懒加载要?匹配
+        System.out.println(textContent);
+        String regex = "create table.*?;";
+        StringBuffer result = new StringBuffer();
+        RegexUtil.regularReplacement(textContent, regex, "", result);
+        System.out.println(result);
+        File tempFile = FileUtil.createTempFile("1.txt");
+        FileUtil.write(tempFile, result.toString());
+        FileUtil.open(tempFile);
     }
 }

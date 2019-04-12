@@ -12,6 +12,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import lombok.extern.log4j.Log4j;
 import org.junit.Test;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import sun.text.resources.cldr.aa.FormatData_aa;
 
 /**
@@ -62,6 +64,29 @@ public class XLTest {
     @Test
     public void desktopTest() throws IOException {
         Desktop.getDesktop().browse(URI.create("http://127.0.0.1:8080"));
+    }
+    
+    public static void testBrowser(WebDriver driver) throws Exception
+    {
+        driver.get("http://www.cnblogs.com/tankxiao");
+        Thread.sleep(5000);
+        // 浏览器最大化
+        driver.manage().window().maximize();
+        
+        driver.navigate().to("http://www.baidu.com");
+        // 刷新浏览器
+        driver.navigate().refresh();
+        // 浏览器后退
+        driver.navigate().back();
+        // 浏览器前进
+        driver.navigate().forward();
+        // 浏览器退出
+        //driver.quit();
+    }
+    @Test
+    public void 测试() throws Exception {
+        testBrowser(new ChromeDriver());
+        
     }
     
     @Test

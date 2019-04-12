@@ -37,9 +37,10 @@ public class DOM4JTest {
      * 文档对象
      */
     private Document document;
-    private InputStream inputStream1=new FileInputStream("C:\\Users\\Administrator\\Desktop\\1\\SIRMPMPROJECTCHANGE.xml");
+    private InputStream inputStream1 = new FileInputStream("C:\\Users\\Administrator\\Desktop\\1\\SIRMPMPROJECTCHANGE.xml");
     
-    public DOM4JTest() throws FileNotFoundException {
+    public DOM4JTest() throws IOException, DocumentException {
+        init();
     }
     
     public void init() throws IOException, DocumentException {

@@ -139,7 +139,7 @@ public class HttpTest {
         URL url = new URL(urlString);
         URLConnection urlConnection = url.openConnection();
         urlConnection.connect();
-        InputStream is2 = urlConnection.getInputStream();
+         InputStream is2 = urlConnection.getInputStream();
         InputStream is = url.openStream();
         InputStreamReader isr = new InputStreamReader(is, "utf-8");
         //为字符输入流添加缓冲

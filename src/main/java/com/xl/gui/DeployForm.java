@@ -8,7 +8,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import javax.swing.*;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 
@@ -50,19 +52,29 @@ public class DeployForm extends JDialog {
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
     }
     
-    private void createFile(String fileName, boolean flag) {
+    private void createFile(boolean flag) {
         String directoryName;
         if (flag) {
             directoryName = String.format(DateUtil.formatLocalDate() + "_%s_" + "徐立_wh", "任务名称");
         } else {
             directoryName = String.format(DateUtil.formatLocalDate() + "_%s_" + "徐立_wh", "BUG修复");
         }
+        File publishPackageNameDirectory = FileUtil.createTempDirectoy(directoryName);
         //生成code.txt
-        FileUtil.createTempDirect(directoryName);
+        File code = new File(publishPackageNameDirectory, "code.txt");
+        try {
+            code.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         //生成部署文档
         XWPFDocument doc = new XWPFDocument();
         WordService service = new WordService();
-        BufferedWriter writer=new BufferedWriter(new FileWriter(FileUtil.createTempFile("部署")))
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(FileUtil.createTempFile("部署")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     
     private void onCancel() {

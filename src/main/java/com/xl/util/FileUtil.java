@@ -315,9 +315,27 @@ public class FileUtil {
         return getDesktop().getPath();
     }
     
+    /**
+     * 获取桌面目录
+     *
+     * @return
+     */
     public static File getDesktop() {
         FileSystemView fsv = FileSystemView.getFileSystemView();
         return fsv.getHomeDirectory();
+    }
+    
+    /**
+     * 获取临时目录
+     *
+     * @return
+     */
+    public static File getTempDrectory() {
+        File temp = new File(getDesktop(), "temp");
+        if (!temp.exists()) {
+            temp.mkdirs();
+        }
+        return temp;
     }
     
     /**
@@ -327,7 +345,7 @@ public class FileUtil {
      * @return
      */
     public static File getDesktopFile(String name) {
-        return getTempFile(FileSystemView.getFileSystemView().getHomeDirectory(), name);
+        return getTempDrectory(FileSystemView.getFileSystemView().getHomeDirectory(), name);
     }
     
     /**
@@ -413,7 +431,7 @@ public class FileUtil {
      * @return
      */
     public static File createTempFile(String filePath) {
-        File file = getTempFile(getDesktop(), "temp/" + filePath);
+        File file = getTempDrectory(getTempDrectory(), filePath);
         if (!file.exists()) {
             try {
                 file.getParentFile().mkdirs();
@@ -426,7 +444,7 @@ public class FileUtil {
     }
     
     @NotNull
-    public static File getTempFile(File desktop, String s) {
+    public static File getTempDrectory(File desktop, String s) {
         return new File(desktop, s);
     }
     
@@ -473,6 +491,18 @@ public class FileUtil {
         return createTempFile(l + ".txt");
     }
     
-    public static File createTempDirect(String directoryName) {
+    /**
+     * 在临时目录下面再创建一个目录
+     *
+     * @param directoryName 目录名称
+     * @return
+     */
+    @NotNull
+    public static File createTempDirectoy(String directoryName) {
+        File publishPackageNameDirectory = new File(getTempDrectory(), directoryName);
+        if (!publishPackageNameDirectory.exists()) {
+            publishPackageNameDirectory.mkdirs();
+        }
+        return publishPackageNameDirectory;
     }
 }
