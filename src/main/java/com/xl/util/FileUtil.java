@@ -271,7 +271,12 @@ public class FileUtil {
                 file.getParentFile().mkdirs();
             }
             bw = new BufferedWriter(out);
-            bw.write(content);
+            //2019/4/14 解决换行的问题
+            String[] split = content.split("\n");
+            for (String s : split) {
+                bw.write(s);
+                bw.newLine();
+            }
             bw.flush();
         } finally {
             if (bw != null) {

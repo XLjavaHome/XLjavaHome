@@ -1,5 +1,7 @@
 package com.xl.util;
 
+import java.io.File;
+import java.io.IOException;
 import lombok.extern.log4j.Log4j;
 import org.junit.Test;
 
@@ -13,8 +15,20 @@ import org.junit.Test;
  */
 @Log4j
 public class FileUtilTest {
-    @Test(timeout = 5000)
-    public void getProjectPathTest() {
+    /**
+     timeout junit的超时时间
+     * @throws InterruptedException
+     */
+    @Test
+    public void getProjectPathTest() throws InterruptedException {
+        Thread.sleep(2000);
         System.out.println(FileUtil.getProjectPath());
+    }
+    
+    @Test
+    public void name() throws IOException {
+File file=FileUtil.createRandomFile();
+        FileUtil.write(file,"测试回车\n\n测试回车");
+        FileUtil.open(file);
     }
 }

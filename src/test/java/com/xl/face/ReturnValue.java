@@ -7,7 +7,8 @@ package com.xl.face;
  */
 public class ReturnValue {
     public static void main(String[] args) {
-        System.out.println(decision()); //return false
+        //return false
+        System.out.println(decision());
     }
 
     @SuppressWarnings("finally")
