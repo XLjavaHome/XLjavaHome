@@ -246,6 +246,10 @@ public class FileUtil {
         }
     }
     
+    public static void write(String filePath, String content) throws IOException {
+        write(new File(filePath), content);
+    }
+    
     /**
      * 向指定文件输入内容
      *
@@ -254,14 +258,6 @@ public class FileUtil {
      * @throws IOException
      */
     public static void write(File file, String content) throws IOException {
-        write(file, content, new FileWriter(file));
-    }
-    
-    public static void write(String filePath, String content) throws IOException {
-        write(new File(filePath), content, new FileWriter(filePath));
-    }
-    
-    private static void write(File file, String content, FileWriter out) throws IOException {
         BufferedWriter bw = null;
         try {
             if (content == null) {
@@ -270,7 +266,7 @@ public class FileUtil {
             if (!file.exists()) {
                 file.getParentFile().mkdirs();
             }
-            bw = new BufferedWriter(out);
+            bw = new BufferedWriter(new FileWriter(file));
             //2019/4/14 解决换行的问题
             String[] split = content.split("\n");
             for (String s : split) {

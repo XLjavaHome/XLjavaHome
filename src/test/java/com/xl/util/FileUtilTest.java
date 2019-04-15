@@ -26,7 +26,7 @@ public class FileUtilTest {
     }
     
     @Test
-    public void name() throws IOException {
+    public void writeTest() throws IOException {
 File file=FileUtil.createRandomFile();
         FileUtil.write(file,"测试回车\n\n测试回车");
         FileUtil.open(file);

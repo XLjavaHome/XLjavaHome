@@ -142,4 +142,16 @@ public class FileTest {
     public void open() throws IOException {
         FileUtil.open(file);
     }
+    
+    /**
+     * 无法得到文件的路径
+     */
+    @Test
+    public void fdTest() throws IOException {
+        FileOutputStream fileOutputStream = new FileOutputStream(file);
+        FileDescriptor fd = fileOutputStream.getFD();
+        System.out.println(fd);
+        System.out.println(fd.valid());
+        FileChannel channel = fileOutputStream.getChannel();
+    }
 }

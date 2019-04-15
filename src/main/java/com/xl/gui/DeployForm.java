@@ -1,7 +1,8 @@
 package com.xl.gui;
 
-import com.xl.service.DeploymentPackageService;
-import com.xl.service.impl.DeploymentPackageServiceImpl;
+import com.xl.eployment.entity.DeploymentEntity;
+import com.xl.eployment.service.DeploymentPackageService;
+import com.xl.eployment.service.impl.DeploymentPackageServiceImpl;
 import com.xl.util.GUIUtil;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
@@ -34,14 +35,16 @@ public class DeployForm extends JDialog {
         buttonCancel.addActionListener(e -> onCancel());
         demandReleasePackage.addActionListener(e -> {
             try {
-                service.createFile(true,code,textArea2);
+                DeploymentEntity entity = new DeploymentEntity("徐立", true, code.getText(), textArea2.getText());
+                service.createFile(entity);
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
         });
         BUG部署包Button.addActionListener(e -> {
             try {
-                service.createFile(false,code,textArea2);
+                DeploymentEntity entity = new DeploymentEntity("徐立", true, code.getText(), textArea2.getText());
+                service.createFile(entity);
             } catch (IOException e1) {
                  e1.printStackTrace();
             }
