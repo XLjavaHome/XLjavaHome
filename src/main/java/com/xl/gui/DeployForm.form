@@ -65,7 +65,7 @@
           <scrollpane id="352dc" binding="codePanel">
             <constraints>
               <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
-                <preferred-size width="300" height="300"/>
+                <preferred-size width="500" height="500"/>
               </grid>
             </constraints>
             <properties/>
@@ -82,7 +82,7 @@
           <scrollpane id="1ed27" binding="docPane">
             <constraints>
               <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
-                <preferred-size width="300" height="200"/>
+                <preferred-size width="500" height="500"/>
               </grid>
             </constraints>
             <properties/>
