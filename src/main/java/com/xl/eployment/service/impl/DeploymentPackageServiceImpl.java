@@ -12,6 +12,7 @@ import java.io.IOException;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Created with 徐立.
@@ -23,10 +24,12 @@ import org.apache.poi.xwpf.usermodel.XWPFRun;
  */
 public class DeploymentPackageServiceImpl implements DeploymentPackageService {
     @Override
-    public void createFile(String author, boolean flag, String codeTextText) throws IOException {
+    public void createFile(DeploymentEntity entity) throws IOException {
+        String author = entity.getAuthor();
+        String codeTextText = entity.getCodeString();
         String directoryName;
-        if (flag) {
-            directoryName = String.format(DateUtil.formatLocalDate() + "_%s_" + author + "_wh", "任务名称");
+        if (entity.isFlag()) {
+            directoryName = String.format(DateUtil.formatLocalDate() + "_%s_" + author + "_wh", entity.getTaskName());
         } else {
             directoryName = String.format(DateUtil.formatLocalDate() + "_%s_" + author + "_wh", "BUG修复");
         }
@@ -43,20 +46,58 @@ public class DeploymentPackageServiceImpl implements DeploymentPackageService {
         //生成部署文档
         XWPFDocument doc = new XWPFDocument();
         XWPFParagraph docParagraph = doc.createParagraph();
+        XWPFRun xwpfRun = docParagraph.createRun();
+        if (entity.isFlag()) {
+            //    任务名称
+            xwpfRun.setText("[任务名称]");
+        } else {
+            xwpfRun.setText("[BUG修复]");
+        }
+        addTitleStyle(xwpfRun);
+        xwpfRun.addBreak();
+        xwpfRun = addDocContent(docParagraph, entity.getTaskName());
+        xwpfRun.addBreak();
+        xwpfRun.addBreak();
         XWPFRun run = docParagraph.createRun();
-        run.setText("部署说明");
-        run.setFontSize(18);
+        addTitleStyle(run);
+        run.setText("[部署说明]");
         run.addBreak();
         XWPFRun run1 = docParagraph.createRun();
-        run1.setText("1.更新code.txt");
-        run1.addBreak();
-        run1.setText("2.重启服务");
+        run1.setFontSize(14);
+        String docString = entity.getDocString();
+        if (StringUtil.isNotEmpty(docString)) {
+            String[] split = docString.split("\n");
+            for (String s : split) {
+                addDocContent(docParagraph, s);
+            }
+        } else {
+            XWPFRun xwpfRun1 = addDocContent(docParagraph, "1.更新code.txt。");
+            xwpfRun1.addBreak();
+            addDocContent(docParagraph, "2.重启服务。");
+        }
         doc.write(new BufferedOutputStream(new FileOutputStream(new File(publishPackageNameDirectory, "部署说明.docx"))));
+        doc.close();
         FileUtil.open(publishPackageNameDirectory);
     }
     
-    @Override
-    public void createFile(DeploymentEntity entity) throws IOException {
-        createFile(entity.getAuthor(), entity.isFlag(),entity.getCodeString());
+    /**
+     * 添加内容
+     *
+     * @param docParagraph
+     * @param content
+     * @return
+     */
+    @NotNull
+    public XWPFRun addDocContent(XWPFParagraph docParagraph, String content) {
+        XWPFRun xwpfRun = docParagraph.createRun();
+        xwpfRun.setText(content);
+        xwpfRun.setFontSize(14);
+        return xwpfRun;
+    }
+    
+    public void addTitleStyle(XWPFRun xwpfRun) {
+        xwpfRun.setFontFamily("宋体");
+        xwpfRun.setFontSize(22);
+        xwpfRun.setBold(true);
     }
 }

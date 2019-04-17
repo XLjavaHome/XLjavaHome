@@ -1,7 +1,8 @@
 package com.xl.gui;
 
-import com.xl.service.DeploymentPackageService;
-import com.xl.service.impl.DeploymentPackageServiceImpl;
+import com.xl.eployment.entity.DeploymentEntity;
+import com.xl.eployment.service.DeploymentPackageService;
+import com.xl.eployment.service.impl.DeploymentPackageServiceImpl;
 import com.xl.util.GUIUtil;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
@@ -21,32 +22,38 @@ import javax.swing.*;
 public class DeployForm extends JDialog {
     private JPanel contentPane;
     private JButton buttonCancel;
-    private JButton demandReleasePackage;
+    private JButton demandReleasePackageBtn;
     private JButton BUG部署包Button;
     private JTextArea code;
     private JTextArea textArea2;
     private JScrollPane codePanel;
     private JScrollPane docPane;
-    private JTextArea nameArea;
+    private JTextField taskNameTx;
+    private JTextField authorField;
     private DeploymentPackageService service = new DeploymentPackageServiceImpl();
     
     public DeployForm() {
+        setTitle("徐立--生成发布包");
         setContentPane(contentPane);
         setModal(true);
         //不能改变大小
         this.setResizable(false);
-        getRootPane().setDefaultButton(demandReleasePackage);
+        getRootPane().setDefaultButton(demandReleasePackageBtn);
         buttonCancel.addActionListener(e -> onCancel());
-        demandReleasePackage.addActionListener(e -> {
+        demandReleasePackageBtn.addActionListener(e -> {
             try {
-                service.createFile(true, code, textArea2);
+                DeploymentEntity entity = new DeploymentEntity(authorField.getText(), true, code.getText(), textArea2.getText(),
+                        taskNameTx.getText());
+                service.createFile(entity);
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
         });
         BUG部署包Button.addActionListener(e -> {
             try {
-                service.createFile(false, code, textArea2);
+                DeploymentEntity entity = new DeploymentEntity(authorField.getText(), false, code.getText(), textArea2.getText(),
+                        taskNameTx.getText());
+                service.createFile(entity);
             } catch (IOException e1) {
                 e1.printStackTrace();
             }

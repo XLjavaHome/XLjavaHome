@@ -32,4 +32,8 @@ public class DeploymentEntity {
      * 发布文档中的内容
      */
     private String docString;
+    /**
+     * 任务名称
+     */
+    private String taskName;
 }

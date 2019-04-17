@@ -13,14 +13,6 @@ import java.io.IOException;
  */
 public interface DeploymentPackageService {
     /**
-     * 生成部署包
-     *  @param author
-     * @param flag
-     * @param codeTextText
-     */
-    void createFile(String author, boolean flag, String codeTextText) throws IOException;
-    
-    /**
      * 创建部署包
      *
      * @param entity
