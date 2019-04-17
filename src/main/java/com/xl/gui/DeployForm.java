@@ -25,25 +25,30 @@ public class DeployForm extends JDialog {
     private JButton BUG部署包Button;
     private JTextArea code;
     private JTextArea textArea2;
+    private JScrollPane codePanel;
+    private JScrollPane docPane;
+    private JTextArea nameArea;
     private DeploymentPackageService service = new DeploymentPackageServiceImpl();
+    
     public DeployForm() {
         setContentPane(contentPane);
         setModal(true);
+        //不能改变大小
+        this.setResizable(false);
         getRootPane().setDefaultButton(demandReleasePackage);
-
         buttonCancel.addActionListener(e -> onCancel());
         demandReleasePackage.addActionListener(e -> {
             try {
-                service.createFile(true,code,textArea2);
+                service.createFile(true, code, textArea2);
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
         });
         BUG部署包Button.addActionListener(e -> {
             try {
-                service.createFile(false,code,textArea2);
+                service.createFile(false, code, textArea2);
             } catch (IOException e1) {
-                 e1.printStackTrace();
+                e1.printStackTrace();
             }
         });
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
