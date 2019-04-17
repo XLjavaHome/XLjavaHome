@@ -1,6 +1,7 @@
-package com.xl.service.impl;
+package com.xl.eployment.service.impl;
 
-import com.xl.service.DeploymentPackageService;
+import com.xl.eployment.entity.DeploymentEntity;
+import com.xl.eployment.service.DeploymentPackageService;
 import com.xl.util.DateUtil;
 import com.xl.util.FileUtil;
 import com.xl.util.StringUtil;
@@ -8,7 +9,6 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import javax.swing.JTextArea;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
@@ -23,16 +23,15 @@ import org.apache.poi.xwpf.usermodel.XWPFRun;
  */
 public class DeploymentPackageServiceImpl implements DeploymentPackageService {
     @Override
-    public void createFile(boolean flag, JTextArea codeText, JTextArea textArea2) throws IOException {
+    public void createFile(String author, boolean flag, String codeTextText) throws IOException {
         String directoryName;
         if (flag) {
-            directoryName = String.format(DateUtil.formatLocalDate() + "_%s_" + "徐立_wh", "任务名称");
+            directoryName = String.format(DateUtil.formatLocalDate() + "_%s_" + author + "_wh", "任务名称");
         } else {
-            directoryName = String.format(DateUtil.formatLocalDate() + "_%s_" + "徐立_wh", "BUG修复");
+            directoryName = String.format(DateUtil.formatLocalDate() + "_%s_" + author + "_wh", "BUG修复");
         }
         File publishPackageNameDirectory = FileUtil.createTempDirectoy(directoryName);
         //生成code.txt
-        String codeTextText = codeText.getText();
         if (StringUtil.isNotEmpty(codeTextText)) {
             File code = new File(publishPackageNameDirectory, "code.txt");
             try {
@@ -43,20 +42,21 @@ public class DeploymentPackageServiceImpl implements DeploymentPackageService {
         }
         //生成部署文档
         XWPFDocument doc = new XWPFDocument();
-        try {
-            XWPFParagraph docParagraph = doc.createParagraph();
-            XWPFRun run = docParagraph.createRun();
-            run.setText("部署说明");
-            run.setFontSize(18);
-            run.addBreak();
-            XWPFRun run1 = docParagraph.createRun();
-            run1.setText("1.更新code.txt");
-            run1.addBreak();
-            run1.setText("2.重启服务");
-            doc.write(new BufferedOutputStream(new FileOutputStream(new File(publishPackageNameDirectory, "部署说明.docx"))));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        XWPFParagraph docParagraph = doc.createParagraph();
+        XWPFRun run = docParagraph.createRun();
+        run.setText("部署说明");
+        run.setFontSize(18);
+        run.addBreak();
+        XWPFRun run1 = docParagraph.createRun();
+        run1.setText("1.更新code.txt");
+        run1.addBreak();
+        run1.setText("2.重启服务");
+        doc.write(new BufferedOutputStream(new FileOutputStream(new File(publishPackageNameDirectory, "部署说明.docx"))));
         FileUtil.open(publishPackageNameDirectory);
+    }
+    
+    @Override
+    public void createFile(DeploymentEntity entity) throws IOException {
+        createFile(entity.getAuthor(), entity.isFlag(),entity.getCodeString());
     }
 }
