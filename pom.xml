@@ -8,7 +8,6 @@
     <packaging>pom</packaging>
     <version>1.0.0</version>
     <modules>
-        <module>xlbase</module>
         <module>xlweb</module>
         <module>deploy</module>
     </modules>

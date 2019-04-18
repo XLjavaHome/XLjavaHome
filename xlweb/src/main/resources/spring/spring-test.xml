@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+       xmlns="http://www.springframework.org/schema/beans" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd   http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
+    <context:component-scan base-package="com.xl"/>
+    <context:component-scan base-package="com.lip.demo"/>
+    <!--<context:component-scan base-package="com.lip.demo.model"/>-->
+    <!--<context:component-scan base-package="com.lip.demo.data"/>-->
+    <!--<context:component-scan base-package="com.lip.demo.data.impl"/>-->
+    <!-- 静态资源(js、image等)的访问 -->
+    <!-- 开启注解 -->
+    <bean id="entityManagerFactoryBean" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="packagesToScan" value="com.lip.demo.model"/>
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
+        </property>
+        <property name="jpaProperties">
+            <props>
+                <prop key="hibernate.archive.autodetection">class,hbm</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <!--不能自动建表-->
+                <!--<prop key="hibernate.dialect">org.hibernate.dialect.MySQLInnoDBDialect</prop>-->
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+            </props>
+        </property>
+    </bean>
+    <!-- 表示JPA Repository所在的包 -->
+    <!--
+        <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+            <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+            <property name="url" value="jdbc:mysql://localhost:3306/jpa"/>
+            <property name="username" value="root"/>
+            <property name="password" value="root"/>
+        </bean>
+    -->
+    <context:property-placeholder location="classpath:src/src/main/resources/db/db.properties"/>
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="jdbcUrl" value="${url}"/>
+        <property name="driverClass" value="${driver}"/>
+        <property name="user" value="${user}"/>
+        <property name="password" value="${password}"/>
+        <property name="initialPoolSize" value="${initialPoolSize}"/>
+        <property name="maxPoolSize" value="${maxPoolSize}"/>
+    </bean>
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactoryBean"/>
+    </bean>
+    <!--<tx:annotation-driven/>-->
+    <!-- 4. 配置支持注解的事务 -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+    <!-- 5. 配置 SpringData,需要加入  jpa 的命名空间 -->
+    <!-- base-package: 扫描 Repository Bean 所在的 package -->
+    <jpa:repositories base-package="com.lip.demo.data" entity-manager-factory-ref="entityManagerFactoryBean">
+    </jpa:repositories>
+</beans>

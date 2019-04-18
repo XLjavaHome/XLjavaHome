@@ -14,7 +14,7 @@
     <dependencies>
         <dependency>
             <groupId>com.xl</groupId>
-            <artifactId>xlbase</artifactId>
+            <artifactId>xlweb</artifactId>
             <version>1.0.0</version>
         </dependency>
     </dependencies>

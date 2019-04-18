@@ -3,3 +3,4 @@ bin
 /javaSE.iml
 target/
 .idea/
+classes/

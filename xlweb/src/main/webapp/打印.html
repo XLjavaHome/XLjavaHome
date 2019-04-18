@@ -1,0 +1,49 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+        })
+        /**
+         * Created by 徐立 on 2016/5/11.
+         * 打印
+         */
+        function printRightFrame() {
+            var printHtml = $(".clearfix").not(".tk-step").html();
+            if ((navigator.userAgent.indexOf('MSIE') >= 0) && (navigator.userAgent.indexOf('Opera') < 0)) {
+                var lastHtml = window.document.body.innerHTML;
+                window.document.body.innerHTML = printHtml;
+                window.print();
+                window.document.body.innerHTML = lastHtml;
+                // window.close();
+            } else {
+                var newwin = window.open("", $(document).attr("title") + "打印", "height=" + window.screen.height + ",width=" + window.screen.width + ",toolbar=no,scrollbars=auto,menubar=no");//第一次先加载出来。
+                newwin = window.open("", $(document).attr("title") + "打印", "height=" + window.screen.height + ",width=" + window.screen.width + ",toolbar=no,scrollbars=auto,menubar=no");
+                newwin.document.body.innerHTML = printHtml;
+                newwin.window.print();
+                newwin.window.close();
+            }
+            // $(document).stk_go(url,"",{refresh:true});
+            /*  if (navigator.userAgent.toString().indexOf("MSIE") != -1) {
+             var paramOp = location.toString().indexOf("?") == -1 ? "?" : "&";
+             window.open(location.toString()+paramOp+"isIE=true");
+             } else {
+             var currentFrame = null;
+             $(window.parent.document).find("#J_common_panel_section iframe").each(function(){
+             if($(this).css('position')=='static'){
+             currentFrame = $(this).get(0).contentWindow;
+             return false;
+             }
+             })
+             currentFrame.print();
+             }*/
+        }
+    </script>
+</head>
+<body>
+这是打印内容<br/>
+<input type="button" onclick="print()" value="打印"/>
+<input type="button" onclick="printRightFrame()" value="打印2"/>
+</body>
+</html>
