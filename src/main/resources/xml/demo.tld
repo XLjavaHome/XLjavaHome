@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="gbk" ?>
-<!DOCTYPE 书架 SYSTEM "D:\code\javaSE\src\main\resource\xml\book.dtd">
-<书架>
-    <书></书>
-</书架>
