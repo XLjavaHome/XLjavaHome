@@ -13,7 +13,7 @@ public class StreamTool {
     public static String getContent(InputStream is) {
         return new String(getBytes(is));
     }
-
+    
     /**
      * 将输入流转化为数组
      *
@@ -36,7 +36,7 @@ public class StreamTool {
             throw new RuntimeException("getBytes获取失败");
         }
     }
-
+    
     /**
      * 转换字符编码说需要的char数组
      *
@@ -61,8 +61,23 @@ public class StreamTool {
         StringBuilder sb = new StringBuilder();
         Object[] objects = stream.toArray();
         for (Object object : objects) {
-            sb.append(object+"\n");
+            sb.append(object + "\n");
         }
         return sb.toString();
+    }
+    
+    /**
+     * 关闭流
+     *
+     * @param is
+     */
+    public static void close(InputStream is) {
+        if (is != null) {
+            try {
+                is.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

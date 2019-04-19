@@ -5,6 +5,7 @@ import com.xl.deloy.service.impl.DeploymentPackageServiceImpl;
 import com.xl.deploy.service.DeploymentPackageService;
 import com.xl.util.GUIUtil;
 import com.xl.util.PropertiesUtil;
+import com.xl.util.StreamTool;
 import com.xl.util.StringUtil;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
@@ -40,11 +41,15 @@ public class DeployForm extends JDialog {
     static {
         File propertFile = new File(propertyFileName);
         if (propertFile.exists()) {
+            FileInputStream is = null;
             try {
-                Properties properties = PropertiesUtil.loadProperties(new FileInputStream(propertFile));
+                is = new FileInputStream(propertFile);
+                Properties properties = PropertiesUtil.loadProperties(is);
                 author = properties.getProperty(AUTHOR);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
+            } finally {
+                StreamTool.close(is);
             }
         }
     }
