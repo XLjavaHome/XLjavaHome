@@ -1,17 +1,7 @@
 package com.xl.util;
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Properties;
+import java.io.*;
+import java.util.*;
 import lombok.extern.log4j.Log4j;
 import org.apache.commons.lang.StringUtils;
 
@@ -53,13 +43,15 @@ public class PropertiesUtil {
             // 以适合使用 load 方法加载到 Properties 表中的格式，
             // 将此 Properties 表中的属性列表（键和元素对）写入输出流
             prop.store(fos, parameterComments);
-            log.info("写入属性配置文件:" + filePath + "成功,属性名称：" + parameterName + ",属性值：" + parameterValue + ",属性注释：" + parameterComments);
+            log.info("写入属性配置文件:" + filePath + "成功,属性名称：" + parameterName + ",属性值：" + parameterValue + ",属性注释："
+                     + parameterComments);
         } catch (IOException e) {
-            log.error("写入属性配置文件:" + filePath + "失败,属性名称：" + parameterName + ",属性值：" + parameterValue + ",属性注释：" + parameterComments);
+            log.error("写入属性配置文件:" + filePath + "失败,属性名称：" + parameterName + ",属性值：" + parameterValue + ",属性注释："
+                      + parameterComments);
             e.printStackTrace();
         }
     }
-
+    
     /**
      * 写入属性
      * <p>方法说明:</p>
@@ -93,11 +85,11 @@ public class PropertiesUtil {
             e.printStackTrace();
         }
     }
-
+    
     public static Map<String, String> readProperties(File resourceFile) {
         return readProperties(resourceFile.getPath());
     }
-
+    
     public static Map<String, String> readProperties(String filePath) {
         Map<String, String> propertiesMap = new HashMap<String, String>();
         Properties props = new Properties();
@@ -119,51 +111,34 @@ public class PropertiesUtil {
         }
         return propertiesMap;
     }
-
-    /**
-     * 将指定路径的properties文件转换为map
-     *
-     * @param propertiesPath 属性文件路径
-     * @return map
-     */
-    public Map<String, String> propertiesToMap(String propertiesPath) {
-        Properties properties = loadProperties(propertiesPath);
-        return propertiesToMap(propertiesPath, properties);
-    }
-
+    
     /**
      * 加载属性配置文件
      * <p>方法说明:</>
      * <li></li>
      *
-     * @param propertiesPath
+     * @param is
      * @return
-     * @throws
-     * @author DuanYong
-     * @version 1.0
-     * @since 2013-6-2 上午9:58:36
      */
-    public Properties loadProperties(String propertiesPath) {
-        InputStream is = null;
+    public static Properties loadProperties(InputStream is) {
         Properties properties = new Properties();
         try {
-            is = getClass().getResourceAsStream(propertiesPath);
             properties.load(is);
             return properties;
         } catch (IOException e) {
-            log.error("加载配置文件失败： [文件名：" + propertiesPath + " ]", e);
+            log.error("加载配置文件失败", e);
         } finally {
             try {
                 if (is != null) {
                     is.close();
                 }
             } catch (Exception ex) {
-                ex.printStackTrace();
+                log.error(ex);
             }
         }
         return null;
     }
-
+    
     /**
      * 将属性配置转换为map
      *

@@ -15,7 +15,7 @@ import org.junit.Test;
 public class ResourceUtilTest {
     @Test
     public void getResourceInputStream() {
-        InputStream resourceInputStream = ResourceUtil.getResourceInputStream("src/src/main/resources/1.txt");
+        InputStream resourceInputStream = ResourceUtil.getResourceInputStream("/test.txt");
         InputStream resourceInputStream2 = ResourceUtil.getResourceInputStream2("/src/src/main/resources/1.txt");
         InputStream resourceInputStream3 = ResourceUtil.getResourceInputStream3("src/src/main/resources/1.txt");
         System.out.println(resourceInputStream);
@@ -27,5 +27,9 @@ public class ResourceUtilTest {
     public void apacheResourceTest() {
         //获取类所在包
         System.out.println(ResourceUtils.getPackageName(this.getClass()));
+    }
+    
+    @Test
+    public void write() {
     }
 }

@@ -28,17 +28,12 @@
                 <artifactId>maven-clean-plugin</artifactId>
                 <version>3.0.0</version>
             </plugin>
-            <!--生成doc jar包-->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-            </plugin>
             <!--生成源码jar包-->
             <!-- 要将源码放上去，需要加入这个插件 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>RELEASE</version>
+                <version>2.4</version>
                 <configuration>
                     <attach>true</attach>
                 </configuration>
