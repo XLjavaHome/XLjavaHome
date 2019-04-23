@@ -1,17 +1,7 @@
 package com.xl.database.oracle;
 
-import com.xl.util.ResourceUtil;
-import java.io.IOException;
-import java.io.InputStream;
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.Properties;
-
 public class OracleTest {
+    /*
     private static String driver;
     private static String name;
     private static String url;
@@ -117,4 +107,5 @@ public class OracleTest {
             }
         }
     }
+    */
 }
