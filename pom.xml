@@ -22,76 +22,6 @@
     </licenses>
     <build>
         <plugins>
-            <!-- 清理 -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-clean-plugin</artifactId>
-                <version>3.0.0</version>
-            </plugin>
-            <!--生成源码jar包-->
-            <!-- 要将源码放上去，需要加入这个插件 -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>2.4</version>
-                <configuration>
-                    <attach>true</attach>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <!--
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-war-plugin</artifactId>
-                            <version>3.0.0</version>
-                            <configuration>
-                                &lt;!&ndash; 对丢失web.xml检测机制进行忽略， Dynamic Web Module 3.0 工程时代不需要web.xml文件注册相关内容的，所以工程默认不生成web.xml。&ndash;&gt;
-                                <failOnMissingWebXml>false</failOnMissingWebXml>
-                                &lt;!&ndash;指定web.xml的路径  &ndash;&gt;
-                                <webXml>WebRoot\WEB-INF\web.xml</webXml>
-                                &lt;!&ndash;指定jsp、js、css的路劲  &ndash;&gt;
-                                <warSourceDirectory>WebRoot</warSourceDirectory>
-                                <warSourceExcludes>WEB-INF/lib/log4j-${log4j.version}.jar</warSourceExcludes>
-                            </configuration>
-                        </plugin>
-            -->
-            <!--打war包到指定的目录下 -->
-            <!--
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-dependency-plugin</artifactId>
-                            <version>2.8</version>
-                            <executions>
-                                <execution>
-                                    <id>copy-war</id>
-                                    <phase>package</phase>
-                                    <goals>
-                                        <goal>copy</goal>
-                                    </goals>
-                                    <configuration>
-                                        <artifactItems>
-                                            <artifactItem>
-                                                <groupId>${project.groupId}</groupId>
-                                                <artifactId>${project.artifactId}</artifactId>
-                                                <version>${project.version}</version>
-                                                <type>${project.packaging}</type>
-                                            </artifactItem>
-                                        </artifactItems>
-                                        &lt;!&ndash;   <outputDirectory>${dist.console.war.dir}</outputDirectory>   &ndash;&gt;
-                                        &lt;!&ndash;指定war包保存地址&ndash;&gt;
-                                        <outputDirectory>D:\xl\mypackage</outputDirectory>
-                                    </configuration>
-                                </execution>
-                            </executions>
-                        </plugin>
-            -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -102,58 +32,7 @@
                     <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>2.4.3</version>
-                <!--     <configuration>　
-
-                         <encoding>${project.build.sourceEncoding}</encoding>
-                     </configuration>-->
-            </plugin>
-            <!-- 打包时,添加信息 -->
-            <!--  声明生成可执行的jar文件 -->
-            <plugin>
-                <groupId>
-                    org.apache.maven.plugins
-                </groupId>
-                <artifactId>
-                    maven-shade-plugin
-                </artifactId>
-                <version>2.4</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                        <configuration>
-                            <transformers>
-                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>com.xl.XLMain</mainClass>
-                                    <!-- 配置maven-shade-plugin 插件 为生成可执行的jar 文件 -->
-                                </transformer>
-                            </transformers>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
-        <!-- 资源文件定义 -->
-        <resources>
-            <resource>
-                <directory>xlbase/src/main/java</directory>
-                <filtering>true</filtering>
-                <includes>
-                    <include>**/*.xml</include>
-                    <include>**/*.properties</include>
-                </includes>
-            </resource>
-            <resource>
-                <directory>xlbase/src/main/resources</directory>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
     </build>
     <repositories>
         <repository>
@@ -190,4 +69,25 @@
         <!--<poi.version>3.12</poi.version>-->
         <poi.version>3.15</poi.version>
     </properties>
+    <dependencies>
+        <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>2.2</version>
+            <scope>provided</scope>
+        </dependency>
+        <!--JSTL标签库-->
+        <dependency>
+            <groupId>jstl</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>6.0.44</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
 </project>
