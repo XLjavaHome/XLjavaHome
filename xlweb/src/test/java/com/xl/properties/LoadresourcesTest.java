@@ -1,24 +1,21 @@
 package com.xl.properties;
 
 import com.xl.util.ResourceUtil;
-import org.junit.Before;
-import org.junit.Test;
-
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Enumeration;
 import java.util.Properties;
 import java.util.ResourceBundle;
+import org.junit.Test;
 
 public class LoadresourcesTest {
     private String name;
-
-    @Before
-    public void before() {
+    
+    public LoadresourcesTest() {
         name = "properties\\obj.properties";
     }
-
+    
     /**
      * 默认回去当前类的classpath路径下去找资源
      *
@@ -33,7 +30,7 @@ public class LoadresourcesTest {
         p.load(in);
         System.out.println(p);
     }
-
+    
     /**
      * 默认去classpath的根路径去找
      *
@@ -49,7 +46,7 @@ public class LoadresourcesTest {
         p.load(in);
         System.out.println(p);
     }
-
+    
     @Test
     public void test3() throws IOException {
         Properties p = new Properties();
@@ -59,7 +56,7 @@ public class LoadresourcesTest {
         p.load(in);
         System.out.println(p);
     }
-
+    
     @Test
     public void demoTest() {
         ResourceBundle rb = ResourceBundle.getBundle(name.substring(0, name.lastIndexOf(".")));
