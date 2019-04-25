@@ -103,33 +103,5 @@ public class XLTest {
         System.out.println("11.asdb".matches("\\d+\\..*"));
     }
     
-    /**
-     * 改成冒号了
-     */
-    @Test
-    public void convertTest2() {
-        List<String> collected = new ArrayList<>();
-        collected.add("alpha");
-        collected.add("beta");
-        for (int i = 0; i < 10000; i++) {
-            collected.add(i + "");
-        }
-        collected = collected.stream().map(String::toUpperCase).collect(Collectors.toCollection(ArrayList::new));//注意发生的变化
-        System.out.println(collected);
-    }
-    
-    @Test
-    public void convertTest3() {
-        List<String> collected = new ArrayList<>();
-        collected.add("alpha");
-        collected.add("beta");
-        for (int i = 0; i < 10000; i++) {
-            collected.add(i + "");
-        }
-        for (String s : collected) {
-            s = s.toUpperCase();
-        }
-        System.out.println(collected);
-    }
-}
+ }
 

@@ -4,6 +4,7 @@ import com.xl.entity.Student;
 import com.xl.util.ListUtil;
 import edu.emory.mathcs.backport.java.util.Collections;
 import java.util.*;
+import java.util.stream.Collectors;
 import lombok.extern.log4j.Log4j;
 import org.junit.Before;
 import org.junit.Test;
@@ -114,12 +115,10 @@ public class ListTest {
         list.remove(null);
         log.info(list);
         list.remove(null);
-        
         for (int i = 0; i < list.size(); i++) {
             list.remove(i);
         }
         log.info(list);
-    
     }
     
     @Test
@@ -182,5 +181,34 @@ public class ListTest {
         for (int i = 0; i < 1000000; i++) {
             list.add(i);
         }
+    }
+    
+    /**
+     * 改成冒号了
+     */
+    @Test
+    public void convertTest2() {
+        List<String> collected = new ArrayList<>();
+        collected.add("alpha");
+        collected.add("beta");
+        for (int i = 0; i < 10000; i++) {
+            collected.add(i + "");
+        }
+        collected = collected.stream().map(String::toUpperCase).collect(Collectors.toCollection(ArrayList::new));//注意发生的变化
+        System.out.println(collected);
+    }
+    
+    /**
+     * String是final的所以不会给list赋值
+     */
+    @Test
+    public void convertTest3() {
+        List<String> collected = new ArrayList<>();
+        collected.add("alpha");
+        collected.add("beta");
+        for (String s : collected) {
+            s = s.toUpperCase();
+        }
+        System.out.println(collected);
     }
 }
