@@ -2,6 +2,7 @@ package com.xl.base.design.proxy;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import lombok.extern.log4j.Log4j;
 
 /**
@@ -42,8 +43,9 @@ public class MyInvocationHandler implements InvocationHandler {
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         long start = System.currentTimeMillis();
         log.info("代理执行方法前");
-        Object temp = null;
-        temp = method.invoke(this.obj, args);
+        //获取参数
+        log.info("参数是" + Arrays.toString(args));
+        Object temp = method.invoke(this.obj, args);
         long end = System.currentTimeMillis();
         log.info("代理执行方法后");
         log.info("方法执行时长" + (end - start) + "毫秒");

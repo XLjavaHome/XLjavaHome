@@ -5,6 +5,16 @@ import org.junit.Test;
 
 @Log4j
 public class IntegerTest {
+    @Test
+    public void stringToInteger() {
+        String s = "123.s12.3";
+        char[] chars = s.toCharArray();
+        for (Character aChar : chars) {
+            boolean digit = Character.isDigit(aChar);
+            System.out.println(digit);
+        }
+    }
+    
     /**
      * Integer会缓存-127到127的数据
      */

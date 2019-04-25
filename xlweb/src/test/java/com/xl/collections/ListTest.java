@@ -3,10 +3,7 @@ package com.xl.collections;
 import com.xl.entity.Student;
 import com.xl.util.ListUtil;
 import edu.emory.mathcs.backport.java.util.Collections;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import lombok.extern.log4j.Log4j;
 import org.junit.Before;
 import org.junit.Test;
@@ -39,7 +36,7 @@ public class ListTest {
         list.add(null);
         list.add("1");
         list.add("2");
-        System.out.println(list);
+        log.info(list);
         arrays[0] = "张三";
         arrays[1] = "张三";
         for (int i = 0; i < 3; i++) {
@@ -72,8 +69,8 @@ public class ListTest {
      */
     @Test
     public void distinctTest() {
-        System.out.println(list);
-        System.out.println(ListUtil.distinct(list));
+        log.info(list);
+        log.info(ListUtil.distinct(list));
     }
     
     @Test
@@ -98,8 +95,8 @@ public class ListTest {
         List<String> arrays = new ArrayList<>();
         arrays.addAll(strings);
         arrays.add("测试");
-        System.out.println(strings);
-        System.out.println(arrays);
+        log.info(strings);
+        log.info(arrays);
     }
     
     @Test
@@ -117,18 +114,50 @@ public class ListTest {
         list.remove(null);
         log.info(list);
         list.remove(null);
+        
+        for (int i = 0; i < list.size(); i++) {
+            list.remove(i);
+        }
         log.info(list);
+    
+    }
+    
+    @Test
+    public void iteratorRemove() {
+        Iterator<String> iterator = list.iterator();
+        while (iterator.hasNext()) {
+            //集合删除必须next
+            String next = iterator.next();
+            iterator.remove();
+        }
+        log.info(list);
+    }
+    
+    /**
+     * 有下标，用这个,取第0个
+     */
+    @Test
+    public void listIteratorRemove() {
+        ListIterator<String> iterator = list.listIterator();
+        System.out.println(list.size());
+        while (iterator.hasNext()) {
+            String next = iterator.next();
+            System.out.println(iterator.previousIndex());
+            System.out.println(iterator.nextIndex());
+            System.out.println();
+        }
     }
     
     @Test
     public void sortTest() {
+        log.info(list);
         Collections.sort(list, (o1, o2) -> {
             if (o1 != null && o2 != null) {
                 return o1.toString().compareTo(o2.toString());
             }
             return o1 != null ? 1 : -1;
         });
-        System.out.println(list);
+        log.info(list);
     }
     
     @Test

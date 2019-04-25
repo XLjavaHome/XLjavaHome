@@ -11,9 +11,11 @@
     <artifactId>xlweb</artifactId>
     <version>1.0.0</version>
     <packaging>pom</packaging>
+<!--
     <build>
-        <sourceDirectory>${pom.basedir}/src/main/java</sourceDirectory>
-        <!-- 资源文件定义 -->
+        &lt;!&ndash;<sourceDirectory>${pom.basedir}/src/main/java</sourceDirectory>&ndash;&gt;
+        &lt;!&ndash; 资源文件定义 &ndash;&gt;
+&lt;!&ndash;
         <resources>
             <resource>
                 <directory>${pom.basedir}/src/main/java</directory>
@@ -27,34 +29,37 @@
                 <directory>${pom.basedir}/src/main/resources</directory>
             </resource>
         </resources>
+&ndash;&gt;
         <plugins>
-            <!-- 清理 -->
+            &lt;!&ndash; 清理 &ndash;&gt;
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-clean-plugin</artifactId>
                 <version>3.0.0</version>
             </plugin>
-            <!--生成doc jar包-->
-            <!--
+            &lt;!&ndash;生成doc jar包&ndash;&gt;
+            &lt;!&ndash;
                         <plugin>
                             <groupId>org.apache.maven.plugins</groupId>
                             <artifactId>maven-javadoc-plugin</artifactId>
                         </plugin>
-            -->
-            <!--生成源码jar包-->
-            <!-- 要将源码放上去，需要加入这个插件 -->
+            &ndash;&gt;
+            &lt;!&ndash;生成源码jar包&ndash;&gt;
+            &lt;!&ndash; 要将源码放上去，需要加入这个插件 &ndash;&gt;
+&lt;!&ndash;
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
                 <version>2.4</version>
                 <executions>
                     <execution>
-                        <!-- 定义一个阶段，这个阶段是package -->
+                        &lt;!&ndash; 定义一个阶段，这个阶段是package &ndash;&gt;
                         <phase>package</phase>
                     </execution>
                 </executions>
             </plugin>
-            <!--
+&ndash;&gt;
+            &lt;!&ndash;
                         <plugin>
                             <groupId>org.apache.maven.plugins</groupId>
                             <artifactId>maven-war-plugin</artifactId>
@@ -69,9 +74,9 @@
                                 <warSourceExcludes>WEB-INF/lib/log4j-${log4j.version}.jar</warSourceExcludes>
                             </configuration>
                         </plugin>
-            -->
-            <!--打war包到指定的目录下 -->
-            <!--
+            &ndash;&gt;
+            &lt;!&ndash;打war包到指定的目录下 &ndash;&gt;
+            &lt;!&ndash;
                         <plugin>
                             <groupId>org.apache.maven.plugins</groupId>
                             <artifactId>maven-dependency-plugin</artifactId>
@@ -99,8 +104,8 @@
                                 </execution>
                             </executions>
                         </plugin>
-            -->
-            <!--
+            &ndash;&gt;
+            &lt;!&ndash;
                         <plugin>
                             <groupId>org.apache.maven.plugins</groupId>
                             <artifactId>maven-resources-plugin</artifactId>
@@ -110,10 +115,10 @@
                                      <encoding>${project.build.sourceEncoding}</encoding>
                                  </configuration>&ndash;&gt;
                         </plugin>
-            -->
-            <!-- 打包时,添加信息 -->
-            <!--  声明生成可执行的jar文件 -->
-            <!--
+            &ndash;&gt;
+            &lt;!&ndash; 打包时,添加信息 &ndash;&gt;
+            &lt;!&ndash;  声明生成可执行的jar文件 &ndash;&gt;
+            &lt;!&ndash;
                         <plugin>
                             <groupId>
                                 org.apache.maven.plugins
@@ -139,9 +144,10 @@
                                 </execution>
                             </executions>
                         </plugin>
-            -->
+            &ndash;&gt;
         </plugins>
     </build>
+-->
     <dependencies>
         <!--测试包-->
         <dependency>

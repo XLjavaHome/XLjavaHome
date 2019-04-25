@@ -76,7 +76,7 @@ public class ArrayUtil {
      *
      * @param arr
      * @param a
-     * @param b   void
+     * @param b void
      */
     public static void swap(int[] arr, int a, int b) {
         int temp = arr[a];
@@ -140,6 +140,25 @@ public class ArrayUtil {
         }
         if (rr < right) {
             fastSort(data, ll + 1, right);
+        }
+    }
+    
+    /**
+     * 将数组转成字符串
+     *
+     * @param arrays
+     * @param operator 连接符
+     * @return
+     */
+    public static StringBuilder toString(String[] arrays, String operator) {
+        StringBuilder result = new StringBuilder();
+        //到最后一个直接返回
+        for (int i = 0; ; i++) {
+            result.append(arrays[i]);
+            if (i >= arrays.length - 1) {
+                return result;
+            }
+            result.append(operator);
         }
     }
 }
