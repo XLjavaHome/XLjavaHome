@@ -68,9 +68,10 @@ public class StringTest {
     
     @Test
     public void spiltTest() {
-        String ceshi = "11,22,11";
+        String ceshi = ",,11,22,11, ,";
         //切割后是否有重复数据? 有
         System.out.println(Arrays.toString(ceshi.split(",")));
+        //没有空格并且
         String[] split = StringUtils.split(ceshi, ",");
         System.out.println(Arrays.toString(split));
         Set<String> set = new TreeSet<>();
