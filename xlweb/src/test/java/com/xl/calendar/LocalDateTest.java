@@ -118,4 +118,9 @@ public class LocalDateTest {
         System.out.println("LocalDate = " + localDate);
         System.out.println("Date = " + date);
     }
+    
+    @Test
+    public void name() {
+        System.out.println(Clock.systemDefaultZone());
+    }
 }

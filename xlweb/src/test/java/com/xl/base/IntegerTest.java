@@ -75,6 +75,8 @@ public class IntegerTest {
     @Test
     public void nullEqualTest() {
         Integer a = null;
+        //Integer 等于""没有意义
+        System.out.println(a.equals(""));
         System.out.println(a == 2);
         System.out.println(3 == a);
     }
