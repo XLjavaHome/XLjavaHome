@@ -9,10 +9,13 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import org.apache.poi.xwpf.usermodel.XWPFDocument;
-import org.apache.poi.xwpf.usermodel.XWPFParagraph;
-import org.apache.poi.xwpf.usermodel.XWPFRun;
+import java.math.BigInteger;
+import java.util.List;
+import org.apache.commons.lang.StringUtils;
+import org.apache.poi.xwpf.usermodel.*;
 import org.jetbrains.annotations.NotNull;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTTcPr;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.STVerticalJc;
 
 /**
  * Created with 徐立.
@@ -50,31 +53,47 @@ public class DeploymentPackageServiceImpl implements DeploymentPackageService {
         if (entity.isFlag()) {
             //    任务名称
             xwpfRun.setText("[任务名称]");
+            addTitleStyle(xwpfRun);
+            addDocContent(docParagraph, entity.getTaskName());
         } else {
             xwpfRun.setText("[BUG修复]");
+            addTitleStyle(xwpfRun);
+            String docString = entity.getDocString();
+            if (StringUtil.isNotEmpty(docString)) {
+                String[] split = StringUtils.split(docString, '\n');
+                XWPFTable wordTable = doc.createTable(split.length, 2);
+                List<XWPFTableRow> rows = wordTable.getRows();
+                for (int i = 0; i < rows.size(); i++) {
+                    XWPFTableRow xwpfTableRow = rows.get(i);
+                    //每一行的内容
+                    String[] linesStrings = StringUtils.split(split[i], ':');
+                    //每一行的单元格
+                    List<XWPFTableCell> tableCells = xwpfTableRow.getTableCells();
+                    //左侧单元格
+                    XWPFTableCell leftCell = tableCells.get(0);
+                    CTTcPr cellPr11 = leftCell.getCTTc().addNewTcPr();
+                    cellPr11.addNewVAlign().setVal(STVerticalJc.CENTER);
+                    cellPr11.addNewTcW().setW(BigInteger.valueOf(2000));
+                    leftCell.setText(linesStrings[0]);
+                    XWPFTableCell rightCell = tableCells.get(1);
+                    rightCell.setText(linesStrings[1]);
+                    CTTcPr cellPr1 = rightCell.getCTTc().addNewTcPr();
+                    cellPr1.addNewVAlign().setVal(STVerticalJc.CENTER);
+                    cellPr1.addNewTcW().setW(BigInteger.valueOf(6000));
+                }
+            }
         }
-        addTitleStyle(xwpfRun);
-        xwpfRun.addBreak();
-        xwpfRun = addDocContent(docParagraph, entity.getTaskName());
-        xwpfRun.addBreak();
-        xwpfRun.addBreak();
+        docParagraph = doc.createParagraph();
         XWPFRun run = docParagraph.createRun();
+        run.addBreak();
         addTitleStyle(run);
         run.setText("[部署说明]");
         run.addBreak();
         XWPFRun run1 = docParagraph.createRun();
         run1.setFontSize(14);
-        String docString = entity.getDocString();
-        if (StringUtil.isNotEmpty(docString)) {
-            String[] split = docString.split("\n");
-            for (String s : split) {
-                addDocContent(docParagraph, s);
-            }
-        } else {
-            XWPFRun xwpfRun1 = addDocContent(docParagraph, "1.更新code.txt。");
-            xwpfRun1.addBreak();
-            addDocContent(docParagraph, "2.重启服务。");
-        }
+        XWPFRun xwpfRun1 = addDocContent(docParagraph, "1.更新code.txt。");
+        xwpfRun1.addBreak();
+        addDocContent(docParagraph, "2.重启服务。");
         doc.write(new BufferedOutputStream(new FileOutputStream(new File(publishPackageNameDirectory, "部署说明.docx"))));
         doc.close();
         FileUtil.open(publishPackageNameDirectory);
