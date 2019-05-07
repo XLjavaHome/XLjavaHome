@@ -1,7 +1,10 @@
 package com.xl.util;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import lombok.extern.log4j.Log4j;
 
 /**
  * Created with 徐立.
@@ -11,6 +14,7 @@ import java.lang.reflect.Type;
  * @time 22:19
  * To change this template use File | Settings | File Templates.
  */
+@Log4j
 public class ReflectUtil {
     /**
      * 通过反射, 获得Class定义中声明的父类的泛型参数的类型.
@@ -38,5 +42,29 @@ public class ReflectUtil {
             return Object.class;
         }
         return (Class) params[index];
+    }
+    
+    /**
+     * 反射获取所有属性
+     *
+     * @param obj
+     */
+    public static void getPropertyGeneric(Object obj) {
+        Method[] methods = obj.getClass().getMethods();
+        try {
+            for (Method method : methods) {
+                if (method.getName().startsWith("get") && !StringUtil.equals(method.getName(), "getClass")) {
+                    System.out.println(method.getName());
+                    Object invoke = method.invoke(obj);
+                    log.info(invoke);
+                }
+            }
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
     }
 }

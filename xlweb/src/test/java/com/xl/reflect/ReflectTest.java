@@ -36,6 +36,13 @@ public class ReflectTest {
     }
     
     @Test
+    public void 获取所有属性值() {
+        p.setAge(10);
+        p.setName("张三");
+        ReflectUtil.getPropertyGeneric(p);
+    }
+    
+    @Test
     public void name() {
         System.out.println(ReflectUtil.getClassGenericType(JDBCType.class, 1));
     }
