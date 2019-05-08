@@ -11,6 +11,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.*;
+import java.net.URL;
 import java.util.Properties;
 import javax.swing.*;
 
@@ -125,6 +126,8 @@ public class DeployForm extends JDialog {
     }
     
     public static void main(String[] args) {
+        URL xl = Thread.currentThread().getContextClassLoader().getResource("1.txt");
+        System.out.println(xl);
         DeployForm dialog = new DeployForm();
         dialog.pack();
         GUIUtil.makeCenter(dialog);

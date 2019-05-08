@@ -16,7 +16,7 @@ public class ResourceUtilTest {
     @Test
     public void getResourceInputStream() {
         InputStream resourceInputStream = ResourceUtil.getResourceInputStream("1.txt");
-        InputStream resourceInputStream2 = ResourceUtil.getResourceInputStream2("1.txt");
+        InputStream resourceInputStream2 = ResourceUtil.getResourceInputStream2("/1.txt");
         InputStream resourceInputStream3 = ResourceUtil.getResourceInputStream3("1.txt");
         System.out.println(resourceInputStream);
         System.out.println(resourceInputStream2);
