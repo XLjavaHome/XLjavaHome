@@ -25,7 +25,7 @@ public class layoutDemo extends Application {
         Text title = new Text("Data");
         title.setFont(Font.font("Amble CN", FontWeight.BOLD, 14));
         vbox.getChildren().add(title);
-        Text options[] = new Text[]{new Text(" Sales"), new Text(" Marketing"), new Text(" Distribution"), new Text(" Costs")};
+        Text[] options = new Text[]{new Text(" Sales"), new Text(" Marketing"), new Text(" Distribution"), new Text(" Costs")};
         for (int i = 0; i < 4; i++) {
             vbox.getChildren().add(options[i]);
         }

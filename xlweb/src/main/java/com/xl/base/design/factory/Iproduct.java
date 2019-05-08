@@ -9,5 +9,5 @@ package com.xl.base.design.factory;
  * To change this template use File | Settings | File Templates.
  */
 public interface Iproduct {
-    public void doSomething();
+    void doSomething();
 }

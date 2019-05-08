@@ -429,10 +429,7 @@ public class NumberUtil {
     public static boolean isDouble(String s) {
         try {
             Double.parseDouble(s);
-            if (s.contains(".")) {
-                return true;
-            }
-            return false;
+            return s.contains(".");
         } catch (NumberFormatException e) {
             return false;
         }

@@ -10,5 +10,5 @@ import java.lang.annotation.*;
 @Documented
 @Inherited
 public @interface Cell {
-    public abstract String title();
+    String title();
 }

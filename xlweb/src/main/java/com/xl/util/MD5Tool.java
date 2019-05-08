@@ -14,7 +14,7 @@ public class MD5Tool {
             md.update(s.getBytes());
             byte[] b = md.digest();
             int i;
-            StringBuffer buf = new StringBuffer("");
+            StringBuffer buf = new StringBuffer();
             for (int offset = 0; offset < b.length; offset++) {
                 i = b[offset];
                 if (i < 0) {

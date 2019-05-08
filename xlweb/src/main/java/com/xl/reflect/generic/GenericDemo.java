@@ -38,7 +38,7 @@ class A<T, E> {
     @SuppressWarnings("unchecked")
     public A() {
         java.lang.reflect.Type t = this.getClass().getGenericSuperclass();
-        boolean b = ParameterizedType.class.isInstance(t);
+        boolean b = t instanceof ParameterizedType;
         System.out.println("是否是这个类型的" + b);
         ParameterizedType pt = (ParameterizedType) t;
         pt.getRawType();

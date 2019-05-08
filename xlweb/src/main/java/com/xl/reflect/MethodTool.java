@@ -8,20 +8,20 @@ import java.lang.reflect.Method;
 public class MethodTool {
     public static Object executeMethod(Object object, String methodName) throws Exception {
         Class clazz = object.getClass();
-        Method method = clazz.getDeclaredMethod(methodName, new Class[0]);
-        return method.invoke(object, new Object[0]);
+        Method method = clazz.getDeclaredMethod(methodName);
+        return method.invoke(object);
     }
 
     public static void executeMethod(Object object, String methodName, Object param) throws Exception {
         Class clazz = object.getClass();
-        Method method = clazz.getDeclaredMethod(methodName, new Class[]{param.getClass()});
-        method.invoke(object, new Object[]{param});
+        Method method = clazz.getDeclaredMethod(methodName, param.getClass());
+        method.invoke(object, param);
     }
 
     public static void excuteBoolMethod(Object object, String methodName, boolean param) throws Exception {
         Class c = object.getClass();
-        Method m = c.getDeclaredMethod(methodName, new Class[]{Boolean.TYPE});
-        m.invoke(object, new Object[]{Boolean.valueOf(param)});
+        Method m = c.getDeclaredMethod(methodName, Boolean.TYPE);
+        m.invoke(object, Boolean.valueOf(param));
     }
 
     public static String returnSetMethodName(String property) {
