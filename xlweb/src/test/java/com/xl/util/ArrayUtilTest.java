@@ -2,6 +2,7 @@ package com.xl.util;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.lang.ArrayUtils;
 import org.junit.Test;
 
 /**
@@ -14,7 +15,11 @@ import org.junit.Test;
  */
 public class ArrayUtilTest {
     @Test
-    public void arrayAddLength() throws Exception {
+    public void containsTest() throws Exception {
+        //Integer也包含
+        Integer[] arr = new Integer[]{1, 163};
+        Integer i = 163;
+        System.out.println(ArrayUtils.contains(arr, i));
     }
 
     @Test

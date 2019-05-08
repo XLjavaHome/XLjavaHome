@@ -10,7 +10,7 @@
     </parent>
     <artifactId>deploy</artifactId>
     <version>1.0.0</version>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
     <dependencies>
         <dependency>
             <groupId>com.xl</groupId>
