@@ -54,6 +54,7 @@ public class DeploymentPackageServiceImpl implements DeploymentPackageService {
             //    任务名称
             xwpfRun.setText("[任务名称]");
             addTitleStyle(xwpfRun);
+            xwpfRun.addBreak();
             addDocContent(docParagraph, entity.getTaskName());
         } else {
             xwpfRun.setText("[BUG修复]");
@@ -61,25 +62,43 @@ public class DeploymentPackageServiceImpl implements DeploymentPackageService {
             String docString = entity.getDocString();
             if (StringUtil.isNotEmpty(docString)) {
                 String[] split = StringUtils.split(docString, '\n');
-                XWPFTable wordTable = doc.createTable(split.length, 2);
-                List<XWPFTableRow> rows = wordTable.getRows();
-                for (int i = 0; i < rows.size(); i++) {
-                    XWPFTableRow xwpfTableRow = rows.get(i);
-                    //每一行的内容
+                //是否生成表格
+                boolean isInitWordTable = true;
+                for (int i = 0; i < split.length; i++) {
                     String[] linesStrings = StringUtils.split(split[i], ':');
-                    //每一行的单元格
-                    List<XWPFTableCell> tableCells = xwpfTableRow.getTableCells();
-                    //左侧单元格
-                    XWPFTableCell leftCell = tableCells.get(0);
-                    CTTcPr cellPr11 = leftCell.getCTTc().addNewTcPr();
-                    cellPr11.addNewVAlign().setVal(STVerticalJc.CENTER);
-                    cellPr11.addNewTcW().setW(BigInteger.valueOf(2000));
-                    leftCell.setText(linesStrings[0]);
-                    XWPFTableCell rightCell = tableCells.get(1);
-                    rightCell.setText(linesStrings[1]);
-                    CTTcPr cellPr1 = rightCell.getCTTc().addNewTcPr();
-                    cellPr1.addNewVAlign().setVal(STVerticalJc.CENTER);
-                    cellPr1.addNewTcW().setW(BigInteger.valueOf(6000));
+                    if (linesStrings.length != 2) {
+                        isInitWordTable = false;
+                        break;
+                    }
+                }
+                if (isInitWordTable) {
+                    XWPFTable wordTable = doc.createTable(split.length, 2);
+                    List<XWPFTableRow> rows = wordTable.getRows();
+                    for (int i = 0; i < rows.size(); i++) {
+                        XWPFTableRow xwpfTableRow = rows.get(i);
+                        //每一行的内容
+                        //每一行的单元格
+                        List<XWPFTableCell> tableCells = xwpfTableRow.getTableCells();
+                        //左侧单元格
+                        XWPFTableCell leftCell = tableCells.get(0);
+                        CTTcPr cellPr11 = leftCell.getCTTc().addNewTcPr();
+                        cellPr11.addNewVAlign().setVal(STVerticalJc.CENTER);
+                        cellPr11.addNewTcW().setW(BigInteger.valueOf(2000));
+                        String[] linesStrings = StringUtils.split(split[i], ':');
+                        leftCell.setText(linesStrings[0]);
+                        XWPFTableCell rightCell = tableCells.get(1);
+                        rightCell.setText(linesStrings[1]);
+                        CTTcPr cellPr1 = rightCell.getCTTc().addNewTcPr();
+                        cellPr1.addNewVAlign().setVal(STVerticalJc.CENTER);
+                        cellPr1.addNewTcW().setW(BigInteger.valueOf(6000));
+                    }
+                } else {
+                    //不是BUG的话在doc文档中加
+                    xwpfRun.addBreak();
+                    for (int i = 0; i < split.length; i++) {
+                        xwpfRun = addDocContent(docParagraph, split[i]);
+                        xwpfRun.addBreak();
+                    }
                 }
             }
         }
@@ -110,7 +129,7 @@ public class DeploymentPackageServiceImpl implements DeploymentPackageService {
     public XWPFRun addDocContent(XWPFParagraph docParagraph, String content) {
         XWPFRun xwpfRun = docParagraph.createRun();
         xwpfRun.setText(content);
-        xwpfRun.setFontSize(14);
+        xwpfRun.setFontSize(12);
         return xwpfRun;
     }
     

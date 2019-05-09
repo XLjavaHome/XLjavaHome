@@ -11,9 +11,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.*;
-import java.net.URL;
 import java.util.Properties;
 import javax.swing.*;
+import lombok.extern.log4j.Log4j;
 
 /**
  * Created with 徐立.生成部署目录
@@ -24,6 +24,7 @@ import javax.swing.*;
  * @date 2019-04-12
  * @time 17:17
  */
+@Log4j
 public class DeployForm extends JDialog {
     private JPanel contentPane;
     private JButton buttonCancel;
@@ -118,7 +119,7 @@ public class DeployForm extends JDialog {
                 FileOutputStream fileOutputStream = new FileOutputStream(propertFile, false);//true表示追加打开
                 prop.store(fileOutputStream, "作者");
             } catch (FileNotFoundException e) {
-                e.printStackTrace();
+                log.error(e);
             } catch (IOException e) {
             }
         }
@@ -126,8 +127,6 @@ public class DeployForm extends JDialog {
     }
     
     public static void main(String[] args) {
-        URL xl = Thread.currentThread().getContextClassLoader().getResource("1.txt");
-        System.out.println(xl);
         DeployForm dialog = new DeployForm();
         dialog.pack();
         GUIUtil.makeCenter(dialog);
