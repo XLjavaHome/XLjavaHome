@@ -1,7 +1,7 @@
 /**
  * Created with IntelliJ IDEA.
  *
- * @author: 徐立
+ * @author 徐立
  * Date: 2018-05-24
  * Time: 13:36
  * To change this template use File | Settings | File Templates.
