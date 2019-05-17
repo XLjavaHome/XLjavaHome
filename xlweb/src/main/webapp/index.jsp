@@ -1,4 +1,3 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: 立
@@ -20,6 +19,7 @@
     </script>
 </head>
 <body>
+<h1>hello World</h1>
 <c:forEach items="${filePath}" var="file">
     <%--onclick="gToPath('${file.value}')"--%>
     <a href="${file.value}" target="_blank">${file.key}</a><br/>

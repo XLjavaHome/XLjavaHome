@@ -3,7 +3,7 @@
          xmlns="http://xmlns.jcp.org/xml/ns/javaee"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
-    <display-name>xlDemo</display-name>
+    <display-name>xlWeb</display-name>
     <!--要两个contextConfigLocation spring才起作用-->
     <!-- contextConfigLocation配置springmvc加载的配置文件（配置处理器映射器、适配器等等） 如果不配置contextConfigLocation，默认加载的是/WEB-INF/springmvc-servlet.xml -->
   <!--  <context-param>
@@ -44,7 +44,7 @@
         </listener>
     -->
     <!--encodingFilter配置-->
-    <filter>
+  <!--  <filter>
         <filter-name>encodingFilter</filter-name>
         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
         <init-param>
@@ -61,7 +61,7 @@
         <url-pattern>*.jsp</url-pattern>
         <url-pattern>*.action</url-pattern>
         <url-pattern>*.html</url-pattern>
-    </filter-mapping>
+    </filter-mapping>-->
     <welcome-file-list>
         <welcome-file>/index.jsp</welcome-file>
     </welcome-file-list>
