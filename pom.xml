@@ -8,9 +8,9 @@
     <packaging>pom</packaging>
     <version>1.0.0</version>
     <modules>
-        <module>xlweb</module>
         <module>deploy</module>
         <module>xlbase</module>
+        <module>xlweb</module>
     </modules>
     <!--<packaging>war</packaging>-->
     <!--开源协议-->

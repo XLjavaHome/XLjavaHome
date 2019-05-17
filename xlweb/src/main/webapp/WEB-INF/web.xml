@@ -10,10 +10,10 @@
         <param-name>contextConfigLocation</param-name>
         <param-value>classpath:spring/applicationContext.xml,spring/applicationContext-dao-BasicDataSource.xml</param-value>
     </context-param>-->
-    <servlet>
+  <!--  <servlet>
         <servlet-name>mvc-dispatcher</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-        <!--一开始就加载-->
+        &lt;!&ndash;一开始就加载&ndash;&gt;
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
@@ -22,7 +22,7 @@
     </servlet-mapping>
     <listener>
         <listener-class>com.xl.web.listener.MySessionContextListener</listener-class>
-    </listener>
+    </listener>-->
     <!--没有也能运行？-->
     <!--
     <listener>
