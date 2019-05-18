@@ -24,7 +24,7 @@ public class PinYinHelper {
         return instance;
     }
 
-    public void loadPinYin() {
+    private void loadPinYin() {
         try {
             InputStream ex = Thread.currentThread().getContextClassLoader().getResourceAsStream("com/sinitek/base/common/pinyin/pinyin.txt");
             InputStreamReader rdr = new InputStreamReader(ex, CharsetEnum.UTF8.getValue());

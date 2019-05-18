@@ -1,6 +1,5 @@
 package com.xl.spring.aop;
 
-import com.xl.util.MethodUtil;
 import lombok.extern.log4j.Log4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
@@ -23,7 +22,7 @@ public class SpringAop {
      */
     @Pointcut("execution(* com.xl.service.impl.*.*(..))")
     private void anyMethod() {
-        System.out.println("anyMethod" + MethodUtil.getMethodName());
+        System.out.println("anyMethod" + Thread.currentThread().getStackTrace()[1].getMethodName());
     }
 
     @Before("anyMethod() && args(name)")
