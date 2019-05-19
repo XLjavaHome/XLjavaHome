@@ -1,6 +1,5 @@
 package com.xl.comparator;
 
-import com.xl.util.PinYinHelper;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.util.Comparator;
@@ -44,14 +43,15 @@ public class ListComparator implements Comparator {
                 v1 = PropertyUtils.getProperty(o1, this.getProperty());
                 v2 = PropertyUtils.getProperty(o2, this.getProperty());
             }
-            if (this.pinyinEnabled) {
+            if (this.pinyinEnabled) {/*
+                // TODO 2019/5/19 22:45 徐立
                 if (v1 != null) {
-                    v1 = PinYinHelper.getInstance().getFullPinYin(String.valueOf(v1));
+                    v1 = PinYinUtil.getInstance().getFullPinYin(String.valueOf(v1));
                 }
                 if (v2 != null) {
-                    v2 = PinYinHelper.getInstance().getFullPinYin(String.valueOf(v2));
+                    v2 = PinYinUtil.getInstance().getFullPinYin(String.valueOf(v2));
                 }
-            }
+            */}
             if (v1 != null && v2 != null) {
                 if (v1 instanceof String && v2 instanceof String) {
                     //returnInt = new PinYinComparator(true).compare(v1, v2);
