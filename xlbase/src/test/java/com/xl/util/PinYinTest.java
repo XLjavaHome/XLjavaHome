@@ -12,8 +12,6 @@ import org.junit.Test;
  * To change this template use File | Settings | File Templates.
  */
 public class PinYinTest {
-    
-    
     @Test
     public void pinyinTest() throws BadHanyuPinyinOutputFormatCombination {
         String input = "世界ces你好啊";
