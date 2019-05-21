@@ -1,6 +1,7 @@
 package com.xl.util.excel;
 
 import com.xl.util.DateUtil;
+import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -8,8 +9,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import lombok.extern.log4j.Log4j;
+import org.apache.poi.POIXMLDocument;
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.openxml4j.opc.OPCPackage;
+import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -27,23 +32,18 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 @SuppressWarnings("deprecation")
 public class POIExcelUtil {
     /**
-     * 读取excel
+     * 读取excel ,判断excel版本用流
      *
      * @param in
      * @return
      */
-    public static Workbook initWorkbook(InputStream in) {
-        Workbook workbook = null;
-        try {
-            workbook = new HSSFWorkbook(in);
-        } catch (Exception ex) {
-            try {
-                workbook = new XSSFWorkbook(in);
-            } catch (Exception e) {
-                return workbook;
-            }
+    public static Workbook initWorkbook(InputStream in) throws IOException, InvalidFormatException {
+        if (POIFSFileSystem.hasPOIFSHeader(in)) {
+            return new HSSFWorkbook(in);
+        } else if (POIXMLDocument.hasOOXMLHeader(in)) {
+            return new XSSFWorkbook(OPCPackage.open(in));
         }
-        return workbook;
+        return null;
     }
     
     /**
