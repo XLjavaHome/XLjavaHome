@@ -6,7 +6,6 @@ import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
 import net.sourceforge.pinyin4j.format.HanyuPinyinToneType;
 import net.sourceforge.pinyin4j.format.HanyuPinyinVCharType;
 import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombination;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * Created with 徐立.汉字转拼音
@@ -37,7 +36,6 @@ public class PinYinUtil {
      * @return
      * @throws BadHanyuPinyinOutputFormatCombination
      */
-    @NotNull
     private static StringBuilder getPinYin(String input, boolean flag) throws BadHanyuPinyinOutputFormatCombination {
         HanyuPinyinOutputFormat pinyinOutputFormat = new HanyuPinyinOutputFormat();
         //全拼
