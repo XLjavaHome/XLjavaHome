@@ -16,5 +16,7 @@ public class IntegerTest {
         Integer a = 4;
         //可以这样写
         System.out.println(a == null);
+        //Integer的toString返回值
+        System.out.println(a.toString());
     }
 }
