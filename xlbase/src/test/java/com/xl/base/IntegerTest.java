@@ -19,4 +19,11 @@ public class IntegerTest {
         //Integer的toString返回值
         System.out.println(a.toString());
     }
+    
+    @Test
+    public void nullTest() {
+        Integer a = null;
+        //这样写不行
+        System.out.println(1 == a);
+    }
 }
