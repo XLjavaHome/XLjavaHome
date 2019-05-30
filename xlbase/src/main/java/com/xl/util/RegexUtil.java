@@ -55,7 +55,8 @@ public class RegexUtil {
     
     /**
      * 正则替换
-     *  @param charSequence 要替换的字符串
+     *
+     * @param charSequence 要替换的字符串
      * @param regex 正则
      * @param afterReplace 替换的字符串
      * @param buf 最后的结果
