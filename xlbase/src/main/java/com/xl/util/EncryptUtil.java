@@ -1,6 +1,6 @@
 package com.xl.util;
 
-import com.xl.enumsupport.CharsetEnum;
+import com.xl.enumsupport.CharacterEnum;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import javax.crypto.Cipher;
@@ -26,7 +26,7 @@ public class EncryptUtil {
      * @throws Exception
      */
     public static String encryptDES(String message, String key) {
-        return encryptDES(message, key, CharsetEnum.UTF8.getValue());
+        return encryptDES(message, key, CharacterEnum.UTF8.getValue());
     }
 
     /**
@@ -40,10 +40,10 @@ public class EncryptUtil {
     public static String encryptDES(String message, String key, String encoding) {
         try {
             Cipher cipher = Cipher.getInstance("DES/CBC/PKCS5Padding");
-            DESKeySpec desKeySpec = new DESKeySpec(key.getBytes(CharsetEnum.UTF8.getValue()));
+            DESKeySpec desKeySpec = new DESKeySpec(key.getBytes(CharacterEnum.UTF8.getValue()));
             SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("DES");
             SecretKey secretKey = keyFactory.generateSecret(desKeySpec);
-            IvParameterSpec iv = new IvParameterSpec(key.getBytes(CharsetEnum.UTF8.getValue()));
+            IvParameterSpec iv = new IvParameterSpec(key.getBytes(CharacterEnum.UTF8.getValue()));
             cipher.init(Cipher.ENCRYPT_MODE, secretKey, iv);
             return byte2hex(cipher.doFinal(message.getBytes(encoding)));
         } catch (Exception ex) {
@@ -83,10 +83,10 @@ public class EncryptUtil {
         try {
             byte[] bytesrc = convertHexString(message);
             Cipher cipher = Cipher.getInstance("DES/CBC/PKCS5Padding");
-            DESKeySpec desKeySpec = new DESKeySpec(key.getBytes(CharsetEnum.UTF8.getValue()));
+            DESKeySpec desKeySpec = new DESKeySpec(key.getBytes(CharacterEnum.UTF8.getValue()));
             SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("DES");
             SecretKey secretKey = keyFactory.generateSecret(desKeySpec);
-            IvParameterSpec iv = new IvParameterSpec(key.getBytes(CharsetEnum.UTF8.getValue()));
+            IvParameterSpec iv = new IvParameterSpec(key.getBytes(CharacterEnum.UTF8.getValue()));
             cipher.init(Cipher.DECRYPT_MODE, secretKey, iv);
             byte[] retByte = cipher.doFinal(bytesrc);
             return new String(retByte);

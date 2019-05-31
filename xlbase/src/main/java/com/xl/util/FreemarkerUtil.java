@@ -1,7 +1,7 @@
 package com.xl.util;
 
 import com.xl.entity.Freemark;
-import com.xl.enumsupport.CharsetEnum;
+import com.xl.enumsupport.CharacterEnum;
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapper;
 import freemarker.template.Template;
@@ -50,7 +50,8 @@ public class FreemarkerUtil {
         Template t = freemark.getConfiguration().getTemplate(freemark.getTempletName());
         Writer out = null;
         try {
-            out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(freemark.getOutFile()), CharsetEnum.UTF8.getValue()));
+            out = new BufferedWriter(
+                    new OutputStreamWriter(new FileOutputStream(freemark.getOutFile()), CharacterEnum.UTF8.getValue()));
             t.process(freemark.getParam(), out);
         } finally {
             if (out != null) {
@@ -74,7 +75,7 @@ public class FreemarkerUtil {
         FileOutputStream fos = new FileOutputStream(filePath);
         OutputStreamWriter out = null;
         try {
-            out = new OutputStreamWriter(fos, CharsetEnum.UTF8.getValue());
+            out = new OutputStreamWriter(fos, CharacterEnum.UTF8.getValue());
             Template template = configFreemarker(templatePath);
             template.process(param, out);
             out.flush();
@@ -92,7 +93,7 @@ public class FreemarkerUtil {
         String tplPath = templatePath.substring(0, slashIndex);
         config.setClassForTemplateLoading(FreemarkerUtil.class, "/" + tplPath);
         String tplName = templatePath.substring(slashIndex + 1);
-        Template template = config.getTemplate(tplName, CharsetEnum.UTF8.getValue());
+        Template template = config.getTemplate(tplName, CharacterEnum.UTF8.getValue());
         return template;
     }
 }

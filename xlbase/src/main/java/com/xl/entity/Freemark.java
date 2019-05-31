@@ -1,6 +1,6 @@
 package com.xl.entity;
 
-import com.xl.enumsupport.CharsetEnum;
+import com.xl.enumsupport.CharacterEnum;
 import freemarker.template.Configuration;
 import java.io.File;
 import java.util.Map;
@@ -32,7 +32,7 @@ public class Freemark {
      */
     public Freemark(String templatePath) {
         configuration = new Configuration();
-        configuration.setDefaultEncoding(CharsetEnum.UTF8.getValue());
+        configuration.setDefaultEncoding(CharacterEnum.UTF8.getValue());
         configuration.setClassForTemplateLoading(this.getClass(), templatePath);
     }
 }

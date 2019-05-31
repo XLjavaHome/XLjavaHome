@@ -1,6 +1,6 @@
 package com.xl.util;
 
-import com.xl.enumsupport.CharsetEnum;
+import com.xl.enumsupport.CharacterEnum;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -28,7 +28,7 @@ public class NetUtil {
                 if (code.contains("GBK")) {
                     return new String(content, "GBK");
                 } else {
-                    return new String(content, CharsetEnum.UTF8.getValue()); // 默认以UTF-8编码
+                    return new String(content, CharacterEnum.UTF8.getValue()); // 默认以UTF-8编码
                 }
             } else {
                 throw new IllegalStateException("访问网络失败");

@@ -8,13 +8,13 @@ package com.xl.enumsupport;
  * @Time: 10:39
  * To change this template use File | Settings | File Templates.
  */
-public enum CharsetEnum {
+public enum CharacterEnum {
     UTF8("UTF-8") {
     }, GBK("GBK") {
     };
     private String value;
-
-    CharsetEnum(String value) {
+    
+    CharacterEnum(String value) {
         this.value = value;
     }
 

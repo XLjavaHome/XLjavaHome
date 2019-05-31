@@ -3,6 +3,8 @@ package com.xl.base;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import lombok.extern.log4j.Log4j;
 import org.junit.Test;
 
@@ -24,6 +26,34 @@ public class TryTest {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+    
+    public static void testTry() {
+        try {
+            try {
+                int i = 1 / 0;
+            } catch (Exception e) {
+                //只会打印这个异常
+                log.info("这是异常2");
+            }
+        } catch (Exception e) {
+            log.info("你好");
+        }
+    }
+    
+    @Test
+    public void name2() throws IllegalAccessException, InstantiationException {
+        Class c = this.getClass();
+        try {
+            Method m = c.getMethod("testTry");
+            m.invoke(c);
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+            log.info("bbbb");
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+            log.info("cccc");
         }
     }
     
