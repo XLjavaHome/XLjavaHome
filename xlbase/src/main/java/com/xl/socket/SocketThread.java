@@ -5,10 +5,10 @@ import java.io.*;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class MyThread implements Runnable {
+public class SocketThread implements Runnable {
     private Socket s;
-
-    MyThread(Socket s) {
+    
+    SocketThread(Socket s) {
         this.s = s;
     }
 

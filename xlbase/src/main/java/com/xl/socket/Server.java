@@ -11,7 +11,7 @@ public class Server {
         System.out.println("服务器启动中...");
         while (true) {
             Socket s = ss.accept();
-            Thread t = new Thread(new MyThread(s));
+            Thread t = new Thread(new SocketThread(s));
             t.start();
         }
     }
