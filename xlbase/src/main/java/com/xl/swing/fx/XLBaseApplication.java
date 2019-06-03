@@ -1,6 +1,5 @@
 package com.xl.swing.fx;
 
-import com.sun.istack.internal.NotNull;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -14,7 +13,7 @@ import javafx.stage.Stage;
  */
 public abstract class XLBaseApplication extends Application {
     @Override
-    public void start(@NotNull Stage stage) {
+    public void start(Stage stage) {
         stage.setTitle("提取文本文件的所有文件 by徐立");
         stage.show();
     }

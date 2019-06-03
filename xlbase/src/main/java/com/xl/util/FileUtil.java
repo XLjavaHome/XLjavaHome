@@ -1,7 +1,5 @@
 package com.xl.util;
 
-import com.sun.istack.internal.NotNull;
-import com.sun.istack.internal.Nullable;
 import com.xl.base.IdWorker;
 import java.awt.Desktop;
 import java.io.*;
@@ -10,6 +8,8 @@ import java.text.DecimalFormat;
 import java.util.*;
 import javax.swing.filechooser.FileSystemView;
 import lombok.extern.log4j.Log4j;
+import org.antlr.v4.runtime.misc.NotNull;
+import org.antlr.v4.runtime.misc.Nullable;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.filefilter.FileFileFilter;
 

@@ -1,12 +1,12 @@
 package com.xl.util;
 
-import com.sun.istack.internal.Nullable;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Properties;
+import org.antlr.v4.runtime.misc.Nullable;
 
 /**
  * Created with 徐立.JDBC工具类：关闭流和取得连接

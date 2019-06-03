@@ -1,6 +1,5 @@
 package com.xl.swing.fx;
 
-import com.sun.istack.internal.NotNull;
 import java.io.File;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -11,6 +10,7 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import lombok.extern.log4j.Log4j;
+import org.antlr.v4.runtime.misc.NotNull;
 
 /**
  * Created with IntelliJ IDEA. <br/>1.解析第一行选择的目录 讲所有文本文件内容读取，记录文件名 <br/>2.解析第二行选择的目录，符合相同的文件 <br/>3.输出到第三行选择的目录

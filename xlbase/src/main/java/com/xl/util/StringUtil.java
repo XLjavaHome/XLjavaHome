@@ -1,6 +1,5 @@
 package com.xl.util;
 
-import com.sun.istack.internal.Nullable;
 import static com.xl.util.Constant.*;
 import java.io.File;
 import java.net.URISyntaxException;
@@ -34,7 +33,7 @@ public class StringUtil {
      * @param str
      * @return boolean
      */
-    public static boolean isEmpty(@Nullable CharSequence str) {
+    public static boolean isEmpty(CharSequence str) {
         return StringUtils.isEmpty(str) || StringUtils.isBlank(str);
     }
     
