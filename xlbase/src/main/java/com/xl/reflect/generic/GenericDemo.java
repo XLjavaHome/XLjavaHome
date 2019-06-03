@@ -7,7 +7,7 @@ import org.junit.Test;
 
 public class GenericDemo extends A<Person, String> {
     @Test
-    public void getGeneric() throws InstantiationException, IllegalAccessException {
+    public void getGeneric() {
         // 得到泛型的真实信息
         Class<? extends GenericDemo> clazz = this.getClass(); // 得到当前new的对象
         System.out.println(clazz.getName());

@@ -3,9 +3,7 @@ package com.xl.util;
 import static com.xl.util.Constant.*;
 import java.io.File;
 import java.net.URISyntaxException;
-import java.util.Collection;
-import java.util.Enumeration;
-import java.util.Iterator;
+import java.util.*;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -305,6 +303,15 @@ public class StringUtil {
         }
         buf.deleteCharAt(buf.length() - 1);
         return buf.toString();
+    }
+    
+    public static List<String> split(String text, String s) {
+        String[] split = StringUtils.split(text, s);
+        List<String> result = new ArrayList<>(10);
+        for (int i = 0; i < split.length; i++) {
+            result.add(split[i]);
+        }
+        return result;
     }
     
     /**
