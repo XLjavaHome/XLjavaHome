@@ -23,12 +23,12 @@ public class CharExample {
      * currentHashMap解决重复消费？
      */
     private static Map<String, String> map = new ConcurrentHashMap();
+    /**
+     * 等待对方输入消息,并显示
+     */
+    private static ExecutorService executorService = Executors.newCachedThreadPool();
     
     public static void main(String[] args) {
-        /**
-         * 等待对方输入消息,并显示
-         */
-        ExecutorService executorService = Executors.newCachedThreadPool();
         // 收线程
         executorService.submit(() -> {
             while (true) {
