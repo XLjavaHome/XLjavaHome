@@ -2,7 +2,6 @@ package com.xl.base;
 
 import impl.GoogleTranslator;
 import org.junit.Test;
-import trans.Language;
 
 /**
  * Created with 徐立.
@@ -16,7 +15,8 @@ public class Trandslator {
     @Test
     public void name() {
         GoogleTranslator googleTranslator = new GoogleTranslator();
-        String name = googleTranslator.translation(Language.ZH, Language.EN, "开发任务");
+        String query = "开发任务";
+        String name = googleTranslator.translation(query);
         System.out.println(name);
     }
 }

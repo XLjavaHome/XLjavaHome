@@ -1,5 +1,6 @@
 package impl;
 
+import com.xl.util.StringUtil;
 import http.HttpParams;
 import http.HttpPostParams;
 import javax.script.Invocable;
@@ -45,6 +46,12 @@ public final class GoogleTranslator extends AbstractTranslator {
             result.append("\r\n");
         }
         return new String(result);
+    }
+    
+    @Override
+    public String translation(String mQuery) {
+        return StringUtil.isChinese(mQuery) ? translation(Language.ZH, Language.EN, mQuery) : translation(Language.EN,
+                Language.ZH, mQuery);
     }
     
     private String tk(String val) throws Exception {

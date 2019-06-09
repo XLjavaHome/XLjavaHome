@@ -40,4 +40,12 @@ public abstract class AbstractTranslator implements Translator {
      * @return
      */
     protected abstract String parseString(String jsonString);
+    
+    /**
+     * 将字符串翻译  中英或英中
+     *
+     * @param mQuery
+     * @return
+     */
+    public abstract String translation(String mQuery);
 }

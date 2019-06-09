@@ -5,7 +5,6 @@ import impl.GoogleTranslator;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
-import trans.Language;
 
 /**
  * 请求
@@ -18,24 +17,9 @@ public class RequestRunnable implements Callable<String> {
     
     @Override
     public String call() {
-        String text;
-        if (isChinese(mQuery)) {
-            text = mGoogleTranslator.translation(Language.ZH, Language.EN, mQuery);
-        } else {
-            text = mGoogleTranslator.translation(Language.EN, Language.ZH, mQuery);
-        }
+        String text = mGoogleTranslator.translation(mQuery);
         String resultText = clearText(text);
         return resultText;
-    }
-    
-    private boolean isChinese(String strName) {
-        char[] cs = strName.toCharArray();
-        for (char c : cs) {
-            if (isChinese(c)) {
-                return true;
-            }
-        }
-        return false;
     }
     
     /**
@@ -66,13 +50,5 @@ public class RequestRunnable implements Callable<String> {
             }
         }
         return StringUtil.join(newString, "");
-    }
-    
-    private boolean isChinese(char c) {
-        Character.UnicodeBlock ub = Character.UnicodeBlock.of(c);
-        return ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS || ub == Character.UnicodeBlock.CJK_COMPATIBILITY_IDEOGRAPHS
-               || ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_A
-               || ub == Character.UnicodeBlock.GENERAL_PUNCTUATION || ub == Character.UnicodeBlock.CJK_SYMBOLS_AND_PUNCTUATION
-               || ub == Character.UnicodeBlock.HALFWIDTH_AND_FULLWIDTH_FORMS;
     }
 }
