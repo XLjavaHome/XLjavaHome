@@ -14,6 +14,7 @@ public class StringTest {
     @Test
     void replace() {
         String str = "你好a你as好adewn你好o323";
+        //正则替换要中括号，会把每个字都替换掉
         System.out.println(str.replaceAll("[你好]", ""));
         System.out.println(str.replace("你好", ""));
     }
