@@ -1,5 +1,6 @@
 package com.xl.base;
 
+import com.xl.util.NumberTool;
 import org.junit.Test;
 
 /**
@@ -20,5 +21,10 @@ public class NumberTest {
         int a = 15;
         int b = 2;
         System.out.println("a^b=" + (a ^ b));
+    }
+    
+    @Test
+    public void 可变参数测试() {
+        System.out.println(NumberTool.safeAdd(1D, 3D));
     }
 }

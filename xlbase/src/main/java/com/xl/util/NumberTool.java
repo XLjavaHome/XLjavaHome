@@ -238,16 +238,15 @@ public class NumberTool {
      * 提供精确的加法运算。
      *
      * @param v1
-     * @param v2
      * @return 两个参数的和
      */
-    public static Double safeAdd(Double v1, Double v2) {
-        if (v1 != null && v2 != null) {
-            BigDecimal b1 = new BigDecimal(Double.toString(v1));
-            BigDecimal b2 = new BigDecimal(Double.toString(v2));
-            return b1.add(b2).doubleValue();
+    public static BigDecimal safeAdd(Double... v1) {
+        BigDecimal total = new BigDecimal("0");
+        for (Double aDouble : v1) {
+            BigDecimal one = BigDecimalUtil.initBigDecimal(aDouble);
+            total = total.add(one);
         }
-        return null;
+        return total;
     }
     
     /**
