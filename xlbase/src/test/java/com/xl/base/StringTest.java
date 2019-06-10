@@ -1,5 +1,6 @@
 package com.xl.base;
 
+import java.util.StringTokenizer;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -17,5 +18,15 @@ public class StringTest {
         //正则替换要中括号，会把每个字都替换掉
         System.out.println(str.replaceAll("[你好]", ""));
         System.out.println(str.replace("你好", ""));
+    }
+    
+    @Test
+    void StringTokenizerTest() {
+        //用空格表示
+        StringTokenizer tokenizer = new StringTokenizer("developmentTaskartTask", ",!' '.;");
+        while (tokenizer.hasMoreTokens()) {
+            String str = tokenizer.nextToken();
+            System.out.println(str);
+        }
     }
 }
