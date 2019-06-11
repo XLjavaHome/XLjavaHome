@@ -28,6 +28,18 @@ public class ProxyTest {
         sub = (Subject) demo.bind(new RealSubject());
     }
     
+    /**
+     * 代理还是会走最外层的异常，里面catch没用
+     */
+    @Test
+    public void 异常测试() {
+        try {
+            sub.exception();
+        } catch (Exception e) {
+            log.info("异常测试", e);
+        }
+    }
+    
     @Test
     public void test() {
         sub.say("Rollen", 20);

@@ -28,4 +28,13 @@ public class RealSubject implements Subject {
     public void eat() {
         log.info("测试eat方法是否执行");
     }
+    
+    @Override
+    public void exception() throws Exception {
+        try {
+            System.out.println(1 / 0);
+        } catch (Exception e) {
+            log.info("除以0", e);
+        }
+    }
 }

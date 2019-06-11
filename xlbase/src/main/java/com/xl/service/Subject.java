@@ -12,4 +12,6 @@ public interface Subject {
     String say(String name, int age);
     
     void eat();
+    
+    void exception() throws Exception;
 }
