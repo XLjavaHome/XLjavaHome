@@ -29,10 +29,29 @@ public final class GoogleTranslator extends AbstractTranslator {
         //统一采用post，若字符长度小于999用get也可以的
         HttpParams params = new HttpPostParams();
         String tk = tk(query);
-        params.put("client", "t").put("sl", langMap.get(from)).put("tl", langMap.get(to)).put("hl", "zh-CN").put("dt", "at")
-              .put("dt", "bd").put("dt", "ex").put("dt", "ld").put("dt", "md").put("dt", "qca").put("dt", "rw").put("dt", "rm")
-              .put("dt", "ss").put("dt", "t").put("ie", "UTF-8").put("oe", "UTF-8").put("source", "btn").put("srcrom", "1")
-              .put("ssel", "0").put("tsel", "0").put("kc", "11").put("tk", tk).put("q", query);
+        params.put("client", "t");
+        params.put("sl", langMap.get(from));
+        params.put("tl", langMap.get(to));
+        params.put("hl", "zh-CN");
+        params.put("dt", "at");
+        params.put("dt", "bd");
+        params.put("dt", "ex");
+        params.put("dt", "ld");
+        params.put("dt", "md");
+        params.put("dt", "qca");
+        params.put("dt", "rw");
+        params.put("dt", "rm");
+        params.put("dt", "ss");
+        params.put("dt", "t");
+        params.put("ie", "UTF-8");
+        params.put("oe", "UTF-8");
+        params.put("source", "btn");
+        params.put("srcrom", "1");
+        params.put("ssel", "0");
+        params.put("tsel", "0");
+        params.put("kc", "11");
+        params.put("tk", tk);
+        params.put("q", query);
         return params.send2String("http://translate.google.cn/translate_a/single");
     }
     
