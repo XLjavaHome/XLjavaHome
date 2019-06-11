@@ -29,14 +29,14 @@ public class ProxyTest {
     }
     
     /**
-     * 代理还是会走最外层的异常，里面catch没用
+     * 在外层catch没效果
      */
     @Test
     public void 异常测试() {
         try {
             sub.exception();
         } catch (Exception e) {
-            log.info("异常测试", e);
+            log.info("这是异常测试", e);
         }
     }
     

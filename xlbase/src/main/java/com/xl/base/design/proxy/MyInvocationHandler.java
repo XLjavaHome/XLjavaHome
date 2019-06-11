@@ -45,7 +45,12 @@ public class MyInvocationHandler implements InvocationHandler {
         log.info("代理执行方法前");
         //获取参数
         log.info("参数是" + Arrays.toString(args));
-        Object temp = method.invoke(this.obj, args);
+        Object temp = null;
+        try {
+            temp = method.invoke(this.obj, args);
+        } catch (Exception e) {
+            log.error("这是代理异常");
+        }
         long end = System.currentTimeMillis();
         log.info("代理执行方法后");
         log.info("方法执行时长" + (end - start) + "毫秒");
