@@ -11,6 +11,13 @@ import java.util.Map;
 public abstract class AbstractTranslator implements Translator {
     protected Map<Language, String> langMap = new HashMap<>();
     
+    /**
+     * 获取翻译的URL
+     *
+     * @return
+     */
+    protected abstract String getTranslatorUrl();
+    
     @Override
     public final String translation(Language from, Language to, String query) {
         String response = "";

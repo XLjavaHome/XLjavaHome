@@ -25,6 +25,11 @@ public final class GoogleTranslator extends AbstractTranslator {
     }
     
     @Override
+    protected String getTranslatorUrl() {
+        return "http://translate.google.cn/translate_a/single";
+    }
+    
+    @Override
     protected String getResponse(Language from, Language to, String query) throws Exception {
         //统一采用post，若字符长度小于999用get也可以的
         HttpParams params = new HttpPostParams();
@@ -52,7 +57,7 @@ public final class GoogleTranslator extends AbstractTranslator {
         params.put("kc", "11");
         params.put("tk", tk);
         params.put("q", query);
-        return params.send2String("http://translate.google.cn/translate_a/single");
+        return params.send2String(getTranslatorUrl());
     }
     
     @Override
