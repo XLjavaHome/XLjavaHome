@@ -33,7 +33,8 @@ public final class GoogleTranslator extends AbstractTranslator {
     protected String getResponse(Language from, Language to, String query) throws Exception {
         //统一采用post，若字符长度小于999用get也可以的
         HttpParams params = new HttpPostParams();
-        String tk = tk(query);
+        String tk;
+        //tk = tk(query);
         params.put("client", "t");
         params.put("sl", langMap.get(from));
         params.put("tl", langMap.get(to));
@@ -55,7 +56,7 @@ public final class GoogleTranslator extends AbstractTranslator {
         params.put("ssel", "0");
         params.put("tsel", "0");
         params.put("kc", "11");
-        params.put("tk", tk);
+        //params.put("tk", tk);
         params.put("q", query);
         return params.send2String(getTranslatorUrl());
     }

@@ -14,9 +14,9 @@ import org.junit.Test;
 public class GoogleTranslationTest {
     @Test
     public void name() {
-        // TODO 2019/6/10 23:15 徐立  
+        // TODO 2019/6/10 23:15 徐立
         GoogleTranslator googleTranslator = new GoogleTranslator();
-        String query = "开发任务";
+        String query = "项目经理";
         String name = googleTranslator.translation(query);
         System.out.println(name);
     }
