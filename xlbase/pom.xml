@@ -134,11 +134,6 @@
             <version>3.0.17</version>
         </dependency>
         <dependency>
-            <groupId>com.oracle</groupId>
-            <artifactId>ojdbc14</artifactId>
-            <version>10.2.0.4.0</version>
-        </dependency>
-        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
             <version>5.0.7.RELEASE</version>
@@ -200,12 +195,6 @@
             <version>0.5.0</version>
         </dependency>
 -->
-        <!-- https://mvnrepository.com/artifact/lennart/cpdetector -->
-        <dependency>
-            <groupId>chardet</groupId>
-            <artifactId>chardet</artifactId>
-            <version>1.0.0</version>
-        </dependency>
         <dependency>
             <groupId>org.artofsolving.jodconverter</groupId>
             <artifactId>jodconverter-core</artifactId>
