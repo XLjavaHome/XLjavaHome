@@ -17,6 +17,6 @@ public class CalendarTest {
     public void name() {
         Calendar instance = Calendar.getInstance();
         GregorianCalendar gregorianCalendar = new GregorianCalendar();
-        ClassLoaderTest.log.info(gregorianCalendar);
+        System.out.println(gregorianCalendar);
     }
 }

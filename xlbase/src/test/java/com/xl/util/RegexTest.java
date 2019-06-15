@@ -15,6 +15,6 @@ public class RegexTest {
     public void testRegularReplacement() {
         StringBuffer result = new StringBuffer();
         RegexUtil.regularReplacement("11111111111111111aaaaaaaaa43434\n231", "\\d+", "", result);
-        ClassLoaderTest.log.info(result);
+        System.out.println(result);
     }
 }

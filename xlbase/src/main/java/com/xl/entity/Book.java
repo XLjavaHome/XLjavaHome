@@ -18,7 +18,7 @@ public class Book implements Serializable {
     public void sysoTest() {
         Book b = new Book();
         b.setAuthor("111");
-        ClassLoaderTest.print(b);
+        System.out.println(b);
         System.out.println(b.isHasRight());
         b.setHasRight(true);
         System.out.println(b.isHasRight());

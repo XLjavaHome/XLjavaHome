@@ -20,7 +20,7 @@ import org.junit.Test;
 public class TryTest {
     @Test
     public void name() {
-        //try括号 会关闭资源不用在finally关闭
+        //try括号 会关闭资源不用在finally关闭,并且不能写多个
         try (FileOutputStream fileOutputStream = new FileOutputStream("D:\1")) {
         } catch (FileNotFoundException e) {
             e.printStackTrace();

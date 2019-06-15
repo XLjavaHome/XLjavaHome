@@ -1,4 +1,4 @@
-package java.lang;
+package com.xl;
 
 import java.io.IOException;
 import java.net.URL;
@@ -47,7 +47,7 @@ public class ClassLoaderTest {
         //换成点 找不到
         String name = "org/slf4j/impl/StaticLoggerBinder.class";
         URL resource = Thread.currentThread().getContextClassLoader().getResource(name);
-        ClassLoaderTest.log.info(resource);
+        System.out.println(resource);
         Enumeration<URL> resources = ClassLoader.getSystemResources(name);
         while (resources.hasMoreElements()) {
             URL url = resources.nextElement();

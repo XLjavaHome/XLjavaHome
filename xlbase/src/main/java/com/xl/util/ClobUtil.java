@@ -42,7 +42,7 @@ public class ClobUtil {
                     try {
                         in.close();
                     } catch (IOException e) {
-                        ClassLoaderTest.print(e);
+                        System.out.println(e);
                     }
                 }
             }

@@ -121,7 +121,7 @@ public class DownUtil {
                 list.add(map);
             }
         }
-        ClassLoaderTest.print(list);
+        System.out.println(list);
         // 3. 组装数据，同步到数据库中，将图像下载到服务器中
         // 4. 返回到页面中进行展示
     }

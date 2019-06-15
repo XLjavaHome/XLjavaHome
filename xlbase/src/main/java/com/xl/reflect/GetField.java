@@ -23,7 +23,7 @@ public class GetField {
          * 如果不知道字段类型
 		 */
         Class type = field.getType();
-        ClassLoaderTest.print(type);
+        System.out.println(type);
         Object value = field.get(p);
         Object obj = field.get(p);
         if (type.equals(String.class)) {
@@ -47,7 +47,7 @@ public class GetField {
         Class clazz = Class.forName(className);
         Field f = clazz.getDeclaredField("password");
         f.setAccessible(true);
-        ClassLoaderTest.print(f.get(p));
+        System.out.println(f.get(p));
     }
     /*
      * 获取静态的字段:和上面一样，不能省略对象。

@@ -5,11 +5,13 @@ import java.net.*;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
+import lombok.extern.log4j.Log4j;
 import org.junit.Test;
 
 /**
  * Http请求工具类
  */
+@Log4j
 public class HttpRequestUtil {
     static boolean proxySet = false;
     static String proxyHost = "127.0.0.1";
@@ -49,33 +51,26 @@ public class HttpRequestUtil {
      * @param req_url 请求地址
      * @return
      */
-    public static String httpRequest(String req_url) {
+    public static String httpRequest(String req_url) throws IOException {
         StringBuffer buffer = new StringBuffer();
-        try {
-            URL url = new URL(req_url);
-            HttpURLConnection httpUrlConn = (HttpURLConnection) url.openConnection();
-            httpUrlConn.setDoOutput(false);
-            httpUrlConn.setDoInput(true);
-            httpUrlConn.setUseCaches(false);
-            httpUrlConn.setRequestMethod("GET");
-            httpUrlConn.connect();
-            // 将返回的输入流转换成字符串
-            InputStream inputStream = httpUrlConn.getInputStream();
-            InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
-            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+        URL url = new URL(req_url);
+        HttpURLConnection httpUrlConn = (HttpURLConnection) url.openConnection();
+        httpUrlConn.setDoOutput(false);
+        httpUrlConn.setDoInput(true);
+        httpUrlConn.setUseCaches(false);
+        httpUrlConn.setRequestMethod("GET");
+        httpUrlConn.connect();
+        // 将返回的输入流转换成字符串
+        try (InputStream inputStream = httpUrlConn.getInputStream(); InputStreamReader inputStreamReader = new InputStreamReader(
+                inputStream, StandardCharsets.UTF_8); BufferedReader bufferedReader = new BufferedReader(inputStreamReader)) {
             String str = null;
             while ((str = bufferedReader.readLine()) != null) {
                 buffer.append(str);
             }
-            bufferedReader.close();
-            inputStreamReader.close();
-            // 释放资源
-            inputStream.close();
-            inputStream = null;
-            httpUrlConn.disconnect();
-        } catch (Exception e) {
-            ClassLoaderTest.print(e.getStackTrace());
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        httpUrlConn.disconnect();
         return buffer.toString();
     }
     

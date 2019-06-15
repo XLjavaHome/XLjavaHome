@@ -18,7 +18,7 @@ public class Print {
      * @param obj
      */
     public static void print(Object obj) {
-        ClassLoaderTest.print(obj);
+        System.out.println(obj);
     }
 
     /**
@@ -27,6 +27,6 @@ public class Print {
      * @param obj
      */
     public static void info(Object obj) {
-        ClassLoaderTest.print(obj);
+        System.out.println(obj);
     }
 }

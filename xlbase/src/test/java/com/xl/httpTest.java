@@ -1,5 +1,7 @@
 package com.xl;
 
+import http.HttpRequestUtil;
+import java.io.IOException;
 import org.junit.Test;
 
 /**
@@ -23,5 +25,10 @@ public class httpTest {
               .put("ssel", "0").put("tsel", "0").put("kc", "11").put("tk", tk).put("q", query);
         params.send2String("http://translate.google.cn/translate_a/single");
         */
+    }
+    
+    @Test
+    public void tes1() throws IOException {
+        System.out.println(HttpRequestUtil.httpRequest("https://blog.csdn.net/wtopps/article/details/71108342"));
     }
 }

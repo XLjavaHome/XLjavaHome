@@ -2,6 +2,7 @@ package com.xl.base;
 
 import java.util.HashMap;
 import java.util.Map;
+import lombok.extern.log4j.Log4j;
 import org.junit.Test;
 
 /**
@@ -12,6 +13,7 @@ import org.junit.Test;
  * @time 14:11
  * To change this template use File | Settings | File Templates.
  */
+@Log4j
 public class HashMapTest {
     @Test
     public void name() {
@@ -20,8 +22,8 @@ public class HashMapTest {
         map.put("222", "bbb");
         map.put("111", "ccc");
         map.containsKey("111");
-        ClassLoaderTest.log.info(map);
+        log.info(map);
         map.clear();
-        ClassLoaderTest.log.info(map);
+        log.info(map);
     }
 }

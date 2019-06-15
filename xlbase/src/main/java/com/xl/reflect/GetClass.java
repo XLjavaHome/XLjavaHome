@@ -18,8 +18,8 @@ public class GetClass {
         Class clazz = Person.class;
         Class clazz1 = Person.class;
         Class clazz2 = new Person().getClass();
-        ClassLoaderTest.print(clazz);
-        ClassLoaderTest.print(clazz2);
+        System.out.println(clazz);
+        System.out.println(clazz2);
         System.out.println(clazz == clazz1);
     }
 
@@ -32,6 +32,6 @@ public class GetClass {
         String className1 = "reflect.GetClass"; // 这样才对
         String className2 = "Person"; // 这样是错误的
         Class clazz = Class.forName(className);
-        ClassLoaderTest.print(clazz);
+        System.out.println(clazz);
     }
 }
