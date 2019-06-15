@@ -12,7 +12,7 @@ public class GenericDemo extends A<Person, String> {
         Class<? extends GenericDemo> clazz = this.getClass(); // 得到当前new的对象
         System.out.println(clazz.getName());
         Type[] parent = clazz.getGenericInterfaces();
-        System.out.println(parent[0]);
+        ClassLoaderTest.print(parent[0]);
         Class<?> inter = clazz.getInterfaces()[0];
         System.out.println(inter.getName());
         // ParameterizedType pt = (ParameterizedType)

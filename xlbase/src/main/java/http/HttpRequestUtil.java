@@ -74,7 +74,7 @@ public class HttpRequestUtil {
             inputStream = null;
             httpUrlConn.disconnect();
         } catch (Exception e) {
-            System.out.println(e.getStackTrace());
+            ClassLoaderTest.print(e.getStackTrace());
         }
         return buffer.toString();
     }

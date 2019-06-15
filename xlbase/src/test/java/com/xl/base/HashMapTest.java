@@ -20,8 +20,8 @@ public class HashMapTest {
         map.put("222", "bbb");
         map.put("111", "ccc");
         map.containsKey("111");
-        System.out.println(map);
+        ClassLoaderTest.log.info(map);
         map.clear();
-        System.out.println(map);
+        ClassLoaderTest.log.info(map);
     }
 }

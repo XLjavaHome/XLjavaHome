@@ -18,8 +18,8 @@ public class FinalTest {
         testParam(a, b);
         String x = "张三";
         String y = "李四";
-        System.out.println(a);
-        System.out.println(b);
+        ClassLoaderTest.log.info(a);
+        ClassLoaderTest.log.info(b);
         testParam2(x, y);
     }
     

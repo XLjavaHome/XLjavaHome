@@ -129,7 +129,7 @@ public class FileUtil {
     public static <T> void print(Collection<T> con) {
         Iterator<T> i = con.iterator();
         while (i.hasNext()) {
-            System.out.println(i.next());
+            ClassLoaderTest.print(i.next());
         }
     }
     

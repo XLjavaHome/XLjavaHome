@@ -15,7 +15,7 @@ public class jarFileTest {
     @Test
     public void 能否读取jar中的文件() {
         URL url = Thread.currentThread().getContextClassLoader().getResource("jar\\desktop.zip");
-        System.out.println(url);
+        ClassLoaderTest.log.info(url);
         System.out.println(url.getFile());
     }
 }

@@ -20,7 +20,7 @@ public class GetClassConstructed {
         Class clazz = Class.forName(className);
         // 该类中只有一个获取空参数的方法newInstance
         Object obj = clazz.newInstance(); // 调用了空参数的构造函数，
-        System.out.println(obj);
+        ClassLoaderTest.print(obj);
         // 异常：
         // 1.如果没有空参的构造函数会报一个java.lang.InstantiationException初始化异常
         // 2.如果构造函数被private修饰java.lang.IllegalAccessException无效访问异常

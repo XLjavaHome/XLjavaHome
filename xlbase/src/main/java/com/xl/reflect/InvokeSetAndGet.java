@@ -46,7 +46,7 @@ public class InvokeSetAndGet {
         try {
             att = toUp(att);
             Method method = obj.getClass().getMethod("get" + att);
-            System.out.println(method.invoke(obj));
+            ClassLoaderTest.print(method.invoke(obj));
         } catch (Exception e) {
             e.printStackTrace();
         }

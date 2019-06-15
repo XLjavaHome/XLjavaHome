@@ -25,6 +25,6 @@ public class NumberTest {
     
     @Test
     public void 可变参数测试() {
-        System.out.println(NumberTool.safeAdd(1D, 3D));
+        ClassLoaderTest.log.info(NumberTool.safeAdd(1D, 3D));
     }
 }

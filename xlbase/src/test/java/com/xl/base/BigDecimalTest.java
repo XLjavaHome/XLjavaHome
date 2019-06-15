@@ -16,6 +16,6 @@ public class BigDecimalTest {
     public void name() {
         BigDecimal a = new BigDecimal("2");
         BigDecimal b = new BigDecimal("3");
-        System.out.println(a.add(b));
+        ClassLoaderTest.log.info(a.add(b));
     }
 }

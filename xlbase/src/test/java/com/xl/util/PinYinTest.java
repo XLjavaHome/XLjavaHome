@@ -15,7 +15,7 @@ public class PinYinTest {
     @Test
     public void pinyinTest() throws BadHanyuPinyinOutputFormatCombination {
         String input = "世界ces你好啊";
-        System.out.println(PinYinUtil.getSimplePinYin(input));
-        System.out.println(PinYinUtil.getFullPinYin(input));
+        ClassLoaderTest.log.info(PinYinUtil.getSimplePinYin(input));
+        ClassLoaderTest.log.info(PinYinUtil.getFullPinYin(input));
     }
 }

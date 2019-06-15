@@ -14,7 +14,7 @@ import lombok.extern.log4j.Log4j;
 public class XLMain {
     public static void main(String[] args) {
         System.out.println(FileUtil.getCurrentClassPath());
-        System.out.println(FileUtil.getJarFile());
+        ClassLoaderTest.print(FileUtil.getJarFile());
         System.out.println("这是主函数");
         log.info("开始了");
     }
