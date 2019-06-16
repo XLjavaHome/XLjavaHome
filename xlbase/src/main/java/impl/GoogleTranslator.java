@@ -33,8 +33,6 @@ public final class GoogleTranslator extends AbstractTranslator {
     protected String getResponse(Language from, Language to, String query) throws Exception {
         //统一采用post，若字符长度小于999用get也可以的
         HttpParams params = new HttpPostParams();
-        String tk;
-        //tk = tk(query);
         params.put("client", "t");
         params.put("sl", langMap.get(from));
         params.put("tl", langMap.get(to));
@@ -56,7 +54,7 @@ public final class GoogleTranslator extends AbstractTranslator {
         params.put("ssel", "0");
         params.put("tsel", "0");
         params.put("kc", "11");
-        //params.put("tk", tk);
+        params.put("tk", tk(query));
         params.put("q", query);
         return params.send2String(getTranslatorUrl());
     }
@@ -64,13 +62,13 @@ public final class GoogleTranslator extends AbstractTranslator {
     @Override
     protected String parseString(String jsonString) {
         JSONArray jsonArray = JSONArray.fromObject(jsonString);
-        JSONArray segments = jsonArray.getJSONArray(0);
+        JSONArray segments = jsonArray.optJSONArray(0);
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < segments.size(); i++) {
-            result.append(segments.getJSONArray(i).getString(0));
+            result.append(segments.optJSONArray(i).getString(0));
             result.append("\r\n");
         }
-        return new String(result);
+        return result.toString();
     }
     
     @Override
@@ -80,6 +78,7 @@ public final class GoogleTranslator extends AbstractTranslator {
     }
     
     private String tk(String val) throws Exception {
+        //language=JavaScript
         String script = "function tk(a) {"
                         + "var TKK = ((function() {var a = 561666268;var b = 1526272306;return 406398 + '.' + (a + b); })());\n"
                         + "function b(a, b) { for (var d = 0; d < b.length - 2; d += 3) { var c = b.charAt(d + 2), c = 'a' <= c ? c.charCodeAt(0) - 87 : Number(c), c = '+' == b.charAt(d + 1) ? a >>> c : a << c; a = '+' == b.charAt(d) ? a + c & 4294967295 : a ^ c } return a }\n"
