@@ -26,6 +26,7 @@ public final class GoogleTranslator extends AbstractTranslator {
     
     @Override
     protected String getTranslatorUrl() {
+        //https://translate.google.cn/
         return "https://translate.google.cn/translate_a/single";
     }
     
