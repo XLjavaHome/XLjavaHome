@@ -267,17 +267,6 @@ public class FileUtil {
         }
     }
     
-    /**
-     * 获取文件内容
-     *
-     * @param file
-     * @return
-     * @throws IOException
-     */
-    public static StringBuilder getContent(File file) throws IOException {
-        return getContent(new FileReader(file));
-    }
-    
     public static String getSize(Long fileS) {
         DecimalFormat df = new DecimalFormat("#.00");
         String fileSizeString = "";
@@ -291,15 +280,6 @@ public class FileUtil {
             fileSizeString = df.format((double) fileS / 1073741824) + "G";
         }
         return fileSizeString;
-    }
-    
-    /**
-     * 获取桌面路径
-     *
-     * @return
-     */
-    public static String getDesktopPath() {
-        return getDesktop().getPath();
     }
     
     /**
@@ -448,23 +428,15 @@ public class FileUtil {
     
     @Nullable
     public static StringBuilder getContent(FileReader fileReader) throws IOException {
-        BufferedReader br = new BufferedReader(fileReader);
-        StringBuilder sb = null;
-        try {
+        StringBuilder sb;
+        try (BufferedReader br = new BufferedReader(fileReader)) {
             sb = new StringBuilder();
-            String content = null;
+            String content;
             while ((content = br.readLine()) != null) {
                 sb.append(content).append("\n");
             }
-            return sb;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        } finally {
-            if (br != null) {
-                br.close();
-            }
         }
+        return sb;
     }
     
     /**
