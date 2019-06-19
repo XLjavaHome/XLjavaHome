@@ -1,8 +1,13 @@
 package com.xl.util;
 
 import com.xl.base.IdWorker;
+import info.monitorenter.cpdetector.io.ASCIIDetector;
+import info.monitorenter.cpdetector.io.CodepageDetectorProxy;
+import info.monitorenter.cpdetector.io.ParsingDetector;
+import info.monitorenter.cpdetector.io.UnicodeDetector;
 import java.awt.Desktop;
 import java.io.*;
+import java.net.URL;
 import java.nio.charset.Charset;
 import java.text.DecimalFormat;
 import java.util.*;
@@ -26,42 +31,33 @@ public class FileUtil {
     /**
      * 利用第三方开源包cpdetector获取文件编码格式
      *
-     * @param file
      * @return
+     * @param url
      */
-    @Deprecated
-    public static Charset getFileEncode(File file) {
-        file.getAbsolutePath();
-        /* *//*
-         * detector是探测器，它把探测任务交给具体的探测实现类的实例完成。
+    public static Charset getFileEncode(URL url) {
+        /*
+            detector是探测器，它把探测任务交给具体的探测实现类的实例完成。
          * cpDetector内置了一些常用的探测实现类，这些探测实现类的实例可以通过add方法 加进来，如ParsingDetector、
-         * JChardetFacade、ASCIIDetector、UnicodeDetector。
+         *JChardetFacade、ASCIIDetector、UnicodeDetector。
          * detector按照“谁最先返回非空的探测结果，就以该结果为准”的原则返回探测到的
          * 字符集编码。使用需要用到三个第三方JAR包：antlr.jar、chardet.jar和cpdetector.jar
          * cpDetector是基于统计学原理的，不保证完全正确。
-         *//*
-         CodepageDetectorProxy detector = CodepageDetectorProxy.getInstance();
-         *//*
-         * ParsingDetector可用于检查HTML、XML等文件或字符流的编码,构造方法中的参数用于
-         * 指示是否显示探测过程的详细信息，为false不显示。
-         *//*
-         detector.add(new ParsingDetector(false));
-         *//*
-         * JChardetFacade封装了由Mozilla组织提供的JChardet，它可以完成大多数文件的编码
-         * 测定。所以，一般有了这个探测器就可满足大多数项目的要求，如果你还不放心，可以
-         * 再多加几个探测器，比如下面的ASCIIDetector、UnicodeDetector等。
-         *//*
-         detector.add(JChardetFacade.getInstance());// 用到antlr.jar、chardet.jar
-         // ASCIIDetector用于ASCII编码测定
-         detector.add(ASCIIDetector.getInstance());
-         // UnicodeDetector用于Unicode家族编码的测定
-         detector.add(UnicodeDetector.getInstance());
-         File f = new File(path);
-         try {
-             return detector.detectCodepage(f.toURI().toURL());
-         } catch (Exception ex) {
-             log.error(ex);
-         }*/
+         */
+        CodepageDetectorProxy detector = CodepageDetectorProxy.getInstance();
+        //*ParsingDetector可用于检查HTML、XML等文件或字符流的编码, 构造方法中的参数用于 * 指示是否显示探测过程的详细信息，为false不显示。
+        detector.add(new ParsingDetector(false));
+        /**JChardetFacade封装了由Mozilla组织提供的JChardet，它可以完成大多数文件的编码 * 测定。所以，一般有了这个探测器就可满足大多数项目的要求，如果你还不放心，可以 * 再多加几个探测器，
+         比如下面的ASCIIDetector、UnicodeDetector等。*/
+        //detector.add(JChardetFacade.getInstance());// 用到antlr.jar、chardet.jar
+        // ASCIIDetector用于ASCII编码测定
+        detector.add(ASCIIDetector.getInstance());
+        // UnicodeDetector用于Unicode家族编码的测定
+        detector.add(UnicodeDetector.getInstance());
+        try {
+            return detector.detectCodepage(url);
+        } catch (IOException ex) {
+            log.error(ex);
+        }
         return null;
     }
     
@@ -283,29 +279,6 @@ public class FileUtil {
     }
     
     /**
-     * 获取桌面目录
-     *
-     * @return
-     */
-    public static File getDesktop() {
-        FileSystemView fsv = FileSystemView.getFileSystemView();
-        return fsv.getHomeDirectory();
-    }
-    
-    /**
-     * 获取临时目录
-     *
-     * @return
-     */
-    public static File getTempDrectory() {
-        File temp = new File(getDesktop(), "temp");
-        if (!temp.exists()) {
-            temp.mkdirs();
-        }
-        return temp;
-    }
-    
-    /**
      * 获取桌面文件
      *
      * @param name 文件名
@@ -333,6 +306,10 @@ public class FileUtil {
      */
     public static void openDirectory(File file) throws IOException {
         open(file.getParentFile());
+    }
+    
+    public static String getProjectPath() {
+        return Thread.currentThread().getContextClassLoader().getResource("").getPath();
     }
     
     /**
@@ -368,10 +345,6 @@ public class FileUtil {
         return projectPath + File.separator + name;
     }
     
-    public static String getProjectPath() {
-        return Thread.currentThread().getContextClassLoader().getResource("").getPath();
-    }
-    
     /**
      * 得到当前工程的绝对路径
      *
@@ -379,16 +352,6 @@ public class FileUtil {
      */
     public static String getCurrentClassPath() {
         return FileUtil.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-    }
-    
-    /**
-     * 获取jar的所在目录
-     *
-     * @return
-     */
-    public static File getJarFile() {
-        File f = new File(getCurrentClassPath());
-        return f.getParentFile();
     }
     
     /**
@@ -410,9 +373,14 @@ public class FileUtil {
         return file;
     }
     
-    @NotNull
-    public static File getTempDrectory(File desktop, String s) {
-        return new File(desktop, s);
+    /**
+     * 获取jar的所在目录
+     *
+     * @return
+     */
+    public static File getJarFile() {
+        File f = new File(getCurrentClassPath());
+        return f.getParentFile();
     }
     
     /**
@@ -448,6 +416,34 @@ public class FileUtil {
         IdWorker worker = new IdWorker();
         long l = worker.nextId();
         return createTempFile(l + ".txt");
+    }
+    
+    @NotNull
+    public static File getTempDrectory(File desktop, String s) {
+        return new File(desktop, s);
+    }
+    
+    /**
+     * 获取临时目录
+     *
+     * @return
+     */
+    public static File getTempDrectory() {
+        File temp = new File(getDesktop(), "temp");
+        if (!temp.exists()) {
+            temp.mkdirs();
+        }
+        return temp;
+    }
+    
+    /**
+     * 获取桌面目录
+     *
+     * @return
+     */
+    public static File getDesktop() {
+        FileSystemView fsv = FileSystemView.getFileSystemView();
+        return fsv.getHomeDirectory();
     }
     
     /**

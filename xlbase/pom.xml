@@ -397,29 +397,6 @@
             <version>3.0.2</version>
             <!--<version>7.2.1</version>-->
         </dependency>
-        <!--     &lt;!&ndash;TinySpider是一个基于Tiny HtmlParser的网络数据抓取框架&ndash;&gt;
-             <dependency>
-                 <groupId>org.tinygroup</groupId>
-                 <artifactId>org.tinygroup.spider</artifactId>
-                 <version>0.1.0-SNAPSHOT</version>
-                 <exclusions>
-                     <exclusion>
-                         <groupId>org.slf4j</groupId>
-                         <artifactId>*</artifactId>
-                     </exclusion>
-                 </exclusions>
-             </dependency>
-             <dependency>
-                 <groupId>org.tinygroup</groupId>
-                 <artifactId>org.tinygroup.fileresolver</artifactId>
-                 <version>2.2.1</version>
-                 <exclusions>
-                     <exclusion>
-                         <groupId>org.slf4j</groupId>
-                         <artifactId>*</artifactId>
-                     </exclusion>
-                 </exclusions>
-             </dependency>-->
         <!--网页爬虫-->
         <dependency>
             <groupId>cn.edu.hfut.dmic.webcollector</groupId>
@@ -631,6 +608,11 @@
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml-schemas</artifactId>
             <version>3.17</version>
+        </dependency>
+        <dependency>
+            <groupId>cpdetector</groupId>
+            <artifactId>cpdetector</artifactId>
+            <version>1.0.10</version>
         </dependency>
     </dependencies>
 </project>
