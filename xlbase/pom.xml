@@ -11,6 +11,13 @@
     <artifactId>xlbase</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
+    <repositories>
+        <repository>
+            <id>ebi</id>
+            <name>www.ebi.ac.uk</name>
+            <url>http://www.ebi.ac.uk/intact/maven/nexus/content/groups/public/</url>
+        </repository>
+    </repositories>
     <dependencies>
         <!--SOAP引擎包,webservice所需要jar-->
         <dependency>
@@ -600,7 +607,7 @@
         <dependency>
             <groupId>cpdetector</groupId>
             <artifactId>cpdetector</artifactId>
-            <version>1.0.10</version>
+            <version>1.0.7</version>
         </dependency>
         <!--测试相关jar-->
         <dependency>

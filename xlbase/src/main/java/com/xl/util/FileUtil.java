@@ -1,10 +1,7 @@
 package com.xl.util;
 
 import com.xl.base.IdWorker;
-import info.monitorenter.cpdetector.io.ASCIIDetector;
-import info.monitorenter.cpdetector.io.CodepageDetectorProxy;
-import info.monitorenter.cpdetector.io.ParsingDetector;
-import info.monitorenter.cpdetector.io.UnicodeDetector;
+import info.monitorenter.cpdetector.io.*;
 import java.awt.Desktop;
 import java.io.*;
 import java.net.URL;
@@ -48,7 +45,7 @@ public class FileUtil {
         detector.add(new ParsingDetector(false));
         /**JChardetFacade封装了由Mozilla组织提供的JChardet，它可以完成大多数文件的编码 * 测定。所以，一般有了这个探测器就可满足大多数项目的要求，如果你还不放心，可以 * 再多加几个探测器，
          比如下面的ASCIIDetector、UnicodeDetector等。*/
-        //detector.add(JChardetFacade.getInstance());// 用到antlr.jar、chardet.jar
+        detector.add(JChardetFacade.getInstance());// 用到antlr.jar、chardet.jar
         // ASCIIDetector用于ASCII编码测定
         detector.add(ASCIIDetector.getInstance());
         // UnicodeDetector用于Unicode家族编码的测定
