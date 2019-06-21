@@ -1,5 +1,6 @@
 package com.xl;
 
+import java.util.Enumeration;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import org.junit.jupiter.api.Test;
@@ -37,6 +38,22 @@ public class ResourceBoundTest {
         bundle = ResourceBundle.getBundle(baseName);
         for (String key : bundle.keySet()) {
             System.out.println(bundle.getString(key));
+        }
+    }
+    
+    @Test
+    void myResourceTest() {
+        print(Locale.US);
+        print(Locale.getDefault());
+        print(Locale.SIMPLIFIED_CHINESE);
+    }
+    
+    private void print(Locale locale) {
+        ResourceBundle bundle = ResourceBundle.getBundle("com.xl.base.MyResource", locale);
+        Enumeration<String> keys = bundle.getKeys();
+        while (keys.hasMoreElements()) {
+            String key = keys.nextElement();
+            System.out.println(String.format("%1$s : %2$s ", key, bundle.getString(key)));
         }
     }
 }
