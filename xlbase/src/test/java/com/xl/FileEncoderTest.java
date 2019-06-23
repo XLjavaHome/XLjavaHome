@@ -1,5 +1,6 @@
 package com.xl;
 
+import com.xl.util.CharacterUtil;
 import com.xl.util.FileUtil;
 import java.io.File;
 import java.net.MalformedURLException;
@@ -18,7 +19,12 @@ public class FileEncoderTest {
     @Test
     public void name() throws MalformedURLException {
         File desktopFile = FileUtil.getDesktopFile("20190611180849517.doc");
-        Charset fileEncode = FileUtil.getFileEncode(desktopFile.toURI().toURL());
+        Charset fileEncode = null;
+        try {
+            fileEncode = CharacterUtil.getURLEncode(desktopFile.toURI().toURL());
+        } catch (java.io.IOException e) {
+            e.printStackTrace();
+        }
         System.out.println(fileEncode);
     }
 }

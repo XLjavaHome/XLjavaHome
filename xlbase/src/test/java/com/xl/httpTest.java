@@ -2,6 +2,7 @@ package com.xl;
 
 import http.HttpRequestUtil;
 import java.io.IOException;
+import java.net.URL;
 import org.junit.Test;
 
 /**
@@ -29,6 +30,6 @@ public class httpTest {
     
     @Test
     public void tes1() throws IOException {
-        System.out.println(HttpRequestUtil.httpRequest("https://blog.csdn.net/wtopps/article/details/71108342"));
+        System.out.println(HttpRequestUtil.httpRequest(new URL("http://localhost:8080/")));
     }
 }

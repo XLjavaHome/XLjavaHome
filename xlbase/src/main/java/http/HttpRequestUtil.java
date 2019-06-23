@@ -1,7 +1,9 @@
 package http;
 
+import com.xl.util.CharacterUtil;
 import java.io.*;
 import java.net.*;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
@@ -34,44 +36,59 @@ public class HttpRequestUtil {
         return result;
     }
     
-    public static String urlEncodeGBK(String source) {
-        String result = source;
-        try {
-            result = java.net.URLEncoder.encode(source, "GBK");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            return "0";
-        }
-        return result;
+    /**
+     * 发起http请求获取返回结果
+     * 通过在 URL 上调用 openConnection 方法创建连接对象。
+     * 处理设置参数和一般请求属性。
+     * 使用 connect 方法建立到远程对象的实际连接。
+     * 远程对象变为可用。远程对象的头字段和内容变为可访问。
+     *
+     * @param url
+     * @return
+     * @throws IOException
+     */
+    public static StringBuffer httpRequest(URL url) throws IOException {
+        return httpRequest(url, "GET");
     }
     
     /**
-     * 发起http请求获取返回结果
-     *
-     * @param req_url 请求地址
+     * @param url
+     * @param requestMethod 请求方式
      * @return
+     * @throws IOException
      */
-    public static String httpRequest(String req_url) throws IOException {
+    private static StringBuffer httpRequest(URL url, String requestMethod) throws IOException {
         StringBuffer buffer = new StringBuffer();
-        URL url = new URL(req_url);
-        HttpURLConnection httpUrlConn = (HttpURLConnection) url.openConnection();
-        httpUrlConn.setDoOutput(false);
-        httpUrlConn.setDoInput(true);
-        httpUrlConn.setUseCaches(false);
-        httpUrlConn.setRequestMethod("GET");
-        httpUrlConn.connect();
+        //创建URL
+        //连接
+        HttpURLConnection httpUrlConnection = (HttpURLConnection) url.openConnection();
+        // 设置是否向httpUrlConnection输出，如果是个是post请求，参数要放在
+        // http正文内，因此需要设为true, 默认情况下是false;
+        httpUrlConnection.setDoOutput(true);
+        //false就抛异常 读不到设置是否从httpUrlConnection读入，默认情况下是true;
+        httpUrlConnection.setDoInput(true);
+        // Post 请求不能使用缓存
+        httpUrlConnection.setUseCaches(false);
+        httpUrlConnection.setRequestMethod(requestMethod);
+        httpUrlConnection.setUseCaches(true);
+        // 设定传送的内容类型是可序列化的java对象
+        // (如果不设此项,在传送序列化对象时,当WEB服务默认的不是这种类型时可能抛java.io.EOFException)
+        //必须在connect前完成设置
+        httpUrlConnection.connect();
+        // TODO 2019/6/23 23:15 徐立 通过url确定编码还要改下
+        Charset urlEncode = CharacterUtil.getURLEncode(url);
         // 将返回的输入流转换成字符串
-        try (InputStream inputStream = httpUrlConn.getInputStream(); InputStreamReader inputStreamReader = new InputStreamReader(
-                inputStream, StandardCharsets.UTF_8); BufferedReader bufferedReader = new BufferedReader(inputStreamReader)) {
+        try (InputStream inputStream = httpUrlConnection.getInputStream(); BufferedReader bufferedReader = new BufferedReader(
+                new InputStreamReader(inputStream, urlEncode))) {
             String str = null;
             while ((str = bufferedReader.readLine()) != null) {
                 buffer.append(str);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e);
         }
-        httpUrlConn.disconnect();
-        return buffer.toString();
+        httpUrlConnection.disconnect();
+        return buffer;
     }
     
     /**
@@ -212,16 +229,6 @@ public class HttpRequestUtil {
         } catch (Exception e) {
             System.out.println("发送GET请求出现异常！" + e);
             e.printStackTrace();
-        }
-        // 使用finally块来关闭输入流
-        finally {
-            try {
-                if (in != null) {
-                    in.close();
-                }
-            } catch (Exception e2) {
-                e2.printStackTrace();
-            }
         }
         return result;
     }
