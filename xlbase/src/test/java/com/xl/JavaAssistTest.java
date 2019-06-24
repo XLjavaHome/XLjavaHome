@@ -71,7 +71,9 @@ public class JavaAssistTest {
         //获取要修改的具体方法
         CtMethod cm = cc.getDeclaredMethod("say");
         //开始对方法进行修改，这里是往方法的最前面插入了一条语句
-        cm.insertBefore("if(true)return;");
+        cm.insertBefore("System.out.print(\"测试\");");
+        //重置方法体
+        cm.setBody("System.out.println(\"\");");
         //保存,执行后会在工程下生成一个新的class文件,刷新一下项目即可看到
         cc.writeFile();
     }
