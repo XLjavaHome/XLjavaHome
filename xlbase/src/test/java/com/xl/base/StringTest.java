@@ -13,6 +13,12 @@ import org.junit.jupiter.api.Test;
  */
 public class StringTest {
     @Test
+    void format() {
+        //静态方法是没有对象的。
+        System.out.println(String.format("", 1));
+    }
+    
+    @Test
     void replace() {
         String str = "你好a你as好adewn你好o323";
         //正则替换要中括号，会把每个字都替换掉

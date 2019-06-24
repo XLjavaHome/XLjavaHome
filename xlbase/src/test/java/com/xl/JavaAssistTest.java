@@ -1,6 +1,8 @@
 package com.xl;
 
+import com.xl.entity.Student;
 import com.xl.util.FileUtil;
+import com.xl.util.JavaAssistUtil;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
@@ -70,15 +72,16 @@ public class JavaAssistTest {
         CtClass cc = cp.get(this.getClass().getName());
         //获取要修改的具体方法
         CtMethod cm = cc.getDeclaredMethod("say");
+        String[] methodVariableName = JavaAssistUtil.getMethodVariableName(cm);
         //开始对方法进行修改，这里是往方法的最前面插入了一条语句
-        cm.insertBefore("System.out.print(\"测试\");");
+        String s = methodVariableName[0];
+        cm.insertBefore(String.format("%s.setName(\"李四\");", s));
         //重置方法体
-        cm.setBody("System.out.println(\"\");");
         //保存,执行后会在工程下生成一个新的class文件,刷新一下项目即可看到
         cc.writeFile();
     }
     
-    public void say() {
-        System.out.println("你好，世界");
+    public void say(Student student) {
+        System.out.println(student.toString());
     }
 }
