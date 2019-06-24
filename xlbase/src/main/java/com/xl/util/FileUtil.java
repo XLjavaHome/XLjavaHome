@@ -398,6 +398,16 @@ public class FileUtil {
     }
     
     /**
+     * 创建临时文件
+     *
+     * @return
+     */
+    public static File getTempFile() {
+        IdWorker idWorker = new IdWorker();
+        return new File(getTempDrectory(), idWorker.nextId() + ".txt");
+    }
+    
+    /**
      * 获取桌面目录
      *
      * @return
