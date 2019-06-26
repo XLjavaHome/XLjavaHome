@@ -3,6 +3,7 @@ package com.xl.util;
 import com.sun.istack.internal.NotNull;
 import java.math.BigDecimal;
 import java.util.Map;
+import lombok.NonNull;
 
 /**
  * Created with 徐立.
@@ -20,7 +21,7 @@ public class BigDecimalUtil {
      * @return
      */
     @NotNull
-    public static BigDecimal initBigDecimal(BigDecimal bigDecimal) {
+    public static BigDecimal initBigDecimal(@NonNull BigDecimal bigDecimal) {
         if (bigDecimal == null) {
             bigDecimal = new BigDecimal(0);
         }
