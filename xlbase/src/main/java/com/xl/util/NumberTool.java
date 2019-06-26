@@ -241,7 +241,7 @@ public class NumberTool {
      * @return 两个参数的和
      */
     public static BigDecimal safeAdd(Double... v1) {
-        BigDecimal total = new BigDecimal("0");
+        BigDecimal total = new BigDecimal(0);
         for (Double aDouble : v1) {
             BigDecimal one = BigDecimalUtil.initBigDecimal(aDouble);
             total = total.add(one);
