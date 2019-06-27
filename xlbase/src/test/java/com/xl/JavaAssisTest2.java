@@ -38,6 +38,9 @@ public class JavaAssisTest2 {
         CtMethod method = CtNewMethod.make("public void test(){}", clazz1);
         method.insertBefore("System.out.println(id + \" \" + name);\n" + "System.out.println(name.toString());\n"
                             + "com.xl.entity.Student s=new com.xl.entity.Student();\n" + "s.setName(name);\n");
+        //添加异常
+        CtClass etype = ClassPool.getDefault().get("java.lang.Exception");
+        method.addCatch("{System.out.println(id + \" \" + name);}throw $e;", etype);
         clazz1.addMethod(method);
         CtClass clazz = clazz1;
         clazz.writeFile("output");
