@@ -22,13 +22,12 @@ public class MapUtil {
      * @return
      */
     public static String getKey(Map<String, String> map, String value) {
-        String key = null;
         for (Map.Entry<String, String> entry : map.entrySet()) {
             if (value.equals(entry.getValue())) {
-                key = entry.getKey();
+                return entry.getKey();
             }
         }
-        return key;
+        return null;
     }
 
     /**
