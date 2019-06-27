@@ -1,4 +1,4 @@
-package com.xl.reflect;
+package com.xl.proxy.reflect;
 
 import com.xl.base.design.proxy.MyInvocationHandler;
 import com.xl.service.Subject;

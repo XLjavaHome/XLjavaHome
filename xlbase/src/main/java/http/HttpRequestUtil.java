@@ -80,7 +80,7 @@ public class HttpRequestUtil {
         // 将返回的输入流转换成字符串
         try (InputStream inputStream = httpUrlConnection.getInputStream(); BufferedReader bufferedReader = new BufferedReader(
                 new InputStreamReader(inputStream, urlEncode))) {
-            String str = null;
+            String str;
             while ((str = bufferedReader.readLine()) != null) {
                 buffer.append(str);
             }
