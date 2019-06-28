@@ -47,6 +47,7 @@ public class JavaAssisTest2 {
         URLClassLoader loader = new URLClassLoader(
                 new URL[]{new URL("file:" + "output" + "/")});  // must put a "/" at last to specify a dir
         Class<?> clazz2 = loader.loadClass(classname);
+        loader.loadClass(classname);
         Constructor<?> con1 = clazz2.getDeclaredConstructor(int.class, String.class);
         Object obj = con1.newInstance(24, "李雷");  // call a constructor
         clazz2.getMethod("test").invoke(obj);  // call a method

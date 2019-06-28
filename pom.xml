@@ -88,6 +88,16 @@
         <!--<poi.version>3.12</poi.version>-->
         <poi.version>3.15</poi.version>
     </properties>
+    <!--主要控制版本号，子模块还需要引用-->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>servlet-api</artifactId>
+                <version>2.5</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
     <dependencies>
         <!-- Collections -->
         <dependency>

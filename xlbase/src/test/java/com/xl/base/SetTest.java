@@ -1,5 +1,6 @@
 package com.xl.base;
 
+import java.util.TreeSet;
 import org.junit.Test;
 
 /**
@@ -21,5 +22,10 @@ public class SetTest {
      */
     @Test
     public void name() {
+    }
+    
+    @Test
+    public void sortTest() {
+        TreeSet treeSet = new TreeSet();
     }
 }
