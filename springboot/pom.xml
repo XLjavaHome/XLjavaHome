@@ -1,25 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>com.xl</groupId>
-    <artifactId>xlspringboot</artifactId>
-    <version>1.0.0</version>
-    <packaging>jar</packaging>
-    <name>springbootDemo</name>
-    <description>Demo project for Spring Boot</description>
     <parent>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <groupId>org.springframework.boot</groupId>
-        <version>2.0.3.RELEASE</version>
-        <relativePath/>
+        <groupId>com.xl</groupId>
+        <artifactId>xl</artifactId>
+        <version>1.0.0</version>
     </parent>
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>1.8</java.version>
-    </properties>
+    <modelVersion>4.0.0</modelVersion>
+    <version>1.0.0</version>
+    <description>Demo project for Spring Boot</description>
+    <artifactId>xlspringboot</artifactId>
+    <packaging>jar</packaging>
+    <!--    父类不是spring-boot也可以启动-->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>2.0.3.RELEASE</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>

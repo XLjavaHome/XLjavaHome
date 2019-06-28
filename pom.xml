@@ -11,8 +11,8 @@
         <module>deploy</module>
         <module>xlbase</module>
         <module>xlweb</module>
+        <module>springboot</module>
     </modules>
-    <!--<packaging>war</packaging>-->
     <!--开源协议-->
     <licenses>
         <license>
