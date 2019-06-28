@@ -1,0 +1,38 @@
+package com.example.demo.service;
+
+import java.util.HashMap;
+import java.util.Map;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.stereotype.Service;
+
+/**
+ * Created with 徐立.
+ *
+ * @author 徐立
+ * @date 2019-06-28
+ * @time 18:15
+ * To change this template use File | Settings | File Templates.
+ */
+@Service
+@Slf4j
+public class UserService {
+    public static final Map<Integer, User> users = new HashMap<>();
+    static {
+        users.put(1, new User("我是快乐鱼"));
+        users.put(2, new User("我是忧郁猫"));
+        users.put(3, new User("我是昴先生"));
+    }
+    /**
+     * #p0的意思是指加有@Cacheable注解的方法中的第一个参数
+     *
+     * @param id
+     * @return
+     */
+    @Cacheable(cacheNames = "user", key = "targetClass + methodName +#p0")
+    public User getUser(int id) {
+        log.info("缓存中没有，从map中获取");
+        User user = users.get(id);
+        return user;
+    }
+}
