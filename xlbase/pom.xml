@@ -19,6 +19,10 @@
         </repository>
     </repositories>
     <dependencies>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+        </dependency>
         <!--SOAP引擎包,webservice所需要jar-->
         <dependency>
             <groupId>axis</groupId>
@@ -115,12 +119,6 @@
                   <artifactId>jwebsocket_serverapi</artifactId>
                   <version>1.0.0</version>
               </dependency>-->
-        <!--提供日志功能-->
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>${log4j.version}</version>
-        </dependency>
         <!--
         <dependency>
             <groupId>org.slf4j</groupId>

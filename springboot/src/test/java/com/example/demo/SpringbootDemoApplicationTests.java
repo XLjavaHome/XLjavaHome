@@ -15,7 +15,9 @@ public class SpringbootDemoApplicationTests {
     
     @Test
     public void contextLoads() {
-        System.out.println(userService.getUser(1));
-        System.out.println(userService.getUser(1));
+        System.out.println(userService.getUser(2));
+        System.out.println(userService.getUser(3));
+        System.out.println(userService.getUser2("我是快乐鱼"));
+        System.out.println(userService.getUser2("我是快乐鱼"));
     }
 }
