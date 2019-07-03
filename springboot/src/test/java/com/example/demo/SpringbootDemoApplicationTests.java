@@ -14,10 +14,8 @@ public class SpringbootDemoApplicationTests {
     private UserService userService;
     
     @Test
-    public void contextLoads() {
+    public void cacheTest() {
         System.out.println(userService.getUser(2));
-        System.out.println(userService.getUser(3));
-        System.out.println(userService.getUser2("我是快乐鱼"));
-        System.out.println(userService.getUser2("我是快乐鱼"));
+        System.out.println(userService.getUser(2));
     }
 }

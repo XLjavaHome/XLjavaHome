@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
+import org.junit.jupiter.api.Test;
 
 /**
  * Created with 徐立.
@@ -18,13 +19,27 @@ import java.nio.channels.FileChannel;
 public class NIOTest {
     private static String pathname = "E:\\vmacoustic\\CentOS 6.vmdk";
     
-    public static void main(String[] args) throws Exception {
-        long nioStart = System.currentTimeMillis();
-        readNIO();
-        System.out.println("nio-time: " + ((System.currentTimeMillis() - nioStart)));
-        long ioStart = System.currentTimeMillis();
+    @Test
+    void io() throws Exception {
         readIO();
-        System.out.println("io-time: " + ((System.currentTimeMillis() - ioStart)));
+    }
+    
+    public static void readIO() throws Exception {
+        File file = new File(pathname);
+        FileInputStream fis = new FileInputStream(file);
+        FileOutputStream fos = new FileOutputStream(FileUtil.createTempFile("BIO.map4"));
+        byte[] buffer = new byte[1024];
+        int len = -1;
+        while ((len = fis.read(buffer)) != -1) {
+            fos.write(buffer, 0, len);
+        }
+        fis.close();
+        fos.close();
+    }
+    
+    @Test
+    void nio() throws Exception {
+        readNIO();
     }
     
     public static void readNIO() throws Exception {
@@ -40,19 +55,6 @@ public class NIOTest {
             buffer.clear();
         }
         channel.close();
-        fis.close();
-        fos.close();
-    }
-    
-    public static void readIO() throws Exception {
-        File file = new File(pathname);
-        FileInputStream fis = new FileInputStream(file);
-        FileOutputStream fos = new FileOutputStream(FileUtil.createTempFile("BIO.map4"));
-        byte[] buffer = new byte[1024];
-        int len = -1;
-        while ((len = fis.read(buffer)) != -1) {
-            fos.write(buffer, 0, len);
-        }
         fis.close();
         fos.close();
     }

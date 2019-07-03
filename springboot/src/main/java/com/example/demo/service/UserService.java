@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import lombok.extern.log4j.Log4j;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.stereotype.Service;
 
 /**
@@ -14,6 +15,8 @@ import org.springframework.stereotype.Service;
  * @time 18:15
  * To change this template use File | Settings | File Templates.
  */
+//开启缓存注解，可以用于主类上。
+@EnableCaching
 @Service
 @Log4j
 public class UserService {
@@ -23,16 +26,16 @@ public class UserService {
     public static final Map<Integer, User> users = new HashMap<>();
     public static final Map<String, User> nameMap = new HashMap<>();
     static {
-        String 我是快乐鱼 = "我是快乐鱼";
-        User user = new User(我是快乐鱼);
+        String text = "我是快乐鱼";
+        User user = new User(text);
         users.put(1, user);
         users.put(2, new User("我是忧郁猫"));
         users.put(3, new User("我是昴先生"));
-        nameMap.put(我是快乐鱼, user);
+        nameMap.put(text, user);
     }
     /**
      * #p0的意思是指加有@Cacheable注解的方法中的第一个参数  #p2不会报错，但是结果会不对
-     *
+     * #id也可以
      * @param id
      * @return
      */
