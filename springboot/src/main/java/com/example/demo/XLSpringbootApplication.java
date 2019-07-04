@@ -19,7 +19,7 @@ import org.springframework.context.ConfigurableApplicationContext;
  */
 @SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
 //@RestController
-public class SpringbootDemoApplication {
+public class XLSpringbootApplication {
     @Value(value = "${book.author}")
     private String bookAuthor;
     @Value("${book.name}")
@@ -28,7 +28,7 @@ public class SpringbootDemoApplication {
     private String bookPinYin;
     
     public static void main(String[] args) {
-        ConfigurableApplicationContext applicationContext = SpringApplication.run(SpringbootDemoApplication.class, args);
+        ConfigurableApplicationContext applicationContext = SpringApplication.run(XLSpringbootApplication.class, args);
         //无图启动
         //noView(args);
     }
@@ -39,7 +39,7 @@ public class SpringbootDemoApplication {
      * @param args
      */
     private static void noView(String[] args) {
-        SpringApplicationBuilder builder = new SpringApplicationBuilder(SpringbootDemoApplication.class);
+        SpringApplicationBuilder builder = new SpringApplicationBuilder(XLSpringbootApplication.class);
         //修改Banner的模式为OFF
         builder.bannerMode(Banner.Mode.OFF).run(args);
     }

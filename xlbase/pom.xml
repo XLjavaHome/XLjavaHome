@@ -200,11 +200,13 @@
             <version>0.5.0</version>
         </dependency>
 -->
-        <dependency>
-            <groupId>org.artofsolving.jodconverter</groupId>
-            <artifactId>jodconverter-core</artifactId>
-            <version>3.0-beta-4</version>
-        </dependency>
+        <!--
+                <dependency>
+                    <groupId>org.artofsolving.jodconverter</groupId>
+                    <artifactId>jodconverter-core</artifactId>
+                    <version>3.0-beta-4</version>
+                </dependency>
+        -->
         <dependency>
             <groupId>org.openoffice</groupId>
             <artifactId>juh</artifactId>
