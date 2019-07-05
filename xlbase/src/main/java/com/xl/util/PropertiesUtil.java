@@ -113,33 +113,6 @@ public class PropertiesUtil {
     }
     
     /**
-     * 加载属性配置文件
-     * <p>方法说明:</>
-     * <li></li>
-     *
-     * @param is
-     * @return
-     */
-    public static Properties loadProperties(InputStream is) {
-        Properties properties = new Properties();
-        try {
-            properties.load(is);
-            return properties;
-        } catch (IOException e) {
-            log.error("加载配置文件失败", e);
-        } finally {
-            try {
-                if (is != null) {
-                    is.close();
-                }
-            } catch (Exception ex) {
-                log.error(ex);
-            }
-        }
-        return null;
-    }
-    
-    /**
      * 将属性配置转换为map
      *
      * @return map

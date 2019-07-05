@@ -4,8 +4,6 @@ import com.entity.DeploymentEntity;
 import com.xl.deloy.service.impl.DeploymentPackageServiceImpl;
 import com.xl.deploy.service.DeploymentPackageService;
 import com.xl.util.GUIUtil;
-import com.xl.util.PropertiesUtil;
-import com.xl.util.StreamTool;
 import com.xl.util.StringUtil;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
@@ -37,21 +35,18 @@ public class DeployForm extends JDialog {
     private JTextField taskNameTx;
     private JTextField authorField;
     private DeploymentPackageService service = new DeploymentPackageServiceImpl();
-    private static String author = "徐立";
+    private static volatile String author = "徐立";
     private static String propertyFileName = "deploy.properties";
     private static final String AUTHOR = "author";
     static {
         File propertFile = new File(propertyFileName);
         if (propertFile.exists()) {
-            FileInputStream is = null;
-            try {
-                is = new FileInputStream(propertFile);
-                Properties properties = PropertiesUtil.loadProperties(is);
+            try (FileInputStream is = new FileInputStream(propertFile)) {
+                Properties properties = new Properties();
+                properties.load(is);
                 author = properties.getProperty(AUTHOR);
-            } catch (FileNotFoundException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
-            } finally {
-                StreamTool.close(is);
             }
         }
     }

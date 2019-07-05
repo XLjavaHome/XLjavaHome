@@ -65,19 +65,4 @@ public class StreamTool {
         }
         return sb.toString();
     }
-    
-    /**
-     * 关闭流
-     *
-     * @param is
-     */
-    public static void close(InputStream is) {
-        if (is != null) {
-            try {
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
 }
