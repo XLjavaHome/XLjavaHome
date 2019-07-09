@@ -1,4 +1,4 @@
-package com.xl.proxy.reflect;
+package com.xl.reflect;
 
 import java.lang.reflect.Method;
 import lombok.Data;

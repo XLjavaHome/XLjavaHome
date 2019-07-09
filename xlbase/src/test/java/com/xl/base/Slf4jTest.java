@@ -15,6 +15,6 @@ import org.junit.Test;
 public class Slf4jTest {
     @Test
     public void name() {
-        log.info("这是{}测试！", 1);
+        log.info("这是log的类型：{}", log.getClass().getName());
     }
 }
