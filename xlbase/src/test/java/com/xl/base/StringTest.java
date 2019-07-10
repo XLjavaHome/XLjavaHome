@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 public class StringTest {
     @Test
     void splitTest() {
-        //    空格是否能去掉,不能去掉
+        //空格是否能去掉,不能去掉
         //暂时没有发现能去掉空格的
         String str = "  空格 ,111 ";
         String[] split = StringUtils.split(str, ",");
