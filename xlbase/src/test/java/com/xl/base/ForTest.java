@@ -19,4 +19,18 @@ public class ForTest {
         }
         System.out.println("测试for循环");
     }
+    
+    @Test
+    public void 添加逗号分割() {
+        int max = 10;
+        StringBuffer sql = new StringBuffer();
+        for (int i = 0; i < max; i++) {
+            sql.append(i);
+            //要减1
+            if (i < max - 1) {
+                sql.append(",");
+            }
+        }
+        System.out.println(sql);
+    }
 }

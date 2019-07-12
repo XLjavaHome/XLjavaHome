@@ -8,6 +8,9 @@ package com.xl.enumsupport;
  * @Time: 22:40
  * To change this template use File | Settings | File Templates.
  */
-public enum Sort {
-    ASC, DESC
-}
+public enum Sort {ASC, DESC;
+    
+    Sort() {
+        //构造方法保证每个实例只执行一次
+        System.out.println("这是构造方法");
+    }}

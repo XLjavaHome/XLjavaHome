@@ -1,6 +1,8 @@
 package com.xl.base;
 
 import java.util.Arrays;
+import java.util.LinkedHashSet;
+import java.util.Set;
 import java.util.StringTokenizer;
 import org.apache.commons.lang.StringUtils;
 import org.junit.jupiter.api.Test;
@@ -14,6 +16,18 @@ import org.junit.jupiter.api.Test;
  * To change this template use File | Settings | File Templates.
  */
 public class StringTest {
+    @Test
+    void joinTest() {
+        Set<String> set = new LinkedHashSet<>(10);
+        set.add("张三");
+        set.add("李四");
+        //转化数组后合并
+        System.out.println(StringUtils.join(set.toArray()));
+        set = null;
+        //结果是null
+        System.out.println(StringUtils.join(set, ","));
+    }
+    
     @Test
     void splitTest() {
         //空格是否能去掉,不能去掉
