@@ -33,6 +33,7 @@
                 <!--没有版本号会报错-->
                 <version>2.1.6.RELEASE</version>
                 <configuration>
+                    <mainClass>com.example.demo.XLSpringbootApplication</mainClass>
                     <executable>true</executable>
                 </configuration>
                 <!--没有的话不能运行jar-->
