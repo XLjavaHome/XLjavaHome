@@ -2,8 +2,8 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <groupId>com.xl</groupId>
         <artifactId>xl</artifactId>
+        <groupId>com.xl</groupId>
         <version>1.0.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -11,20 +11,29 @@
     <description>Demo project for Spring Boot</description>
     <artifactId>xlspringboot</artifactId>
     <packaging>jar</packaging>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>spring-milestones</id>
+            <url>https://repo.spring.io/milestone</url>
+        </pluginRepository>
+        <pluginRepository>
+            <id>spring-snapshots</id>
+            <url>https://repo.spring.io/snapshot</url>
+        </pluginRepository>
+    </pluginRepositories>
     <build>
         <plugins>
             <plugin>
-                <!--该插件主要用途：构建可执行的JAR -->
+                <!--该插件主要用途：构建可执行的JAR，运行maven的package即可-->
+                <!--没有加入该插件不会将所有的都打包 -->
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration><!-- 指定该Main Class为全局的唯一入口 -->
-                    <mainClass>com.example.demo.XLSpringbootApplication</mainClass>
-                    <layout>ZIP</layout>
-                    <outputDirectory>
-                        ${package.base.url}
-                    </outputDirectory>
+                <!--没有版本号会报错-->
+                <version>2.1.6.RELEASE</version>
+                <configuration>
                     <executable>true</executable>
                 </configuration>
+                <!--没有的话不能运行jar-->
                 <executions>
                     <execution>
                         <goals>
@@ -34,10 +43,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
         </plugins>
     </build>
     <!--    父类不是spring-boot也可以启动-->
@@ -46,17 +51,15 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
-                <version>2.0.3.RELEASE</version>
+                <version>2.0.8.RELEASE</version>
+                <!--<version>2.0.3.RELEASE</version>-->
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
     <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
+        <!--spring mvc-web的依赖-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -65,6 +68,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
         </dependency>
         <!--缓存-->
         <dependency>
