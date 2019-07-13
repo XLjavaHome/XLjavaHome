@@ -22,6 +22,8 @@
         </pluginRepository>
     </pluginRepositories>
     <build>
+        <!-- 指定打包的文件名称-->
+        <finalName>xlSpringboot</finalName>
         <plugins>
             <plugin>
                 <!--该插件主要用途：构建可执行的JAR，运行maven的package即可-->
