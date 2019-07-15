@@ -2,7 +2,7 @@ package com.xl.base;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import org.junit.Test;
+import org.testng.annotations.Test;
 
 /**
  * Created with 徐立.
