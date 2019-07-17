@@ -43,14 +43,23 @@ public class LocalDateTest {
     
     @Test
     void get() {
-        LocalDate.now().getYear(); // 年份
-        LocalDate.now().getMonthValue(); // 月份（数值表示， 从1开始）
-        LocalDate.now().getMonth(); // 月份（英文[enum]表示）
-        LocalDate.now().getDayOfMonth(); // 日期（从1开始）
-        LocalDate.now().getDayOfYear(); // 当天所在这一年的第几天（从1开始）
-        LocalDate.now().getDayOfWeek(); // 星期几
-        LocalDate.now().lengthOfYear(); // 当年的天数
-        LocalDate.now().lengthOfMonth(); //当月的天数
-        LocalDate.now().toEpochDay(); // 与时间纪元（1970年1月1日）相差的天数，负数表示在时间纪元之前多少天
+        // 年份
+        LocalDate.now().getYear();
+        // 月份（数值表示， 从1开始）
+        LocalDate.now().getMonthValue();
+        // 月份（英文[enum]表示）
+        LocalDate.now().getMonth();
+        // 日期（从1开始）
+        LocalDate.now().getDayOfMonth();
+        // 当天所在这一年的第几天（从1开始）
+        LocalDate.now().getDayOfYear();
+        // 星期几
+        LocalDate.now().getDayOfWeek();
+        // 当年的天数
+        LocalDate.now().lengthOfYear();
+        //当月的天数
+        LocalDate.now().lengthOfMonth();
+        // 与时间纪元（1970年1月1日）相差的天数，负数表示在时间纪元之前多少天
+        LocalDate.now().toEpochDay();
     }
 }
