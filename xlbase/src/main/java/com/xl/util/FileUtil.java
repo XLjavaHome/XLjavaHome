@@ -390,11 +390,7 @@ public class FileUtil {
      * @return
      */
     public static File getTempDrectory() {
-        File temp = new File(getDesktop(), "temp");
-        if (!temp.exists()) {
-            temp.mkdirs();
-        }
-        return temp;
+        return new File(System.getProperty(SystemUtil.JAVA_IO_TMPDIR));
     }
     
     /**
