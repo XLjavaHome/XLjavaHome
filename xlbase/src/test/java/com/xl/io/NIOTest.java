@@ -25,14 +25,13 @@ import org.junit.jupiter.api.Test;
 public class NIOTest {
     private static String pathname = "E:\\vmacoustic\\CentOS 6.vmdk";
     
-    @Test
-    void name() throws IOException {
+    public static void main(String[] args) throws IOException {
         //启动NIO
         ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
         //设置为非阻塞
         serverSocketChannel.configureBlocking(false);
         //监听8080端口
-        serverSocketChannel.bind(new InetSocketAddress(8080));
+        serverSocketChannel.bind(new InetSocketAddress(8081));
         //有数据
         log.info("监听开始。。。");
         //通过监听选择操作系统底层
@@ -53,12 +52,25 @@ public class NIOTest {
                     socketChannel.configureBlocking(false);
                     socketChannel.register(selector, SelectionKey.OP_READ);
                 } else if (next.isReadable()) {
-                    //    如果连接有数据
+                    //如果连接有数据
                     SocketChannel socketChannel = (SocketChannel) next.channel();
                     //针对这个连接，取消这个查询条件
                     next.cancel();
-                    // TODO 2019/7/15 23:34 徐立
+                    // TODO 2019/7/15 23:34 徐立 拿到该链接交由线程池处理
                     //new ThreadPoolExecutor()
+                    {
+                        //不像stream非阻塞io
+                        ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
+                        socketChannel.read(byteBuffer);
+                        byteBuffer.flip();
+                        String s = new String(byteBuffer.array());
+                        System.out.println(s);
+                        //给一个返回值
+                        String response = "http/1.1 200 ok\n" + "Content-Length: 11\n" + "Hello World";
+                        socketChannel.write(ByteBuffer.wrap(response.getBytes()));
+                        //告诉selector继续监听
+                        socketChannel.register(selector, SelectionKey.OP_READ);
+                    }
                 }
             }
         }
