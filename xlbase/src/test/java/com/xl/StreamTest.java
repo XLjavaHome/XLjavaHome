@@ -1,9 +1,7 @@
 package com.xl;
 
 import com.xl.entity.Student;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
@@ -17,10 +15,10 @@ import org.junit.jupiter.api.Test;
  * To change this template use File | Settings | File Templates.
  */
 public class StreamTest {
-    private List<Student> students = new ArrayList<>();
+    private Set<Student> students = new HashSet<>();
     
     public StreamTest() {
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 100; i++) {
             Student s = new Student();
             s.setId(i);
             s.setSex("x");
@@ -33,9 +31,35 @@ public class StreamTest {
     }
     
     @Test
+    void 无限流() {
+        //无限流
+        Stream<Integer> stream3 = Stream.iterate(1, (x) -> x + 1).limit(50);
+        //stream3.forEach(System.out::println);
+        stream3.sorted((o1, o2) -> o2 - o1).forEach(System.out::println);
+    }
+    
+    /**
+     * filter后是boolan用于过滤，可以过滤多个条件
+     */
+    @Test
+    void 过滤() {
+        students.stream().filter(student -> student.getId() > 10).filter(student -> student.getName().contains("1")).limit(50)
+                .forEach(System.out::println);
+        //转换list
+        List<Student> collect = students.stream().filter(student -> student.getId() > 10)
+                                        .filter(student -> student.getName().contains("1")).collect(Collectors.toList());
+    }
+    
+    private void println(String string) {
+        System.out.println(string);
+    }
+    
+    /**
+     *
+     */
+    @Test
     void 转换大写() {
-        String[] collect = students.stream().map(x -> x.getSex().toUpperCase()).toArray(String[]::new);
-        printArray(collect);
+        students.stream().map(x -> x.getName()).forEachOrdered(System.out::println);
     }
     
     private void printArray(Object[] objects) {
@@ -67,6 +91,19 @@ public class StreamTest {
     }
     
     @Test
+    void demo2() {
+        List<Student> studentList = new ArrayList<>(100);
+        for (int i = 0; i < 10; i++) {
+            Student e = new Student();
+            e.setId(i);
+            e.setAge(i);
+            e.setAddress("地址:" + i);
+            studentList.add(e);
+        }
+        //studentList.stream()
+    }
+    
+    @Test
     void name() {
         //取出偶数
         List<Integer> list = Arrays.asList(1, 2, 3, 4);
@@ -78,6 +115,7 @@ public class StreamTest {
             }
         }
         System.out.println(newList1);
+        //企业开发 由数据库的高度依赖变为自己的
         //2.stream流
         List<Integer> newList2 = list.stream().filter(x -> x % 2 == 0).collect(Collectors.toList());
         System.out.println(newList2);
