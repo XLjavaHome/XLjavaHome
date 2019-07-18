@@ -1,8 +1,7 @@
 package com.xl;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import com.xl.entity.Student;
+import java.util.*;
 import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
@@ -15,6 +14,29 @@ import org.junit.jupiter.api.Test;
  * To change this template use File | Settings | File Templates.
  */
 public class StreamTest {
+    @Test
+    void array() {
+        Set<Student> list = new HashSet<>();
+        for (int i = 0; i < 10; i++) {
+            Student s = new Student();
+            s.setId(i);
+            s.setSex("");
+            s.setName("姓名" + i);
+            s.setAddress("");
+            s.setAge(i);
+            s.setPhone("");
+            list.add(s);
+        }
+        String[] arr2 = list.stream().map(Student::getName).toArray(String[]::new);
+        printArray(arr2);
+        String[] objects = list.stream().map(Student::getName).toArray(size -> new String[size]);
+        printArray(objects);
+    }
+    
+    private void printArray(String[] objects) {
+        System.out.println(Arrays.toString(objects));
+    }
+    
     @Test
     void name() {
         //取出偶数

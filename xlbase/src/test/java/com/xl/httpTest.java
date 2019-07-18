@@ -20,6 +20,9 @@ public class httpTest {
     
     @Test
     public void tes1() throws IOException {
-        System.out.println(HttpRequestUtil.httpRequest(new URL("http://localhost:8080/")));
+        String spec = "http://localhost:8080/";
+        spec = "http://localhost:8080/#/workflow/example/manager-task-list";
+        StringBuffer sb = HttpRequestUtil.httpRequest(new URL(spec));
+        System.out.println(sb);
     }
 }
