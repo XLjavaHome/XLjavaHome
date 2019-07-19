@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Person implements Serializable {
-    public Person(String name, int age) {
+    public Person(int age, String name) {
         this.name = name;
         this.age = age;
     }
