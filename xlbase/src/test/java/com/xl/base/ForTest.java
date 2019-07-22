@@ -1,5 +1,6 @@
 package com.xl.base;
 
+import java.util.stream.IntStream;
 import org.junit.Test;
 
 /**
@@ -13,11 +14,14 @@ import org.junit.Test;
 public class ForTest {
     @Test
     public void forTest() {
-        System.out.println("开始了");
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 10000; i++) {
             System.out.println(i);
         }
-        System.out.println("测试for循环");
+    }
+    
+    @Test
+    public void stream() {
+        IntStream.range(0, 10000).forEach(System.out::println);
     }
     
     @Test

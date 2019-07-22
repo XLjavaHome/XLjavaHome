@@ -17,7 +17,7 @@ import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
 
 /**
- * Created with 徐立.
+ * Created with 徐立. map用来处理集合
  *
  * @author 徐立
  * @date 2019-06-27
@@ -93,6 +93,18 @@ public class StreamTest {
                                                    of("Get started with UICollectionView and the photo library".split(" "));
         Map<String, String> introMap = introStream.collect(Collectors.toMap(s -> s.substring(0, 1), s -> s));
         System.out.println(introMap);
+    }
+    
+    @Test
+    void mapTest2() {
+        List<String> myList = Arrays.asList("a1", "a2", "b1", "c2", "c1");
+        myList.stream() // 创建流
+              .filter(s -> s.startsWith("c")) // 执行过滤，过滤出以 c 为前缀的字符串
+              .map(String::toUpperCase) // 转换成大写
+              .map(x -> {
+                  String s = x + "a";
+                  return s + "b";
+              }).map(x -> x + "b").forEach(System.out::println); // for 循环打印
     }
     
     @Test
