@@ -11,7 +11,6 @@ import java.time.Instant;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-import static java.util.stream.Collectors.*;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
@@ -47,7 +46,7 @@ public class StreamTest {
     @Test
     void toListTest() {
         Set<Student> list = students;
-        list.stream().map(Student::getName).sorted().limit(10).collect(toList()).forEach(System.out::println);
+        list.stream().map(Student::getName).sorted().limit(10).collect(Collectors.toList()).forEach(System.out::println);
     }
     
     @Test
@@ -88,11 +87,28 @@ public class StreamTest {
     void mapTest() {
         //转换大写
         //并行流
+        listToMap();
         students.parallelStream().map(Student::getName).forEachOrdered(System.out::println);
         Stream<String> introStream = Stream.
                                                    of("Get started with UICollectionView and the photo library".split(" "));
         Map<String, String> introMap = introStream.collect(Collectors.toMap(s -> s.substring(0, 1), s -> s));
         System.out.println(introMap);
+    }
+    
+    @Test
+    public void listToMap() {
+        List<Map> resulult = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            Map map = new HashMap();
+            map.put("orgid", "orgid" + i);
+            map.put("name", "orgName" + i);
+            resulult.add(map);
+        }
+        //重复key会报错
+        resulult.stream().collect(Collectors.toMap(s -> s.get("orgid").toString(), s -> s)).forEach((s, map) -> {
+            System.out.println(s);
+            System.out.println(map);
+        });
     }
     
     @Test
@@ -250,8 +266,8 @@ public class StreamTest {
         for (int shortWord : shortWords) {
             System.out.println(shortWord);
         }
-        Map<Integer, Long> shortWordsCount =
-                words.parallelStream().filter(s -> s.length() < 12).collect(groupingBy(String::length, counting()));
+        Map<Integer, Long> shortWordsCount = words.parallelStream().filter(s -> s.length() < 12)
+                                                  .collect(Collectors.groupingBy(String::length, Collectors.counting()));
         for (Map.Entry<Integer, Long> integerLongEntry : shortWordsCount.entrySet()) {
             System.out.println(integerLongEntry.getKey() + "-" + integerLongEntry.getValue());
         }
