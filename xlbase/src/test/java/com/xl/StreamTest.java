@@ -10,6 +10,7 @@ import java.nio.file.Paths;
 import java.time.Instant;
 import java.util.*;
 import java.util.function.Function;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -43,10 +44,89 @@ public class StreamTest {
         return x < 0 ? Optional.empty() : Optional.of(Math.sqrt(x));
     }
     
+    /**
+     * 平均值
+     */
+    @Test
+    void avg() {
+        Arrays.stream(new int[]{1, 2, 3}).map(n -> 2 * n + 1) // 对数值中的每个对象执行 2*n + 1 操作
+              .average() // 求平均值
+              .ifPresent(System.out::println);  // 如果值不为空，则输出
+    }
+    
+    /**
+     * reduce的用法
+     */
+    @Test
+    void reduceTest() {
+        //输出整个对象的最大值
+        students.stream().reduce((p1, p2) -> p1.getAge() > p2.getAge() ? p1 : p2).ifPresent(System.out::println);    // Pamela
+        //输出最大值
+        students.stream().mapToInt(Student::getAge).max().ifPresent(System.out::println);
+        //第二种reduce方法接受标识值和BinaryOperator累加器。此方法可用于构造一个新的 Person，其中包含来自流中所有其他人的聚合名称和年龄：
+        Student result = students.stream().reduce(new Student("张三", 15), (p1, p2) -> {
+            int i = p1.getAge() + p2.getAge();
+            p1.setAge(i);
+            StringJoiner stringJoiner = new StringJoiner(",");
+            String name = stringJoiner.add(p1.getName()).add(p2.getName()).toString();
+            p1.setName(name);
+            return p1;
+        });
+        System.out.println(result);
+        //第三种reduce方法接受三个参数：标识值，BiFunction累加器和类型的组合器函数BinaryOperator。由于初始值的类型不一定为Person，我们可以使用这个归约函数来计算所有人的年龄总和：
+        Integer ageSum = students.stream().reduce(0, (sum, p) -> sum += p.getAge(), (sum1, sum2) -> sum1 + sum2);
+        System.out.println(ageSum);  // 76
+        //并行流和上面完全不同
+        ageSum = students.parallelStream().reduce(0, (sum, p) -> sum += p.getAge(), (sum1, sum2) -> sum1 + sum2);
+        System.out.println(ageSum);  // 76
+    }
+    
+    @Test
+    void mapToLong() {
+        Stream.of("a1", "a2", "a3").map(s -> s.substring(1)) // 对每个字符串元素从下标1位置开始截取
+              .mapToInt(Integer::parseInt) // 转成 int 基础类型类型流
+              .max() // 取最大值
+              .ifPresent(System.out::println);  // 不为空则输出
+    }
+    
+    /**
+     * 创建新的收集器
+     */
+    @Test
+    void CollectorOf() {
+        Collector<Student, StringJoiner, String> personNameCollector =
+                Collector.of(() -> new StringJoiner(" | "),          // supplier 供应器
+                        (j, p) -> j.add(p.getName().toUpperCase()),  // accumulator 累加器
+                        (j1, j2) -> j1.merge(j2),               // combiner 组合器
+                        StringJoiner::toString);                // finisher 终止器
+        String names = students.stream().collect(personNameCollector); // 传入自定义的收集器
+        System.out.println(names);  // MAX | PETER | PAMELA | DAVID
+    }
+    
+    @Test
+    void mapToObject() {
+        IntStream.range(1, 4).mapToObj(i -> "a" + i) // for 循环 1->4, 拼接前缀 a
+                 .forEach(System.out::println); // for 循环打印
+    }
+    
+    @Test
+    void findFirst() {
+        Arrays.asList("a1", "a2", "a3").stream() // 创建流
+              .findFirst() // 找到第一个元素
+              .ifPresent(System.out::println);  // 如果存在，即输出
+    }
+    
+    @Test
+    void aa() {
+        IntStream.range(1, 4).mapToObj(i -> "a" + i) // for 循环 1->4, 拼接前缀 a
+                 .forEach(System.out::println); // for 循环打印
+    }
+    
     @Test
     void toListTest() {
         Set<Student> list = students;
-        list.stream().map(Student::getName).sorted().limit(10).collect(Collectors.toList()).forEach(System.out::println);
+        List<String> collect = list.stream().map(Student::getName).sorted().limit(10).collect(Collectors.toList());
+        collect.forEach(System.out::println);
     }
     
     @Test
