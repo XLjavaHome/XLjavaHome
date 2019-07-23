@@ -19,5 +19,10 @@
             <artifactId>junit-jupiter-api</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.xl</groupId>
+            <artifactId>xlbase</artifactId>
+            <version>1.0.0</version>
+        </dependency>
     </dependencies>
 </project>

@@ -1,7 +1,7 @@
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import java.io.File;
+import com.xl.util.FileUtil;
 import java.io.IOException;
 import java.util.Date;
 
@@ -24,8 +24,8 @@ public class XLTest {
     @org.junit.jupiter.api.Test
     void name() throws IOException {
         XwjUser user = new XwjUser(1, "Hello World", new Date());
-        mapper.writeValue(new File("test.txt"), user); // 写到文件中
-        // mapper.writeValue(System.out, user); //写到控制台
+        mapper.writeValue(FileUtil.getTempFile(), user); // 写到文件中
+        mapper.writeValue(System.out, user); //写到控制台
         String jsonStr = mapper.writeValueAsString(user);
         System.out.println("对象转为字符串：" + jsonStr);
         byte[] byteArr = mapper.writeValueAsBytes(user);
