@@ -377,6 +377,19 @@ public class StreamTest {
     }
     
     @Test
-    void sort() {
+    void Match() {
+        boolean b = Stream.of(1, 2, 3, 4).anyMatch(n -> n == 3);
+        //任意匹配
+        boolean aa = Stream.of(1, 2, 3, 4).anyMatch(str -> str.equals("a"));
+        //所有元素匹配
+        boolean bb = Stream.of(1, 2, 3, 4).allMatch(str -> str.equals("a"));
+        //全部不为5 则结果为true
+        boolean cc = Stream.of(1, 2, 3, 4).noneMatch(str -> str == 5);
+        System.out.println(cc);
+    }
+    
+    @Test
+    void 并行流() {
+        Stream.of(1, 2, 3, 4).parallel().map(n -> n * 2).collect(Collectors.toCollection(ArrayList::new));
     }
 }

@@ -12,6 +12,7 @@
         <module>xlbase</module>
         <module>xlweb</module>
         <module>springboot</module>
+        <module>xljackson</module>
     </modules>
     <!--开源协议-->
     <licenses>
@@ -121,6 +122,16 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
                 <version>1.1.40</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>2.8.3</version>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-api</artifactId>
+                <version>RELEASE</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
