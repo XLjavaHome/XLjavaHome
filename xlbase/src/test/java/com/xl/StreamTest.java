@@ -14,6 +14,7 @@ import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
+import lombok.extern.log4j.Log4j;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -24,11 +25,12 @@ import org.junit.jupiter.api.Test;
  * @time 17:40
  * To change this template use File | Settings | File Templates.
  */
+@Log4j
 public class StreamTest {
     private Set<Student> students = new HashSet<>();
     
     public StreamTest() {
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 100000; i++) {
             Student s = new Student();
             s.setId(i);
             s.setSex("x");
@@ -100,7 +102,7 @@ public class StreamTest {
                         (j1, j2) -> j1.merge(j2),               // combiner 组合器
                         StringJoiner::toString);                // finisher 终止器
         String names = students.stream().collect(personNameCollector); // 传入自定义的收集器
-        System.out.println(names);  // MAX | PETER | PAMELA | DAVID
+        log.info(names);
     }
     
     @Test
@@ -141,17 +143,13 @@ public class StreamTest {
      * filter后是boolan用于过滤，可以过滤多个条件
      */
     @Test
-    void 过滤() {
+    void filterTest() {
         students.stream().filter(student -> student.getId() > 10).filter(student -> student.getName().contains("1")).limit(50)
                 .forEach(System.out::println);
         //转换list
         List<Student> collect =
                 students.stream().filter(student -> student.getId() > 10).filter(student -> student.getName().contains("1"))
                         .collect(Collectors.toList());
-    }
-    
-    private void println(String string) {
-        System.out.println(string);
     }
     
     @Test
@@ -186,7 +184,7 @@ public class StreamTest {
         }
         //重复key会报错
         resulult.stream().collect(Collectors.toMap(s -> s.get("orgid").toString(), s -> s)).forEach((s, map) -> {
-            System.out.println(s);
+            log.info(s);
             System.out.println(map);
         });
     }
@@ -217,7 +215,7 @@ public class StreamTest {
         for (String word : words) {
             if (word.length() >= 12) {
                 count++;
-                System.out.println(word);
+                log.info(word);
             }
         }
         /**
@@ -275,7 +273,7 @@ public class StreamTest {
         //            List<String> lists = words.stream().collect(Collectors.toList());
         //            Set<String> lists = words.stream().collect(Collectors.toSet());
         TreeSet<String> lists = words.stream().collect(Collectors.toCollection(TreeSet::new));
-        System.out.println("针对流中元素收集到另一个目标中，有一个便捷方法collect可用");
+        log.info("针对流中元素收集到另一个目标中，有一个便捷方法collect可用");
         for (String list : lists) {
             System.out.print(list + " ");
         }
@@ -284,9 +282,9 @@ public class StreamTest {
                 .toMap(Locale::getDisplayLanguage, locale -> locale.getDisplayLanguage(locale),
                         (existingValue, newValue) -> existingValue));
         for (Map.Entry<String, String> stringStringEntry : lan.entrySet()) {
-            System.out.println(stringStringEntry.getKey() + "=" + stringStringEntry.getValue());
+            log.info(stringStringEntry.getKey() + "=" + stringStringEntry.getValue());
         }
-        System.out.println("------------------------");
+        log.info("------------------------");
         Stream<Locale> localeStream1 = Stream.of(Locale.getAvailableLocales());
         //localeStream1.forEach(System.out::println);
         long count2 = stream.filter(w -> w.length() >= 12).count();
@@ -296,9 +294,9 @@ public class StreamTest {
         Person person2 = new Person(3, "yzw");
         Stream<Person> personStream = Stream.of(person0, person1, person2);
         Map<Integer, String> idToname = personStream.collect(Collectors.toMap(person3 -> person3.getAge(), Person::getName));
-        System.out.println("idToname" + idToname.getClass().getName() + idToname);
+        log.info("idToname" + idToname.getClass().getName() + idToname);
         for (Map.Entry<Integer, String> integerStringEntry : idToname.entrySet()) {
-            System.out.println(integerStringEntry.getKey() + "=" + integerStringEntry.getValue());
+            log.info(integerStringEntry.getKey() + "=" + integerStringEntry.getValue());
         }
         /**
          * 生成一个Hashmap
@@ -306,9 +304,9 @@ public class StreamTest {
         personStream = Stream.of(person0, person1, person2);
         Map<Integer, Person> idToPerson =
                 personStream.collect(Collectors.toMap(person3 -> person3.getAge(), Function.identity()));
-        System.out.println("idToPerson:" + idToPerson.getClass().getName() + idToPerson);
+        log.info("idToPerson:" + idToPerson.getClass().getName() + idToPerson);
         for (Map.Entry<Integer, Person> integerPersonEntry : idToPerson.entrySet()) {
-            System.out.println(integerPersonEntry.getKey() + "-" + integerPersonEntry.getValue().getName());
+            log.info(integerPersonEntry.getKey() + "-" + integerPersonEntry.getValue().getName());
         }
         /**
          * 生成一个TreeMap
@@ -318,7 +316,7 @@ public class StreamTest {
                 .collect(Collectors.toMap(person -> person.getAge(), Function.identity(), (existingValue, newValue) -> {
                     throw new IllegalStateException();
                 }, TreeMap::new));
-        System.out.println("idToPerson:" + idToPerson.getClass().getName() + idToPerson);
+        log.info("idToPerson:" + idToPerson.getClass().getName() + idToPerson);
         /**
          * 基本类型流
          */
@@ -332,7 +330,7 @@ public class StreamTest {
         IntStream intStream3 = integerStream1.mapToInt(Integer::intValue);
         showIntStream("intStream3", intStream3);
         IntStream intStream4 = IntStream.generate(() -> (int) (Math.random() * 100)).limit(100);
-        System.out.println("数据统计：" + intStream4.summaryStatistics());
+        log.info("数据统计：" + intStream4.summaryStatistics());
         /**
          * 并行流
          */
@@ -349,7 +347,7 @@ public class StreamTest {
         Map<Integer, Long> shortWordsCount = words.parallelStream().filter(s -> s.length() < 12)
                                                   .collect(Collectors.groupingBy(String::length, Collectors.counting()));
         for (Map.Entry<Integer, Long> integerLongEntry : shortWordsCount.entrySet()) {
-            System.out.println(integerLongEntry.getKey() + "-" + integerLongEntry.getValue());
+            log.info(integerLongEntry.getKey() + "-" + integerLongEntry.getValue());
         }
     }
     
@@ -413,7 +411,7 @@ public class StreamTest {
     }
     
     private void printArray(Object[] objects) {
-        System.out.println(Arrays.toString(objects));
+        log.info(Arrays.toString(objects));
     }
     
     @Test
@@ -466,10 +464,62 @@ public class StreamTest {
         //全部不为5 则结果为true
         boolean cc = Stream.of(1, 2, 3, 4).noneMatch(str -> str == 5);
         System.out.println(cc);
+        matchTest1();
+        matchTest2();
+    }
+    
+    @Test
+    public void matchTest1() {
+        boolean b1 = students.stream().anyMatch(student -> student.getAge() == 10000);
+        System.out.println(b1);
+    }
+    
+    @Test
+    public void matchTest2() {
+        boolean b1 = false;
+        for (Student student : students) {
+            b1 = student.getAge() == 10000;
+            if (b1) {
+                break;
+            }
+        }
+        System.out.println(b1);
     }
     
     @Test
     void 并行流() {
         Stream.of(1, 2, 3, 4).parallel().map(n -> n * 2).collect(Collectors.toCollection(ArrayList::new));
+    }
+    
+    @Test
+    void aaa() {
+        List<String> strings = Arrays.asList("a", "b", "c");
+        //sb代表StringJoiner对象，可以换成其他对象，s代表每一行
+        StringJoiner concat = strings.stream().collect(() -> new StringJoiner("、"), (sb, s) -> {
+            sb.add(s);
+        }, (sb, sb2) -> {
+            System.out.println(sb);
+            sb.add(sb2.toString());
+        });
+        System.out.println(concat);
+        StringBuilder collect = strings.stream().collect(StringBuilder::new, StringBuilder::append, StringBuilder::append);
+        System.out.println(collect);
+        //将一个流收集到一个 HashSet 中，您可以这样做：
+        //addAll将结果合并
+        Set<String> collect1 = strings.stream().collect(Collectors.toSet());
+        log.info(collect1);
+        Set<String> uniqueStrings = strings.stream().collect(HashSet::new, HashSet::add, HashSet::addAll);
+        log.info(uniqueStrings);
+    }
+    
+    @Test
+    void collectToSet() {
+        List<String> strings = Arrays.asList("a", "b", "c");
+        //将一个流收集到一个 HashSet 中，您可以这样做：
+        //addAll将结果合并
+        Set<String> collect1 = strings.stream().collect(Collectors.toSet());
+        log.info(collect1);
+        Set<String> uniqueStrings = strings.stream().collect(HashSet::new, HashSet::add, HashSet::addAll);
+        log.info(uniqueStrings);
     }
 }

@@ -5,31 +5,40 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.collections.map.CaseInsensitiveMap;
 
 /**
- * 集合工具类
- * Created by 立 on 3/25 0025.
+ * Created with 徐立.集合工具类
+ *
+ * @author 徐立
+ * @version 1.0 2019-07-24 11:43
+ * To change this template use File | Settings | File Templates.
+ * @date 2019-07-24
+ * @time 11:43
  */
 public class CollectionUtil {
     /**
      * 将listMap转化为不区别大小写的listMap
      *
      * @param listMap
+     * @return
      */
     public static List<Map> convertListMapToCaseInsensitiveListMap(List<Map> listMap) {
-        if (listMap != null) {
-            for (int i = 0; i < listMap.size(); i++) {
-                Map map = listMap.get(i);
-                Map result = new CaseInsensitiveMap(map);
-                listMap.remove(i);
-                listMap.add(i, result);
-            }
+        if (listMap == null) {
+            return listMap;
         }
-        return listMap;
+        List<Map> collect = listMap.parallelStream().map(new Function<Map, Map>() {
+            @Override
+            public Map apply(Map map) {
+                return new CaseInsensitiveMap(map);
+            }
+        }).collect(Collectors.toList());
+        return collect;
     }
-
+    
     /**
      * 将Object转为map
      *
@@ -59,12 +68,12 @@ public class CollectionUtil {
         }
         return result;
     }
-
+    
     /**
      * 将list集合转化map集合
      *
      * @param keyPropName
-     * @param list        map中的key
+     * @param list map中的key
      * @return
      */
     public static Map toMap(String keyPropName, List<Map> list) {
