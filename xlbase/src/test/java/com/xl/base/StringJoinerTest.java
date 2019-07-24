@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 public class StringJoinerTest {
     @Test
     void name() {
+        //前缀和后缀不能为null
         StringJoiner sj = new StringJoiner(":", "[", "]");
         print(sj);
         //只加分隔符
