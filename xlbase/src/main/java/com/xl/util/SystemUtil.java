@@ -11,11 +11,6 @@ import java.io.InputStream;
  * @date 2013-12-20
  */
 public class SystemUtil {
-    /**
-     * 获取临时目录
-     */
-    public static final String JAVA_IO_TMPDIR = "java.io.tmpdir";
-    
     public static InputStream exec(String[] command) {
         try {
             Process p = Runtime.getRuntime().exec(command);
@@ -32,7 +27,7 @@ public class SystemUtil {
      * @return String
      */
     public static String getShellInfo(String command) {
-        return StreamTool.getContent(exec(command));
+        return IOStreamUtil.getContent(exec(command));
     }
 
     /**

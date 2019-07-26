@@ -13,6 +13,6 @@ import java.io.InputStream;
 public class JSONUtil {
     public static void main(String[] args) {
         InputStream resourceInputStream = ResourceUtil.getResourceInputStream("src/src/main/resources/json/contact.json");
-        System.out.println(StreamTool.getContent(resourceInputStream));
+        System.out.println(IOStreamUtil.getContent(resourceInputStream));
     }
 }

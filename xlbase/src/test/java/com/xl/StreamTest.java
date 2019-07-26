@@ -2,6 +2,7 @@ package com.xl;
 
 import com.xl.entity.Person;
 import com.xl.entity.Student;
+import com.xl.util.StreamUtil;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
@@ -9,7 +10,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.Instant;
 import java.util.*;
-import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
@@ -101,11 +101,13 @@ public class StreamTest {
      */
     @Test
     void CollectorOf() {
-        Collector<Student, StringJoiner, String> personNameCollector =
-                Collector.of(() -> new StringJoiner(" | "),          // supplier 供应器
-                        (j, p) -> j.add(p.getName().toUpperCase()),  // accumulator 累加器
-                        (j1, j2) -> j1.merge(j2),               // combiner 组合器
-                        StringJoiner::toString);                // finisher 终止器
+        Collector<Student, StringJoiner, String> personNameCollector = Collector.of(() -> new StringJoiner(" | "),
+                                                                                    // supplier 供应器
+                                                                                    (j, p) -> j.add(p.getName().toUpperCase()),
+                                                                                    // accumulator 累加器
+                                                                                    (j1, j2) -> j1.merge(j2),
+                                                                                    // combiner 组合器
+                                                                                    StringJoiner::toString);                // finisher 终止器
         String names = students.stream().collect(personNameCollector); // 传入自定义的收集器
         log.info(names);
     }
@@ -151,9 +153,8 @@ public class StreamTest {
         students.stream().filter(student -> student.getId() > 10).filter(student -> student.getName().contains("1")).limit(50)
                 .forEach(System.out::println);
         //转换list
-        List<Student> collect =
-                students.stream().filter(student -> student.getId() > 10).filter(student -> student.getName().contains("1"))
-                        .collect(Collectors.toList());
+        List<Student> collect = students.stream().filter(student -> student.getId() > 10).filter(
+                student -> student.getName().contains("1")).collect(Collectors.toList());
     }
     
     @Test
@@ -207,23 +208,28 @@ public class StreamTest {
     
     /**
      * 去重
+     * distinct（）使用hashCode（）和equals（）方法来获取不同的元素
      */
     @Test
     void distinct() {
         Stream<String> string2 = Stream.of("Alice", "Bob", "Driod", "Carl", "Alice");
         show("distinct后的字符串流", string2.distinct());
+        Stream<String> string3 = Stream.of("Alice", "Bob", "Driod", "Carl", "Alice");
     }
     
     private static <T> void show(String str, Stream<T> stream) {
         //limit可以用来抽取子流，原流短就短，原流长就长
         //skip可以跳过前n个元素
         System.out.println("Title(" + str + "):");
-        stream.forEach(new Consumer<T>() {
-            @Override
-            public void accept(T t) {
-                System.out.println(t);
-            }
-        });
+        stream.forEach(System.out::println);
+    }
+    
+    /**
+     * 自定义去重
+     */
+    @Test
+    void customDeduplicationDistinct() {
+        students.parallelStream().filter(StreamUtil.distinctByKey(Student::getSex)).forEach(System.out::println);
     }
     
     @Test
@@ -235,7 +241,8 @@ public class StreamTest {
     @Test
     void demo3() throws IOException {
         System.out.println(Paths.get("/home/percy/IdeaProjects/StreamDemo/src/com/percy/God Had to Be Fair"));
-        String contents = new String(Files.readAllBytes(Paths.get("/home/percy/IdeaProjects/StreamDemo/src/com/percy/God Had to Be Fair")),
+        String contents = new String(
+                Files.readAllBytes(Paths.get("/home/percy/IdeaProjects/StreamDemo/src/com/percy/God Had to Be Fair")),
                 StandardCharsets.UTF_8);
         List<String> words = Arrays.asList(contents.split(" "));
         /**
@@ -308,8 +315,9 @@ public class StreamTest {
             System.out.print(list + " ");
         }
         Stream<Locale> localeStream = Stream.of(Locale.getAvailableLocales());
-        Map<String, String> lan = localeStream.collect(Collectors
-                .toMap(Locale::getDisplayLanguage, locale -> locale.getDisplayLanguage(locale), (existingValue, newValue) -> existingValue));
+        Map<String, String> lan = localeStream.collect(Collectors.toMap(Locale::getDisplayLanguage,
+                                                                        locale -> locale.getDisplayLanguage(locale),
+                                                                        (existingValue, newValue) -> existingValue));
         for (Map.Entry<String, String> stringStringEntry : lan.entrySet()) {
             log.info(stringStringEntry.getKey() + "=" + stringStringEntry.getValue());
         }
@@ -331,7 +339,8 @@ public class StreamTest {
          * 生成一个Hashmap
          */
         personStream = Stream.of(person0, person1, person2);
-        Map<Integer, Person> idToPerson = personStream.collect(Collectors.toMap(person3 -> person3.getAge(), Function.identity()));
+        Map<Integer, Person> idToPerson = personStream.collect(
+                Collectors.toMap(person3 -> person3.getAge(), Function.identity()));
         log.info("idToPerson:" + idToPerson.getClass().getName() + idToPerson);
         for (Map.Entry<Integer, Person> integerPersonEntry : idToPerson.entrySet()) {
             log.info(integerPersonEntry.getKey() + "-" + integerPersonEntry.getValue().getName());
@@ -340,8 +349,8 @@ public class StreamTest {
          * 生成一个TreeMap
          */
         personStream = Stream.of(person0, person1, person2);
-        idToPerson = personStream
-                .collect(Collectors.toMap(person -> person.getAge(), Function.identity(), (existingValue, newValue) -> {
+        idToPerson = personStream.collect(
+                Collectors.toMap(person -> person.getAge(), Function.identity(), (existingValue, newValue) -> {
                     throw new IllegalStateException();
                 }, TreeMap::new));
         log.info("idToPerson:" + idToPerson.getClass().getName() + idToPerson);
@@ -372,7 +381,8 @@ public class StreamTest {
         for (int shortWord : shortWords) {
             System.out.println(shortWord);
         }
-        Map<Integer, Long> shortWordsCount = words.parallelStream().filter(s -> s.length() < 12).collect(Collectors.groupingBy(String::length, Collectors.counting()));
+        Map<Integer, Long> shortWordsCount = words.parallelStream().filter(s -> s.length() < 12).collect(
+                Collectors.groupingBy(String::length, Collectors.counting()));
         for (Map.Entry<Integer, Long> integerLongEntry : shortWordsCount.entrySet()) {
             log.info(integerLongEntry.getKey() + "-" + integerLongEntry.getValue());
         }

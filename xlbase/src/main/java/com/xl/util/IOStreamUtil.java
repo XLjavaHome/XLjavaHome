@@ -1,9 +1,8 @@
 package com.xl.util;
 
 import java.io.*;
-import java.util.stream.Stream;
 
-public class StreamTool {
+public class IOStreamUtil {
     /**
      * 得到流中的信息
      *
@@ -57,12 +56,4 @@ public class StreamTool {
         return caw.toCharArray();
     }
     
-    public static String getContent(Stream<String> stream) {
-        StringBuilder sb = new StringBuilder();
-        Object[] objects = stream.toArray();
-        for (Object object : objects) {
-            sb.append(object + "\n");
-        }
-        return sb.toString();
-    }
 }
