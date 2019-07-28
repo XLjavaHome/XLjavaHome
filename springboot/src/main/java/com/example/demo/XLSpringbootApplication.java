@@ -1,12 +1,11 @@
 package com.example.demo;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
-import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Created with IntelliJ IDEA.1.在src/main/resources下新建一个banner.txt文档
@@ -18,7 +17,7 @@ import org.springframework.context.ConfigurableApplicationContext;
  * To change this template use File | Settings | File Templates.
  */
 @SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
-//@RestController
+@RestController
 public class XLSpringbootApplication {
     @Value(value = "${book.author}")
     private String bookAuthor;
@@ -29,18 +28,5 @@ public class XLSpringbootApplication {
     
     public static void main(String[] args) {
         ConfigurableApplicationContext applicationContext = SpringApplication.run(XLSpringbootApplication.class, args);
-        //无图启动
-        //noView(args);
-    }
-    
-    /**
-     * 无图启动
-     *
-     * @param args
-     */
-    private static void noView(String[] args) {
-        SpringApplicationBuilder builder = new SpringApplicationBuilder(XLSpringbootApplication.class);
-        //修改Banner的模式为OFF
-        builder.bannerMode(Banner.Mode.OFF).run(args);
     }
 }
