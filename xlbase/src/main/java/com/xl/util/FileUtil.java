@@ -409,7 +409,7 @@ public class FileUtil {
      *
      * @return
      */
-    public static File getDesktop() {
+    public static File getDesktopFile() {
         FileSystemView fsv = FileSystemView.getFileSystemView();
         return fsv.getHomeDirectory();
     }

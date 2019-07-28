@@ -4,7 +4,6 @@ import com.entity.DeploymentEntity;
 import com.xl.deloy.service.impl.DeploymentPackageServiceImpl;
 import com.xl.deploy.service.DeploymentPackageService;
 import com.xl.util.GUIUtil;
-import com.xl.util.StringUtil;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -12,6 +11,7 @@ import java.io.*;
 import java.util.Properties;
 import javax.swing.*;
 import lombok.extern.log4j.Log4j;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Created with 徐立.生成部署目录
@@ -87,7 +87,7 @@ public class DeployForm extends JDialog {
             try {
                 button.setEnabled(false);
                 String authorText = authorField.getText();
-                if (!StringUtil.equals(author, authorText)) {
+                if (!StringUtils.equals(author, authorText)) {
                     writeAuthor = true;
                 }
                 //看作者是否变更，如果作者变更的话则保持

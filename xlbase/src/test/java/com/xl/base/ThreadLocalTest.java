@@ -19,11 +19,11 @@ public class ThreadLocalTest {
             longLocal.set(student);
             System.out.println(get());
         });
-        Thread thread2 = new Thread((() -> {
+        Thread thread2 = new Thread(() -> {
             Student student2 = new Student(" 李四", 20);
             longLocal.set(student2);
             System.out.println(get());
-        }));
+        });
         thread1.start();
         thread1.join();
         thread2.start();

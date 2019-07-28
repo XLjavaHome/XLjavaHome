@@ -4,6 +4,9 @@ import com.xl.entity.Person;
 import com.xl.entity.Student;
 import com.xl.util.StreamUtil;
 import java.io.IOException;
+import java.lang.invoke.MethodHandle;
+import java.lang.invoke.MethodHandles;
+import java.lang.invoke.MethodType;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -126,9 +129,30 @@ public class StreamTest {
     }
     
     @Test
-    void aa() {
+    static void hello() {
+        System.out.println("Hello");
+    }
+    
+    @Test
+    void forcycle() {
         IntStream.range(1, 4).mapToObj(i -> "a" + i) // for 循环 1->4, 拼接前缀 a
                  .forEach(System.out::println); // for 循环打印
+    }
+    
+    /**
+     * 求和
+     */
+    @Test
+    void count() {
+        int sum = IntStream.range(1, 10).sum();
+        System.out.println((long) sum);
+    }
+    
+    @Test
+    void methodHandles() throws Throwable {
+        MethodHandles.Lookup lookup = MethodHandles.lookup();
+        MethodHandle handle = lookup.findStatic(StreamTest.class, "hello", MethodType.methodType(void.class));
+        handle.invokeExact();
     }
     
     @Test
@@ -197,7 +221,7 @@ public class StreamTest {
     @Test
     void mapTest2() {
         List<String> myList = Arrays.asList("a1", "a2", "b1", "c2", "c1");
-        myList.stream() // 创建流
+        myList.parallelStream() // 创建流
               .filter(s -> s.startsWith("c")) // 执行过滤，过滤出以 c 为前缀的字符串
               .map(String::toUpperCase) // 转换成大写
               .map(x -> {
