@@ -1,6 +1,6 @@
 package com.xl.base;
 
-import impl.GoogleTranslator;
+import com.xl.translator.impl.GoogleTranslator;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import org.junit.Test;

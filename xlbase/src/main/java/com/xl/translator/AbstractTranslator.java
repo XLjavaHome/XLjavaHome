@@ -1,6 +1,5 @@
-package trans;
+package com.xl.translator;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -9,8 +8,7 @@ import java.util.Map;
  * @author Created by jz on 2017/10/24 14:46
  */
 public abstract class AbstractTranslator implements Translator {
-    protected Map<Language, String> langMap = new HashMap<>();
-    
+    protected Map<Language, String> langMap;
     /**
      * 获取翻译的URL
      *

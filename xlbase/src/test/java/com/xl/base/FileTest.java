@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 public class FileTest {
     @Test
     void 换行符测试() {
+        System.out.println(FileEnum.fileEnum);
         System.out.println(FileEnum.fileEnum.getFileSeparator());
     }
 }
