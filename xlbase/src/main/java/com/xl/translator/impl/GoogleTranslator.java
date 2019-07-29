@@ -1,14 +1,16 @@
-package impl;
+package com.xl.translator.impl;
 
+import com.xl.translator.AbstractTranslator;
+import com.xl.translator.Language;
 import com.xl.util.StringUtil;
 import http.HttpParams;
 import http.HttpPostParams;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import javax.script.Invocable;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import net.sf.json.JSONArray;
-import trans.AbstractTranslator;
-import trans.Language;
 
 /**
  * 翻译实现
@@ -19,9 +21,7 @@ public final class GoogleTranslator extends AbstractTranslator {
     private static final ScriptEngine ENGINE = new ScriptEngineManager().getEngineByName("JavaScript");
     
     public GoogleTranslator() {
-        langMap.put(Language.EN, "en");
-        langMap.put(Language.ZH, "zh-CN");
-        langMap.put(Language.RU, "ru");
+        langMap = Stream.of(Language.values()).collect(Collectors.toMap(o -> o, o -> o.getEnglish()));
     }
     
     @Override
@@ -64,12 +64,10 @@ public final class GoogleTranslator extends AbstractTranslator {
     protected String parseString(String jsonString) {
         JSONArray jsonArray = JSONArray.fromObject(jsonString);
         JSONArray segments = jsonArray.optJSONArray(0);
-        StringBuilder result = new StringBuilder();
-        for (int i = 0; i < segments.size(); i++) {
-            result.append(segments.optJSONArray(i).getString(0));
-            result.append("\r\n");
+        if (segments == null) {
+            return null;
         }
-        return result.toString();
+        return segments.optJSONArray(0).optString(0);
     }
     
     @Override

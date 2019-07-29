@@ -1,7 +1,7 @@
 package translation;
 
+import com.xl.translator.impl.GoogleTranslator;
 import com.xl.util.StringUtil;
-import impl.GoogleTranslator;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;

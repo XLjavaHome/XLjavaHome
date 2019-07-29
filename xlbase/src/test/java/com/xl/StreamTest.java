@@ -47,7 +47,7 @@ public class StreamTest {
     }
     
     private void initStudent() {
-        for (int i = 0; i < 1000000; i++) {
+        for (int i = 0; i < 10000000; i++) {
             Student s = new Student();
             s.setId(i);
             s.setSex("x");
@@ -586,5 +586,19 @@ public class StreamTest {
     void parallelStreamTest() {
         Stream<Student> studentStream = students.parallelStream();
         studentStream.map(x -> Thread.currentThread().getName()).collect(Collectors.toSet()).forEach(System.out::println);
+    }
+    
+    @Test
+    void forEach() {
+        //无法利用并发的优势
+        IntStream.range(0, 1000).forEach(System.out::println);
+        IntStream.range(0, 1000).forEachOrdered(System.out::println);
+    }
+    
+    @Test
+    void range() {
+        Set<Integer> collect = IntStream.range(0, 10).collect(HashSet::new, Set::add,
+                                                              (integers, integers2) -> log.info(integers));
+        log.info(collect);
     }
 }

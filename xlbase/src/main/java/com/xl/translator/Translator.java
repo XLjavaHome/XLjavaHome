@@ -1,4 +1,4 @@
-package trans;
+package com.xl.translator;
 
 /**
  * 翻译接口
