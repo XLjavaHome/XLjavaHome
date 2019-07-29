@@ -18,7 +18,7 @@ public class SpringbootDemoApplicationTests {
     public void nulltest() {
         //空就抛出异常
         Assert.notNull(1, "Filter must not be null");
-        //Assert.notNull(null, "Filter must not be null");
+        Assert.notNull(null, "Filter must not be null");
     }
     
     @Test

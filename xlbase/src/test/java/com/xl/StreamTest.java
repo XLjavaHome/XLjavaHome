@@ -37,21 +37,26 @@ public class StreamTest {
         initStudent();
     }
     
+    @Test
+    static void hello() {
+        System.out.println("Hello");
+    }
+    
+    private static Optional<Double> squareRoot(Double x) {
+        return x < 0 ? Optional.empty() : Optional.of(Math.sqrt(x));
+    }
+    
     private void initStudent() {
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 1000000; i++) {
             Student s = new Student();
             s.setId(i);
             s.setSex("x");
             s.setName("姓名" + i);
             s.setAddress("");
             s.setAge(i);
-            s.setPhone("");
+            s.setPhone(null);
             students.add(s);
         }
-    }
-    
-    private static Optional<Double> squareRoot(Double x) {
-        return x < 0 ? Optional.empty() : Optional.of(Math.sqrt(x));
     }
     
     /**
@@ -129,12 +134,10 @@ public class StreamTest {
     }
     
     @Test
-    static void hello() {
-        System.out.println("Hello");
-    }
-    
-    @Test
     void forcycle() {
+        students.forEach(x -> {
+            System.out.println(x);
+        });
         IntStream.range(1, 4).mapToObj(i -> "a" + i) // for 循环 1->4, 拼接前缀 a
                  .forEach(System.out::println); // for 循环打印
     }
@@ -179,6 +182,12 @@ public class StreamTest {
         //转换list
         List<Student> collect = students.stream().filter(student -> student.getId() > 10).filter(
                 student -> student.getName().contains("1")).collect(Collectors.toList());
+    }
+    
+    @Test
+    void filterNullTest() {
+        //还是会空指针异常
+        students.stream().filter(student -> student.getPhone().equals("测试")).forEach(System.out::println);
     }
     
     @Test
@@ -566,7 +575,16 @@ public class StreamTest {
     
     @Test
     void collectToStringJoin() {
-        String collect = students.stream().map(student -> student.getName()).collect(Collectors.joining(" | ", "", ""));
+        String collect = students.stream().map(student -> student.getName()).collect(Collectors.joining(" | "));
         System.out.println(collect);
+    }
+    
+    /**
+     * 并行流，有3个线程
+     */
+    @Test
+    void parallelStreamTest() {
+        Stream<Student> studentStream = students.parallelStream();
+        studentStream.map(x -> Thread.currentThread().getName()).collect(Collectors.toSet()).forEach(System.out::println);
     }
 }
