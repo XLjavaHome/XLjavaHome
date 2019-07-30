@@ -37,15 +37,6 @@ public class StreamTest {
         initStudent();
     }
     
-    @Test
-    static void hello() {
-        System.out.println("Hello");
-    }
-    
-    private static Optional<Double> squareRoot(Double x) {
-        return x < 0 ? Optional.empty() : Optional.of(Math.sqrt(x));
-    }
-    
     private void initStudent() {
         for (int i = 0; i < 10000000; i++) {
             Student s = new Student();
@@ -57,6 +48,15 @@ public class StreamTest {
             s.setPhone(null);
             students.add(s);
         }
+    }
+    
+    @Test
+    static void hello() {
+        System.out.println("Hello");
+    }
+    
+    private static Optional<Double> squareRoot(Double x) {
+        return x < 0 ? Optional.empty() : Optional.of(Math.sqrt(x));
     }
     
     /**
@@ -586,13 +586,6 @@ public class StreamTest {
     void parallelStreamTest() {
         Stream<Student> studentStream = students.parallelStream();
         studentStream.map(x -> Thread.currentThread().getName()).collect(Collectors.toSet()).forEach(System.out::println);
-    }
-    
-    @Test
-    void forEach() {
-        //无法利用并发的优势
-        IntStream.range(0, 1000).forEach(System.out::println);
-        IntStream.range(0, 1000).forEachOrdered(System.out::println);
     }
     
     @Test
