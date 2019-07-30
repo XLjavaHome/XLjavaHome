@@ -6,6 +6,7 @@ import java.net.URISyntaxException;
 import java.util.Collection;
 import java.util.Enumeration;
 import java.util.Iterator;
+import java.util.StringJoiner;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -278,56 +279,16 @@ public class StringUtil {
         return buf.toString();
     }
     
-    /**
-     * 添加
-     *
-     * @param collection
-     * @param separator
-     * @return
-     */
-    public static String join(Object[] collection, String separator) {
-        StringBuffer buf = new StringBuffer(256);
-        for (Object s : collection) {
-            buf.append(s).append(separator);
-        }
-        buf.deleteCharAt(buf.length() - 1);
-        return buf.toString();
-    }
-    
     public static String join(Enumeration<String> keys) {
         return join(keys, Constant.COMMA);
     }
     
     public static String join(Enumeration<String> collection, String separator) {
-        StringBuffer buf = new StringBuffer(256);
+        StringJoiner buf = new StringJoiner(separator);
         if (collection.hasMoreElements()) {
-            buf.append(collection.nextElement()).append(separator);
+            buf.add(collection.nextElement());
         }
-        buf.deleteCharAt(buf.length() - 1);
         return buf.toString();
-    }
-    
-    /**
-     * 是否结束。"."或"。"
-     *
-     * @param content
-     * @return
-     */
-    public boolean isHasEnding(String content) {
-        return content.endsWith(Constant.CHINAFULLPOINT) || content.endsWith(YINGWENJUHAO);
-    }
-    
-    /**
-     * 获取string防止为空
-     *
-     * @param s
-     * @return
-     */
-    public String getStringNotNull(String s) {
-        if (s == null) {
-            return "";
-        }
-        return s;
     }
     
     /**
@@ -358,5 +319,28 @@ public class StringUtil {
                || ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_A
                || ub == Character.UnicodeBlock.GENERAL_PUNCTUATION || ub == Character.UnicodeBlock.CJK_SYMBOLS_AND_PUNCTUATION
                || ub == Character.UnicodeBlock.HALFWIDTH_AND_FULLWIDTH_FORMS;
+    }
+    
+    /**
+     * 是否结束。"."或"。"
+     *
+     * @param content
+     * @return
+     */
+    public boolean isHasEnding(String content) {
+        return content.endsWith(Constant.CHINAFULLPOINT) || content.endsWith(YINGWENJUHAO);
+    }
+    
+    /**
+     * 获取string防止为空
+     *
+     * @param s
+     * @return
+     */
+    public String getStringNotNull(String s) {
+        if (s == null) {
+            return "";
+        }
+        return s;
     }
 }
