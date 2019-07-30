@@ -1,9 +1,11 @@
 package com.xl.base;
 
+import com.xl.translator.AbstractTranslator;
 import com.xl.translator.impl.GoogleTranslator;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import org.junit.Test;
 
 /**
@@ -19,8 +21,7 @@ public class TranslationTest {
     
     @Test
     public void Google() {
-        GoogleTranslator googleTranslator = new GoogleTranslator();
-        query = "早上好啊，今天天气不错";
+        AbstractTranslator googleTranslator = new GoogleTranslator();
         String name = googleTranslator.translation(query);
         System.out.println(name);
     }
@@ -44,7 +45,8 @@ public class TranslationTest {
         bw.write("keyfrom=fadabvaa&key=522071532&type=data&doctype=json&version=1.1&q=" + query);
         bw.flush();
         StringBuilder builder;
-        try (InputStream is = connection.getInputStream(); InputStreamReader isr = new InputStreamReader(is, "UTF-8")) {
+        try (InputStream is = connection.getInputStream(); InputStreamReader isr = new InputStreamReader(is,
+                                                                                                         StandardCharsets.UTF_8)) {
             BufferedReader br = new BufferedReader(isr);
             String line;
             builder = new StringBuilder();

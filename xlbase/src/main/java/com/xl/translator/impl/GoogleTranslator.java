@@ -2,7 +2,6 @@ package com.xl.translator.impl;
 
 import com.xl.translator.AbstractTranslator;
 import com.xl.translator.Language;
-import com.xl.util.StringUtil;
 import http.HttpParams;
 import http.HttpPostParams;
 import java.util.stream.Collectors;
@@ -68,12 +67,6 @@ public final class GoogleTranslator extends AbstractTranslator {
             return null;
         }
         return segments.optJSONArray(0).optString(0);
-    }
-    
-    @Override
-    public String translation(String mQuery) {
-        return StringUtil.isChinese(mQuery) ? translation(Language.ZH, Language.EN, mQuery) : translation(Language.EN,
-                Language.ZH, mQuery);
     }
     
     private String tk(String val) throws Exception {
