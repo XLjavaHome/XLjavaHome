@@ -1,5 +1,7 @@
 package com.xl.enumsupport;
 
+import java.nio.charset.Charset;
+
 /**
  * Created with IntelliJ IDEA.字符集枚举
  *
@@ -14,6 +16,9 @@ public enum CharacterEnum {
     };
     private String value;
     
+    public Charset getCharset() {
+        return Charset.forName(this.getValue());
+    }
     CharacterEnum(String value) {
         this.value = value;
     }
