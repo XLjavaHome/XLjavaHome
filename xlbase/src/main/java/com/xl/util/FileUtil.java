@@ -266,12 +266,8 @@ public class FileUtil {
      * @param file
      * @throws IOException
      */
-    public static void openDirectory(File file) throws IOException {
+    public static void openParent(File file) throws IOException {
         open(file.getParentFile());
-    }
-    
-    public static String getProjectPath() {
-        return Thread.currentThread().getContextClassLoader().getResource("").getPath();
     }
     
     /**

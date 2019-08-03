@@ -4,6 +4,7 @@ import com.xl.entity.Student;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Spliterator;
+import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -29,6 +30,13 @@ public class ListTest {
         student.setName("王五");
         listOne.remove(0);
         System.out.println(listOne);
+    }
+    
+    @Test
+    void 集合转数组() {
+        createList();
+        Student[] students = listOne.toArray(new Student[listOne.size() - 1]);
+        Stream.of(students).forEach(System.out::println);
     }
     
     private void createList() {
