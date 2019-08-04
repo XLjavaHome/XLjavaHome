@@ -23,7 +23,7 @@ public class NetUtil {
             conn.setRequestMethod("GET"); // 默认是GET,可以不用设置
             if (conn.getResponseCode() == 200) {
                 InputStream is = conn.getInputStream();
-                byte[] content = IOStreamUtil.getBytes(is);
+                byte[] content = IOUtil.getBytes(is);
                 String code = conn.getHeaderField("Content-Type");
                 if (code.contains("GBK")) {
                     return new String(content, "GBK");

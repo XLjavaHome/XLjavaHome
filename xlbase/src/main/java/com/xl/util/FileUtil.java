@@ -11,7 +11,6 @@ import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.misc.Nullable;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.filefilter.FileFileFilter;
-import org.apache.commons.lang3.SystemUtils;
 
 /**
  * Created with IntelliJ IDEA.
@@ -181,7 +180,7 @@ public class FileUtil {
                 file.getParentFile().mkdirs();
             }
             bos = new BufferedOutputStream(new FileOutputStream(file));
-            byte[] buf = IOStreamUtil.getBytes(is);
+            byte[] buf = IOUtil.getBytes(is);
             bos.write(buf);
             bos.flush();
         } finally {
@@ -382,22 +381,33 @@ public class FileUtil {
     }
     
     /**
-     * 获取临时目录
-     *
-     * @return
-     */
-    public static File getTempDrectory() {
-        return SystemUtils.getJavaIoTmpDir();
-    }
-    
-    /**
      * 创建临时文件
      *
      * @return
      */
     public static File getTempFile() {
+        return getTempFile(".txt");
+    }
+    
+    /**
+     * 生成临时文件
+     *
+     * @param postFix
+     * @return
+     */
+    public static File getTempFile(String postFix) {
         IdWorker idWorker = new IdWorker();
-        return new File(getTempDrectory(), idWorker.nextId() + ".txt");
+        return new File(getTempDrectory(), idWorker.nextId() + postFix);
+    }
+    
+    /**
+     * 获取临时目录
+     *
+     * @return
+     */
+    public static File getTempDrectory() {
+        //return SystemUtils.getJavaIoTmpDir();
+        return new File(getDesktopFile(), "temp");
     }
     
     /**

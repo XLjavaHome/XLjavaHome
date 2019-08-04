@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * Created with 徐立.枚举测试
@@ -16,6 +17,11 @@ import org.junit.jupiter.api.Test;
  * To change this template use File | Settings | File Templates.
  */
 public class EnumTest {
+    @Test
+    void name() {
+        System.out.println(RequestMethod.POST.name());
+    }
+    
     /**
      * 枚举转换
      */

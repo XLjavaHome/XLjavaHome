@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import lombok.extern.log4j.Log4j;
 import org.junit.Test;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * Http请求工具类
@@ -48,7 +49,7 @@ public class HttpRequestUtil {
      * @throws IOException
      */
     public static StringBuffer httpRequest(URL url) throws IOException {
-        return httpRequest(url, "GET");
+        return httpRequest(url, RequestMethod.GET);
     }
     
     /**
@@ -57,7 +58,7 @@ public class HttpRequestUtil {
      * @return
      * @throws IOException
      */
-    private static StringBuffer httpRequest(URL url, String requestMethod) throws IOException {
+    public static StringBuffer httpRequest(URL url, RequestMethod requestMethod) throws IOException {
         StringBuffer buffer = new StringBuffer();
         //创建URL
         //连接
@@ -69,7 +70,7 @@ public class HttpRequestUtil {
         httpUrlConnection.setDoInput(true);
         // Post 请求不能使用缓存
         httpUrlConnection.setUseCaches(false);
-        httpUrlConnection.setRequestMethod(requestMethod);
+        httpUrlConnection.setRequestMethod(requestMethod.name());
         httpUrlConnection.setUseCaches(true);
         // 设定传送的内容类型是可序列化的java对象
         // (如果不设此项,在传送序列化对象时,当WEB服务默认的不是这种类型时可能抛java.io.EOFException)

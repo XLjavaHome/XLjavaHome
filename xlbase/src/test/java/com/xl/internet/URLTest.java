@@ -1,7 +1,10 @@
 package com.xl.internet;
 
 import com.xl.enumsupport.CharacterEnum;
-import java.io.UnsupportedEncodingException;
+import com.xl.util.FileUtil;
+import java.io.*;
+import java.net.URL;
+import java.net.URLConnection;
 import java.net.URLDecoder;
 import org.junit.Test;
 
@@ -44,5 +47,44 @@ public class URLTest {
         String encode = URLDecoder.decode(s, CharacterEnum.UTF8.getValue());
         System.out.println(encode);
         System.out.println(URLDecoder.decode(encode, CharacterEnum.UTF8.getValue()));
+    }
+    
+    @Test
+    public void download() throws IOException {
+        String url = "https://ii.hywly.com/a/1/1076/42.jpg";
+        url = "http://www.baidu.com/img/baidu_sylogo1.gif";
+        URL url1 = new URL(url);
+        InputStream inputStream = url1.openStream();
+        File tempFile = FileUtil.getTempFile(".gif");
+        FileUtil.write(tempFile, inputStream);
+        FileUtil.openParent(tempFile);
+    }
+    
+    @Test
+    public void download2() {
+        try {
+            //1.定位网络图片路径
+            String imgPath = "https://ii.hywly.com/a/1/1076/42.jpg";
+            URL url = new URL(imgPath);
+            //2.建立与网络图片的连接,获取该图片的输入流
+            URLConnection connection = url.openConnection();
+            File file = FileUtil.getTempFile("qq.gif");
+            InputStream inputStream = connection.getInputStream();
+            //3.在本地建一个图片路径,接收与存储网络图片
+            try (FileOutputStream outputStream = new FileOutputStream(file)) {
+                //4.通过字节数组循环读取网络图片到本地
+                byte[] bs = new byte[8016];
+                int len = 0;
+                while ((len = inputStream.read(bs)) != -1) {
+                    outputStream.write(bs, 0, len);
+                }
+                //5.关闭流
+                inputStream.close();
+            }
+            System.out.println("图片下载成功!");
+        } catch (IOException e) {
+            System.out.println("图片下载失败!");
+            e.printStackTrace();
+        }
     }
 }

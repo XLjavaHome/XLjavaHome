@@ -27,7 +27,7 @@ public class SystemUtil {
      * @return String
      */
     public static String getShellInfo(String command) {
-        return IOStreamUtil.getContent(exec(command));
+        return IOUtil.getContent(exec(command));
     }
 
     /**
