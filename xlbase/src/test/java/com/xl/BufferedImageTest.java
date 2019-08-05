@@ -16,13 +16,13 @@ import org.junit.jupiter.api.Test;
  * @time 21:18
  * To change this template use File | Settings | File Templates.
  */
-public class ImageTest {
+public class BufferedImageTest {
     @Test
     void readTest() throws IOException {
         InputStream resourceAsStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("no.jpg");
-        BufferedImage read = ImageIO.read(resourceAsStream);
+        BufferedImage bufferedImage = ImageIO.read(resourceAsStream);
         File tempFile = FileUtil.getTempFile(".jpg");
-        ImageIO.write(read, "png", tempFile);
+        ImageIO.write(bufferedImage, "png", tempFile);
         FileUtil.openParent(tempFile);
     }
 }

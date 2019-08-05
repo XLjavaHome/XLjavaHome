@@ -9,7 +9,7 @@ public class IOUtil {
      * @param is
      * @return String
      */
-    public static String getContent(InputStream is) {
+    public static String getContent(InputStream is) throws IOException {
         return new String(getBytes(is));
     }
     
@@ -20,20 +20,21 @@ public class IOUtil {
      * @return
      * @throws IOException
      */
-    public static byte[] getBytes(InputStream is) {
-        try {
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            byte[] buf = new byte[1024];
-            int len = 0;
-            while ((len = is.read(buf)) != -1) {
-                bos.write(buf, 0, len); // 写到bos中去
-            }
-            is.close();
-            bos.flush();
-            return bos.toByteArray();
-        } catch (IOException e) {
-            throw new RuntimeException("getBytes获取失败");
+    public static byte[] getBytes(InputStream is) throws IOException {
+        ByteArrayOutputStream bos = getByteArrayOutputStream(is);
+        return bos.toByteArray();
+    }
+    
+    public static ByteArrayOutputStream getByteArrayOutputStream(InputStream is) throws IOException {
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        byte[] buf = new byte[1024];
+        int len;
+        while ((len = is.read(buf)) != -1) {
+            bos.write(buf, 0, len); // 写到bos中去
         }
+        is.close();
+        bos.flush();
+        return bos;
     }
     
     /**

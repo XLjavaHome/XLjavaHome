@@ -39,7 +39,6 @@ public class IdWorker {
         long timestamp = timeGen();
         //时间回拨，抛出异常
         if (timestamp < lastTimestamp) {
-            System.err.printf("clock is moving backwards.  Rejecting requests until %d.", lastTimestamp);
             throw new RuntimeException(String.format("Clock moved backwards.  Refusing to generate id for %d milliseconds", lastTimestamp - timestamp));
         }
         if (lastTimestamp == timestamp) {

@@ -1,5 +1,6 @@
 package com.xl;
 
+import com.xl.base.IdWorker;
 import com.xl.util.FileUtil;
 import com.xl.util.HttpUtil;
 import java.io.ByteArrayOutputStream;
@@ -26,9 +27,29 @@ import org.junit.jupiter.api.Test;
  * @time 22:25
  * To change this template use File | Settings | File Templates.
  */
-public class JsonpTest {
+public class JsoupTest {
     @Test
-    void down() {
+    void down() throws IOException {
+        // TODO 2019/8/5 23:34 徐立 图片下载
+        Document document = Jsoup.connect("https://www.meituri.com/").get();
+        document = Jsoup.connect("https://www.meituri.com/a/27581/").get();
+        Elements img = document.getElementsByTag("img");
+        //用并行流文件名一致导致图片没有保存
+        img.stream().filter(element -> element.attr("src").endsWith(".jpg")).forEachOrdered(element -> {
+            String src = element.attr("src");
+            try {
+                IdWorker idWorker = new IdWorker();
+                File parentFile = new File(FileUtil.getDesktopFile() + "/temp1");
+                if (!parentFile.exists()) {
+                    parentFile.mkdirs();
+                }
+                File file = new File(parentFile, +idWorker.nextId() + ".jpg");
+                file = HttpUtil.downloadImge(new URL(src), file);
+                System.out.println(file.getName());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
     
     @Test
@@ -50,7 +71,7 @@ public class JsonpTest {
         }).forEach(element -> {
             String src = element.attr("src");
             try {
-                HttpUtil.download(new URL(src));
+                HttpUtil.downloadImge(new URL(src));
                 System.out.println(src);
             } catch (MalformedURLException e) {
             } catch (IOException e) {
