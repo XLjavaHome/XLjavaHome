@@ -20,8 +20,7 @@ public class httpTest {
     
     @Test
     public void tes1() throws IOException {
-        String spec = "http://localhost:8080/";
-        spec = "http://localhost:8080/#/workflow/example/manager-task-list";
+        String spec = "https://www.cnblogs.com/lichenwei/p/4610298.html";
         StringBuffer sb = HttpRequestUtil.httpRequest(new URL(spec));
         System.out.println(sb);
     }

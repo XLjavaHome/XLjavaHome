@@ -2,7 +2,7 @@ package com.xl.util;
 
 import java.io.*;
 
-public class IOStreamUtil {
+public class IOUtil {
     /**
      * 得到流中的信息
      *

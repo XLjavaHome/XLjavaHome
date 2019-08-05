@@ -2,7 +2,6 @@ package com.example.demo.service;
 
 import java.util.HashMap;
 import java.util.Map;
-import lombok.extern.log4j.Log4j;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.stereotype.Service;
@@ -18,7 +17,6 @@ import org.springframework.stereotype.Service;
 //开启缓存注解，可以用于主类上。
 @EnableCaching
 @Service
-@Log4j
 public class UserService {
     /**
      * 数据库中的数据

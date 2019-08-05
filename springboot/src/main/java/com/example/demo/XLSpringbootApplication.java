@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -28,5 +29,10 @@ public class XLSpringbootApplication {
     
     public static void main(String[] args) {
         ConfigurableApplicationContext applicationContext = SpringApplication.run(XLSpringbootApplication.class, args);
+    }
+    
+    @PostConstruct
+    private void postConstruct() {
+        System.out.println("PostConstruct注解只在类初始化的时候执行一次");
     }
 }
