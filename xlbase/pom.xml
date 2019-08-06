@@ -633,6 +633,11 @@
             <version>3.12.2</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>cpdetector</groupId>
+            <artifactId>cpdetector</artifactId>
+            <version>1.0.7</version>
+        </dependency>
         <!---->
     </dependencies>
 </project>

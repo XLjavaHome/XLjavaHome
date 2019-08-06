@@ -16,6 +16,19 @@ import org.junit.Test;
 @Log4j
 public class HashMapTest {
     @Test
+    public void name2() {
+        /*
+        Map<String, Object> params = new HashMap<>(16);
+        params.put("a", "");
+        params.put("b", null);
+        params.put("c", "c");
+        params = MapUtil.parseMapForFilterByOptional(params);
+        System.out.println(params);
+        System.out.println(MapUtil.parseMapForFilterByOptional(null));
+        */
+    }
+    
+    @Test
     public void name() {
         Map map = new HashMap();
         map.put("111", "aaa");

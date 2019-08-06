@@ -23,6 +23,9 @@ public class StringJoinerTest {
         //只加分隔符
         StringJoiner sj2 = new StringJoiner(",");
         print(sj2);
+        //只加分隔符，什么都没
+        StringJoiner sj3 = new StringJoiner(",");
+        System.out.println("sj3:" + sj3);
     }
     
     private void print(StringJoiner sj) {
