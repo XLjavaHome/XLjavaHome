@@ -26,7 +26,7 @@ public class SystemUtil {
      * @param command
      * @return String
      */
-    public static String getShellInfo(String command) {
+    public static String getShellInfo(String command) throws IOException {
         return IOUtil.getContent(exec(command));
     }
 

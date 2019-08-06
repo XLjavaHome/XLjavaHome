@@ -1,5 +1,6 @@
 package com.xl.util;
 
+import java.io.IOException;
 import java.io.InputStream;
 
 /**
@@ -11,7 +12,7 @@ import java.io.InputStream;
  * To change this template use File | Settings | File Templates.
  */
 public class JSONUtil {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         InputStream resourceInputStream = ResourceUtil.getResourceInputStream("src/src/main/resources/json/contact.json");
         System.out.println(IOUtil.getContent(resourceInputStream));
     }
