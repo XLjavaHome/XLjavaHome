@@ -54,6 +54,7 @@ public class URLTest {
         String url = "https://ii.hywly.com/a/1/1076/42.jpg";
         url = "http://www.baidu.com/img/baidu_sylogo1.gif";
         URL url1 = new URL(url);
+        System.out.println(url1.getPath());
         InputStream inputStream = url1.openStream();
         File tempFile = FileUtil.getTempFile(".gif");
         FileUtil.write(tempFile, inputStream);

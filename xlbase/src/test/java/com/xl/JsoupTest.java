@@ -1,6 +1,5 @@
 package com.xl;
 
-import com.xl.base.IdWorker;
 import com.xl.util.FileUtil;
 import com.xl.util.HttpUtil;
 import java.io.ByteArrayOutputStream;
@@ -13,6 +12,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -27,25 +27,44 @@ import org.junit.jupiter.api.Test;
  * @time 22:25
  * To change this template use File | Settings | File Templates.
  */
+@Slf4j
 public class JsoupTest {
     @Test
     void down() throws IOException {
-        // TODO 2019/8/5 23:34 徐立 图片下载
+        //1.创建目录
+        File parentFile = new File(FileUtil.getDesktopFile() + "/temp3");
+        if (!parentFile.exists()) {
+            parentFile.mkdirs();
+        }
+        //2.获取页面的所有a标签
         Document document = Jsoup.connect("https://www.meituri.com/").get();
-        document = Jsoup.connect("https://www.meituri.com/a/27581/").get();
-        Elements img = document.getElementsByTag("img");
-        //用并行流文件名一致导致图片没有保存
-        img.stream().filter(element -> element.attr("src").endsWith(".jpg")).forEachOrdered(element -> {
-            String src = element.attr("src");
+        Elements aTag = document.getElementsByTag("a");
+        aTag.parallelStream().forEach(element -> {
+            String href = element.attr("href");
             try {
-                IdWorker idWorker = new IdWorker();
-                File parentFile = new File(FileUtil.getDesktopFile() + "/temp1");
-                if (!parentFile.exists()) {
-                    parentFile.mkdirs();
-                }
-                File file = new File(parentFile, +idWorker.nextId() + ".jpg");
-                file = HttpUtil.downloadImge(new URL(src), file);
-                System.out.println(file.getName());
+                Document aUrl = Jsoup.connect(href).get();
+                downLoadImg(parentFile, aUrl);
+            } catch (IOException e) {
+                log.error("图片下载失败{}", href);
+            }
+        });
+    }
+    
+    /**
+     * 下载图片
+     *
+     * @param parentFile
+     * @param document
+     */
+    private void downLoadImg(File parentFile, Document document) {
+        //获取页面所有图片
+        Elements img = document.getElementsByTag("img");
+        //用并行流
+        img.parallelStream().filter(element -> element.attr("src").endsWith(".jpg")).forEachOrdered(element -> {
+            try {
+                String src = element.attr("src");
+                //Thread.sleep(2000);
+                HttpUtil.downloadImge(new URL(src), parentFile);
             } catch (IOException e) {
                 e.printStackTrace();
             }

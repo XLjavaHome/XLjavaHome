@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import javax.imageio.ImageIO;
+import lombok.extern.log4j.Log4j;
 
 /**
  * Created with 徐立.
@@ -15,6 +16,7 @@ import javax.imageio.ImageIO;
  * @time 14:30
  * To change this template use File | Settings | File Templates.
  */
+@Log4j
 public class HttpUtil {
     public static File downloadImge(URL imgurl) throws IOException {
         IdWorker idWorker = new IdWorker();
@@ -23,11 +25,24 @@ public class HttpUtil {
         return downloadImge(imgurl, file);
     }
     
-    public static File downloadImge(URL imgurl, File file) throws IOException {
+    /**
+     * @param imgurl
+     * @param dectory 目录
+     * @return
+     * @throws IOException
+     */
+    public static File downloadImge(URL imgurl, File dectory) throws IOException {
         BufferedImage image = ImageIO.read(imgurl);
-/*        BufferedImage bufferedImage = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_3BYTE_BGR);
-        bufferedImage.getGraphics().drawImage(image, 0, 0, null);*/
-        ImageIO.write(image, "png", file);
+        String path = imgurl.getPath();
+        String postfix = path.substring(path.lastIndexOf(".") + 1);
+        //postfix = "png";
+        File file = new File(dectory, path.replace("/", "").replace("jpg", "png"));
+        if (!file.exists()) {
+            ImageIO.write(image, postfix, file);
+            log.info(path + "文件已存在");
+        } else {
+            log.info(path);
+        }
         return file;
     }
 }
