@@ -13,7 +13,7 @@ import java.util.Date;
  * @time 13:02
  * To change this template use File | Settings | File Templates.
  */
-public class XLTest {
+public class JackSonTest {
     public static ObjectMapper mapper = new ObjectMapper();
     static {
         // 转换为格式化的json
