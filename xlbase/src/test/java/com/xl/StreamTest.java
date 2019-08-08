@@ -177,7 +177,9 @@ public class StreamTest {
      */
     @Test
     void filterTest() {
-        students.stream().filter(student -> student.getId() > 10).filter(student -> student.getName().contains("1")).limit(50)
+        //students是一个大集合， parallelStream就是并行流，内部用了多线程，filter就是过滤,要返回用map
+        students.parallelStream().filter(student -> student.getId() > 10).filter(student -> student.getName().contains("1"))
+                .limit(50)
                 .forEach(System.out::println);
         //转换list
         List<Student> collect = students.stream().filter(student -> student.getId() > 10).filter(
