@@ -1,13 +1,9 @@
 package com.xl;
 
 import com.xl.util.FileUtil;
-import com.xl.util.HttpUtil;
-import java.io.ByteArrayOutputStream;
+import com.xl.util.JSoupUtil;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -29,86 +25,46 @@ import org.junit.jupiter.api.Test;
  */
 @Slf4j
 public class JsoupTest {
+    /**
+     * 下载一个网页的图片
+     *
+     * @throws IOException
+     */
     @Test
-    void down() throws IOException {
-        //1.创建目录
-        File parentFile = new File(FileUtil.getDesktopFile() + "/temp3");
+    void downloadImage() throws IOException {
+        File parentFile = new File(FileUtil.getDesktopFile() + "/temp5");
         if (!parentFile.exists()) {
             parentFile.mkdirs();
         }
-        //2.获取页面的所有a标签
-        Document document = Jsoup.connect("https://www.meituri.com/").get();
+        String baseUri = "https://www.meituri.com/a/27970/";
+        Document document = Jsoup.connect(baseUri).get();
+        JSoupUtil.downLoadImg(parentFile, document);
+    }
+    
+    @Test
+    void downloadImagesInBulk() throws IOException {
+        //1.创建目录
+        File parentFile = new File(FileUtil.getDesktopFile() + "/temp");
+        if (!parentFile.exists()) {
+            parentFile.mkdirs();
+        }
+        //2.解析该页面的所有图片
+        //3.获取页面的所有a标签
+        //打开a标签的网页，下载所有图片
+        //        打开该页面的所有a标签
+        Document document = Jsoup.connect("https://www.meituri.com/").userAgent("Mozilla").get();
         Elements aTag = document.getElementsByTag("a");
         aTag.parallelStream().forEach(element -> {
             String href = element.attr("href");
             try {
                 Document aUrl = Jsoup.connect(href).get();
-                downLoadImg(parentFile, aUrl);
+                JSoupUtil.downLoadImg(parentFile, aUrl);
             } catch (IOException e) {
                 log.error("图片下载失败{}", href);
             }
         });
     }
     
-    /**
-     * 下载图片
-     *
-     * @param parentFile
-     * @param document
-     */
-    private void downLoadImg(File parentFile, Document document) {
-        //获取页面所有图片
-        Elements img = document.getElementsByTag("img");
-        //用并行流
-        img.parallelStream().filter(element -> element.attr("src").endsWith(".jpg")).forEachOrdered(element -> {
-            try {
-                String src = element.attr("src");
-                //Thread.sleep(2000);
-                HttpUtil.downloadImge(new URL(src), parentFile);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-    }
-    
-    @Test
-    void name() throws IOException {
-        Document doc = Jsoup.connect("https://ii.hywly.com/a/1/1076/42.jpg").get();
-        String title = doc.title();
-        System.out.println(title);
-    }
-    
-    @Test
-    void dowmloadImage() throws IOException {
-        Document doc = Jsoup.connect("http://www.csdn.net/").get();
-        doc = Jsoup.connect("https://ii.hywly.com/a/1/1076/42.jpg").get();
-        Elements img = doc.getElementsByTag("img");
-        File parentFile = new File(FileUtil.getDesktopFile() + "/temp");
-        img.stream().filter(element -> {
-            String src = element.attr("src");
-            return src.endsWith(".png") || src.endsWith("jpg");
-        }).forEach(element -> {
-            String src = element.attr("src");
-            try {
-                HttpUtil.downloadImge(new URL(src));
-                System.out.println(src);
-            } catch (MalformedURLException e) {
-            } catch (IOException e) {
-            }
-        });
-        FileUtil.open(parentFile);
-    }
-    
-    public final byte[] 输入流转字节数组(InputStream inStream) throws IOException {
-        ByteArrayOutputStream swapStream = new ByteArrayOutputStream();
-        byte[] buff = new byte[100];
-        int rc = 0;
-        while ((rc = inStream.read(buff, 0, 100)) > 0) {
-            swapStream.write(buff, 0, rc);
-        }
-        byte[] in2b = swapStream.toByteArray();
-        return in2b;
-    }
     
     @Test
     void name2() throws IOException {
