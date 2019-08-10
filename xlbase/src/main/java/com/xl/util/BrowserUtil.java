@@ -22,4 +22,9 @@ public class BrowserUtil {
     public static void open(String s) throws IOException {
         Desktop.getDesktop().browse(URI.create(s));
     }
+    
+    public static Process openWithChrome(String baseUri) throws IOException {
+        return Runtime.getRuntime()
+                      .exec(new String[]{"C:\\Users\\Lenovo\\AppData\\Local\\Google\\Chrome\\Application\\chrome.exe", baseUri});
+    }
 }

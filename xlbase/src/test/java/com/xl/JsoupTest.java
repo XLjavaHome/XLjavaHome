@@ -32,7 +32,7 @@ public class JsoupTest {
      */
     @Test
     void downloadImage() throws IOException {
-        File parentFile = new File(FileUtil.getDesktopFile() + "/temp5");
+        File parentFile = new File(FileUtil.getDesktopFile() + "/temp2");
         if (!parentFile.exists()) {
             parentFile.mkdirs();
         }
