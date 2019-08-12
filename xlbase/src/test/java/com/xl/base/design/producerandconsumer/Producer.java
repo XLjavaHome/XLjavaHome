@@ -5,6 +5,7 @@ import java.util.Random;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Created with 徐立. 生产者
@@ -14,6 +15,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @Time: 23:08
  * To change this template use File | Settings | File Templates.
  */
+@Slf4j
 public class Producer implements Runnable {
     private volatile boolean isRunning = true;
     private BlockingQueue<PCData> queue;// 内存缓冲区
@@ -26,16 +28,18 @@ public class Producer implements Runnable {
     
     @Override
     public void run() {
-        PCData data = null;
+        PCData data;
         Random r = new Random();
-        System.out.println("start producting id:" + Thread.currentThread().getId());
+        String x = "start producting id:" + Thread.currentThread().getId();
+        log.info(x);
         try {
             while (isRunning) {
                 Thread.sleep(r.nextInt(SLEEPTIME));
                 data = new PCData(count.incrementAndGet());
-                System.out.println(data + " 加入队列");
+                log.info(data + " 加入队列");
                 if (!queue.offer(data, 2, TimeUnit.SECONDS)) {
-                    System.err.println(" 加入队列失败");
+                    String s = " 加入队列失败";
+                    log.info(s);
                 }
             }
         } catch (InterruptedException e) {

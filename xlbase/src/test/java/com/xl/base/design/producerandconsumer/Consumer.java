@@ -4,6 +4,7 @@ import com.xl.entity.PCData;
 import java.text.MessageFormat;
 import java.util.Random;
 import java.util.concurrent.BlockingQueue;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Created with 徐立. 消费者
@@ -13,6 +14,7 @@ import java.util.concurrent.BlockingQueue;
  * @Time: 23:15
  * To change this template use File | Settings | File Templates.
  */
+@Slf4j
 public class Consumer implements Runnable {
     private BlockingQueue<PCData> queue;
     private static final int SLEEPTIME = 1000;
@@ -23,14 +25,15 @@ public class Consumer implements Runnable {
     
     @Override
     public void run() {
-        System.out.println("start Consumer id :" + Thread.currentThread().getId());
+        String x = "start Consumer id :" + Thread.currentThread().getId();
+        log.info(x);
         Random r = new Random();
         try {
             while (true) {
                 PCData data = queue.take();
                 if (data != null) {
                     int re = data.getData() * data.getData();
-                    System.out.println(MessageFormat.format("{0}*{1}={2}", data.getData(), data.getData(), re));
+                    log.info(MessageFormat.format("{0}*{1}={2}", data.getData(), data.getData(), re));
                     Thread.sleep(r.nextInt(SLEEPTIME));
                 }
             }
