@@ -21,6 +21,7 @@ public class httpTest {
     @Test
     public void tes1() throws IOException {
         String spec = "https://www.cnblogs.com/lichenwei/p/4610298.html";
+        spec = "https://www.mzitu.com/118183/15";
         StringBuffer sb = HttpRequestUtil.httpRequest(new URL(spec));
         System.out.println(sb);
     }

@@ -32,11 +32,11 @@ public class JsoupTest {
      */
     @Test
     void downloadImage() throws IOException {
-        File parentFile = new File(FileUtil.getDesktopFile() + "/temp3");
+        File parentFile = new File(FileUtil.getDesktopFile() + "/temp");
         if (!parentFile.exists()) {
             parentFile.mkdirs();
         }
-        String baseUri = "https://www.meituri.com/a/27970/";
+        String baseUri = "https://www.mzitu.com/118183/15";
         Document document = Jsoup.connect(baseUri).get();
         JSoupUtil.downLoadImg(parentFile, document);
     }

@@ -11,155 +11,50 @@
     <artifactId>xlweb</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
-<!--
     <build>
-        <sourceDirectory>src/main/xljava</sourceDirectory>
-        &lt;!&ndash; 资源文件定义 &ndash;&gt;
-        <resources>
-            &lt;!&ndash;<resource>&ndash;&gt;
-            &lt;!&ndash;<directory>src/main/java</directory>&ndash;&gt;
-            &lt;!&ndash;<filtering>true</filtering>&ndash;&gt;
-            &lt;!&ndash;<includes>&ndash;&gt;
-            &lt;!&ndash;<include>**/*.xml</include>&ndash;&gt;
-            &lt;!&ndash;<include>**/*.properties</include>&ndash;&gt;
-            &lt;!&ndash;</includes>&ndash;&gt;
-            &lt;!&ndash;</resource>&ndash;&gt;
-            <resource>
-                <directory>src/main/xlresources</directory>
-            </resource>
-            <resource>
-                <directory>src/test/resources</directory>
-            </resource>
-        </resources>
         <plugins>
-            &lt;!&ndash;资源插件&ndash;&gt;
-            <plugin>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>3.1.0</version>
-                <executions>
-                    <execution>
-                        <id>copy-resources</id>
-                        &lt;!&ndash; here the phase you need &ndash;&gt;
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${basedir}/target/extra-resources</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>src/main/resources</directory>
-                                    <filtering>true</filtering>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            &lt;!&ndash; 清理 &ndash;&gt;
+            <!--资源插件-->
+            <!-- 清理 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-clean-plugin</artifactId>
                 <version>3.0.0</version>
             </plugin>
-            &lt;!&ndash;生成doc jar包&ndash;&gt;
-            &lt;!&ndash;
+            <!--生成doc jar包-->
+            <!--
                         <plugin>
                             <groupId>org.apache.maven.plugins</groupId>
                             <artifactId>maven-javadoc-plugin</artifactId>
                         </plugin>
-            &ndash;&gt;
-            &lt;!&ndash;生成源码jar包&ndash;&gt;
-            &lt;!&ndash; 要将源码放上去，需要加入这个插件 &ndash;&gt;
+            -->
+            <!--生成源码jar包-->
+            <!-- 要将源码放上去，需要加入这个插件 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
                 <version>2.4</version>
                 <executions>
                     <execution>
-                        &lt;!&ndash; 定义一个阶段，这个阶段是package &ndash;&gt;
+                        <!-- 定义一个阶段，这个阶段是package -->
                         <phase>package</phase>
                     </execution>
                 </executions>
             </plugin>
-            &lt;!&ndash;
                         <plugin>
                             <groupId>org.apache.maven.plugins</groupId>
                             <artifactId>maven-war-plugin</artifactId>
-                            <version>3.0.0</version>
+                            <version>2.4</version>
                             <configuration>
-                                &lt;!&ndash; 对丢失web.xml检测机制进行忽略， Dynamic Web Module 3.0 工程时代不需要web.xml文件注册相关内容的，所以工程默认不生成web.xml。&ndash;&gt;
-                                <failOnMissingWebXml>false</failOnMissingWebXml>
-                                &lt;!&ndash;指定web.xml的路径  &ndash;&gt;
-                                <webXml>WebRoot\WEB-INF\web.xml</webXml>
-                                &lt;!&ndash;指定jsp、js、css的路劲  &ndash;&gt;
-                                <warSourceDirectory>WebRoot</warSourceDirectory>
-                                <warSourceExcludes>WEB-INF/lib/log4j-${log4j.version}.jar</warSourceExcludes>
+                                <!-- 对丢失web.xml检测机制进行忽略， Dynamic Web Module 3.0 工程时代不需要web.xml文件注册相关内容的，所以工程默认不生成web.xml。-->
+                                <!--<failOnMissingWebXml>false</failOnMissingWebXml>-->
+                                <!--指定web.xml的路径  -->
+                                <webXml>src/main/webapp/WEB-INF/web.xml</webXml>
+                                <!--指定jsp、js、css的路劲  -->
+                                <warSourceDirectory>src/main/webapp</warSourceDirectory>
                             </configuration>
                         </plugin>
-            &ndash;&gt;
-            &lt;!&ndash;打war包到指定的目录下 &ndash;&gt;
-            &lt;!&ndash;
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-dependency-plugin</artifactId>
-                            <version>2.8</version>
-                            <executions>
-                                <execution>
-                                    <id>copy-war</id>
-                                    <phase>package</phase>
-                                    <goals>
-                                        <goal>copy</goal>
-                                    </goals>
-                                    <configuration>
-                                        <artifactItems>
-                                            <artifactItem>
-                                                <groupId>${project.groupId}</groupId>
-                                                <artifactId>${project.artifactId}</artifactId>
-                                                <version>${project.version}</version>
-                                                <type>${project.packaging}</type>
-                                            </artifactItem>
-                                        </artifactItems>
-                                        &lt;!&ndash;   <outputDirectory>${dist.console.war.dir}</outputDirectory>   &ndash;&gt;
-                                        &lt;!&ndash;指定war包保存地址&ndash;&gt;
-                                        <outputDirectory>D:\xl\mypackage</outputDirectory>
-                                    </configuration>
-                                </execution>
-                            </executions>
-                        </plugin>
-            &ndash;&gt;
-            &lt;!&ndash; 打包时,添加信息 &ndash;&gt;
-            &lt;!&ndash;  声明生成可执行的jar文件 &ndash;&gt;
-            &lt;!&ndash;
-                        <plugin>
-                            <groupId>
-                                org.apache.maven.plugins
-                            </groupId>
-                            <artifactId>
-                                maven-shade-plugin
-                            </artifactId>
-                            <version>2.4</version>
-                            <executions>
-                                <execution>
-                                    <phase>package</phase>
-                                    <goals>
-                                        <goal>shade</goal>
-                                    </goals>
-                                    <configuration>
-                                        <transformers>
-                                            <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                                <mainClass>com.xl.XLMain</mainClass>
-                                                &lt;!&ndash; 配置maven-shade-plugin 插件 为生成可执行的jar 文件 &ndash;&gt;
-                                            </transformer>
-                                        </transformers>
-                                    </configuration>
-                                </execution>
-                            </executions>
-                        </plugin>
-            &ndash;&gt;
         </plugins>
     </build>
--->
     <dependencies>
         <dependency>
             <groupId>com.xl</groupId>
