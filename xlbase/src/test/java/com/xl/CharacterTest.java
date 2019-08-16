@@ -1,6 +1,7 @@
 package com.xl;
 
 import com.xl.enumsupport.CharacterEnum;
+import com.xl.util.SystemUtil;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -14,6 +15,8 @@ import org.junit.jupiter.api.Test;
 public class CharacterTest {
     @Test
     void name() {
+        //系统默认编码
+        System.out.println(SystemUtil.getDefaultEncoding().name());
         System.out.println(CharacterEnum.UTF8.getCharset().name());
     }
 }

@@ -3,6 +3,8 @@ package com.xl.util;
 import com.xl.base.IdWorker;
 import java.awt.Desktop;
 import java.io.*;
+import java.net.URL;
+import java.net.URLDecoder;
 import java.text.DecimalFormat;
 import java.util.*;
 import javax.swing.filechooser.FileSystemView;
@@ -270,6 +272,25 @@ public class FileUtil {
     }
     
     /**
+     * 创建临时文件
+     *
+     * @param filePath
+     * @return
+     */
+    public static File createTempFile(String filePath) {
+        File file = getTempDrectory(getTempDrectory(), filePath);
+        if (!file.exists()) {
+            try {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            } catch (IOException e) {
+                log.error("创建文件失败");
+            }
+        }
+        return file;
+    }
+    
+    /**
      * 不包含目录下的文件
      *
      * @param filePath
@@ -309,25 +330,6 @@ public class FileUtil {
      */
     public static String getCurrentClassPath() {
         return FileUtil.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-    }
-    
-    /**
-     * 创建临时文件
-     *
-     * @param filePath
-     * @return
-     */
-    public static File createTempFile(String filePath) {
-        File file = getTempDrectory(getTempDrectory(), filePath);
-        if (!file.exists()) {
-            try {
-                file.getParentFile().mkdirs();
-                file.createNewFile();
-            } catch (IOException e) {
-                log.error("创建文件失败");
-            }
-        }
-        return file;
     }
     
     /**
@@ -375,29 +377,16 @@ public class FileUtil {
         return createTempFile(l + ".txt");
     }
     
+    /**
+     * 在桌面创建临时文件
+     *
+     * @param desktop
+     * @param s 文件名
+     * @return
+     */
     @NotNull
     public static File getTempDrectory(File desktop, String s) {
         return new File(desktop, s);
-    }
-    
-    /**
-     * 创建临时文件
-     *
-     * @return
-     */
-    public static File getTempFile() {
-        return getTempFile(".txt");
-    }
-    
-    /**
-     * 生成临时文件
-     *
-     * @param postFix
-     * @return
-     */
-    public static File getTempFile(String postFix) {
-        IdWorker idWorker = new IdWorker();
-        return new File(getTempDrectory(), idWorker.nextId() + postFix);
     }
     
     /**
@@ -421,6 +410,26 @@ public class FileUtil {
     }
     
     /**
+     * 创建临时文件
+     *
+     * @return
+     */
+    public static File getTempFile() {
+        return getTempFile(".txt");
+    }
+    
+    /**
+     * 生成临时文件
+     *
+     * @param postFix
+     * @return
+     */
+    public static File getTempFile(String postFix) {
+        IdWorker idWorker = new IdWorker();
+        return new File(getTempDrectory(), idWorker.nextId() + postFix);
+    }
+    
+    /**
      * 在临时目录下面再创建一个目录
      *
      * @param directoryName 目录名称
@@ -433,5 +442,20 @@ public class FileUtil {
             publishPackageNameDirectory.mkdirs();
         }
         return publishPackageNameDirectory;
+    }
+    
+    /**
+     * 获取资源路径文件的FileInputStream，要转码
+     *
+     * @param resourcePath
+     * @return
+     * @throws UnsupportedEncodingException
+     * @throws FileNotFoundException
+     */
+    public static FileInputStream getResourcesFileInputStream(
+            String resourcePath) throws UnsupportedEncodingException, FileNotFoundException {
+        URL resource = Thread.currentThread().getContextClassLoader().getResource(resourcePath);
+        String filePath = URLDecoder.decode(resource.getPath(), SystemUtil.getDefaultEncoding().name());
+        return new FileInputStream(filePath);
     }
 }

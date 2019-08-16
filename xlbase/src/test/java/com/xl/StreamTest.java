@@ -14,10 +14,7 @@ import java.nio.file.Paths;
 import java.time.Instant;
 import java.util.*;
 import java.util.function.Function;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
+import java.util.stream.*;
 import lombok.extern.log4j.Log4j;
 import org.junit.jupiter.api.Test;
 
@@ -57,6 +54,12 @@ public class StreamTest {
     
     private static Optional<Double> squareRoot(Double x) {
         return x < 0 ? Optional.empty() : Optional.of(Math.sqrt(x));
+    }
+    
+    @Test
+    void mapToDouble() {
+        System.out.println(students.parallelStream().mapToDouble(value -> value.getAge()).sum());
+        System.out.println(DoubleStream.of(1, 4).sum());
     }
     
     /**
@@ -179,8 +182,7 @@ public class StreamTest {
     void filterTest() {
         //students是一个大集合， parallelStream就是并行流，内部用了多线程，filter就是过滤,要返回用map
         students.parallelStream().filter(student -> student.getId() > 10).filter(student -> student.getName().contains("1"))
-                .limit(50)
-                .forEach(System.out::println);
+                .limit(50).forEach(System.out::println);
         //转换list
         List<Student> collect = students.stream().filter(student -> student.getId() > 10).filter(
                 student -> student.getName().contains("1")).collect(Collectors.toList());

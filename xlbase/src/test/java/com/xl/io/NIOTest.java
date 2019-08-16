@@ -1,10 +1,7 @@
 package com.xl.io;
 
 import com.xl.util.FileUtil;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.*;
@@ -23,8 +20,6 @@ import org.junit.jupiter.api.Test;
  */
 @Slf4j
 public class NIOTest {
-    private static String pathname = "E:\\vmacoustic\\CentOS 6.vmdk";
-    
     public static void main(String[] args) throws IOException {
         //启动NIO
         ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
@@ -83,8 +78,8 @@ public class NIOTest {
     }
     
     public void readIO() throws Exception {
-        File file = new File(pathname);
-        FileInputStream fis = new FileInputStream(file);
+        String name = "excel\\b.xls";
+        FileInputStream fis = FileUtil.getResourcesFileInputStream(name);
         FileOutputStream fos = new FileOutputStream(FileUtil.createTempFile("BIO.map4"));
         byte[] buffer = new byte[1024];
         int len = -1;
@@ -96,14 +91,20 @@ public class NIOTest {
     }
     
     @Test
-    void nio() throws Exception {
-        readNIO();
+    void read2() throws UnsupportedEncodingException, FileNotFoundException {
+        //1.获取文件流
+        FileInputStream fileInputStream = FileUtil.getResourcesFileInputStream("excel\\b.xls");
+        FileChannel fileInputStreamChannel = fileInputStream.getChannel();
+        //将文件流转化为NIO
+        //3.写入文件
     }
     
-    public void readNIO() throws Exception {
-        File readFile = new File(pathname);
-        FileInputStream fis = new FileInputStream(readFile);
-        FileOutputStream fos = new FileOutputStream(FileUtil.createTempFile("NIO.map4"));
+    @Test
+    void read() throws Exception {
+        //1.获取文件流
+        FileInputStream fis = FileUtil.getResourcesFileInputStream("excel\\b.xls");
+        FileOutputStream fos = new FileOutputStream(FileUtil.createTempFile("1.xls"));
+        //
         FileChannel channel = fis.getChannel();
         FileChannel outchannel = fos.getChannel();
         ByteBuffer buffer = ByteBuffer.allocate(1024);
