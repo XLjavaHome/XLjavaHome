@@ -9,7 +9,8 @@ import org.junit.Test;
 
 /**
  * Created with 徐立.如果想要完成动态代理，首先需要定义一个InvocationHandler接口的子类，已完成代理的具体操作。 每个方法都拦截<p/>
- * 方法内部不会执行代理
+ * 1.方法内部不会执行代理
+ * 2.不会代理静态方法
  *
  * @author 徐立
  * @Date: 2018-11-20
