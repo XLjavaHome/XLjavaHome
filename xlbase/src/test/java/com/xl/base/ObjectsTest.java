@@ -18,4 +18,11 @@ public class ObjectsTest {
         //如果为空直接报异常
         System.out.println(Objects.requireNonNull(s));
     }
+    
+    @Test
+    public void getComponentType() {
+        String s = "测试";
+        Class<?> componentType = s.getClass().getComponentType();
+        System.out.println(componentType);
+    }
 }
