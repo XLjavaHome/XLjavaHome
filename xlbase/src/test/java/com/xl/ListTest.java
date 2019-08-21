@@ -53,4 +53,17 @@ public class ListTest {
                 student -> System.out.println(Thread.currentThread().getName() + ":" + student.getAge()));
         Thread.sleep(5000);
     }
+    
+    /**
+     * 循环处理，可以进行各种操作
+     */
+    @Test
+    void forTest() {
+        createList();
+        listOne.forEach(student -> {
+            student.setId(1);
+            student.setName("test");
+        });
+        listOne.forEach(System.out::println);
+    }
 }
