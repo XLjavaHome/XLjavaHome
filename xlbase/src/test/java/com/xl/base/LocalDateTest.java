@@ -1,9 +1,8 @@
 package com.xl.base;
 
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.Month;
+import java.time.*;
 import java.time.temporal.ChronoUnit;
+import java.util.Date;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -62,4 +61,14 @@ public class LocalDateTest {
         // 与时间纪元（1970年1月1日）相差的天数，负数表示在时间纪元之前多少天
         LocalDate.now().toEpochDay();
     }
+    
+    @Test
+    void toDate() {
+        LocalDate now = LocalDate.now();
+        ZoneId zone = ZoneId.systemDefault();
+        Instant instant = now.atStartOfDay().atZone(zone).toInstant();
+        Date date = Date.from(instant);
+        System.out.println(date);
+    }
 }
+
