@@ -28,14 +28,14 @@ import org.junit.jupiter.api.Test;
  */
 @Log4j
 public class StreamTest {
-    private List<Student> students = new ArrayList<>();
+    private List<Student> students = new ArrayList<>(100);
     
     public StreamTest() {
         initStudent();
     }
     
     private void initStudent() {
-        for (int i = 0; i < 10000000; i++) {
+        for (int i = 0; i < 10; i++) {
             Student s = new Student();
             s.setId(i);
             s.setSex("x");
@@ -580,6 +580,9 @@ public class StreamTest {
     @Test
     void collectToStringJoin() {
         String collect = students.stream().map(student -> student.getName()).collect(Collectors.joining(" | "));
+        System.out.println(collect);
+        //默认是没有分隔符的
+        collect = students.stream().map(student -> student.getName()).collect(Collectors.joining());
         System.out.println(collect);
     }
     
