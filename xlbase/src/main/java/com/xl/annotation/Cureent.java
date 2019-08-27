@@ -1,7 +1,7 @@
 package com.xl.annotation;
 
 import java.util.concurrent.CyclicBarrier;
-import org.junit.Test;
+import org.testng.annotations.Test;
 
 /**
  * Created with 徐立.

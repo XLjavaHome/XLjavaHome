@@ -49,16 +49,15 @@ public class BaiduTranslate {
             //outputstream-----输出流
             InputStream inputstream = connection.getInputStream();
             //缓存字符流
-            BufferedReader buffer = new BufferedReader(new InputStreamReader(inputstream));
-            //返回相关结果
-            StringBuilder builder = new StringBuilder();
-            while (buffer.read() != -1) {
-                builder.append(buffer.readLine());
+            try (BufferedReader buffer = new BufferedReader(new InputStreamReader(inputstream))) {
+                //返回相关结果
+                StringBuilder builder = new StringBuilder();
+                while (buffer.read() != -1) {
+                    builder.append(buffer.readLine());
+                }
+                //返回相关结果
+                result = builder.toString();
             }
-            //返回相关结果
-            result = builder.toString();
-            //缓存字符流关闭操作
-            buffer.close();
         } catch (MalformedURLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
