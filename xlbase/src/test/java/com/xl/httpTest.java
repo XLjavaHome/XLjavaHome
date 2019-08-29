@@ -3,6 +3,7 @@ package com.xl;
 import http.HttpRequestUtil;
 import java.io.IOException;
 import java.net.URL;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
 /**
@@ -13,6 +14,7 @@ import org.junit.Test;
  * @time 23:48
  * To change this template use File | Settings | File Templates.
  */
+@Slf4j
 public class httpTest {
     @Test
     public void name() {

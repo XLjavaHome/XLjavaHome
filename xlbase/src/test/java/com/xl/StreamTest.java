@@ -29,6 +29,7 @@ import org.junit.jupiter.api.Test;
 @Log4j
 public class StreamTest {
     private List<Student> students = new ArrayList<>(100);
+    private List<Student> distinctStudents = new ArrayList<>(100);
     
     public StreamTest() {
         initStudent();
@@ -466,6 +467,58 @@ public class StreamTest {
     
     private void printArray(Object[] objects) {
         log.info(Arrays.toString(objects));
+    }
+    
+    /**
+     * 对象数组能不能去去重
+     * 不能
+     */
+    @Test
+    void distinctArray2() {
+        initStudent2();
+        distinctStudents.stream().distinct().forEach(System.out::println);
+    }
+    
+    private void initStudent2() {
+        for (int i = 0; i < 10; i++) {
+            Student s = new Student(i, "张三", "");
+            distinctStudents.add(s);
+        }
+        Student student = new Student();
+        student.setId(1);
+        student.setName("李四");
+        distinctStudents.add(student);
+    }
+    
+    /**
+     * compareTo也不能去重
+     */
+    @Test
+    void distinctArray3() {
+        initStudent2();
+        distinctStudents.stream().sorted(Comparator.comparing(Student::getName)).distinct().forEach(System.out::println);
+    }
+    
+    /**
+     * 利用过滤去重
+     */
+    @Test
+    void distinctArray4() {
+        initStudent2();
+        distinctStudents.stream().filter(StreamUtil.distinctByKey(Student::getName)).forEach(System.out::println);
+    }
+    
+    /**
+     * 不重复的数组
+     */
+    @Test
+    void distincArray() {
+        initStudent2();
+        //类型不同
+        Object[] objects = distinctStudents.stream().map(student -> student.getName()).distinct().toArray();
+        Stream.of(objects).forEach(System.out::println);
+        String[] strings = distinctStudents.stream().map(student -> student.getName()).distinct().toArray(String[]::new);
+        Stream.of(strings).forEach(System.out::println);
     }
     
     @Test
