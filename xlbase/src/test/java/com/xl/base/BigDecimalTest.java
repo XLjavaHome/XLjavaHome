@@ -2,6 +2,7 @@ package com.xl.base;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.NumberFormat;
 import org.testng.annotations.Test;
 
 /**
@@ -112,5 +113,23 @@ public class BigDecimalTest {
         BigDecimal b = new BigDecimal(3);
         //没有第二个参数 无限循环数会报错
         System.out.println(a.divide(b, 2, RoundingMode.HALF_UP));
+    }
+    
+    /**
+     * setScale(2, RoundingMode.HALF_UP)原来的不变，会产生新的对象
+     */
+    @Test
+    public void 保留2位小数() {
+        BigDecimal a = new BigDecimal("1.323245454");
+        System.out.println(a.doubleValue());
+        //保留2位小数
+        BigDecimal b = a.setScale(2, RoundingMode.HALF_UP);
+        System.out.println(a);
+        System.out.println(b);
+        System.out.println(b.doubleValue());
+        //百分比
+        NumberFormat percent = NumberFormat.getPercentInstance();
+        percent.setMaximumFractionDigits(2);
+        System.out.println(percent.format(a));
     }
 }
