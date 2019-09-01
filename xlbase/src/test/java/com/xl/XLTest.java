@@ -16,6 +16,8 @@ public class XLTest {
     @Test
     void demo() {
         System.out.println(Arrays.toString(StringUtils.split(",1,3,4,,4", ',')));
+        String a = "a";
+        String[] split = a.split(",");
     }
     
     @Test

@@ -13,6 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class IndexAction {
+    /**
+     * http://localhost:8080/index
+     *
+     * @return
+     */
     @RequestMapping("/index")
     public String index() {
         return "我的第一个springboot程序";

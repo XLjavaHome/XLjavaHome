@@ -1,10 +1,12 @@
 package com.example.demo;
 
+import java.io.IOException;
 import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
  * To change this template use File | Settings | File Templates.
  */
 @SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
+@ServletComponentScan(basePackages = "com.example.demo.web")
 @RestController
 public class XLSpringbootApplication {
     @Value(value = "${book.author}")
@@ -32,7 +35,9 @@ public class XLSpringbootApplication {
     }
     
     @PostConstruct
-    private void postConstruct() {
-        System.out.println("PostConstruct注解只在类初始化的时候执行一次");
+    private void postConstruct() throws IOException {
+        String baseUri = "http://localhost:8080/";
+        Runtime.getRuntime().exec(
+                new String[]{"C:\\Users\\Lenovo\\AppData\\Local\\Google\\Chrome\\Application\\chrome.exe", baseUri});
     }
 }

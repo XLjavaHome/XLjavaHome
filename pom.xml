@@ -13,6 +13,7 @@
         <module>xlweb</module>
         <module>springboot</module>
         <module>xljackson</module>
+        <module>xlredis</module>
     </modules>
     <!--开源协议-->
     <licenses>

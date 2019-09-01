@@ -667,4 +667,11 @@ public class StreamTest {
         IntStream intStream2 = temp.flatMapToInt(x -> Arrays.stream(x));
         intStream2.forEach(x -> System.out.println(x));
     }
+    
+    @Test
+    void intStream() {
+        Random random = new Random();
+        IntStream ints = random.ints();
+        ints.limit(10).forEach(System.out::println);
+    }
 }
