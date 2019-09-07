@@ -30,7 +30,11 @@ public class HashMapTest {
     
     @Test
     public void name() {
-        Map map = new HashMap();
+        Map<Integer, Integer> testMap = new HashMap();
+        for (int i = 0; i < 10000; i++) {
+            testMap.put(i, i);
+        }
+        Map<String, String> map = new HashMap<>();
         map.put("111", "aaa");
         map.put("222", "bbb");
         map.put("111", "ccc");

@@ -1,9 +1,15 @@
 package com.xl;
 
+import com.xl.entity.Person;
+import com.xl.util.FileUtil;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Enumeration;
 import lombok.extern.log4j.Log4j;
+import org.apache.poi.util.IOUtils;
 import org.junit.Test;
 ;
 //package com.xl;
@@ -22,7 +28,32 @@ import org.junit.Test;
 @Log4j
 public class ClassLoaderTest {
     @Test
-    public void name() {
+    public void name() throws ClassNotFoundException, IllegalAccessException, InstantiationException {
+        MyClasssLoader myClasss = new MyClasssLoader();
+        URL resource = Thread.currentThread().getContextClassLoader().getResource("Person.class");
+        File file = new File(resource.getFile());
+        myClasss.loadClass(file.getAbsolutePath());
+        //全类名
+        String className = "com.xl.entity.Person";
+        Class<?> clazz = Class.forName(className, true, myClasss);
+        Object obj = clazz.newInstance();
+        System.out.println(obj);
+        //后面的类加载器都是appClassLoad
+        System.out.println(obj.getClass().getClassLoader());//打印
+        Person person = new Person();
+        System.out.println(person.getClass().getClassLoader());
+        Class<?> name = Class.forName(className);
+        Object obj2 = name.newInstance();
+        System.out.println(obj);
+        System.out.println(obj2.getClass().getClassLoader());
+    }
+    
+    private void getContent(File file) throws IOException {
+        StringBuilder content = FileUtil.getContent(file);
+        System.out.println(content);
+    }
+    
+    private void demo1() {
         ClassLoader classLoader = ClassLoader.getSystemClassLoader();
         ClassLoader classLoader1 = Thread.currentThread().getContextClassLoader();
         //一样
@@ -45,13 +76,36 @@ public class ClassLoaderTest {
     @Test
     public void 判断类是否存在() throws IOException {
         //换成点 找不到
-        String name = "org/slf4j/impl/StaticLoggerBinder.class";
+        String name = "org/slf4j/impl/StaticLogger.class";
         URL resource = Thread.currentThread().getContextClassLoader().getResource(name);
         System.out.println(resource);
         Enumeration<URL> resources = ClassLoader.getSystemResources(name);
         while (resources.hasMoreElements()) {
             URL url = resources.nextElement();
             System.out.println(url.toString());
+        }
+    }
+    
+    static class MyClasssLoader extends ClassLoader {
+        /**
+         * 必须加载字节码
+         *
+         * @param name
+         * @return
+         * @throws ClassNotFoundException
+         */
+        @Override
+        protected Class<?> findClass(String name) throws ClassNotFoundException {
+            byte[] bytes = null;
+            File file = new File(name);
+            try (FileInputStream fileInputStream = new FileInputStream(file)) {
+                bytes = IOUtils.toByteArray(fileInputStream);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return defineClass(null, bytes, 0, bytes.length);
         }
     }
 }

@@ -3,11 +3,10 @@ package com.example.demo;
 import java.io.IOException;
 import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.ServletComponentScan;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -31,7 +30,9 @@ public class XLSpringbootApplication {
     private String bookPinYin;
     
     public static void main(String[] args) {
-        ConfigurableApplicationContext applicationContext = SpringApplication.run(XLSpringbootApplication.class, args);
+        //也能启动
+        new SpringApplicationBuilder(XLSpringbootApplication.class).run(args);
+        //ConfigurableApplicationContext applicationContext = SpringApplication.run(XLSpringbootApplication.class, args);
     }
     
     @PostConstruct

@@ -345,12 +345,12 @@ public class FileUtil {
     /**
      * 获取文件内容
      *
-     * @param filePath
+     * @param file
      * @return
      * @throws IOException
      */
-    public static StringBuilder getContent(String filePath) throws IOException {
-        return getContent(new FileReader(filePath));
+    public static StringBuilder getContent(File file) throws IOException {
+        return getContent(new FileReader(file));
     }
     
     @Nullable

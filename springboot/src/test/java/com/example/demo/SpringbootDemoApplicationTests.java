@@ -26,4 +26,8 @@ public class SpringbootDemoApplicationTests {
         System.out.println(userService.getUser(2));
         System.out.println(userService.getUser(2));
     }
+    
+    @Test
+    public void jdbcTemplate() {
+    }
 }
