@@ -37,7 +37,7 @@ public class XLSpringbootApplication {
     
     @PostConstruct
     private void postConstruct() throws IOException {
-        String baseUri = "http://localhost:8080/";
+        String baseUri = "http://localhost:8080/index";
         Runtime.getRuntime().exec(
                 new String[]{"C:\\Users\\Lenovo\\AppData\\Local\\Google\\Chrome\\Application\\chrome.exe", baseUri});
     }
