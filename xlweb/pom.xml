@@ -10,36 +10,9 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>xlweb</artifactId>
     <version>1.0.0</version>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
     <build>
         <plugins>
-            <!--资源插件-->
-            <!-- 清理 -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-clean-plugin</artifactId>
-                <version>3.0.0</version>
-            </plugin>
-            <!--生成doc jar包-->
-            <!--
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-javadoc-plugin</artifactId>
-                        </plugin>
-            -->
-            <!--生成源码jar包-->
-            <!-- 要将源码放上去，需要加入这个插件 -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>2.4</version>
-                <executions>
-                    <execution>
-                        <!-- 定义一个阶段，这个阶段是package -->
-                        <phase>package</phase>
-                    </execution>
-                </executions>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
@@ -82,38 +55,6 @@
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
         </dependency>
-        <!--
-                <dependency>
-                    <groupId>org.apache.httpcomponents</groupId>
-                    <artifactId>httpcore</artifactId>
-                    <version>4.4.3</version>
-                </dependency>
-                <dependency>
-                    <groupId>org.apache.httpcomponents</groupId>
-                    <artifactId>httpclient</artifactId>
-                    <version>4.5.1</version>
-                </dependency>
-                <dependency>
-                    <groupId>org.apache.httpcomponents</groupId>
-                    <artifactId>httpmime</artifactId>
-                    <version>4.5</version>
-                </dependency>
-        -->
-        <!--
-                <dependency>
-                    <groupId>org.apache.ant</groupId>
-                    <artifactId>ant</artifactId>
-                    <version>1.8.0</version>
-                </dependency>
-        -->
-        <!--没有此包，hibernate不会执行hql语句-->
-        <!--
-                <dependency>
-                    <groupId>antlr</groupId>
-                    <artifactId>antlr</artifactId>
-                    <version>2.7.6</version>
-                </dependency>
-        -->
         <!--提供对office的word、excel、visio及ppt的操作-->
         <dependency>
             <groupId>org.apache.poi</groupId>
@@ -121,39 +62,9 @@
             <version>${poi.version}</version>
         </dependency>
         <dependency>
-            <groupId>opensymphony</groupId>
-            <artifactId>quartz-all</artifactId>
-            <version>1.6.5</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.quartz-scheduler/quartz -->
-        <!-- https://mvnrepository.com/artifact/org.opensymphony.quartz/quartz -->
-        <dependency>
-            <groupId>org.opensymphony.quartz</groupId>
-            <artifactId>quartz</artifactId>
-            <version>1.6.1</version>
-        </dependency>
-        <!--    <dependency>
-                <groupId>ch.qos.logback</groupId>
-                <artifactId>logack-core</artifactId>
-                <version>1.0.1</version>
-            </dependency>-->
-        <dependency>
             <groupId>org.apache.taglibs</groupId>
             <artifactId>taglibs-standard-impl</artifactId>
             <version>1.2.5</version>
         </dependency>
-        <dependency>
-            <groupId>org.apache.struts.xwork</groupId>
-            <artifactId>xwork-core</artifactId>
-            <version>2.3.32</version>
-        </dependency>
-        <!--探测编码-->
-        <!--
-                <dependency>
-                    <groupId>cpdetector</groupId>
-                    <artifactId>cpdetector</artifactId>
-                    <version>1.0.10</version>
-                </dependency>
-        -->
     </dependencies>
 </project>
