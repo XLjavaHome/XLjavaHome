@@ -14,6 +14,7 @@
         <module>springboot</module>
         <module>xljackson</module>
         <module>xlredis</module>
+        <module>xldom4j</module>
     </modules>
     <!--开源协议-->
     <licenses>
@@ -25,6 +26,11 @@
     </licenses>
     <build>
         <plugins>
+            <plugin>
+                <groupId>com.xl</groupId>
+                <artifactId>xlcreateDirectoryMavenPlugin</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -54,22 +60,22 @@
                     </execution>
                 </executions>
             </plugin>
-            <!--
-                        <plugin>
-                            <groupId>findconflicts</groupId>
-                            <artifactId>fc-maven-plugin</artifactId>
-                            <version>1.0.0-SNAPSHOT</version>
-                            <executions>
-                                <execution>
-                                    <phase>package</phase>
-                                    <goals><goal>go</goal></goals>
-                                </execution>
-                            </executions>
-                            <configuration>
-                                <versionCheckConfig>${basedir}/versionCheck.pb</versionCheckConfig>
-                            </configuration>
-                        </plugin>
-            -->
+            <plugin>
+                <groupId>findconflicts</groupId>
+                <artifactId>fc-maven-plugin</artifactId>
+                <version>1.0.0-SNAPSHOT</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>go</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <versionCheckConfig>${basedir}/versionCheck.pb</versionCheckConfig>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
     <repositories>
@@ -110,9 +116,7 @@
         <log4j.version>1.2.17</log4j.version>
         <!--<spring-version>4.2.4.RELEASE</spring-version>-->
         <spring-version>4.3.0.RELEASE</spring-version>
-        <!--<spring-version>5.0.7.RELEASE</spring-version>-->
         <!--用3.12版本会报错-->
-        <!--<poi.version>3.12</poi.version>-->
         <poi.version>3.15</poi.version>
     </properties>
     <!--主要控制版本号，子模块还需要引用-->
@@ -184,6 +188,10 @@
                 <exclusion>
                     <artifactId>commons-logging</artifactId>
                     <groupId>commons-logging</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>commons-collections</artifactId>
+                    <groupId>commons-collections</groupId>
                 </exclusion>
             </exclusions>
         </dependency>

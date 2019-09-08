@@ -61,7 +61,7 @@ public final class GoogleTranslator extends AbstractTranslator {
     
     @Override
     protected String parseString(String jsonString) {
-        JSONArray jsonArray = JSONArray.fromObject(jsonString);
+        net.sf.json.JSONArray jsonArray = net.sf.json.JSONArray.fromObject(jsonString);
         JSONArray segments = jsonArray.optJSONArray(0);
         if (segments == null) {
             return null;
