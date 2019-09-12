@@ -21,8 +21,8 @@ public class HashTest {
         System.out.println("obj1和obj2比较equals：" + obj1.equals(obj2));
         String str1 = "123";
         String str2 = "123";
-        String str3 = new String("123");
-        String str4 = new String("123");
+        String str3 = "123";
+        String str4 = "123";
         System.out.println("str1哈希值:" + str1.hashCode());
         System.out.println("str2哈希值:" + str2.hashCode());
         System.out.println("str3哈希值:" + str3.hashCode());
@@ -42,5 +42,13 @@ public class HashTest {
         int a = 5;
         int b = 5;
         System.out.println("a和b比较==：" + (a == b));
+    }
+    
+    @Test
+    void name2() {
+        int i = 10;
+        System.out.println(Integer.toBinaryString(i));
+        int x = i ^ 123;
+        System.out.println(Integer.toBinaryString(x));
     }
 }

@@ -77,10 +77,16 @@
                 <enabled>false</enabled>
             </snapshots>
         </repository>
-        <!--  <repository>
-              <id>feilong-repository</id>
-              <url>https://raw.github.com/venusdrogon/feilong-platform/repository</url>
-          </repository>-->
+        <repository>
+            <id>ebi</id>
+            <name>www.ebi.ac.uk</name>
+            <url>http://www.ebi.ac.uk/intact/maven/nexus/content/groups/public/</url>
+        </repository>
+        <repository>
+            <id>jahia</id>
+            <name>jahia</name>
+            <url>http://maven.jahia.org/maven2/</url>
+        </repository>
         <!--获取springboot的升级版本？-->
         <repository>
             <id>spring-milestones</id>

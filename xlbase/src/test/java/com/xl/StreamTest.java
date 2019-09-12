@@ -26,8 +26,7 @@ import org.junit.jupiter.api.Test;
  * @time 17:40
  * To change this template use File | Settings | File Templates.
  */
-@Log4j
-public class StreamTest {
+@Log4j public class StreamTest {
     private List<Student> students = new ArrayList<>(100);
     private List<Student> distinctStudents = new ArrayList<>(100);
     
@@ -69,8 +68,8 @@ public class StreamTest {
     @Test
     void avg() {
         Arrays.stream(new int[]{1, 2, 3}).map(n -> 2 * n + 1) // 对数值中的每个对象执行 2*n + 1 操作
-              .average() // 求平均值
-              .ifPresent(System.out::println);  // 如果值不为空，则输出
+                .average() // 求平均值
+                .ifPresent(System.out::println);  // 如果值不为空，则输出
     }
     
     /**
@@ -103,9 +102,9 @@ public class StreamTest {
     @Test
     void mapToLong() {
         Stream.of("a1", "a2", "a3").map(s -> s.substring(1)) // 对每个字符串元素从下标1位置开始截取
-              .mapToInt(Integer::parseInt) // 转成 int 基础类型类型流
-              .max() // 取最大值
-              .ifPresent(System.out::println);  // 不为空则输出
+                .mapToInt(Integer::parseInt) // 转成 int 基础类型类型流
+                .max() // 取最大值
+                .ifPresent(System.out::println);  // 不为空则输出
     }
     
     /**
@@ -127,14 +126,14 @@ public class StreamTest {
     @Test
     void mapToObject() {
         IntStream.range(1, 4).mapToObj(i -> "a" + i) // for 循环 1->4, 拼接前缀 a
-                 .forEach(System.out::println); // for 循环打印
+                .forEach(System.out::println); // for 循环打印
     }
     
     @Test
     void findFirst() {
         Arrays.asList("a1", "a2", "a3").stream() // 创建流
-              .findFirst() // 找到第一个元素
-              .ifPresent(System.out::println);  // 如果存在，即输出
+                .findFirst() // 找到第一个元素
+                .ifPresent(System.out::println);  // 如果存在，即输出
     }
     
     @Test
@@ -143,7 +142,7 @@ public class StreamTest {
             System.out.println(x);
         });
         IntStream.range(1, 4).mapToObj(i -> "a" + i) // for 循环 1->4, 拼接前缀 a
-                 .forEach(System.out::println); // for 循环打印
+                .forEach(System.out::println); // for 循环打印
     }
     
     /**
@@ -182,11 +181,11 @@ public class StreamTest {
     @Test
     void filterTest() {
         //students是一个大集合， parallelStream就是并行流，内部用了多线程，filter就是过滤,要返回用map
-        students.parallelStream().filter(student -> student.getId() > 10).filter(student -> student.getName().contains("1"))
-                .limit(50).forEach(System.out::println);
+        students.parallelStream().filter(student -> student.getId() > 10).filter(student -> student.getName().contains("1")).limit(50)
+                .forEach(System.out::println);
         //转换list
-        List<Student> collect = students.stream().filter(student -> student.getId() > 10).filter(
-                student -> student.getName().contains("1")).collect(Collectors.toList());
+        List<Student> collect = students.stream().filter(student -> student.getId() > 10).filter(student -> student.getName().contains("1"))
+                .collect(Collectors.toList());
     }
     
     @Test
@@ -211,7 +210,7 @@ public class StreamTest {
         listToMap();
         students.parallelStream().map(Student::getName).forEachOrdered(System.out::println);
         Stream<String> introStream = Stream.
-                                                   of("Get started with UICollectionView and the photo library".split(" "));
+                of("Get started with UICollectionView and the photo library".split(" "));
         Map<String, String> introMap = introStream.collect(Collectors.toMap(s -> s.substring(0, 1), s -> s));
         System.out.println(introMap);
     }
@@ -236,12 +235,12 @@ public class StreamTest {
     void mapTest2() {
         List<String> myList = Arrays.asList("a1", "a2", "b1", "c2", "c1");
         myList.parallelStream() // 创建流
-              .filter(s -> s.startsWith("c")) // 执行过滤，过滤出以 c 为前缀的字符串
-              .map(String::toUpperCase) // 转换成大写
-              .map(x -> {
-                  String s = x + "a";
-                  return s + "b";
-              }).map(x -> x + "b").forEach(System.out::println); // for 循环打印
+                .filter(s -> s.startsWith("c")) // 执行过滤，过滤出以 c 为前缀的字符串
+                .map(String::toUpperCase) // 转换成大写
+                .map(x -> {
+                    String s = x + "a";
+                    return s + "b";
+                }).map(x -> x + "b").forEach(System.out::println); // for 循环打印
     }
     
     /**
@@ -279,9 +278,8 @@ public class StreamTest {
     @Test
     void demo3() throws IOException {
         System.out.println(Paths.get("/home/percy/IdeaProjects/StreamDemo/src/com/percy/God Had to Be Fair"));
-        String contents = new String(
-                Files.readAllBytes(Paths.get("/home/percy/IdeaProjects/StreamDemo/src/com/percy/God Had to Be Fair")),
-                StandardCharsets.UTF_8);
+        String contents =
+                new String(Files.readAllBytes(Paths.get("/home/percy/IdeaProjects/StreamDemo/src/com/percy/God Had to Be Fair")), StandardCharsets.UTF_8);
         List<String> words = Arrays.asList(contents.split(" "));
         /**
          * 使用迭代计算长单词的数量
@@ -353,9 +351,8 @@ public class StreamTest {
             System.out.print(list + " ");
         }
         Stream<Locale> localeStream = Stream.of(Locale.getAvailableLocales());
-        Map<String, String> lan = localeStream.collect(Collectors.toMap(Locale::getDisplayLanguage,
-                                                                        locale -> locale.getDisplayLanguage(locale),
-                                                                        (existingValue, newValue) -> existingValue));
+        Map<String, String> lan = localeStream.collect(Collectors.toMap(Locale::getDisplayLanguage, locale -> locale
+                .getDisplayLanguage(locale), (existingValue, newValue) -> existingValue));
         for (Map.Entry<String, String> stringStringEntry : lan.entrySet()) {
             log.info(stringStringEntry.getKey() + "=" + stringStringEntry.getValue());
         }
@@ -377,8 +374,7 @@ public class StreamTest {
          * 生成一个Hashmap
          */
         personStream = Stream.of(person0, person1, person2);
-        Map<Integer, Person> idToPerson = personStream.collect(
-                Collectors.toMap(person3 -> person3.getAge(), Function.identity()));
+        Map<Integer, Person> idToPerson = personStream.collect(Collectors.toMap(person3 -> person3.getAge(), Function.identity()));
         log.info("idToPerson:" + idToPerson.getClass().getName() + idToPerson);
         for (Map.Entry<Integer, Person> integerPersonEntry : idToPerson.entrySet()) {
             log.info(integerPersonEntry.getKey() + "-" + integerPersonEntry.getValue().getName());
@@ -387,10 +383,9 @@ public class StreamTest {
          * 生成一个TreeMap
          */
         personStream = Stream.of(person0, person1, person2);
-        idToPerson = personStream.collect(
-                Collectors.toMap(person -> person.getAge(), Function.identity(), (existingValue, newValue) -> {
-                    throw new IllegalStateException();
-                }, TreeMap::new));
+        idToPerson = personStream.collect(Collectors.toMap(person -> person.getAge(), Function.identity(), (existingValue, newValue) -> {
+            throw new IllegalStateException();
+        }, TreeMap::new));
         log.info("idToPerson:" + idToPerson.getClass().getName() + idToPerson);
         /**
          * 基本类型流
@@ -419,8 +414,9 @@ public class StreamTest {
         for (int shortWord : shortWords) {
             System.out.println(shortWord);
         }
-        Map<Integer, Long> shortWordsCount = words.parallelStream().filter(s -> s.length() < 12).collect(
-                Collectors.groupingBy(String::length, Collectors.counting()));
+        Map<Integer, Long> shortWordsCount = words.parallelStream().filter(s -> s.length() < 12).collect(Collectors
+                                                                                                                 .groupingBy(String::length, Collectors
+                                                                                                                         .counting()));
         for (Map.Entry<Integer, Long> integerLongEntry : shortWordsCount.entrySet()) {
             log.info(integerLongEntry.getKey() + "-" + integerLongEntry.getValue());
         }
@@ -568,8 +564,8 @@ public class StreamTest {
         boolean aa = Stream.of(1, 2, 3, 4).anyMatch(str -> str.equals("a"));
         //所有元素匹配
         boolean bb = Stream.of(1, 2, 3, 4).allMatch(str -> str.equals("a"));
-        //全部不为5 则结果为true
-        boolean cc = Stream.of(1, 2, 3, 4).noneMatch(str -> str == 5);
+        //全部不为5 则结果为true ,有1个为5则为false
+        boolean cc = Stream.of(1, 2, 3, 5, 4).anyMatch(str -> str == 5);
         System.out.println(cc);
         matchTest1();
         matchTest2();
@@ -650,8 +646,7 @@ public class StreamTest {
     
     @Test
     void range() {
-        Set<Integer> collect = IntStream.range(0, 10).collect(HashSet::new, Set::add,
-                                                              (integers, integers2) -> log.info(integers));
+        Set<Integer> collect = IntStream.range(0, 10).collect(HashSet::new, Set::add, (integers, integers2) -> log.info(integers));
         log.info(collect);
     }
     
