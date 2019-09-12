@@ -567,7 +567,9 @@
         <dependency>
             <groupId>cpdetector</groupId>
             <artifactId>cpdetector</artifactId>
-            <version>1.04</version>
+            <version>1.0.7</version>
+            <!--1.04版本找不到类-->
+            <!--<version>1.04</version>-->
         </dependency>
         <!--测试相关jar-->
         <dependency>

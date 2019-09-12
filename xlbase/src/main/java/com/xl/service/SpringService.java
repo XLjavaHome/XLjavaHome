@@ -1,6 +1,5 @@
 package com.xl.service;
 
-import com.xl.base.SpringDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
