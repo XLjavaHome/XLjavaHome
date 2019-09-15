@@ -1,9 +1,7 @@
-package com.xl.gui;
+package com.xl.deploy.gui;
 
-import com.entity.DeploymentEntity;
-import com.xl.deloy.service.impl.DeploymentPackageServiceImpl;
-import com.xl.deploy.service.DeploymentPackageService;
-import com.xl.util.GUIUtil;
+import com.xl.deloy.service.DeploymentPackageService;
+import com.xl.deploy.entity.DeploymentEntity;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -12,6 +10,8 @@ import java.util.Properties;
 import javax.swing.*;
 import lombok.extern.log4j.Log4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 
 /**
  * Created with 徐立.生成部署目录
@@ -23,21 +23,11 @@ import org.apache.commons.lang3.StringUtils;
  * @time 17:17
  */
 @Log4j
+@ComponentScan(basePackages = {"com.xl.deploy"})
 public class DeployForm extends JDialog {
-    private JPanel contentPane;
-    private JButton buttonCancel;
-    private JButton demandReleasePackageBtn;
-    private JButton BUGDelpoyButton;
-    private JTextArea code;
-    private JTextArea textArea2;
-    private JScrollPane codePanel;
-    private JScrollPane docPane;
-    private JTextField taskNameTx;
-    private JTextField authorField;
-    private DeploymentPackageService service = new DeploymentPackageServiceImpl();
+    private static final String AUTHOR = "author";
     private static volatile String author = "徐立";
     private static String propertyFileName = "deploy.properties";
-    private static final String AUTHOR = "author";
     static {
         File propertFile = new File(propertyFileName);
         if (propertFile.exists()) {
@@ -50,6 +40,18 @@ public class DeployForm extends JDialog {
             }
         }
     }
+    private JPanel contentPane;
+    private JButton buttonCancel;
+    private JButton demandReleasePackageBtn;
+    private JButton BUGDelpoyButton;
+    private JTextArea code;
+    private JTextArea textArea2;
+    private JScrollPane codePanel;
+    private JScrollPane docPane;
+    private JTextField taskNameTx;
+    private JTextField authorField;
+    @Autowired
+    private DeploymentPackageService service;
     private boolean writeAuthor = false;
     
     public DeployForm() {
@@ -77,32 +79,6 @@ public class DeployForm extends JDialog {
     }
     
     /**
-     * 按钮添加实际
-     *
-     * @param button
-     * @param b true：任务，false：BUG
-     */
-    private void addBtnEvent(JButton button, boolean b) {
-        button.addActionListener(e -> {
-            try {
-                button.setEnabled(false);
-                String authorText = authorField.getText();
-                if (!StringUtils.equals(author, authorText)) {
-                    writeAuthor = true;
-                }
-                //看作者是否变更，如果作者变更的话则保持
-                DeploymentEntity entity = new DeploymentEntity(authorText, b, code.getText(), textArea2.getText(),
-                        taskNameTx.getText());
-                service.createFile(entity);
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            } finally {
-                button.setEnabled(true);
-            }
-        });
-    }
-    
-    /**
      * 退出调用的方法
      */
     private void onCancel() {
@@ -121,10 +97,29 @@ public class DeployForm extends JDialog {
         dispose();
     }
     
-    public static void main(String[] args) {
-        DeployForm dialog = new DeployForm();
-        dialog.pack();
-        GUIUtil.makeCenter(dialog);
-        dialog.setVisible(true);
+    /**
+     * 按钮添加实际
+     *
+     * @param button
+     * @param b true：任务，false：BUG
+     */
+    private void addBtnEvent(JButton button, boolean b) {
+        button.addActionListener(e -> {
+            try {
+                button.setEnabled(false);
+                String authorText = authorField.getText();
+                if (!StringUtils.equals(author, authorText)) {
+                    writeAuthor = true;
+                }
+                //看作者是否变更，如果作者变更的话则保持
+                DeploymentEntity entity = new DeploymentEntity(authorText, b, code.getText(), textArea2.getText(),
+                                                               taskNameTx.getText());
+                service.createFile(entity);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            } finally {
+                button.setEnabled(true);
+            }
+        });
     }
 }
