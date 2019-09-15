@@ -11,7 +11,6 @@ import javax.swing.*;
 import lombok.extern.log4j.Log4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 
 /**
  * Created with 徐立.生成部署目录
@@ -23,7 +22,6 @@ import org.springframework.context.annotation.ComponentScan;
  * @time 17:17
  */
 @Log4j
-@ComponentScan(basePackages = {"com.xl.deploy"})
 public class DeployForm extends JDialog {
     private static final String AUTHOR = "author";
     private static volatile String author = "徐立";
