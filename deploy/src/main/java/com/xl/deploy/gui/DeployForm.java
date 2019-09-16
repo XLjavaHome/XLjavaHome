@@ -38,6 +38,8 @@ public class DeployForm extends JDialog {
             }
         }
     }
+    @Autowired
+    private DeploymentPackageService service;
     private JPanel contentPane;
     private JButton buttonCancel;
     private JButton demandReleasePackageBtn;
@@ -48,8 +50,6 @@ public class DeployForm extends JDialog {
     private JScrollPane docPane;
     private JTextField taskNameTx;
     private JTextField authorField;
-    @Autowired
-    private DeploymentPackageService service;
     private boolean writeAuthor = false;
     
     public DeployForm() {
