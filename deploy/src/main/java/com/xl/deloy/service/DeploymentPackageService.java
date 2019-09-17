@@ -1,6 +1,6 @@
-package com.xl.deploy.service;
+package com.xl.deloy.service;
 
-import com.entity.DeploymentEntity;
+import com.xl.deploy.entity.DeploymentEntity;
 import java.io.IOException;
 
 /**

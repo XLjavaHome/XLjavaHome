@@ -1,4 +1,4 @@
-package com.xl.gui;
+package com.xl.deploy.gui;
 /**
  * Created with IntelliJ IDEA.
  *
@@ -50,8 +50,7 @@ public class JProgressBarDemo extends JFrame {
         contentPane.add(progressBar);
         this.setVisible(true);
     }
-
-
+    
     public static void main(String[] args) {
         JProgressBarDemo example = new JProgressBarDemo();
     }

@@ -1,4 +1,4 @@
-package com.xl.gui;
+package com.xl.deploy.gui;
 
 import com.xl.util.Constant;
 import com.xl.util.FileUtil;
@@ -38,11 +38,11 @@ public class FileChose {
     private JTextArea errorMsgTextArea;
     private JPanel errorMsgJPanel;
     private JFileChooser fc;
-
+    
     public FileChose() throws HeadlessException, ClassNotFoundException, UnsupportedLookAndFeelException, InstantiationException, IllegalAccessException {
         init();
     }
-
+    
     private void init() throws ClassNotFoundException, UnsupportedLookAndFeelException, InstantiationException, IllegalAccessException {
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         jPanel1.setSize(1200, 600);
@@ -53,25 +53,25 @@ public class FileChose {
         hidden();
         addActionEvent();
     }
-
+    
     private void hidden() {
         progressBar.setVisible(false);
         errorMsgTextArea.setVisible(false);
         errorMsgJPanel.setVisible(false);
     }
-
+    
     private void addActionEvent() {
         textField1.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
                 log.info(e);
             }
-
+            
             @Override
             public void removeUpdate(DocumentEvent e) {
                 log.info(e);
             }
-
+            
             @Override
             public void changedUpdate(DocumentEvent e) {
                 log.info(e);
@@ -145,8 +145,9 @@ public class FileChose {
             }
         });
     }
-
-    public static void main(String[] args) throws ClassNotFoundException, UnsupportedLookAndFeelException, InstantiationException, IllegalAccessException {
+    
+    public static void main(
+            String[] args) throws ClassNotFoundException, UnsupportedLookAndFeelException, InstantiationException, IllegalAccessException {
         Font font = new Font("SimSun", Font.PLAIN, 12);
         UIManager.put("OptionPane.font", font);
         UIManager.put("OptionPane.messageFont", font);

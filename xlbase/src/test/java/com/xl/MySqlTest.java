@@ -4,6 +4,10 @@ import com.xl.util.IOUtil;
 import com.xl.util.MySQLJdbcUtil;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -16,6 +20,18 @@ import org.junit.jupiter.api.Test;
  */
 public class MySqlTest {
     Runtime runtime = Runtime.getRuntime();
+    
+    @Test
+    void start() throws SQLException {
+        //1.获取连接
+        Connection connection = MySQLJdbcUtil.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement("select  123 from dual");
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            int anInt = resultSet.getInt(1);
+            System.out.println(anInt);
+        }
+    }
     
     @Test
     void startService() throws IOException {

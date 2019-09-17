@@ -1,4 +1,4 @@
 Manifest-Version: 1.0
-Main-Class: com.xl.gui.DeployForm
+Main-Class: com.xl.deploy.gui.DeployForm
 
 

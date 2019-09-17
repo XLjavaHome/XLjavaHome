@@ -17,7 +17,7 @@ import org.antlr.v4.runtime.misc.Nullable;
  * @date 2019-03-02
  * @time 22:48
  */
-public final class JdbcUtil {
+public class MySQLJdbcUtil {
     public static final String MYSQL_MYSQL_PROPERTIESPATH = "db/db.properties";
     private static String driver;
     private static String url;

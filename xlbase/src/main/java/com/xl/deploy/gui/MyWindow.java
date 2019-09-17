@@ -1,4 +1,4 @@
-package com.xl.gui;
+package com.xl.deploy.gui;
 
 /*
  练习-列出指定目录内容
@@ -17,11 +17,11 @@ public class MyWindow {
     private Dialog d; // Dialog有两个，一个文本提示，一个确定按钮
     private Label lab;
     private Button okBut;
-
+    
     MyWindow() {
         init();
     }
-
+    
     public void init() // 起使
     {
         f = new Frame("显示指定路径下的文件");
@@ -47,7 +47,7 @@ public class MyWindow {
         myEvent();// 事件
         f.setVisible(true); // 显示出来
     }
-
+    
     private void myEvent() {
         okBut.addActionListener(new ActionListener() {
             @Override
@@ -92,11 +92,11 @@ public class MyWindow {
         });
         /*
          * //演示 String text = tf.getText(); tf.setText(""); //将上面清空。 //设置文本区域的内容
-		 * ta.setText(text); //将字符串在文本区域中显示 // System.out.print(text);
-		 */
+         * ta.setText(text); //将字符串在文本区域中显示 // System.out.print(text);
+         */
         // 封装一下功能
     }
-
+    
     private void showDir() {
         String dirPath = tf.getText();
         File dir = new File(dirPath); // 封装成对象
@@ -115,7 +115,7 @@ public class MyWindow {
             d.setVisible(true); // 让对话框显示
         }
     }
-
+    
     public static void main(String[] args) {
         new MyWindow();
     }

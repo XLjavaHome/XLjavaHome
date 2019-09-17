@@ -1,4 +1,4 @@
-package com.xl.gui;
+package com.xl.deploy.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
@@ -19,7 +19,9 @@ class SwingDemo extends JApplet {
     JLabel label = new JLabel("Swing!",icon,SwingConstants.CENTER);
     */
         //修改后
-        JLabel label = new JLabel("Swing!", new ImageIcon(getImage(getCodeBase(), "swing.gif"), "An animated GIF of Duke on a swing"), SwingConstants.CENTER);
+        JLabel label = new JLabel("Swing!",
+                                  new ImageIcon(getImage(getCodeBase(), "swing.gif"), "An animated GIF of Duke on a swing"),
+                                  SwingConstants.CENTER);
         contentPane.add(label, BorderLayout.CENTER);
     }
 }

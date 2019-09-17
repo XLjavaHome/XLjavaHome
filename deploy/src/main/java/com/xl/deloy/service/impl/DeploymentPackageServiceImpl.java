@@ -1,7 +1,7 @@
 package com.xl.deloy.service.impl;
 
-import com.entity.DeploymentEntity;
-import com.xl.deploy.service.DeploymentPackageService;
+import com.xl.deloy.service.DeploymentPackageService;
+import com.xl.deploy.entity.DeploymentEntity;
 import com.xl.util.DateUtil;
 import com.xl.util.FileUtil;
 import com.xl.util.StringUtil;
@@ -16,6 +16,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.poi.xwpf.usermodel.*;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTTcPr;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.STVerticalJc;
+import org.springframework.stereotype.Service;
 
 /**
  * Created with 徐立.
@@ -25,6 +26,7 @@ import org.openxmlformats.schemas.wordprocessingml.x2006.main.STVerticalJc;
  * @time 15:51
  * To change this template use File | Settings | File Templates.
  */
+@Service
 public class DeploymentPackageServiceImpl implements DeploymentPackageService {
     @Override
     public void createFile(DeploymentEntity entity) throws IOException {

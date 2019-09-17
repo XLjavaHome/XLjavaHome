@@ -1,4 +1,4 @@
-package com.xl.gui;
+package com.xl.deploy.gui;
 
 import java.awt.Button;
 import java.awt.FlowLayout;
@@ -37,14 +37,14 @@ public class AwtDemo {
             {
                 System.out.println("我被打开了");
             }
-
+            
             @Override
             public void windowClosing(WindowEvent e) // 关的动作
             {
                 System.out.println("我关");
                 System.exit(0);
             }
-
+            
             @Override
             public void windowActivated(WindowEvent e) // 前置时触发此行为
             {

@@ -23,7 +23,7 @@
                 <!--没有版本号会报错-->
                 <version>2.1.6.RELEASE</version>
                 <configuration>
-                    <mainClass>com.xl.gui.DeployForm</mainClass>
+                    <mainClass>com.xl.deploy.gui.DeployForm</mainClass>
                     <executable>true</executable>
                 </configuration>
                 <!--没有的话不能运行jar-->
@@ -49,6 +49,11 @@
             <artifactId>xlbase</artifactId>
             <version>1.0.0</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>4.3.21.RELEASE</version>
         </dependency>
     </dependencies>
 </project>

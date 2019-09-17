@@ -1,4 +1,4 @@
-package com.xl.gui;
+package com.xl.deploy.gui;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -18,11 +18,11 @@ public class MyMenuDemo {
     private FileDialog openDia, saveDia; // 设置对话框用与打开文件，保存文件
     private TextArea ta; // 添加文本区域用于打开选择的文件
     private File file;
-
+    
     MyMenuDemo() {
         init();
     }
-
+    
     public void init() {
         f = new Frame("myWindow");
         f.setBounds(300, 100, 600, 600);
@@ -49,7 +49,7 @@ public class MyMenuDemo {
         // Print.print(closeItem.isEnabled());// 是否启用了菜单项
         // Print.print(closeItem.paramString()); // 返回此状态的字符串
     }
-
+    
     private void myEvent() {
         saveItem.addActionListener(new ActionListener() {
             @Override
@@ -114,7 +114,7 @@ public class MyMenuDemo {
             }
         });
     }
-
+    
     public static void main(String[] args) {
         new MyMenuDemo();
     }

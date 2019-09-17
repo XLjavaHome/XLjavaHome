@@ -1,4 +1,4 @@
-package com.entity;
+package com.xl.deploy.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

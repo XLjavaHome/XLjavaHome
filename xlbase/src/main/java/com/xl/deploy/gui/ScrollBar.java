@@ -2,7 +2,7 @@
  * JComboBox/Jlist/JScorllPane
  * 下拉框组件/列表框组件/滚动条组件
  */
-package com.xl.gui;
+package com.xl.deploy.gui;
 
 import java.awt.GridLayout;
 import javax.swing.*;
@@ -14,7 +14,7 @@ public class ScrollBar extends JFrame {
     JComboBox jcb1;
     JList jlist;
     JScrollPane jsp;
-
+    
     //构造函数
     public ScrollBar() {
         jp1 = new JPanel();
@@ -44,7 +44,7 @@ public class ScrollBar extends JFrame {
         //显示
         this.setVisible(true);
     }
-
+    
     public static void main(String[] args) {
         ScrollBar demo = new ScrollBar();
     }
