@@ -7,6 +7,9 @@
         <groupId>com.xl</groupId>
         <version>1.0.0</version>
     </parent>
+    <version>1.0.0</version>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>xlspringAnnotation</artifactId>
+    <artifactId>xlexportDatabase</artifactId>
+    <dependencies>
+    </dependencies>
 </project>

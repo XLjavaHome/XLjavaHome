@@ -385,19 +385,6 @@
             <artifactId>slf4j-log4j12</artifactId>
             <version>1.7.2</version>
         </dependency>
-        <!--
-                <dependency>
-                    <groupId>com.feilong.platform</groupId>
-                    <artifactId>feilong-core</artifactId>
-                    <version>1.11.0</version>
-                    <exclusions>
-                        <exclusion>
-                            <groupId>org.slf4j</groupId>
-                            <artifactId>*</artifactId>
-                        </exclusion>
-                    </exclusions>
-                </dependency>
-        -->
         <!--Beetl 是新一代的模板引擎-->
         <dependency>
             <groupId>com.ibeetl</groupId>
@@ -507,6 +494,16 @@
             <artifactId>junit-platform-launcher</artifactId>
             <version>1.0.1</version>
             <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <artifactId>junit-platform-commons</artifactId>
+                    <groupId>org.junit.platform</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>opentest4j</artifactId>
+                    <groupId>org.opentest4j</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
