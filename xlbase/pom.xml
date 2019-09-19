@@ -269,7 +269,6 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.21</version>
         </dependency>
         <!--这是因为测试代码时遇到错误，它会停止编译。只需要在pom.xml的<project>里添加以下配置，使得测试出错不影响项目的编译。-->
         <dependency>
