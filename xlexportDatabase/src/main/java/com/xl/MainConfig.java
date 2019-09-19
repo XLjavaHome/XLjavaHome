@@ -15,8 +15,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
  */
 public class MainConfig {
     @Bean
-    public JdbcTemplate getJdbcTemplate() {
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource());
+    public JdbcTemplate getJdbcTemplate(DataSource dataSource) {
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
         return jdbcTemplate;
     }
     
