@@ -3,6 +3,7 @@ package com.xl;
 import com.alibaba.druid.pool.DruidDataSource;
 import javax.sql.DataSource;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 /**
@@ -13,6 +14,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
  * @time 22:02
  * To change this template use File | Settings | File Templates.
  */
+@ComponentScan(basePackages = {"com.xl"})
 public class MainConfig {
     @Bean
     public JdbcTemplate getJdbcTemplate(DataSource dataSource) {

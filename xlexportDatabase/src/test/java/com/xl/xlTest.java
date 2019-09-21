@@ -1,11 +1,13 @@
 package com.xl;
 
+import com.xl.entity.TableInfo;
+import com.xl.service.FileService;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import javax.sql.DataSource;
-import org.apache.commons.collections4.MapUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -29,18 +31,17 @@ public class xlTest {
     }
     
     @Test
-    void tables() throws SQLException {
+    void tables() {
         JdbcTemplate jdbcTemplate = context.getBean(JdbcTemplate.class);
-        DataSource dataSource = jdbcTemplate.getDataSource();
-        //todo
+        FileService fileService = context.getBean(FileService.class);
         List<Map<String, Object>> stringObjectMap = jdbcTemplate.queryForList(
-                "select table_name,table_comment from information_schema.tables  where table_schema=? ", "xl");
-        stringObjectMap.forEach(stringObjectMap1 -> {
-            String table_name = MapUtils.getString(stringObjectMap1, "table_name");
-            String table_comment = MapUtils.getString(stringObjectMap1, "table_comment");
-            List<Map<String, Object>> maps = jdbcTemplate.queryForList(
-                    "select * from information_schema.columns\n" + "  where table_name = ?", table_name);
-            System.out.println(maps);
-        });
+                "select\n" + "  a.table_name\n" + "     , a.table_comment\n" + "     , b.column_name\n" + "     , b.column_type\n"
+                + "     , b.column_comment\n" + "from\n" + "  information_schema.tables a\n"
+                + "  left join information_schema.columns b on a.table_name = b.table_name\n" + "where a.table_schema = ?\n"
+                + "order by b.table_name, b.ordinal_position ", "xl");
+        //key 表的名称，表    TableInfo 里放属性
+        Map<String, TableInfo> tableInfoListMap = fileService.clearData(stringObjectMap);
+        Collection<TableInfo> values = tableInfoListMap.values();
+        fileService.generateWordDocument(values);
     }
 }
