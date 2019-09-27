@@ -1,5 +1,6 @@
 package com.xl.base;
 
+import java.sql.Timestamp;
 import java.time.*;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
@@ -69,6 +70,12 @@ public class LocalDateTest {
         Instant instant = now.atStartOfDay().atZone(zone).toInstant();
         Date date = Date.from(instant);
         System.out.println(date);
+    }
+    
+    @Test
+    void dateTest() {
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        System.out.println(timestamp.toLocalDateTime().toLocalDate());
     }
 }
 

@@ -3,6 +3,7 @@ package com.xl.base;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.NumberFormat;
+import lombok.extern.log4j.Log4j;
 import org.testng.annotations.Test;
 
 /**
@@ -13,6 +14,7 @@ import org.testng.annotations.Test;
  * @time 9:11
  * To change this template use File | Settings | File Templates.
  */
+@Log4j
 public class BigDecimalTest {
     @Test
     public void name() {

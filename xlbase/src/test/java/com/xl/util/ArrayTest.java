@@ -34,4 +34,18 @@ public class ArrayTest {
         System.out.println(ArrayUtils.contains(arr, 1111));
         System.out.println(ArrayUtils.contains(arr, 222));
     }
+    
+    /**
+     * 数组的删除
+     */
+    @Test
+    void removeTest() {
+        String[] arr = new String[]{"张三", "李四", "王五"};
+        String str = "李四1";
+        int index = ArrayUtils.indexOf(arr, str);
+        if (index > -1) {
+            String[] remove = ArrayUtils.remove(arr, index);
+            Stream.of(remove).forEach(System.out::println);
+        }
+    }
 }
