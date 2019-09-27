@@ -8,7 +8,6 @@
     <packaging>pom</packaging>
     <version>1.0.0</version>
     <modules>
-        <module>deploy</module>
         <module>xlbase</module>
         <module>xlweb</module>
         <module>springboot</module>
@@ -16,7 +15,6 @@
         <module>xlredis</module>
         <module>xldom4j</module>
         <module>xljxl</module>
-        <module>xlexportDatabase</module>
     </modules>
     <!--开源协议-->
     <licenses>
