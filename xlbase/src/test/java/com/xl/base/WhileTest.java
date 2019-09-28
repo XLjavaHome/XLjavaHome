@@ -11,6 +11,18 @@ import org.junit.Test;
  * To change this template use File | Settings | File Templates.
  */
 public class WhileTest {
+    @Test
+    public void name() {
+        boolean flag = true;
+        while (true) {
+            if (flag) {
+                System.out.println("111");
+                flag = false;
+            }
+            continue;
+        }
+    }
+    
     /**
      * 至少执行1次
      */
