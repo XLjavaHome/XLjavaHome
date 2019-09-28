@@ -1,6 +1,7 @@
 package com.xl.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,5 +25,5 @@ public class Person implements Serializable {
     private int age = 13;
     // private int password=123;
     private String password;
-    private String birthday;
+    private Date birthday;
 }
