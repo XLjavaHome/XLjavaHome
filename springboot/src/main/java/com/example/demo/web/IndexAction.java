@@ -33,7 +33,7 @@ public class IndexAction {
      */
     @RequestMapping("/index2")
     public String index2(String id) {
-        System.out.println(Thread.currentThread().getName() + ":" + id);
+        log.info(id);
         return id;
     }
 }

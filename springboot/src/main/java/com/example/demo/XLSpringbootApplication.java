@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import com.example.demo.web.listener.MyListener;
 import java.io.IOException;
 import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
@@ -31,7 +32,9 @@ public class XLSpringbootApplication {
     
     public static void main(String[] args) {
         //也能启动
-        new SpringApplicationBuilder(XLSpringbootApplication.class).run(args);
+        SpringApplicationBuilder springApplicationBuilder = new SpringApplicationBuilder(XLSpringbootApplication.class);
+        springApplicationBuilder.listeners(new MyListener());
+        springApplicationBuilder.run(args);
     }
     
     @PostConstruct
