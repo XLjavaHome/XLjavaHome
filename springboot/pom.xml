@@ -105,10 +105,5 @@
             <artifactId>spring-boot-starter-jdbc</artifactId>
             <version>${springbootversion}</version>
         </dependency>
-        <!--   <dependency>
-               <groupId>com.xl</groupId>
-               <artifactId>xlbase</artifactId>
-               <version>1.0.0</version>
-           </dependency>-->
     </dependencies>
 </project>
