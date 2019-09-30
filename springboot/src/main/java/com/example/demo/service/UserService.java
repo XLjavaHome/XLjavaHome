@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import java.util.HashMap;
 import java.util.Map;
+import lombok.extern.log4j.Log4j;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 //开启缓存注解，可以用于主类上。
 @EnableCaching
 @Service
+@Log4j
 public class UserService {
     /**
      * 数据库中的数据
@@ -39,14 +41,14 @@ public class UserService {
      */
     @Cacheable(cacheNames = "user", key = "targetClass + methodName +#p0")
     public User getUser(int id) {
-        System.out.println("缓存中没有，从map中获取" + id);
+        log.info("缓存中没有，从map中获取" + id);
         User user = users.get(id);
         return user;
     }
     
     @Cacheable(cacheNames = "user", key = "targetClass + methodName +#p0")
     public User getUser2(String name) {
-        System.out.println("缓存中没有，从namemap中获取" + name);
+        log.info("缓存中没有，从namemap中获取" + name);
         User user = nameMap.get(name);
         return user;
     }

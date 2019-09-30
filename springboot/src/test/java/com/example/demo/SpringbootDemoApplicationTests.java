@@ -25,6 +25,7 @@ public class SpringbootDemoApplicationTests {
     public void cacheTest() {
         System.out.println(userService.getUser(2));
         System.out.println(userService.getUser(2));
+        System.out.println(userService.getUser(2));
     }
     
     @Test
