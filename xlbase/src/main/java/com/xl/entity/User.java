@@ -2,6 +2,7 @@ package com.xl.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Optional;
 import lombok.Data;
 
 @Data
@@ -22,12 +23,17 @@ public class User implements Serializable {
     private Date lastVisit;
     private String lastIp;
     private Book book;
-
+    private Address address;
+    
     public User() {
     }
-
+    
     public User(String name, String passWord) {
         this.name = name;
         this.passWord = passWord;
+    }
+    
+    public Optional<Address> getAddress() {
+        return Optional.ofNullable(address);
     }
 }

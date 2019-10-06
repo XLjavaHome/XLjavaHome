@@ -23,6 +23,15 @@ public class BigDecimalTest {
         System.out.println(a.add(b));
     }
     
+    @Test
+    public void testinit() {
+        //构造方法确实会产生精度问题
+        BigDecimal a = new BigDecimal(0.1d);
+        BigDecimal b = BigDecimal.valueOf(0.1d);
+        System.out.println(a);
+        System.out.println(b);
+    }
+    
     private final int DEF_DIV_SCALE = 10; //这个类不能实例化
     
     /**
