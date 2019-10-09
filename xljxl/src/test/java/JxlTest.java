@@ -2,10 +2,14 @@ import com.xl.entity.Student;
 import com.xl.util.FileUtil;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import jxl.Cell;
 import jxl.format.CellFormat;
 import jxl.format.UnderlineStyle;
 import jxl.write.*;
+import lombok.Data;
 import org.junit.Test;
 
 /**
@@ -44,17 +48,40 @@ public class JxlTest {
         //sheet1.setColumnView(0, cellView);
         //sheet1.setColumnView(1, cellView);
         // 生成主体内容
+        Map<String, MerEntity> map = new HashMap<>();
         for (int i = 0; i < list.size(); i++) {
             Student stu = list.get(i);
             //sheet1.setColumnView(0, bstrLength1.length+2);
             //sheet1.setColumnView(1, bstrLength2.length+2); //根据内容自动设置列宽(内容可以为中文)
-            sheet1.addCell(new Label(0, i + 3, stu.getId() + ""));
-            sheet1.addCell(new Label(1, i + 3, stu.getName()));
+            int row = i + 3;
+            sheet1.addCell(new Label(0, row, stu.getId() + ""));
+            sheet1.addCell(new Label(1, row, stu.getName()));
+            String address = stu.getAddress();
+            MerEntity merEntity = map.get(address);
+            if (merEntity == null) {
+                merEntity = new MerEntity();
+                merEntity.setCol(2);
+                merEntity.setStart(row);
+                merEntity.setEnd(row);
+                merEntity.setContent(address);
+                map.put(address, merEntity);
+                sheet1.addCell(new Label(2, row, address));
+            } else {
+                merEntity.setEnd(row);
+            }
+        }
+        //合并单元格 todo 怎么居中？
+        // TODO 2019/10/9 23:42 徐立 如果单元格有一样的内容则不能合并
+        for (MerEntity merEntity : map.values()) {
+            sheet1.mergeCells(merEntity.getCol(), merEntity.getStart(), merEntity.getCol(), merEntity.getEnd());
+            Cell cell = sheet1.getCell(merEntity.getCol(), merEntity.getStart());
+            CellFormat cellFormat = cell.getCellFormat();
+            jxl.format.VerticalAlignment verticalAlignment = cellFormat.getVerticalAlignment();
         }
         workbook.write(); // 写入文件
         workbook.close();
         os.close(); // 关闭流
-        FileUtil.openParent(file);
+        FileUtil.open(file);
     }
     
     private List<Student> initStudent() {
@@ -65,6 +92,26 @@ public class JxlTest {
             student.setName("测试" + i);
             resulit.add(student);
         }
+        for (int i = 0, resulitSize = 10; i < resulitSize; i++) {
+            Student student = resulit.get(i);
+            student.setAddress("雄楚大道");
+        }
+        for (int i = 10; i < 20; i++) {
+            Student student = resulit.get(i);
+            student.setAddress("徐东");
+        }
+        for (int i = 20, resulitSize = 30; i < resulitSize; i++) {
+            Student student = resulit.get(i);
+            student.setAddress("测试");
+        }
         return resulit;
+    }
+    
+    @Data
+    private class MerEntity {
+        private int col;
+        private int start;
+        private int end;
+        private String content;
     }
 }

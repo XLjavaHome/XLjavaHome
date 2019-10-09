@@ -1,5 +1,6 @@
 package com.xl.util;
 
+import java.util.Arrays;
 import java.util.stream.Stream;
 import org.apache.commons.lang3.ArrayUtils;
 import org.junit.jupiter.api.Test;
@@ -13,6 +14,8 @@ import org.junit.jupiter.api.Test;
  * To change this template use File | Settings | File Templates.
  */
 public class ArrayTest {
+    private String[] arr = new String[]{"张三", "李四", "王五"};
+    
     @Test
     void 数组change() {
         //初始化数组，改变他的引用之后，原数组是否也发生改变: 会发生改变，如果是clone就不影响原数组
@@ -40,12 +43,21 @@ public class ArrayTest {
      */
     @Test
     void removeTest() {
-        String[] arr = new String[]{"张三", "李四", "王五"};
         String str = "李四1";
         int index = ArrayUtils.indexOf(arr, str);
         if (index > -1) {
             String[] remove = ArrayUtils.remove(arr, index);
             Stream.of(remove).forEach(System.out::println);
         }
+    }
+    
+    /**
+     * 复制测试
+     */
+    @Test
+    void copyTest() {
+        String[] arr2 = new String[arr.length];
+        System.arraycopy(arr, 1, arr2, 1, 2);
+        System.out.println(Arrays.toString(arr2));
     }
 }
