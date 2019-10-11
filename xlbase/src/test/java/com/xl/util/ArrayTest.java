@@ -58,6 +58,41 @@ public class ArrayTest {
     void copyTest() {
         String[] arr2 = new String[arr.length];
         System.arraycopy(arr, 1, arr2, 1, 2);
-        System.out.println(Arrays.toString(arr2));
+        print(arr2);
+    }
+    
+    private void print(Object[] subarray) {
+        System.out.println(Arrays.toString(subarray));
+    }
+    
+    @Test
+    void splitTest() {
+        Object[] subarray = org.apache.commons.lang.ArrayUtils.subarray(arr, 0, 2);
+        print(subarray);
+        print(arr);
+    }
+    
+    @Test
+    void 除() {
+        int length = 23;
+        Integer[] arr = new Integer[length];
+        for (int j = 0; j < arr.length; j++) {
+            arr[j] = j;
+        }
+        int index = 5;
+        splitArray(arr, index);
+        print(arr);
+    }
+    
+    private void splitArray(Integer[] arr, int index) {
+        int i = arr.length / index;
+        for (int x = 0; x < i - 1; x++) {
+            int startIndexInclusive = x * index;
+            Object[] subarray1 = org.apache.commons.lang.ArrayUtils.subarray(arr, startIndexInclusive,
+                                                                             startIndexInclusive + index);
+            print(subarray1);
+        }
+        Object[] subarray = org.apache.commons.lang.ArrayUtils.subarray(arr, i * index, arr.length);
+        print(subarray);
     }
 }
