@@ -1,5 +1,6 @@
 import com.xl.entity.Student;
 import com.xl.util.FileUtil;
+import com.xl.util.StringUtil;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -62,19 +63,15 @@ public class JxlTest {
             Number number = new Number(++cell, row, stu.getAge());
             sheet.addCell(number);
             String address = stu.getAddress();
-            MerEntity merEntity = map.get(address);
-            //
-            if (merEntity == null) {
-                merEntity = new MerEntity();
-                merEntity.setCol(4);
-                merEntity.setStart(row);
-                merEntity.setEnd(row);
-                merEntity.setContent(address);
-                map.put(address, merEntity);
-                sheet.addCell(new Label(++cell, row, address));
-            } else {
-                merEntity.setEnd(row);
-                sheet.mergeCells(merEntity.getCol(), merEntity.getStart(), merEntity.getCol(), merEntity.getEnd());
+            sheet.addCell(new Label(++cell, row, address));
+            
+        }
+        int rows = sheet.getRows();
+        for (int i = 1; i < rows; i++) {
+            Cell cell = sheet.getCell(3, i);
+            Cell lastCell = sheet.getCell(3, i - 1);
+            if (StringUtil.equals(cell.getContents(), lastCell.getContents())) {
+                sheet.mergeCells(3, i - 1, 1, i);
             }
         }
         //合并单元格 todo 怎么居中？
