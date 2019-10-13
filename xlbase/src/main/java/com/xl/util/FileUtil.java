@@ -426,7 +426,13 @@ public class FileUtil {
      */
     public static File getTempFile(String postFix) {
         IdWorker idWorker = new IdWorker();
-        return new File(getTempDrectory(), idWorker.nextId() + postFix);
+        File file = new File(getTempDrectory(), idWorker.nextId() + postFix);
+        File parentFile = file.getParentFile();
+        if (!parentFile.exists()) {
+            boolean mkdirs = parentFile.mkdirs();
+            log.info("创建目录成功+");
+        }
+        return file;
     }
     
     /**
