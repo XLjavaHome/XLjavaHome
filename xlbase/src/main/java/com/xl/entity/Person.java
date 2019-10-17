@@ -26,4 +26,5 @@ public class Person implements Serializable {
     // private int password=123;
     private String password;
     private Date birthday;
+    private Student student;
 }
