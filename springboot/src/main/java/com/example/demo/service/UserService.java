@@ -36,11 +36,34 @@ public class UserService {
     /**
      * #p0的意思是指加有@Cacheable注解的方法中的第一个参数  #p2不会报错，但是结果会不对
      * #id也可以
+     * 缓存注释SpEL表达式 不能使用字符串
+     *
      * @param id
      * @return
      */
     @Cacheable(cacheNames = "user", key = "targetClass + methodName +#p0")
     public User getUser(int id) {
+        log.info("缓存中没有，从map中获取" + id);
+        User user = users.get(id);
+        return user;
+    }
+    
+    @Cacheable(cacheNames = "user", key = "#p0")
+    public User getUser3(int id) {
+        log.info("缓存中没有，从map中获取" + id);
+        User user = users.get(id);
+        return user;
+    }
+    
+    @Cacheable(cacheNames = "user", key = "#p0")
+    public User getUser4(int id) {
+        log.info("缓存中没有，从map中获取" + id);
+        User user = users.get(id);
+        return user;
+    }
+    
+    @Cacheable(cacheNames = "userxl", key = "targetClass + methodName +#p0")
+    public User getUser5(int id) {
         log.info("缓存中没有，从map中获取" + id);
         User user = users.get(id);
         return user;

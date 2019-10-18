@@ -10,7 +10,7 @@ import org.springframework.util.Assert;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class SpringbootDemoApplicationTests {
+public class CacheTests {
     @Autowired
     private UserService userService;
     
@@ -25,7 +25,12 @@ public class SpringbootDemoApplicationTests {
     public void cacheTest() {
         System.out.println(userService.getUser(2));
         System.out.println(userService.getUser(2));
-        System.out.println(userService.getUser(2));
+        System.out.println(userService.getUser3(2));
+        System.out.println(userService.getUser3(2));
+        System.out.println(userService.getUser4(2));
+        System.out.println(userService.getUser4(2));
+        System.out.println(userService.getUser5(2));
+        System.out.println(userService.getUser5(2));
     }
     
     @Test
