@@ -32,8 +32,4 @@ public class CacheTests {
         System.out.println(userService.getUser5(2));
         System.out.println(userService.getUser5(2));
     }
-    
-    @Test
-    public void jdbcTemplate() {
-    }
 }
