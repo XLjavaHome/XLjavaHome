@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.time.*;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
+import java.util.Optional;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -76,6 +77,15 @@ public class LocalDateTest {
     void dateTest() {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         System.out.println(timestamp.toLocalDateTime().toLocalDate());
+    }
+    
+    @Test
+    void dateTest2() {
+        //防止为空
+        Timestamp timestamp = null;
+        LocalDate localDate = Optional.ofNullable(timestamp).map(Timestamp::toLocalDateTime).map(LocalDateTime::toLocalDate)
+                                      .orElse(null);
+        System.out.println(localDate);
     }
 }
 
