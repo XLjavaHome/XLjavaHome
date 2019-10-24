@@ -30,4 +30,10 @@ public class NullTest {
         String test = Optional.ofNullable(son).map(Person::getStudent).map(Student::getName).orElse(null);
         System.out.println(test);
     }
+    
+    @Test
+    void emptyTest() {
+        Optional<Object> empty = Optional.empty();
+        System.out.println(empty);
+    }
 }
