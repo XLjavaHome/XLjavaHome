@@ -1,5 +1,6 @@
 package com.xl.base;
 
+import com.xl.util.DateUtil;
 import java.sql.Timestamp;
 import java.time.*;
 import java.time.temporal.ChronoUnit;
@@ -67,10 +68,15 @@ public class LocalDateTest {
     @Test
     void toDate() {
         LocalDate now = LocalDate.now();
-        ZoneId zone = ZoneId.systemDefault();
-        Instant instant = now.atStartOfDay().atZone(zone).toInstant();
-        Date date = Date.from(instant);
-        System.out.println(date);
+        Date date = Date.from(now.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+        System.out.println(DateUtil.formatDate(date));
+    }
+    
+    @Test
+    void dateToLocalDate() {
+        Date date = new Date();
+        LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        System.out.println("LocalDate = " + localDate);
     }
     
     @Test
