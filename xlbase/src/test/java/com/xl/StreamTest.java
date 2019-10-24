@@ -2,11 +2,13 @@ package com.xl;
 
 import com.xl.entity.Person;
 import com.xl.entity.Student;
+import com.xl.util.BigDecimalUtil;
 import com.xl.util.StreamUtil;
 import java.io.IOException;
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodType;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -687,5 +689,29 @@ import org.junit.jupiter.api.Test;
         Random random = new Random();
         IntStream ints = random.ints();
         ints.limit(10).forEach(System.out::println);
+    }
+    
+    /**
+     * flatMapToDouble和 mapToDouble的区别是啥 求和会丢失精度么？会
+     */
+    @Test
+    void sumTest() {
+        double a = 0.1D;
+        double b = 0.2D;
+        List<Double> doubles = new ArrayList<>();
+        doubles.add(a);
+        doubles.add(b);
+        System.out.println(new BigDecimal(a));
+        System.out.println(doubles.stream().mapToDouble(x -> x).sum());
+        System.out.println(doubles.stream().flatMapToDouble(aDouble -> DoubleStream.of(aDouble)).sum());
+        //可以精确求和
+        System.out.println(getReduce(doubles.stream()));
+        List<Double> list = new ArrayList();
+        System.out.println(getReduce(list.stream()));
+    }
+    
+    private BigDecimal getReduce(Stream<Double> stream) {
+        //默认值 从BigDecimal.ZERO 0 开始加
+        return stream.map(x -> BigDecimalUtil.initBigDecimal(x)).reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 }

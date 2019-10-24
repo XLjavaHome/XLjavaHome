@@ -39,7 +39,7 @@ public class BigDecimalUtil {
         if (doubleValue == null) {
             doubleValue = 0D;
         }
-        return new BigDecimal(doubleValue);
+        return BigDecimal.valueOf(doubleValue);
     }
     
     /**
