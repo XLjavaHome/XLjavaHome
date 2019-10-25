@@ -16,6 +16,8 @@ import org.testng.annotations.Test;
  */
 @Log4j
 public class BigDecimalTest {
+    private BigDecimal a;
+    
     @Test
     public void name() {
         BigDecimal a = new BigDecimal("2");
@@ -131,13 +133,20 @@ public class BigDecimalTest {
      */
     @Test
     public void 保留2位小数() {
-        BigDecimal a = new BigDecimal("1.323245454");
+        a = new BigDecimal("1.323245454");
         System.out.println(a.doubleValue());
         //保留2位小数
         BigDecimal b = a.setScale(2, RoundingMode.HALF_UP);
         System.out.println(a);
         System.out.println(b);
         System.out.println(b.doubleValue());
+    }
+    
+    /**
+     * 格式化
+     */
+    @Test
+    public void formatNumber() {
         //百分比
         NumberFormat percent = NumberFormat.getPercentInstance();
         percent.setMaximumFractionDigits(2);

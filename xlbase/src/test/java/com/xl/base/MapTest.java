@@ -29,11 +29,34 @@ public class MapTest {
      */
     @Test
     void merge() {
-        Map<Integer, String> map = new HashMap<>(10);
+        Map<Integer, String> map = init();
+        System.out.println(map);
+    }
+    
+    private HashMap<Integer, String> init() {
+        HashMap<Integer, String> map = new HashMap<>(10);
         map.put(1, "张三");
         map.merge(2, "李四", (s, s2) -> s + "、" + s2);
         map.merge(2, "张三", (s, s2) -> s + "、" + s2);
         map.merge(3, "张三", (s, s2) -> s + "、" + s2);
-        System.out.println(map);
+        return map;
+    }
+    
+    /**
+     * 遍历不用ketSet而用entrySet
+     */
+    @Test
+    void forTest() {
+        //只需要key，keySet更高效
+        HashMap<Integer, String> map = init();
+        for (Integer key : map.keySet()) {
+            String value = map.get(key);
+            System.out.println(value);
+        }
+        //同时需要key，value map.entrySet更高效
+        for (Map.Entry<Integer, String> entry : map.entrySet()) {
+            System.out.println(entry.getKey());
+            System.out.println(entry.getValue());
+        }
     }
 }
