@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
  * @time 23:45
  * To change this template use File | Settings | File Templates.
  */
-public class NullTest {
+public class OptionalTest {
     /**
      * Optional.ofNullable确实可以防止为null
      */
@@ -35,5 +35,22 @@ public class NullTest {
     void emptyTest() {
         Optional<Object> empty = Optional.empty();
         System.out.println(empty);
+    }
+    
+    @Test
+    void a() {
+        Person son;
+        son = null;
+        //如果为空就不执行
+        Optional.ofNullable(son).ifPresent(son1 -> {
+            String name = son1.getName();
+            System.out.println(name);
+        });
+        son = new Person();
+        son.setName("张三");
+        Optional.ofNullable(son).ifPresent(son1 -> {
+            String name = son1.getName();
+            System.out.println(name);
+        });
     }
 }
