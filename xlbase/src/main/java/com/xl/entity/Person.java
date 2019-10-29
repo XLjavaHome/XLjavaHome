@@ -3,18 +3,15 @@ package com.xl.entity;
 import java.io.Serializable;
 import java.util.Date;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Person implements Serializable {
-    public Person(int age, String name) {
-        this.name = name;
-        this.age = age;
-    }
-
     // 唯一序列化标识
     public static final long serialVersionUID = 42L; // 值自己取名
     public String name = "这是name";
@@ -27,4 +24,10 @@ public class Person implements Serializable {
     private String password;
     private Date birthday;
     private Student student;
+    
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+    
 }

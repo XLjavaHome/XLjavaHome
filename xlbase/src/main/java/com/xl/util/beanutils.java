@@ -94,7 +94,7 @@ public class beanutils {
      */
     @Test
     public void copyTest() throws InvocationTargetException, IllegalAccessException {
-        Person from = new Person(15, "张三");
+        Person from = new Person("张三", 15);
         from.setBirthday(new Date());
         Person to = new Person();
         Person to2 = new Person();
