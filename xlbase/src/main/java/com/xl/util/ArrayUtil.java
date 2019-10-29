@@ -4,6 +4,7 @@ import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.stream.Stream;
 import lombok.extern.log4j.Log4j;
 
 /**
@@ -53,22 +54,6 @@ public class ArrayUtil {
         Object newArray = Array.newInstance(componentType, newLength);
         System.arraycopy(oldArray, 0, newArray, 0, newLength);
         return newArray;
-    }
-    
-    /**
-     * 获取int数组中最小的
-     *
-     * @param arr
-     * @return int
-     */
-    public int getMin(int[] arr) {
-        int min = 0;
-        for (int x = 1; x < arr.length; x++) {
-            if (arr[x] < arr[min]) {
-                min = x;
-            }
-        }
-        return arr[min];
     }
     
     /**
@@ -160,5 +145,30 @@ public class ArrayUtil {
             }
             result.append(operator);
         }
+    }
+    
+    /**
+     * 打印数组
+     *
+     * @param t
+     */
+    public static <T> void print(T[] t) {
+        Stream.of(t).forEach(x -> log.info(x));
+    }
+    
+    /**
+     * 获取int数组中最小的
+     *
+     * @param arr
+     * @return int
+     */
+    public int getMin(int[] arr) {
+        int min = 0;
+        for (int x = 1; x < arr.length; x++) {
+            if (arr[x] < arr[min]) {
+                min = x;
+            }
+        }
+        return arr[min];
     }
 }

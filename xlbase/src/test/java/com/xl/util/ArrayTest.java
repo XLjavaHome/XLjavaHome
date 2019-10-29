@@ -1,6 +1,5 @@
 package com.xl.util;
 
-import java.util.Arrays;
 import java.util.stream.Stream;
 import org.apache.commons.lang3.ArrayUtils;
 import org.junit.jupiter.api.Test;
@@ -58,18 +57,19 @@ public class ArrayTest {
     void copyTest() {
         String[] arr2 = new String[arr.length];
         System.arraycopy(arr, 1, arr2, 1, 2);
-        print(arr2);
+        ArrayUtil.print(arr2);
     }
     
-    private void print(Object[] subarray) {
-        System.out.println(Arrays.toString(subarray));
+    @Test
+    void printTest() {
+        ArrayUtil.print(arr);
     }
     
     @Test
     void splitTest() {
         Object[] subarray = org.apache.commons.lang.ArrayUtils.subarray(arr, 0, 2);
-        print(subarray);
-        print(arr);
+        ArrayUtil.print(subarray);
+        ArrayUtil.print(arr);
     }
     
     @Test
@@ -81,7 +81,7 @@ public class ArrayTest {
         }
         int index = 5;
         splitArray(arr, index);
-        print(arr);
+        ArrayUtil.print(arr);
     }
     
     private void splitArray(Integer[] arr, int index) {
@@ -90,9 +90,9 @@ public class ArrayTest {
             int startIndexInclusive = x * index;
             Object[] subarray1 = org.apache.commons.lang.ArrayUtils.subarray(arr, startIndexInclusive,
                                                                              startIndexInclusive + index);
-            print(subarray1);
+            ArrayUtil.print(subarray1);
         }
         Object[] subarray = org.apache.commons.lang.ArrayUtils.subarray(arr, i * index, arr.length);
-        print(subarray);
+        ArrayUtil.print(subarray);
     }
 }

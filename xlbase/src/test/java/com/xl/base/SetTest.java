@@ -1,6 +1,7 @@
 package com.xl.base;
 
-import java.util.TreeSet;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import org.junit.Test;
 
 /**
@@ -26,6 +27,9 @@ public class SetTest {
     
     @Test
     public void sortTest() {
-        TreeSet treeSet = new TreeSet();
+        Set<Integer> seen = ConcurrentHashMap.newKeySet();
+        seen.add(1);
+        seen.add(2);
+        System.out.println(seen);
     }
 }

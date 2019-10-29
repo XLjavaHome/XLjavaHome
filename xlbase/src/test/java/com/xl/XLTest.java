@@ -1,9 +1,5 @@
 package com.xl;
 
-import java.util.Arrays;
-import org.apache.commons.lang.StringUtils;
-import org.junit.jupiter.api.Test;
-
 /**
  * Created with 徐立.
  *
@@ -13,15 +9,4 @@ import org.junit.jupiter.api.Test;
  * To change this template use File | Settings | File Templates.
  */
 public class XLTest {
-    @Test
-    void demo() {
-        System.out.println(Arrays.toString(StringUtils.split(",1,3,4,,4", ',')));
-        String a = "a";
-        String[] split = a.split(",");
-    }
-    
-    @Test
-    void name() {
-        System.out.println("111");
-    }
 }
