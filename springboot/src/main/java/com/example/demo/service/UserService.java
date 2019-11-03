@@ -1,6 +1,8 @@
 package com.example.demo.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import lombok.extern.log4j.Log4j;
 import org.springframework.cache.annotation.Cacheable;
@@ -41,21 +43,21 @@ public class UserService {
      * @param id
      * @return
      */
-    @Cacheable(cacheNames = "user", key = "targetClass + methodName +#p0")
+    @Cacheable(cacheNames = "user1", key = "targetClass + methodName +#p0")
     public User getUser(int id) {
         log.info("缓存中没有，从map中获取" + id);
         User user = users.get(id);
         return user;
     }
     
-    @Cacheable(cacheNames = "user", key = "#p0")
+    @Cacheable(cacheNames = "user1", key = "#p0")
     public User getUser3(int id) {
         log.info("缓存中没有，从map中获取" + id);
         User user = users.get(id);
         return user;
     }
     
-    @Cacheable(cacheNames = "user", key = "#p0")
+    @Cacheable(cacheNames = "user1", key = "#p0")
     public User getUser4(int id) {
         log.info("缓存中没有，从map中获取" + id);
         User user = users.get(id);
@@ -63,13 +65,17 @@ public class UserService {
     }
     
     @Cacheable(cacheNames = "userxl", key = "targetClass + methodName +#p0")
-    public User getUser5(int id) {
+    public List<Map> getUser5(int id) {
         log.info("缓存中没有，从map中获取" + id);
         User user = users.get(id);
-        return user;
+        List<Map> maps = new ArrayList<>();
+        Map e = new HashMap();
+        e.put("1", "测试");
+        maps.add(e);
+        return maps;
     }
     
-    @Cacheable(cacheNames = "user", key = "targetClass + methodName +#p0")
+    @Cacheable(cacheNames = "user1", key = "targetClass + methodName +#p0")
     public User getUser2(String name) {
         log.info("缓存中没有，从namemap中获取" + name);
         User user = nameMap.get(name);

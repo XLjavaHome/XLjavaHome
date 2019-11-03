@@ -1,12 +1,13 @@
 package com.xl.entity;
 
 import com.xl.excel.annotation.Cell;
+import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class Student {
+public class Student implements Serializable {
     @Cell(title = "学号")
     private int id;
     private String sex;

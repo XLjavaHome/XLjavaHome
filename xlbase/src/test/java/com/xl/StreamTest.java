@@ -28,7 +28,8 @@ import org.junit.jupiter.api.Test;
  * @time 17:40
  * To change this template use File | Settings | File Templates.
  */
-@Log4j public class StreamTest {
+@Log4j
+public class StreamTest {
     private List<Student> students = new ArrayList<>(100);
     private List<Student> distinctStudents = new ArrayList<>(100);
     
@@ -184,12 +185,10 @@ import org.junit.jupiter.api.Test;
     void filterTest() {
         //students是一个大集合， parallelStream就是并行流，内部用了多线程，filter就是过滤,要返回用map
         students.parallelStream().filter(student -> student.getId() > 10).filter(student -> student.getName().contains("1"))
-                .limit(50)
-                .forEach(System.out::println);
+                .limit(50).forEach(System.out::println);
         //转换list
         List<Student> collect = students.stream().filter(student -> student.getId() > 10).filter(
-                student -> student.getName().contains("1"))
-                                        .collect(Collectors.toList());
+                student -> student.getName().contains("1")).collect(Collectors.toList());
     }
     
     @Test
@@ -290,9 +289,9 @@ import org.junit.jupiter.api.Test;
     @Test
     void demo3() throws IOException {
         System.out.println(Paths.get("/home/percy/IdeaProjects/StreamDemo/src/com/percy/God Had to Be Fair"));
-        String contents =
-                new String(Files.readAllBytes(Paths.get("/home/percy/IdeaProjects/StreamDemo/src/com/percy/God Had to Be Fair")),
-                           StandardCharsets.UTF_8);
+        String contents = new String(
+                Files.readAllBytes(Paths.get("/home/percy/IdeaProjects/StreamDemo/src/com/percy/God Had to Be Fair")),
+                StandardCharsets.UTF_8);
         List<String> words = Arrays.asList(contents.split(" "));
         /**
          * 使用迭代计算长单词的数量
@@ -364,8 +363,9 @@ import org.junit.jupiter.api.Test;
             System.out.print(list + " ");
         }
         Stream<Locale> localeStream = Stream.of(Locale.getAvailableLocales());
-        Map<String, String> lan = localeStream.collect(Collectors.toMap(Locale::getDisplayLanguage, locale -> locale
-                .getDisplayLanguage(locale), (existingValue, newValue) -> existingValue));
+        Map<String, String> lan = localeStream.collect(Collectors.toMap(Locale::getDisplayLanguage,
+                                                                        locale -> locale.getDisplayLanguage(locale),
+                                                                        (existingValue, newValue) -> existingValue));
         for (Map.Entry<String, String> stringStringEntry : lan.entrySet()) {
             log.info(stringStringEntry.getKey() + "=" + stringStringEntry.getValue());
         }
@@ -429,11 +429,8 @@ import org.junit.jupiter.api.Test;
         for (int shortWord : shortWords) {
             System.out.println(shortWord);
         }
-        Map<Integer, Long> shortWordsCount = words.parallelStream().filter(s -> s.length() < 12).collect(Collectors
-                                                                                                                 .groupingBy(
-                                                                                                                         String::length,
-                                                                                                                         Collectors
-                                                                                                                                 .counting()));
+        Map<Integer, Long> shortWordsCount = words.parallelStream().filter(s -> s.length() < 12).collect(
+                Collectors.groupingBy(String::length, Collectors.counting()));
         for (Map.Entry<Integer, Long> integerLongEntry : shortWordsCount.entrySet()) {
             log.info(integerLongEntry.getKey() + "-" + integerLongEntry.getValue());
         }
@@ -705,13 +702,17 @@ import org.junit.jupiter.api.Test;
         System.out.println(doubles.stream().mapToDouble(x -> x).sum());
         System.out.println(doubles.stream().flatMapToDouble(aDouble -> DoubleStream.of(aDouble)).sum());
         //可以精确求和
-        System.out.println(getReduce(doubles.stream()));
+        //默认值 从BigDecimal.ZERO 0 开始加
+        //BigDecimal的构造方法会产生精度问题
+        //mapToDouble的求和会产生精度问题
+        //用reduce聚合求和解决精度问题
+        System.out.println(doubles.parallelStream().map(x -> BigDecimal.valueOf(x)).reduce(BigDecimal.ZERO, BigDecimal::add));
         List<Double> list = new ArrayList();
-        System.out.println(getReduce(list.stream()));
+        getPrintln(list);
     }
     
-    private BigDecimal getReduce(Stream<Double> stream) {
+    private void getPrintln(List<Double> list) {
         //默认值 从BigDecimal.ZERO 0 开始加
-        return stream.map(x -> BigDecimalUtil.initBigDecimal(x)).reduce(BigDecimal.ZERO, BigDecimal::add);
+        System.out.println(list.stream().map(x -> BigDecimalUtil.initBigDecimal(x)).reduce(BigDecimal.ZERO, BigDecimal::add));
     }
 }

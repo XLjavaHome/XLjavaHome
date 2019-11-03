@@ -1,6 +1,8 @@
 package com.xl;
 
 import com.xl.entity.Student;
+import com.xl.util.FileUtil;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Spliterator;
@@ -32,17 +34,36 @@ public class ListTest {
         System.out.println(listOne);
     }
     
+    /**
+     * 集合序列化
+     *
+     * @throws IOException
+     * @throws ClassNotFoundException
+     * @throws InterruptedException
+     */
+    @Test
+    void 序列化() throws IOException, ClassNotFoundException, InterruptedException {
+        List<Student> list = createList();
+        File tempFile = FileUtil.getTempFile();
+        try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(
+                new BufferedOutputStream(new FileOutputStream(tempFile)))) {
+            objectOutputStream.writeObject(list);
+            objectOutputStream.flush();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        FileUtil.open(tempFile);
+        Thread.sleep(2000);
+        ObjectInputStream objectInputStream = new ObjectInputStream(new BufferedInputStream(new FileInputStream(tempFile)));
+        List o = (List) objectInputStream.readObject();
+        System.out.println(o.getClass());
+    }
+    
     @Test
     void 集合转数组() {
         createList();
         Student[] students = listOne.toArray(new Student[listOne.size() - 1]);
         Stream.of(students).forEach(System.out::println);
-    }
-    
-    private void createList() {
-        listOne.add(new Student("张三", 10));
-        listOne.add(new Student("李四", 20));
-        listOne.add(new Student("王五", 30));
     }
     
     @Test
@@ -65,5 +86,12 @@ public class ListTest {
             student.setName("test");
         });
         listOne.forEach(System.out::println);
+    }
+    
+    private List<Student> createList() {
+        listOne.add(new Student("张三", 10));
+        listOne.add(new Student("李四", 20));
+        listOne.add(new Student("王五", 30));
+        return listOne;
     }
 }
