@@ -17,6 +17,7 @@ public class Student implements Serializable {
     private String address;
     private int age;
     private String phone;
+    private Teacher teacher;
 
     public Student() {
     }
