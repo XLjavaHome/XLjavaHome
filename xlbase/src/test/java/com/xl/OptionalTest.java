@@ -35,6 +35,15 @@ public class OptionalTest {
     void emptyTest() {
         Optional<Object> empty = Optional.empty();
         System.out.println(empty);
+        Student s = null;
+        Optional<Student> studentOptional = Optional.ofNullable(s);
+        s = studentOptional.orElse(s);
+        System.out.println(s);
+        s = studentOptional.orElse(new Student());
+        System.out.println(s);
+        //orElseGet 为空就会执行
+        Integer orElseGet = studentOptional.map(Student::getAge).orElseGet(() -> 1);
+        System.out.println(orElseGet);
     }
     
     @Test
@@ -42,15 +51,9 @@ public class OptionalTest {
         Person son;
         son = null;
         //如果为空就不执行
-        Optional.ofNullable(son).ifPresent(son1 -> {
-            String name = son1.getName();
-            System.out.println(name);
-        });
+        Optional.ofNullable(son).ifPresent(son1 -> System.out.println(son1.getName()));
         son = new Person();
         son.setName("张三");
-        Optional.ofNullable(son).ifPresent(son1 -> {
-            String name = son1.getName();
-            System.out.println(name);
-        });
+        Optional.ofNullable(son).ifPresent(son1 -> System.out.println(son1.getName()));
     }
 }

@@ -109,6 +109,10 @@ public class MyArrayList<E> implements List<E> {
     
     @Override
     public void clear() {
+        for (int i = 0; i < size; i++) {
+            objects[i] = null;
+        }
+        size = 0;
     }
     
     @Override

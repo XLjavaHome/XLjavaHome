@@ -356,7 +356,7 @@ public class StreamTest {
         show("把流传到一个数组中去利用数组构造器", Arrays.stream(strings));
         //针对流中元素收集到另一个目标中，有一个便捷方法collect可用
         //            List<String> lists = words.stream().collect(Collectors.toList());
-        //            Set<String> lists = words.stream().collect(Collectors.toSet());
+        //            Se<String> lists = words.stream().collect(Collectors.toSet());
         TreeSet<String> lists = words.stream().collect(Collectors.toCollection(TreeSet::new));
         log.info("针对流中元素收集到另一个目标中，有一个便捷方法collect可用");
         for (String list : lists) {

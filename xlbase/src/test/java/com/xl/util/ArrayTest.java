@@ -1,5 +1,6 @@
 package com.xl.util;
 
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 import org.apache.commons.lang3.ArrayUtils;
 import org.junit.jupiter.api.Test;
@@ -62,7 +63,7 @@ public class ArrayTest {
     
     @Test
     void printTest() {
-        ArrayUtil.print(arr);
+        IntStream.range(1, 100).filter(x -> x % 2 == 1).forEach(System.out::println);
     }
     
     @Test

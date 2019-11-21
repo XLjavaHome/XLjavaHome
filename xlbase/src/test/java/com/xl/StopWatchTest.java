@@ -19,10 +19,10 @@ public class StopWatchTest {
         Thread.sleep(3000);
         //要调用stop才可以
         stopWatch.stop();
+        //这打印这种打印最好
+        System.out.println(stopWatch);
         System.out.println(stopWatch.shortSummary());
         System.out.println(stopWatch.getTotalTimeMillis());
         System.out.println(stopWatch.getTotalTimeSeconds());
-        //4种打印这种打印最好
-        System.out.println(stopWatch);
     }
 }

@@ -34,4 +34,15 @@ public class WhileTest {
             flag = false;
         } while (flag);
     }
+    
+    /**
+     * break会跳出循环
+     */
+    @Test
+    public void breakTest() {
+        while (true) {
+            System.out.println("11");
+            break;
+        }
+    }
 }
