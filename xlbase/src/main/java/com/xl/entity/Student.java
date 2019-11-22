@@ -1,6 +1,7 @@
 package com.xl.entity;
 
 import com.xl.excel.annotation.Cell;
+import java.io.IOException;
 import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,27 +10,39 @@ import lombok.Data;
 @AllArgsConstructor
 public class Student implements Serializable {
     @Cell(title = "学号")
-    private int id;
+    private transient int id;
     private String sex;
     @Cell(title = "姓名")
     private String name;
     @Cell(title = "地址")
     private String address;
-    private int age;
+    private transient int age;
     private String phone;
     private Teacher teacher;
-
+    
     public Student() {
     }
-
+    
     public Student(int id, String name, String address) {
         this.id = id;
         this.name = name;
         this.address = address;
     }
-
+    
     public Student(String name, int age) {
         this.name = name;
         this.age = age;
+    }
+    
+    private void writeObject(java.io.ObjectOutputStream outputStream) throws IOException {
+        outputStream.defaultWriteObject();
+        outputStream.writeInt(id);
+        outputStream.writeInt(age);
+    }
+    
+    private void readObject(java.io.ObjectInputStream s) throws IOException, ClassNotFoundException {
+        s.defaultReadObject();
+        this.id = s.readInt();
+        this.age = s.readInt();
     }
 }
