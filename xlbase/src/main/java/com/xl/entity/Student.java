@@ -3,6 +3,7 @@ package com.xl.entity;
 import com.xl.excel.annotation.Cell;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -18,6 +19,7 @@ public class Student implements Serializable {
     private String address;
     private transient int age;
     private String phone;
+    private Date birthday;
     private Teacher teacher;
     
     public Student() {

@@ -1,7 +1,9 @@
 package com.xl;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.xl.entity.Student;
+import java.util.Date;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -15,7 +17,7 @@ import org.junit.jupiter.api.Test;
 public class FastjsonTest {
     @Test
     void name() {
-        Student obj = new Student();
+        com.xl.entity.Student obj = new Student();
         obj.setId(0);
         obj.setName("张三");
         obj.setAddress("武汉中山公园");
@@ -27,5 +29,17 @@ public class FastjsonTest {
         //反序列化
         Student vo = JSON.parseObject(jsonString, Student.class);
         System.out.println(vo);
+    }
+    
+    @Test
+    void demo2() {
+        Student stutent = new Student();
+        stutent.setName("测试");
+        stutent.setBirthday(new Date());
+        String string = JSONObject.toJSONString(stutent);
+        System.out.println(string);
+        JSONObject jsonObject = JSONObject.parseObject(string);
+        com.xl.entity.Student student = JSONObject.toJavaObject(jsonObject, Student.class);
+        System.out.println(student);
     }
 }
