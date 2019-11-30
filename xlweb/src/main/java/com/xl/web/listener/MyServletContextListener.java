@@ -17,6 +17,7 @@ import lombok.extern.log4j.Log4j;
 public class MyServletContextListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
+        System.out.println("11");
         log.info("ServletContext初始化" + Constant.INIT);
     }
 

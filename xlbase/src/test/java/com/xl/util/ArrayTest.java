@@ -1,5 +1,6 @@
 package com.xl.util;
 
+import java.util.Arrays;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 import org.apache.commons.lang3.ArrayUtils;
@@ -56,9 +57,11 @@ public class ArrayTest {
      */
     @Test
     void copyTest() {
-        String[] arr2 = new String[arr.length];
+        String[] arr2 = new String[10];
         System.arraycopy(arr, 1, arr2, 1, 2);
         ArrayUtil.print(arr2);
+        System.out.println("----------");
+        ArrayUtil.print(Arrays.copyOf(arr2, 3));
     }
     
     @Test

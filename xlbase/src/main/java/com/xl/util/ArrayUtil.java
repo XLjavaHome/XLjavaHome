@@ -4,7 +4,6 @@ import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.stream.Stream;
 import lombok.extern.log4j.Log4j;
 
 /**
@@ -153,7 +152,9 @@ public class ArrayUtil {
      * @param t
      */
     public static <T> void print(T[] t) {
-        Stream.of(t).forEach(x -> log.info(x));
+        for (T t1 : t) {
+            System.out.println(t1);
+        }
     }
     
     /**

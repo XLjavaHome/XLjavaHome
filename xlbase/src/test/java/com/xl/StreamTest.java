@@ -715,4 +715,9 @@ public class StreamTest {
         //默认值 从BigDecimal.ZERO 0 开始加
         System.out.println(list.stream().map(x -> BigDecimalUtil.initBigDecimal(x)).reduce(BigDecimal.ZERO, BigDecimal::add));
     }
+    
+    @Test
+    void 奇数() {
+        IntStream.range(1, 100).filter(x -> x % 2 == 1).forEach(System.out::println);
+    }
 }
