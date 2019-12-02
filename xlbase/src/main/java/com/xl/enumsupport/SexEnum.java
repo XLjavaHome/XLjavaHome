@@ -8,7 +8,5 @@ package com.xl.enumsupport;
  * @Time: 15:40
  * To change this template use File | Settings | File Templates.
  */
-public enum SexEnum {
-    男, 女
-}
+public enum SexEnum {man, woman}
 
