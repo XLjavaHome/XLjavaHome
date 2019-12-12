@@ -1,4 +1,4 @@
-package com.xl.util;
+package com.xl;
 
 import com.xl.entity.Person;
 import java.lang.reflect.InvocationTargetException;
@@ -14,11 +14,16 @@ import org.apache.commons.beanutils.Converter;
 import org.apache.commons.beanutils.locale.converters.DateLocaleConverter;
 import org.junit.Test;
 
-/*
- * 使用beanUtils操作bean的属性（第三方jar包）commons-beanutils-1.8.0.jar。还需要支持架 commons-logging.jar 拆分的两个：名字比这个长
+/**
+ * Created with 徐立. 属性赋值
+ *
+ * @author 徐立
+ * @date 2019-12-12
+ * @time 23:11
+ * To change this template use File | Settings | File Templates.
  */
 @Log4j
-public class beanutils {
+public class PropertyTest {
     @Test
     public void setProperty() throws IllegalAccessException, InvocationTargetException {
         Person p = new Person();
@@ -26,7 +31,7 @@ public class beanutils {
         BeanUtils.setProperty(p, "name", "赋值的姓名1");
         System.out.println(p.getName());
     }
-
+    
     /*
      * 好处：直接将整型123，赋值给了int age，支持8种基本数据类型。不支持日期
      */
@@ -101,8 +106,8 @@ public class beanutils {
         Map testMap = new HashMap();
         //两种的顺序有区别org.apache.commons.beanutils.BeanUtils.copyProperties第一个参数是目标对象
         //org.springframework.beans.BeanUtils.copyProperties第一个参数是源对象
-        BeanUtils.copyProperties(to, from);
-        BeanUtils.copyProperties(testMap, from);
+        org.apache.commons.beanutils.BeanUtils.copyProperties(to, from);
+        org.apache.commons.beanutils.BeanUtils.copyProperties(testMap, from);
         log.info(testMap);
         org.springframework.beans.BeanUtils.copyProperties(from, to2);
         testMap.clear();
@@ -117,16 +122,27 @@ public class beanutils {
      */
     @Test
     public void mapToEntity() throws InvocationTargetException, IllegalAccessException {
-        Map<String, String> map = new HashMap<String, String>(10);
+        Map<String, Object> map = new HashMap(10);
         map.put("name", "asda");
         map.put("password", "123");
         map.put("age", "23");
+        //这个日期就可以
+        String birthday = "birthday";
+        //map.put(birthday, new Date());
+        //可以需要日期转换器
+        //这个不行
+        //map.put("birthday", System.currentTimeMillis());
+        //map.put(birthday, LocalDate.now());
+        dateConverter(map);
+        Person bean = new Person();
+        BeanUtils.populate(bean, map);
+        System.out.println(bean);
+    }
+    
+    private void dateConverter(Map<String, Object> map) {
         map.put("birthday", "1980-09-09");
         // 注册转换器,没有的话无法注册Date对象 会报错的
         DateLocaleConverter converter = new DateLocaleConverter();
         ConvertUtils.register(converter, Date.class);
-        Person bean = new Person();
-        BeanUtils.populate(bean, map);
-        System.out.println(bean);
     }
 }
