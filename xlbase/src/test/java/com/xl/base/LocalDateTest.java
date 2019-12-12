@@ -5,7 +5,11 @@ import java.sql.Timestamp;
 import java.time.*;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -93,5 +97,20 @@ public class LocalDateTest {
                                       .orElse(null);
         System.out.println(localDate);
     }
+    
+    @Test
+    void streamToMap() {
+        //包含头，不包含尾
+        List<Integer> ints = IntStream.range(1, 10).boxed().collect(Collectors.toList());
+        Map<Integer, String> collect = IntStream.range(1, 10).boxed().collect(Collectors.toMap(k -> k, v -> v + "", (o, n) -> n));
+        System.out.println(collect);
+        System.out.println(ints);
+    }
+    
+    @Test
+    void nowTest() {
+        System.out.println(LocalDate.now() + " " + LocalTime.now());
+    }
 }
+
 

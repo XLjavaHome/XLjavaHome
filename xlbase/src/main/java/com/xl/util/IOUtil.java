@@ -21,11 +21,6 @@ public class IOUtil {
      * @throws IOException
      */
     public static byte[] getBytes(InputStream is) throws IOException {
-        ByteArrayOutputStream bos = getByteArrayOutputStream(is);
-        return bos.toByteArray();
-    }
-    
-    public static ByteArrayOutputStream getByteArrayOutputStream(InputStream is) throws IOException {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         byte[] buf = new byte[1024];
         int len;
@@ -34,7 +29,29 @@ public class IOUtil {
         }
         is.close();
         bos.flush();
-        return bos;
+        bos.close();
+        return bos.toByteArray();
+    }
+    
+    /**
+     * 复制流
+     *
+     * @param input
+     * @return
+     */
+    private static ByteArrayOutputStream cloneInputStream(InputStream input) {
+        try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
+            byte[] buffer = new byte[1024];
+            int len;
+            while ((len = input.read(buffer)) > -1) {
+                baos.write(buffer, 0, len);
+            }
+            baos.flush();
+            return baos;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
     
     /**
@@ -56,5 +73,4 @@ public class IOUtil {
         caw.close();
         return caw.toCharArray();
     }
-    
 }

@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
  */
 public class OptionalTest {
     /**
+     * Optional.of会报空指针异常
      * Optional.ofNullable确实可以防止为null
      */
     @Test
@@ -29,6 +30,14 @@ public class OptionalTest {
         son.setStudent(student);
         String test = Optional.ofNullable(son).map(Person::getStudent).map(Student::getName).orElse(null);
         System.out.println(test);
+    }
+    
+    @Test
+    void nullTest2() {
+        //直接当三元运算符也可以
+        Student s = null;
+        s = Optional.ofNullable(s).orElse(new Student());
+        System.out.println(s);
     }
     
     @Test

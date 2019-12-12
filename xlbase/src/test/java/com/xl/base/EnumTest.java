@@ -20,6 +20,7 @@ public class EnumTest {
     @Test
     void name() {
         System.out.println(RequestMethod.POST.name());
+        System.out.println(RequestMethod.POST);
     }
     
     /**

@@ -2,8 +2,9 @@ package com.xl.entity;
 
 import com.xl.excel.annotation.Cell;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -14,13 +15,13 @@ public class Student implements Serializable {
     private transient int id;
     private String sex;
     @Cell(title = "姓名")
-    private String name;
+    private transient String name;
     @Cell(title = "地址")
     private String address;
     private transient int age;
     private String phone;
-    private Date birthday;
     private Teacher teacher;
+    private int objid;
     
     public Student() {
     }
@@ -36,13 +37,13 @@ public class Student implements Serializable {
         this.age = age;
     }
     
-    private void writeObject(java.io.ObjectOutputStream outputStream) throws IOException {
+    private void writeObject(ObjectOutputStream outputStream) throws IOException {
         outputStream.defaultWriteObject();
         outputStream.writeInt(id);
         outputStream.writeInt(age);
     }
     
-    private void readObject(java.io.ObjectInputStream s) throws IOException, ClassNotFoundException {
+    private void readObject(ObjectInputStream s) throws IOException, ClassNotFoundException {
         s.defaultReadObject();
         this.id = s.readInt();
         this.age = s.readInt();

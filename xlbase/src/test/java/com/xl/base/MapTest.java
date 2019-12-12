@@ -53,7 +53,7 @@ public class MapTest {
             String value = map.get(key);
             System.out.println(value);
         }
-        //同时需要key，value map.entrySet更高效
+        //没有泛型不能用entrySet，同时需要key，value map.entrySet更高效
         for (Map.Entry<Integer, String> entry : map.entrySet()) {
             System.out.println(entry.getKey());
             System.out.println(entry.getValue());

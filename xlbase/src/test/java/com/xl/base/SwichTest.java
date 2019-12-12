@@ -28,4 +28,23 @@ public class SwichTest {
                 log.info("defult");
         }
     }
+    
+    /**
+     * swich空的话会报错
+     */
+    @Test
+    public void nullTest() {
+        String b = null;
+        switch (b) {
+            case "a":
+                String 成功了 = "成功了";
+                log.info(成功了);
+                break;
+            case "b":
+                log.info("这是b");
+                break;
+            default:
+                log.info("defult");
+        }
+    }
 }
