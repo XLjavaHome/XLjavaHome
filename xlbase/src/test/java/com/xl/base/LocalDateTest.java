@@ -110,6 +110,8 @@ public class LocalDateTest {
     @Test
     void nowTest() {
         System.out.println(LocalDate.now() + " " + LocalTime.now());
+        //当前时间用LocalDateTime
+        System.out.println(LocalDateTime.now());
     }
 }
 
