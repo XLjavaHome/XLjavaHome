@@ -18,7 +18,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 public class EnumTest {
     @Test
+    void valueOfTest() {
+        Language en = Language.valueOf("EN");
+        System.out.println(en.getEnglish());
+    }
+    
+    @Test
     void name() {
+        //枚举的valueOf可以根据枚举名称转换，但是如果没有该枚举值会报异常
+        RequestMethod get = RequestMethod.valueOf("POST");
+        System.out.println(get.name());
         System.out.println(RequestMethod.POST.name());
         System.out.println(RequestMethod.POST);
     }
@@ -29,8 +38,9 @@ public class EnumTest {
     @Test
     void enumerationConversion() {
         Language[] values = Language.values();
-        Stream.of(values).forEach(System.out::println);
-        Stream.of(values).forEach(language -> System.out.println(language + ":" + language.getEnglish()));
+        //枚举的序数从0开始：ordinal
+        Stream.of(values).forEach(
+                language -> System.out.println(language + ":" + language.getEnglish() + ":" + language.ordinal()));
         System.out.println(values);
         Map<String, String> collect = Stream.of(values).collect(Collectors.toMap(o -> o.toString(), o -> o.getEnglish()));
         collect.forEach((s, s2) -> System.out.println(s + "-" + s2));
