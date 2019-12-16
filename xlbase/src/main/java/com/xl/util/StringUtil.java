@@ -322,6 +322,16 @@ public class StringUtil {
     }
     
     /**
+     * 可变参数传数组也可以
+     *
+     * @param strings
+     * @return
+     */
+    public static String join(String... strings) {
+        return String.join(",", strings);
+    }
+    
+    /**
      * 是否结束。"."或"。"
      *
      * @param content
