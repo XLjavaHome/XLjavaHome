@@ -3,6 +3,7 @@ package com.xl;
 import com.xl.entity.Person;
 import com.xl.entity.Student;
 import java.util.Optional;
+import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -64,5 +65,15 @@ public class OptionalTest {
         son = new Person();
         son.setName("张三");
         Optional.ofNullable(son).ifPresent(son1 -> System.out.println(son1.getName()));
+    }
+    
+    @Test
+    void flatMapTest() {
+        //降维，二维数组缓存1维  ,返回值必须是stream
+        Stream<String[]> stream = Stream.of("11,333", "22,", "333,,").map(x -> x.split(","));
+        stream.flatMap(strings -> {
+            System.out.println(strings.length);
+            return Stream.of(strings);
+        }).forEach(System.out::println);
     }
 }

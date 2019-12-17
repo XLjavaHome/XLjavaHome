@@ -1,6 +1,9 @@
 package com.xl;
 
 import com.xl.entity.Person;
+import com.xl.entity.PersonUpper;
+import com.xl.entity.Teacher;
+import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -9,6 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 import lombok.extern.log4j.Log4j;
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.beanutils.BeanUtilsBean;
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.beanutils.Converter;
 import org.apache.commons.beanutils.locale.converters.DateLocaleConverter;
@@ -99,7 +103,7 @@ public class PropertyTest {
      */
     @Test
     public void copyTest() throws InvocationTargetException, IllegalAccessException {
-        Person from = new Person("张三", 15);
+        Person from = init();
         from.setBirthday(new Date());
         Person to = new Person();
         Person to2 = new Person();
@@ -115,6 +119,10 @@ public class PropertyTest {
         log.info(testMap);
         System.out.println(to);
         System.out.println(to2);
+    }
+    
+    private Person init() {
+        return new Person("张三", 15);
     }
     
     /*
@@ -144,5 +152,29 @@ public class PropertyTest {
         // 注册转换器,没有的话无法注册Date对象 会报错的
         DateLocaleConverter converter = new DateLocaleConverter();
         ConvertUtils.register(converter, Date.class);
+    }
+    
+    @Test
+    public void property说明Test() {
+        PropertyDescriptor[] studentPropertyDescriptors = org.springframework.beans.BeanUtils.getPropertyDescriptors(
+                Teacher.class);
+        for (PropertyDescriptor studentPropertyDescriptor : studentPropertyDescriptors) {
+            System.out.println(studentPropertyDescriptor);
+            System.out.println(studentPropertyDescriptor.getReadMethod());
+            System.out.println(studentPropertyDescriptor.getWriteMethod());
+        }
+    }
+    
+    @Test
+    public void 忽略大小的属性复制() throws InvocationTargetException, IllegalAccessException {
+        //有属性的实体
+        Person person = Person.builder().age(12).name("张三").birthday(new Date()).build();
+        PersonUpper personUpper = new PersonUpper();
+        BeanUtilsBean instance = BeanUtilsBean.getInstance();
+        //要复制的实体
+        Person person2 = new Person();
+        //要赋值值的目标对象，
+        instance.copyProperties(person2, person);
+        System.out.println(person2);
     }
 }
