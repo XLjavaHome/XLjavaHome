@@ -1,6 +1,8 @@
 package com.xl.util;
 
 import java.io.*;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.*;
 import lombok.extern.log4j.Log4j;
 import org.apache.commons.lang.StringUtils;
@@ -110,6 +112,43 @@ public class PropertiesUtil {
             log.info("读取属性配置文件:" + filePath + "失败");
         }
         return propertiesMap;
+    }
+    
+    /**
+     * 忽略大小写复制bean的属性
+     *
+     * @param obj 转换的源对象
+     * @param target
+     * @return 转换后的对象
+     */
+    public static <T> void transferObjectIgnoreCase(T obj, T target) {
+        if (obj == null || target == null) {
+            return;
+        }
+        try {
+            Class<?> clz = target.getClass();
+            //获取目标类的属性集合
+            Field[] declaredFields = clz.getDeclaredFields();
+            Map<String, Field> destPropertyMap = new HashMap<>(declaredFields.length);
+            for (Field curField : declaredFields) {
+                destPropertyMap.put(curField.getName().toLowerCase(), curField);
+            }
+            //拷贝属性
+            for (Field curField : obj.getClass().getDeclaredFields()) {
+                Field targetField = destPropertyMap.get(curField.getName().toLowerCase());
+                if (targetField != null) {
+                    //反射获取一个方法的访问修饰符
+                    boolean isPrivate = Modifier.isPrivate(targetField.getModifiers());
+                    if (isPrivate) {
+                        targetField.setAccessible(true);
+                        curField.setAccessible(true);
+                    }
+                    targetField.set(target, curField.get(obj));
+                }
+            }
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
     }
     
     /**
