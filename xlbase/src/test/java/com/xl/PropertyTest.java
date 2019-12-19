@@ -174,5 +174,8 @@ public class PropertyTest {
         //要赋值值的目标对象，
         PropertiesUtil.transferObjectIgnoreCase(person, personUpper);
         System.out.println(personUpper);
+        personUpper = new PersonUpper();
+        PropertiesUtil.copyProperties(person, personUpper);
+        System.out.println(personUpper);
     }
 }

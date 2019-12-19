@@ -1,11 +1,19 @@
 package com.xl.util;
 
+import java.beans.PropertyDescriptor;
 import java.io.*;
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.*;
+import java.util.stream.Collectors;
 import lombok.extern.log4j.Log4j;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.FatalBeanException;
+import org.springframework.util.Assert;
+import org.springframework.util.ClassUtils;
 
 /**
  * Created with IntelliJ IDEA.
@@ -32,7 +40,8 @@ public class PropertiesUtil {
      * @auther DuanYong
      * @since 2013-3-11 下午2:41:59
      */
-    public static void writeProperties(String filePath, String parameterName, String parameterValue, String parameterComments) {
+    public static void copyPropertieswriteProperties(String filePath, String parameterName, String parameterValue,
+            String parameterComments) {
         Properties prop = new Properties();
         try {
             InputStream fis = new FileInputStream(filePath);
@@ -148,6 +157,50 @@ public class PropertiesUtil {
             }
         } catch (IllegalAccessException e) {
             e.printStackTrace();
+        }
+    }
+    
+    /**
+     * 模仿spring写了一个忽略大小写的属性复制
+     *
+     * @param source the source bean
+     * @param target the target bean
+     * @throws BeansException if the copying failed
+     */
+    public static void copyProperties(Object source, Object target) throws BeansException {
+        Assert.notNull(source, "Source must not be null");
+        Assert.notNull(target, "Target must not be null");
+        Class<?> actualEditable = target.getClass();
+        //目标属性
+        PropertyDescriptor[] targetPds = BeanUtils.getPropertyDescriptors(actualEditable);
+        Map<String, PropertyDescriptor> sourceMap = Arrays.stream(BeanUtils.getPropertyDescriptors(source.getClass())).collect(
+                Collectors.toMap(k -> k.getName().toLowerCase(), v -> v));
+        for (PropertyDescriptor targetPd : targetPds) {
+            //获取目标的写方法
+            Method writeMethod = targetPd.getWriteMethod();
+            if (writeMethod != null) {
+                //根据源目标的属性
+                PropertyDescriptor sourcePd = sourceMap.get(targetPd.getName().toLowerCase());
+                if (sourcePd != null) {
+                    Method readMethod = sourcePd.getReadMethod();
+                    if (readMethod != null && ClassUtils.isAssignable(writeMethod.getParameterTypes()[0],
+                                                                      readMethod.getReturnType())) {
+                        try {
+                            if (!Modifier.isPublic(readMethod.getDeclaringClass().getModifiers())) {
+                                readMethod.setAccessible(true);
+                            }
+                            Object value = readMethod.invoke(source);
+                            if (!Modifier.isPublic(writeMethod.getDeclaringClass().getModifiers())) {
+                                writeMethod.setAccessible(true);
+                            }
+                            writeMethod.invoke(target, value);
+                        } catch (Throwable ex) {
+                            throw new FatalBeanException(
+                                    "Could not copy property '" + targetPd.getName() + "' from source to target", ex);
+                        }
+                    }
+                }
+            }
         }
     }
     
