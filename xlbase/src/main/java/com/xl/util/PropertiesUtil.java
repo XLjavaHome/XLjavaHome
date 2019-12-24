@@ -147,10 +147,8 @@ public class PropertiesUtil {
                 Field targetField = destPropertyMap.get(curField.getName().toLowerCase());
                 if (targetField != null) {
                     //反射获取一个方法的访问修饰符
-                    boolean isPrivate = Modifier.isPrivate(targetField.getModifiers());
-                    if (isPrivate) {
+                    if (!Modifier.isPublic(targetField.getModifiers())) {
                         targetField.setAccessible(true);
-                        curField.setAccessible(true);
                     }
                     targetField.set(target, curField.get(obj));
                 }

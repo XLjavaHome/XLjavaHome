@@ -30,4 +30,7 @@ public class Person implements Serializable {
         this.age = age;
     }
     
+    public static Person valueOf(String password, String name) {
+        return Person.builder().name(name).pas(password).build();
+    }
 }

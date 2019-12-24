@@ -541,6 +541,13 @@ public class StreamTest {
         //转Integer数组
         Integer[] integers = students.stream().map(Student::getId).toArray(Integer[]::new);
         Integer[] integers1 = students.parallelStream().map(Student::getId).toArray(Integer[]::new);
+        //    转换成stuent类型
+        Student[] students2 = this.students.stream().toArray(size -> new Student[size]);
+        Student[] students3 = this.students.stream().toArray(Student[]::new);
+        System.out.println(students3);
+        //转换对象数组直接用toArray不行 Student[] students3 = this.students.stream().toArray(Student[]::new);
+        Student[] objects1
+                = (Student[]) this.students.stream().toArray();
     }
     
     @Test
@@ -666,6 +673,18 @@ public class StreamTest {
         Set<Integer> collect = IntStream.range(0, 10).collect(HashSet::new, Set::add,
                                                               (integers, integers2) -> log.info(integers));
         log.info(collect);
+        // 将所有元素检查key不重复且最终包装成一个TreeMap对象
+        //什么map都可以
+        Map<String, String> map4 = Stream.of(Person.valueOf("China", "小明"), Person.valueOf("Chinsa", "小丽"),
+                                             Person.valueOf("us", "Jack"),
+                                             Person.valueOf("uss", "Alice"))
+                                         .collect(Collectors.toMap(
+                                                 Person::getPas,
+                                                 Person::getName, (x, y) ->
+                                                 {
+                                                     throw new IllegalStateException();
+                                                 }, LinkedHashMap::new));
+        System.out.println(map4);
     }
     
     @Test

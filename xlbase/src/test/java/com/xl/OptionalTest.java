@@ -7,7 +7,7 @@ import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
 
 /**
- * Created with 徐立.
+ * Created with 徐立.没有直接返回空的默认方法
  *
  * @author 徐立
  * @date 2019-10-17
@@ -35,10 +35,14 @@ public class OptionalTest {
     
     @Test
     void nullTest2() {
-        //直接当三元运算符也可以
-        Student s = null;
-        s = Optional.ofNullable(s).orElse(new Student());
+        //直接当三元运算符也可以，orElse会必定执行orElseGet看情况
+        Student s =null;
+        s = Optional.ofNullable(s).orElseGet(() -> new Student());
         System.out.println(s);
+        String cs="hello";
+        //字符串可以用orElse 方法用orElseGet
+        cs = Optional.ofNullable(cs).orElse("测试");
+        System.out.println(cs);
     }
     
     @Test
