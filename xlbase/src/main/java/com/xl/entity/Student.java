@@ -24,7 +24,6 @@ public class Student implements Serializable {
     private int objid;
     
     public Student() {
-        System.out.println("执行构造函数");
     }
     
     public Student(int id, String name, String address) {

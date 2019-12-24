@@ -14,6 +14,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.*;
@@ -666,6 +667,17 @@ public class StreamTest {
     void parallelStreamTest() {
         Stream<Student> studentStream = students.parallelStream();
         studentStream.map(x -> Thread.currentThread().getName()).collect(Collectors.toSet()).forEach(System.out::println);
+    }
+    
+    @Test
+    void collectLinkHashMap() {
+        int year = LocalDate.now().getYear();
+        //boxed转换成流
+        Map<Integer, Integer> collect = IntStream.range(year - 4, year + 1).boxed().collect(
+                Collectors.toMap(key -> key, value -> value,
+                                 (o, n) -> n,
+                                 TreeMap::new));
+        System.out.println(collect);
     }
     
     @Test
