@@ -3,8 +3,11 @@ package com.xl.util;
 import java.util.Arrays;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
+import lombok.extern.log4j.Log4j;
+import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.junit.jupiter.api.Test;
+import org.springframework.util.StopWatch;
 
 /**
  * Created with 徐立.
@@ -14,8 +17,37 @@ import org.junit.jupiter.api.Test;
  * @time 13:39
  * To change this template use File | Settings | File Templates.
  */
+@Log4j
 public class ArrayTest {
     private String[] arr = new String[]{"张三", "李四", "王五"};
+    
+    /**
+     * todo 将String数组转成Integer数组
+     */
+    @Test
+    void intArray() {
+        StopWatch stopWatch = new StopWatch();
+        int endExclusive = 1000000;
+        String[] stringArr=new String[endExclusive];
+        int[] ints1 = IntStream.rangeClosed(1, endExclusive).toArray();
+        for (int i = 0; i < ints1.length; i++) {
+            stringArr[i] = ints1[i] + "";
+        }
+        stopWatch.start();
+        Integer[] convert = (Integer[]) ConvertUtils.convert(stringArr, Integer.class);
+        stopWatch.stop();
+        System.out.println(stopWatch);
+        stopWatch.start();
+        //效率最高
+        int[] ints = ArrayUtil.toIntArray(stringArr);
+        stopWatch.stop();
+        System.out.println(Arrays.toString(ints));
+        System.out.println(stopWatch);
+        stopWatch.start();
+        Integer[] integers = ArrayUtil.toIntArray2(stringArr);
+        stopWatch.stop();
+        System.out.println(stopWatch);
+    }
     
     @Test
     void 数组change() {

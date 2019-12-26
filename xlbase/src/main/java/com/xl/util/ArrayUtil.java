@@ -4,6 +4,8 @@ import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import lombok.extern.log4j.Log4j;
 
 /**
@@ -155,6 +157,37 @@ public class ArrayUtil {
         for (T t1 : t) {
             System.out.println(t1);
         }
+    }
+    
+    public static Integer[] toIntArray2(String[] stringArr) {
+        String regex="\\d+";
+        Pattern p = Pattern.compile(regex);
+        Integer[] integers = Arrays.stream(stringArr).parallel().filter(s -> {
+            Matcher matcher = p.matcher(s);
+            return matcher.find();
+        }).map(s -> Integer.parseInt(s)).toArray(Integer[]::new);
+        return integers;
+    }
+    
+    /**
+     * 将string数组改为Int数组
+     *
+     * @param stringArr
+     */
+    public static int[] toIntArray(String[] stringArr) {
+        int[] resultArray = new int[stringArr.length];
+        String regex="\\d+";
+        Pattern p = Pattern.compile(regex);
+        for (int i = 0; i < stringArr.length; i++) {
+            String s = stringArr[i];
+            Matcher m = p.matcher(s);
+            if (m.find()) {
+                resultArray[i] = Integer.parseInt(s);
+            } else {
+                resultArray[i] = 0;
+            }
+        }
+        return resultArray;
     }
     
     /**
